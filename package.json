@@ -10,8 +10,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix"
   },
-
   "dependencies": {
+    "framer-motion": "^10.16.5",
     "next": "13.4",
     "react": "^18",
     "react-dom": "^18"
