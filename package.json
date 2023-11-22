@@ -11,6 +11,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.36.1",
     "framer-motion": "^10.16.5",
     "next": "13.4",
     "react": "^18",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.3",
     "@pandacss/dev": "^0.18.3",
+    "@tanstack/react-query-devtools": "^5.8.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

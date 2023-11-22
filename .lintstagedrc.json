@@ -1,6 +1,6 @@
 {
   "*.{js,jsx,ts,tsx}": [
-    "yarn lint:fix",
+    "eslint --cache --cache-location .next/cache/eslint/ --fix",
     "prettier --write"
   ]
 }
