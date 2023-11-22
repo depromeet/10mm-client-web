@@ -1,7 +1,12 @@
 module.exports = {
   ignorePatterns: ['.next/', 'node_modules/', 'public', '.yarn', '@types'],
   plugins: ['simple-import-sort'],
-  extends: ['next/core-web-vitals', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: [
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'plugin:storybook/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   settings: {
     'import/resolver': 'node',

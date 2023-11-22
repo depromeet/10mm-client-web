@@ -8,11 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.36.1",
     "framer-motion": "^10.16.5",
+    "init": "^0.1.2",
     "next": "13.4",
     "react": "^18",
     "react-dom": "^18"
@@ -20,6 +23,14 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.3",
     "@pandacss/dev": "^0.18.3",
+    "@storybook/addon-essentials": "^7.5.3",
+    "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-links": "^7.5.3",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.3",
+    "@storybook/nextjs": "^7.5.3",
+    "@storybook/react": "^7.5.3",
+    "@storybook/testing-library": "^0.2.2",
     "@tanstack/react-query-devtools": "^5.8.4",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -32,9 +43,11 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-storybook": "^0.6.15",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
     "prettier": "^3.1.0",
+    "storybook": "^7.5.3",
     "typescript": "^5"
   }
 }
