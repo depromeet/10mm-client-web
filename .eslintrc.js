@@ -1,6 +1,6 @@
 module.exports = {
-  ignorePatterns: ['.next/', 'node_modules/', 'public', '.yarn', '@types'],
-  plugins: ['simple-import-sort'],
+  ignorePatterns: ['.next/', 'node_modules/', 'public', '@types'],
+  plugins: ['simple-import-sort', 'testing-library'],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
@@ -15,7 +15,12 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
   },
-
+  overrides: [
+    {
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react'],
+    },
+  ],
   rules: {
     // 'React' must be in scope when using JSX 에러 해결 (Next.js)
     'react/react-in-jsx-scope': 'off',
