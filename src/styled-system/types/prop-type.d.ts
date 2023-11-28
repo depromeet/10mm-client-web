@@ -482,7 +482,7 @@ interface PropertyValueTypes {
   transitionTimingFunction: Tokens['easings'];
   transitionDelay: Tokens['durations'];
   transitionDuration: Tokens['durations'];
-  transition: 'all' | 'common' | 'background' | 'colors' | 'opacity' | 'shadow' | 'transform';
+  transition: 'all' | 'lifeCycle' | 'background' | 'colors' | 'opacity' | 'shadow' | 'transform';
   animation: Tokens['animations'];
   animationName: Tokens['animationName'];
   animationDelay: Tokens['durations'];

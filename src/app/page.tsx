@@ -1,4 +1,4 @@
-import Header from '@/component/Header';
+import Header from '@/components/Header';
 import { css } from '@styled-system/css';
 
 export default function Home() {
