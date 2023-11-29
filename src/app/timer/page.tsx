@@ -1,4 +1,5 @@
 'use client';
+import TimerView from '@/app/timer/TimerView';
 import useStep from '@/app/timer/useStep';
 import { css } from '@styled-system/css';
 
@@ -16,6 +17,8 @@ export default function TimerPage() {
     <div>
       <h1 className={titleCss}>{STEP_LABEL[step].title}</h1>
       <p className={descCss}>{STEP_LABEL[step].desc}</p>
+
+      <TimerView category="카테고리" time={[10, 0]} isActive={true} />
     </div>
   );
 }
