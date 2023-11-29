@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { QueryProvider } from '@/query';
+
+import { QueryProvider } from '../hooks/query';
 
 import './globals.css';
 
