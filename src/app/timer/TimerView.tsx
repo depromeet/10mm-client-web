@@ -12,11 +12,7 @@ export default function TimerView({ category, time, isActive }: Props) {
     <div className={center()}>
       <div className={center(innerCss)}>
         <div className={css(categoryCss)}>{category}</div>
-        <div
-          className={css(timerTextCss, {
-            color: isActive ? '#ffbaba' : 'gray',
-          })}
-        >
+        <div className={css(timerTextCss)}>
           <span>{time[0]}</span>
           <span>:</span>
           <span>{time[1]}</span>
@@ -37,4 +33,12 @@ const innerCss = {
 
 const categoryCss = { color: '#4E5968', fontSize: '18px', fontWeight: '600', lineHeight: '150%' };
 
-const timerTextCss = { color: '#FF8C8C', fontSize: '70px', fontWeight: '700' };
+const timerTextCss = {
+  fontSize: '70px',
+  fontWeight: '700',
+  animation: 'gradient 3s ease-in-out infinite',
+  backgroundSize: '150% 200%!',
+  '-webkit-background-clip': 'text!',
+  color: 'transparent',
+  background: 'linear-gradient(108deg, #FF8C8C -1.04%, #5D8AFF 101.48%)',
+};
