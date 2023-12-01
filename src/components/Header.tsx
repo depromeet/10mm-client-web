@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import { css } from '@styled-system/css';
 
 const Header = () => {
@@ -8,7 +9,9 @@ const Header = () => {
         fontWeight: 'bold',
       })}
     >
-      <h1>Header</h1>
+      <h1>
+        <Icon name="left-arrow" />
+      </h1>
     </div>
   );
 };
