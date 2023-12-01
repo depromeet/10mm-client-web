@@ -5,13 +5,17 @@ import type { PropertyValue } from '../types/prop-type';
 import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
-export interface LinkBoxProperties {}
+export interface LinkBoxProperties {
+   
+}
 
-interface LinkBoxStyles extends LinkBoxProperties, DistributiveOmit<SystemStyleObject, keyof LinkBoxProperties> {}
+
+interface LinkBoxStyles extends LinkBoxProperties, DistributiveOmit<SystemStyleObject, keyof LinkBoxProperties > {}
 
 interface LinkBoxPatternFn {
-  (styles?: LinkBoxStyles): string;
-  raw: (styles?: LinkBoxStyles) => SystemStyleObject;
+  (styles?: LinkBoxStyles): string
+  raw: (styles?: LinkBoxStyles) => SystemStyleObject
 }
+
 
 export declare const linkBox: LinkBoxPatternFn;

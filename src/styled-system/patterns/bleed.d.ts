@@ -6,15 +6,17 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface BleedProperties {
-  inline?: PropertyValue<'marginInline'>;
-  block?: PropertyValue<'marginBlock'>;
+   inline?: PropertyValue<'marginInline'>
+	block?: PropertyValue<'marginBlock'>
 }
 
-interface BleedStyles extends BleedProperties, DistributiveOmit<SystemStyleObject, keyof BleedProperties> {}
+
+interface BleedStyles extends BleedProperties, DistributiveOmit<SystemStyleObject, keyof BleedProperties > {}
 
 interface BleedPatternFn {
-  (styles?: BleedStyles): string;
-  raw: (styles?: BleedStyles) => SystemStyleObject;
+  (styles?: BleedStyles): string
+  raw: (styles?: BleedStyles) => SystemStyleObject
 }
+
 
 export declare const bleed: BleedPatternFn;

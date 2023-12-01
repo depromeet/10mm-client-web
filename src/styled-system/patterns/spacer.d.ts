@@ -6,14 +6,16 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface SpacerProperties {
-  size?: ConditionalValue<Tokens['spacing']>;
+   size?: ConditionalValue<Tokens["spacing"]>
 }
 
-interface SpacerStyles extends SpacerProperties, DistributiveOmit<SystemStyleObject, keyof SpacerProperties> {}
+
+interface SpacerStyles extends SpacerProperties, DistributiveOmit<SystemStyleObject, keyof SpacerProperties > {}
 
 interface SpacerPatternFn {
-  (styles?: SpacerStyles): string;
-  raw: (styles?: SpacerStyles) => SystemStyleObject;
+  (styles?: SpacerStyles): string
+  raw: (styles?: SpacerStyles) => SystemStyleObject
 }
+
 
 export declare const spacer: SpacerPatternFn;

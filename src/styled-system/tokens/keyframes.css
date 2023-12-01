@@ -25,4 +25,20 @@
             animation-timing-function: cubic-bezier(0,0,0.2,1)
         }
     }
+    @keyframes gradient {
+        0% {
+            transform: rotate(0deg);
+            background-position-x: 0%;
+            background-position-y: 0%
+        }
+        50% {
+            background-position-x: 50%;
+            background-position-y: 100%
+        }
+        100% {
+            transform: rotate(0deg);
+            background-position-x: 0%;
+            background-position-y: 0%
+        }
+    }
 }
