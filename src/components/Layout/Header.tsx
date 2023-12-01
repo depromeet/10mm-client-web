@@ -8,14 +8,22 @@ interface Props {
 
 function Header({ title }: Props) {
   return (
-    <div className={wrapperCss}>
-      <button type="button">
-        <Image src="/assets/icons/left-arrow-icon.svg" alt="Left Arrow Icon" width={20} height={20} />
-      </button>
-      <h2 className={headingCss}>{title}</h2>
-    </div>
+    <>
+      <header className={wrapperCss}>
+        <button type="button">
+          <Image src="/assets/icons/left-arrow-icon.svg" alt="Left Arrow Icon" width={20} height={20} />
+        </button>
+        <h2 className={headingCss}>{title}</h2>
+      </header>
+      <div className={css(headerBlankCss)} />
+    </>
   );
 }
+
+const headerBlankCss = {
+  height: '42px;',
+  width: '100%',
+};
 
 const wrapperCss = flex({
   padding: '10px 16px',
@@ -23,6 +31,7 @@ const wrapperCss = flex({
   background: 'transparent',
   position: 'fixed',
   margin: '0 auto',
+  zIndex: 100,
 });
 
 const headingCss = css({

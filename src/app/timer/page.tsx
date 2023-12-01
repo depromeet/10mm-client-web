@@ -7,23 +7,26 @@ export default function TimerPage() {
   const { step, stepLabel } = useStep();
 
   return (
-    <div className={css(containerCss)}>
-      <div className={css(headerBlankCss)} />
-      <h1 className={titleCss}>{stepLabel.title}</h1>
-      <p className={descCss}>{stepLabel.desc}</p>
+    <div
+      className={css(bgCss, {
+        background: step === 'stop' ? '#F2F4F6' : 'linear-gradient(136deg, #FFF1F2 4.76%, #E9EFFF 89.58%)',
+      })}
+    >
+      <Header title={'미션 타이머'} />
+      <div className={css(containerCss)}>
 
       <TimerView category="카테고리" time={[10, 0]} isActive={true} />
     </div>
   );
 }
 
-const containerCss = {
-  background: 'linear-gradient(136deg, #FFF1F2 4.76%, #E9EFFF 89.58%)',
-  padding: '24px 16px',
+const bgCss = {
+  minHeight: '100vh',
+  transition: '1s ease',
 };
 
-const headerBlankCss = {
-  height: '42px;',
+const containerCss = {
+  padding: '24px 16px',
 };
 
 const font24Css = {
