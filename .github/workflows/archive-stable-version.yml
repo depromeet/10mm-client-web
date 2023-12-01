@@ -1,0 +1,39 @@
+name: Archive Stable Version
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 19 * * *
+
+jobs:
+  archiveStableVersion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Pull Request
+        id: cpr
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            try {
+              const result = await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: 'automerge',
+                title: '[auto-created] Daily up-to-date main branch',
+                head: 'release',
+                base: 'main',
+              });
+              const mergeResult = await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: result.data.number,
+                merge_method: 'merge',
+              })
+            } catch (error) {
+              core.setFailed('Action failed')
+              if (error?.message != 'No commits between master and release') {
+                return 'hasError'
+              }
+            }
