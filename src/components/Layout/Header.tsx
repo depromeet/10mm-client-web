@@ -20,6 +20,9 @@ function Header({ title }: Props) {
 const wrapperCss = flex({
   padding: '10px 16px',
   gap: '6px',
+  background: 'transparent',
+  position: 'fixed',
+  margin: '0 auto',
 });
 
 const headingCss = css({

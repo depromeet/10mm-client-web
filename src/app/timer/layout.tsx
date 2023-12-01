@@ -12,10 +12,7 @@ export default function Layout({ children }: PropsWithChildren) {
 }
 
 const containerCss = css({
-  background: 'linear-gradient(136deg, #FFF1F2 4.76%, #E9EFFF 89.58%)',
   minHeight: '100vh',
 });
 
-const mainCss = css({
-  padding: '24px 16px',
-});
+const mainCss = css({});

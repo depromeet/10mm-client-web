@@ -3,25 +3,28 @@ import TimerView from '@/app/timer/TimerView';
 import useStep from '@/app/timer/useStep';
 import { css } from '@styled-system/css';
 
-const STEP_LABEL = {
-  ready: {
-    title: '준비 되셨나요?',
-    desc: '타이머를 눌러서 10분의 미션을 완성해 주세요!',
-  },
-} as const;
-
 export default function TimerPage() {
-  const { step } = useStep();
+  const { step, stepLabel } = useStep();
 
   return (
-    <div>
-      <h1 className={titleCss}>{STEP_LABEL[step].title}</h1>
-      <p className={descCss}>{STEP_LABEL[step].desc}</p>
+    <div className={css(containerCss)}>
+      <div className={css(headerBlankCss)} />
+      <h1 className={titleCss}>{stepLabel.title}</h1>
+      <p className={descCss}>{stepLabel.desc}</p>
 
       <TimerView category="카테고리" time={[10, 0]} isActive={true} />
     </div>
   );
 }
+
+const containerCss = {
+  background: 'linear-gradient(136deg, #FFF1F2 4.76%, #E9EFFF 89.58%)',
+  padding: '24px 16px',
+};
+
+const headerBlankCss = {
+  height: '42px;',
+};
 
 const font24Css = {
   fontSize: '24px',
