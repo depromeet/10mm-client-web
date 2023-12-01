@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-type StepType = 'ready' | 'progress' | 'stop';
+export type StepType = 'ready' | 'progress' | 'stop';
 
 const STEP_LABEL = {
   ready: {
