@@ -6,15 +6,17 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface VstackProperties {
-  justify?: PropertyValue<'justifyContent'>;
-  gap?: PropertyValue<'gap'>;
+   justify?: PropertyValue<'justifyContent'>
+	gap?: PropertyValue<'gap'>
 }
 
-interface VstackStyles extends VstackProperties, DistributiveOmit<SystemStyleObject, keyof VstackProperties> {}
+
+interface VstackStyles extends VstackProperties, DistributiveOmit<SystemStyleObject, keyof VstackProperties > {}
 
 interface VstackPatternFn {
-  (styles?: VstackStyles): string;
-  raw: (styles?: VstackStyles) => SystemStyleObject;
+  (styles?: VstackStyles): string
+  raw: (styles?: VstackStyles) => SystemStyleObject
 }
+
 
 export declare const vstack: VstackPatternFn;

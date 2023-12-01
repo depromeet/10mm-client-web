@@ -6,16 +6,18 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface DividerProperties {
-  orientation?: ConditionalValue<'horizontal' | 'vertical'>;
-  thickness?: ConditionalValue<Tokens['sizes'] | Properties['borderWidth']>;
-  color?: ConditionalValue<Tokens['colors'] | Properties['borderColor']>;
+   orientation?: ConditionalValue<"horizontal" | "vertical">
+	thickness?: ConditionalValue<Tokens["sizes"] | Properties["borderWidth"]>
+	color?: ConditionalValue<Tokens["colors"] | Properties["borderColor"]>
 }
 
-interface DividerStyles extends DividerProperties, DistributiveOmit<SystemStyleObject, keyof DividerProperties> {}
+
+interface DividerStyles extends DividerProperties, DistributiveOmit<SystemStyleObject, keyof DividerProperties > {}
 
 interface DividerPatternFn {
-  (styles?: DividerStyles): string;
-  raw: (styles?: DividerStyles) => SystemStyleObject;
+  (styles?: DividerStyles): string
+  raw: (styles?: DividerStyles) => SystemStyleObject
 }
+
 
 export declare const divider: DividerPatternFn;
