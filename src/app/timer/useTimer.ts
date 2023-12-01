@@ -9,6 +9,10 @@ export default function useTimer(status: StepType, initSeconds = 600) {
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
+    if (second <= 0) {
+      return;
+    }
+
     if (status === 'progress') {
       timer = setInterval(() => {
         setSecond((prev) => prev - 1);
