@@ -1,12 +1,12 @@
 'use client';
 import TimerView from '@/app/timer/TimerView';
-import useStep from '@/app/timer/useStep';
 import useTimer from '@/app/timer/useTimer';
+import useTimerStatus from '@/app/timer/useTimerStatus';
 import Header from '@/components/Layout/Header';
 import { css } from '@styled-system/css';
 
 export default function TimerPage() {
-  const { step, stepLabel, onNextStep } = useStep();
+  const { step, stepLabel, onNextStep } = useTimerStatus();
   const { formattedTime } = useTimer(step);
 
   const onFinish = () => {

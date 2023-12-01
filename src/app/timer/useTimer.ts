@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { type StepType } from '@/app/timer/useStep';
+import { type StepType } from '@/app/timer/useTimerStatus';
 
 export default function useTimer(status: StepType, initSeconds = 600) {
   const [second, setSecond] = useState(initSeconds); // 남은 시간 (단위: 초)
