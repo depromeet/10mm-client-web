@@ -4,7 +4,7 @@ import { center } from '@/styled-system/patterns';
 
 interface Props {
   isActive: boolean;
-  time: [number, number];
+  time: [string, string];
   category: string;
 }
 export default function TimerView({ category, time, isActive }: Props) {
@@ -12,7 +12,11 @@ export default function TimerView({ category, time, isActive }: Props) {
     <div className={center()}>
       <div className={center(innerCss)}>
         <div className={css(categoryCss)}>{category}</div>
-        <div className={css(timerTextCss)}>
+        <div
+          className={css(timerTextCss, {
+            color: isActive ? 'transparent' : '#B0B8C1',
+          })}
+        >
           <span>{time[0]}</span>
           <span>:</span>
           <span>{time[1]}</span>
@@ -39,6 +43,5 @@ const timerTextCss = {
   animation: 'gradient 3s ease-in-out infinite',
   backgroundSize: '150% 200%!',
   '-webkit-background-clip': 'text!',
-  color: 'transparent',
   background: 'linear-gradient(108deg, #FF8C8C -1.04%, #5D8AFF 101.48%)',
 };
