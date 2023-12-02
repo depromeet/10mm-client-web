@@ -31,6 +31,7 @@ jobs:
               })
             } catch (error) {
               core.setFailed('Action failed')
+              console.log(error)
               if (error?.message != 'No commits between master and release') {
                 return 'hasError'
               }
