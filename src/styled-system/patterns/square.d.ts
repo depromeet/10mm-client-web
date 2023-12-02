@@ -6,14 +6,16 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface SquareProperties {
-  size?: PropertyValue<'width'>;
+   size?: PropertyValue<'width'>
 }
 
-interface SquareStyles extends SquareProperties, DistributiveOmit<SystemStyleObject, keyof SquareProperties> {}
+
+interface SquareStyles extends SquareProperties, DistributiveOmit<SystemStyleObject, keyof SquareProperties > {}
 
 interface SquarePatternFn {
-  (styles?: SquareStyles): string;
-  raw: (styles?: SquareStyles) => SystemStyleObject;
+  (styles?: SquareStyles): string
+  raw: (styles?: SquareStyles) => SystemStyleObject
 }
+
 
 export declare const square: SquarePatternFn;

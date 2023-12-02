@@ -6,14 +6,16 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface CenterProperties {
-  inline?: ConditionalValue<boolean>;
+   inline?: ConditionalValue<boolean>
 }
 
-interface CenterStyles extends CenterProperties, DistributiveOmit<SystemStyleObject, keyof CenterProperties> {}
+
+interface CenterStyles extends CenterProperties, DistributiveOmit<SystemStyleObject, keyof CenterProperties > {}
 
 interface CenterPatternFn {
-  (styles?: CenterStyles): string;
-  raw: (styles?: CenterStyles) => SystemStyleObject;
+  (styles?: CenterStyles): string
+  raw: (styles?: CenterStyles) => SystemStyleObject
 }
+
 
 export declare const center: CenterPatternFn;
