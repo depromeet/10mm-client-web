@@ -2,8 +2,6 @@ name: Archive Stable Version
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 19 * * *
 
 jobs:
   archiveStableVersion:
@@ -13,7 +11,7 @@ jobs:
         id: cpr
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
             try {
