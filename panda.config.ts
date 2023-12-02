@@ -12,7 +12,15 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        gradient: {
+          '0%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
+          '50%': { backgroundPositionX: '50%', backgroundPositionY: '100%' },
+          '100%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
+        },
+      },
+    },
   },
 
   // The output directory for your css system
