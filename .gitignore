@@ -8,7 +8,6 @@
 !.yarn/sdks
 !.yarn/versions
 
-styled-system
 storybook-static
 # dependencies
 /node_modules
