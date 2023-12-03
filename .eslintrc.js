@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ['.next/', 'node_modules/', 'public', '@types', 'src/styled-system/'],
+  ignorePatterns: ['.next/', 'node_modules/', 'public', '@types', 'src/styled-system'],
   plugins: ['simple-import-sort', 'testing-library'],
   extends: [
     'next/core-web-vitals',
