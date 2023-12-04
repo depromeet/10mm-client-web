@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import LogoIcon from '@/app/LogoIcon';
 import { css } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
 
 export default function Home() {
   return (
@@ -11,7 +10,9 @@ export default function Home() {
         <h1 className={MainTitleCss}>하루 10분의 변화를 경험하세요.</h1>
       </div>
       <Link className={LinkCss} href={'/select'}>
-        <LoginButton>게스트 로그인</LoginButton>
+        <button type={'button'} className={LoginButtonCss}>
+          게스트 로그인
+        </button>
       </Link>
     </main>
   );
@@ -46,20 +47,18 @@ const MainTitleCss = css({
   ...Subtitle18Token,
 });
 
-const LoginButton = styled('button', {
-  base: {
-    width: '100%',
-    padding: '16px 0px',
-    cursor: 'pointer',
+const LoginButtonCss = css({
+  width: '100%',
+  padding: '16px 0px',
+  cursor: 'pointer',
 
-    borderRadius: '30px',
-    boxShadow: '0px 4px 30px 5px rgba(18, 23, 41, 0.15)',
-    background: '#fff',
+  borderRadius: '30px',
+  boxShadow: '0px 4px 30px 5px rgba(18, 23, 41, 0.15)',
+  background: '#fff',
 
-    fontSize: '16px',
-    fontWeight: 600,
-    color: '#191F28',
-  },
+  fontSize: '16px',
+  fontWeight: 600,
+  color: '#191F28',
 });
 
 const LinkCss = css({
