@@ -3,8 +3,11 @@ import localFont from 'next/font/local';
 export const pretendardFont = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
   display: 'swap',
+  preload: true,
   variable: '--pretendard',
   fallback: [
+    'Pretendard Variable',
+    'Pretendard',
     '-apple-system',
     'BlinkMacSystemFont',
     'system-ui',

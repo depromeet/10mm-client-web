@@ -1,5 +1,7 @@
 import { defineConfig } from '@pandacss/dev';
 
+import { typographyList } from './src/styles/typography';
+
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -20,6 +22,7 @@ export default defineConfig({
           '100%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
         },
       },
+      textStyles: typographyList,
       tokens: {
         fonts: {
           pretendard: { value: 'var(--pretendard)' },
