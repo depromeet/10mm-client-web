@@ -1,0 +1,57 @@
+name: deploy-chromatic
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'develop'
+
+jobs:
+  build:
+    name: deploy-chromatic
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.3.4
+
+      # node 세팅
+      - name: Init node
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: '18.17.1'
+          cache: 'yarn'
+
+      - name: Set Yarn Version
+        id: set-version
+        run: |
+          yarn set version 4.0.2
+          echo "YARN_VERSION=$(yarn -v)" >> $GITHUB_OUTPUT
+
+      - name: Yarn Cache - PnP
+        uses: actions/cache@v2
+        with:
+          path: |
+            .yarn/cache
+            .pnp.*
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ steps.set-version.outputs.YARN_VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: publish to chromatic
+        id: chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'

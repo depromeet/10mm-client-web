@@ -48,6 +48,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.17"],\
           ["@typescript-eslint/eslint-plugin", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
           ["@typescript-eslint/parser", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
+          ["chromatic", "npm:10.0.0"],\
           ["eslint", "npm:8.54.0"],\
           ["eslint-config-next", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:14.0.3"],\
           ["eslint-config-prettier", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:9.0.0"],\
@@ -99,6 +100,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.17"],\
           ["@typescript-eslint/eslint-plugin", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
           ["@typescript-eslint/parser", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
+          ["chromatic", "npm:10.0.0"],\
           ["eslint", "npm:8.54.0"],\
           ["eslint-config-next", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:14.0.3"],\
           ["eslint-config-prettier", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:9.0.0"],\
@@ -10626,6 +10628,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/chownr-npm-2.0.0-638f1c9c61-c57cf9dd07.zip/node_modules/chownr/",\
         "packageDependencies": [\
           ["chownr", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["chromatic", [\
+      ["npm:10.0.0", {\
+        "packageLocation": "./.yarn/cache/chromatic-npm-10.0.0-fa2b9e86ca-0c616d6b68.zip/node_modules/chromatic/",\
+        "packageDependencies": [\
+          ["chromatic", "npm:10.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
