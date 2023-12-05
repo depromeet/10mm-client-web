@@ -5,7 +5,7 @@ export default defineConfig({
   preflight: true,
   jsxFramework: 'react',
   // Where to look for your css declarations
-  include: ['./src/**/*.{js,jsx,ts,tsx}', './src/app/**/*.{ts,tsx,js,jsx}'],
+  include: ['./src/**/*.{js,jsx,ts,tsx}', './src/app/**/*.{ts,tsx,js,jsx}', './stories/**/*.{js,jsx,ts,tsx}'],
 
   // Files to exclude
   exclude: [],
