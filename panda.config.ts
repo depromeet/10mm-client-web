@@ -20,6 +20,11 @@ export default defineConfig({
           '100%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
         },
       },
+      tokens: {
+        fonts: {
+          pretendard: { value: 'var(--pretendard)' },
+        },
+      },
     },
   },
 

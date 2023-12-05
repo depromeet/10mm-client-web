@@ -36,9 +36,6 @@
   --line-heights-normal: 1.5;
   --line-heights-relaxed: 1.625;
   --line-heights-loose: 2;
-  --fonts-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --fonts-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --fonts-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --letter-spacings-tighter: -0.05em;
   --letter-spacings-tight: -0.025em;
   --letter-spacings-normal: 0em;
@@ -413,6 +410,10 @@
   --animations-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animations-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animations-bounce: bounce 1s infinite;
+  --fonts-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --fonts-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --fonts-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --fonts-pretendard: var(--pretendard);
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
   --breakpoints-lg: 1024px;
