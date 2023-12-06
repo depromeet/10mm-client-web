@@ -34,17 +34,11 @@ const MainWrapperCss = css({
   padding: '118px 16px 50px 16px',
 });
 
-const Subtitle18Token = {
-  lineHeight: '24px',
-  fontSize: '18px',
-  fontWeight: 600,
-};
-
 const MainTitleCss = css({
   color: '#fff',
   textShadow: '0px 0px 5px rgba(0, 0, 0, 0.08)',
   marginTop: '8px',
-  ...Subtitle18Token,
+  textStyle: 'title1', // pretendard 사용예시로 일단 임시 주석입니당
 });
 
 const LoginButtonCss = css({
@@ -56,9 +50,8 @@ const LoginButtonCss = css({
   boxShadow: '0px 4px 30px 5px rgba(18, 23, 41, 0.15)',
   background: '#fff',
 
-  fontSize: '16px',
-  fontWeight: 600,
   color: '#191F28',
+  textStyle: 'title3', // pretendard 사용예시로 일단 임시 주석입니당
 });
 
 const LinkCss = css({
