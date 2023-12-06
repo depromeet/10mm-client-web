@@ -31,6 +31,7 @@ __metadata:
     "@types/react-dom": "npm:^18"
     "@typescript-eslint/eslint-plugin": "npm:^6.12.0"
     "@typescript-eslint/parser": "npm:^6.12.0"
+    chromatic: "npm:^10.0.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.0.3"
     eslint-config-prettier: "npm:^9.0.0"
@@ -7625,6 +7626,17 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
+  languageName: node
+  linkType: hard
+
+"chromatic@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "chromatic@npm:10.0.0"
+  bin:
+    chroma: dist/bin.js
+    chromatic: dist/bin.js
+    chromatic-cli: dist/bin.js
+  checksum: 0c616d6b689c2f37b79f35e885ec71fbacd0fb9267ba85b58be1430fd6a2a98f691abf030e0a22219756fb657110658f856ec491c460c3741c24439c7c179cd5
   languageName: node
   linkType: hard
 
