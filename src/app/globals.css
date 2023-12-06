@@ -1,1 +1,42 @@
 @layer reset, base, tokens, recipes, utilities;
+
+/* 아래 폰트들은 safari에서의 대응을 위한 css 변수 등록을 위한 코드 입니다 */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Pretendard'),
+    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Pretendard'),
+    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Pretendard'),
+    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Pretendard'),
+    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
+}
+
+:root {
+  --pretendard: 'Pretendard', sans-serif;
+}
