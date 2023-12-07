@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import LogoIcon from '@/app/LogoIcon';
 import { css } from '@styled-system/css';
+import { flex } from '@styled-system/patterns';
 
 export default function Home() {
   return (
     <main className={MainWrapperCss}>
-      <div>
+      <div className={logoCss}>
         <LogoIcon />
         <h1 className={MainTitleCss}>하루 10분의 변화를 경험하세요.</h1>
       </div>
@@ -17,6 +18,11 @@ export default function Home() {
     </main>
   );
 }
+
+const logoCss = flex({
+  flexDirection: 'column',
+  alignItems: 'center',
+});
 
 const MainWrapperCss = css({
   display: 'flex',
