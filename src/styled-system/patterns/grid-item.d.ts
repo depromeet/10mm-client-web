@@ -6,19 +6,21 @@ import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
 export interface GridItemProperties {
-  colSpan?: ConditionalValue<number>;
-  rowSpan?: ConditionalValue<number>;
-  colStart?: ConditionalValue<number>;
-  rowStart?: ConditionalValue<number>;
-  colEnd?: ConditionalValue<number>;
-  rowEnd?: ConditionalValue<number>;
+   colSpan?: ConditionalValue<number>
+	rowSpan?: ConditionalValue<number>
+	colStart?: ConditionalValue<number>
+	rowStart?: ConditionalValue<number>
+	colEnd?: ConditionalValue<number>
+	rowEnd?: ConditionalValue<number>
 }
 
-interface GridItemStyles extends GridItemProperties, DistributiveOmit<SystemStyleObject, keyof GridItemProperties> {}
+
+interface GridItemStyles extends GridItemProperties, DistributiveOmit<SystemStyleObject, keyof GridItemProperties > {}
 
 interface GridItemPatternFn {
-  (styles?: GridItemStyles): string;
-  raw: (styles?: GridItemStyles) => SystemStyleObject;
+  (styles?: GridItemStyles): string
+  raw: (styles?: GridItemStyles) => SystemStyleObject
 }
+
 
 export declare const gridItem: GridItemPatternFn;

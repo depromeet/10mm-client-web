@@ -5,15 +5,17 @@ import type { PropertyValue } from '../types/prop-type';
 import type { DistributiveOmit } from '../types/system-types';
 import type { Tokens } from '../tokens/index';
 
-export interface LinkOverlayProperties {}
+export interface LinkOverlayProperties {
+   
+}
 
-interface LinkOverlayStyles
-  extends LinkOverlayProperties,
-    DistributiveOmit<SystemStyleObject, keyof LinkOverlayProperties> {}
+
+interface LinkOverlayStyles extends LinkOverlayProperties, DistributiveOmit<SystemStyleObject, keyof LinkOverlayProperties > {}
 
 interface LinkOverlayPatternFn {
-  (styles?: LinkOverlayStyles): string;
-  raw: (styles?: LinkOverlayStyles) => SystemStyleObject;
+  (styles?: LinkOverlayStyles): string
+  raw: (styles?: LinkOverlayStyles) => SystemStyleObject
 }
+
 
 export declare const linkOverlay: LinkOverlayPatternFn;
