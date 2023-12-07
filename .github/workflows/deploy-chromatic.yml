@@ -2,14 +2,14 @@ name: deploy-chromatic
 
 on:
   pull_request:
-    types:
-      - opened
+    types: [opened, closed]
     branches:
       - 'develop'
 
 jobs:
   build:
     name: deploy-chromatic
+    if: github.event_name == 'pull_request' && (github.event.action == 'closed' && github.event.pull_request.merged == true) || (github.event.action == 'opened')
     runs-on: ubuntu-latest
 
     steps:
