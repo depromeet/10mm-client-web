@@ -1,21 +1,17 @@
-import RadioInputWithEmoji from '@/app/select/RadioInputWithEmoji';
+import SelectMissionForm from '@/app/select/SelectMissionForm';
 import Header from '@/components/Layout/Header';
 import { css } from '@styled-system/css';
 
 export default function SelectPage() {
   return (
-    <main className={MainWrapperCss}>
+    <main className={mainWrapperCss}>
       <Header title={'미션 등록'} />
       <div className={containerCss}>
-        <h1 className={MainTitleCss}>
+        <h1 className={mainTitleCss}>
           하루 <strong>10분</strong>을 <br />
           어떤 일에 투자하고 싶은가요?
         </h1>
-        <form>
-          <RadioInputWithEmoji imgSrc={'/images/emoji-book.png'} label={'독서'} name={'category'} value={'read'} />
-          <RadioInputWithEmoji imgSrc={'/images/emoji-book.png'} label={'독서'} name={'category'} value={'dddd'} />
-          <RadioInputWithEmoji imgSrc={'/images/emoji-book.png'} label={'독서'} name={'category'} value={'cccc'} />
-        </form>
+        <SelectMissionForm />
       </div>
     </main>
   );
@@ -24,24 +20,30 @@ export default function SelectPage() {
 const grey800 = '#333D4B';
 const purple = '#8D96F0';
 
-const MainWrapperCss = css({
+const mainWrapperCss = css({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+
   width: '100%',
-  height: '100vh',
 });
 
 const containerCss = css({
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+
   padding: '24px 16px',
 });
 
-const MainTitleCss = css({
+const mainTitleCss = css({
   marginTop: '2px',
-  fontSize: '24px',
-  fontWeight: 700,
-  lineHeight: '30px',
+
+  textStyle: 'title2',
 
   color: grey800,
   '& strong': {
     color: purple,
-    fontWeight: 700,
+    textStyle: 'title2',
   },
 });
