@@ -4,7 +4,7 @@ import TimerView from '@/app/timer/TimerView';
 import useTimer from '@/app/timer/useTimer';
 import useTimerStatus from '@/app/timer/useTimerStatus';
 import Header from '@/components/Layout/Header';
-import useSearchParamsTypedValue from '@/hooks/useSearchParamsTyped';
+import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { type ObjectKeys } from '@/utils';
 import { css } from '@styled-system/css';
 
