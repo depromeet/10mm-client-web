@@ -7,6 +7,7 @@ import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import Button from '@/components/Button';
 import { ROUTER } from '@/constants/router';
 import { withQueryString } from '@/utils';
+import { getObjectValues } from '@/utils/object';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
@@ -30,14 +31,14 @@ export default function SelectMissionForm() {
   return (
     <section className={sectionCss}>
       <div className={listCss}>
-        {MISSION_CATEGORIES.map((category) => (
+        {getObjectValues(MISSION_CATEGORIES).map((category) => (
           <RadioInputWithImg
-            key={category.value}
+            key={category.id}
             onChange={handleRadioChange}
             imgSrc={category.imgSrc}
             label={category.label}
             name={'category'}
-            value={category.value}
+            value={category.id}
           />
         ))}
       </div>
