@@ -1,3 +1,4 @@
+import { colorList, semanticColorList } from '@/styles/color';
 import { defineConfig } from '@pandacss/dev';
 
 import { typographyList } from './src/styles/typography';
@@ -27,8 +28,10 @@ export default defineConfig({
         fonts: {
           pretendard: { value: 'var(--pretendard)' },
         },
+        ...colorList,
       },
     },
+    semanticTokens: semanticColorList,
   },
 
   // The output directory for your css system
