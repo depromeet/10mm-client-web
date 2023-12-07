@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import RadioInput, { type RadioInputProps } from '@/app/select/RadioInput';
+import RadioInput, { type RadioInputProps } from '@/components/RadioInput';
 import { css } from '@styled-system/css';
 
 interface RadioInputWithEmojiProps extends RadioInputProps {

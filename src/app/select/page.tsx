@@ -16,7 +16,7 @@ export default function SelectPage() {
     </main>
   );
 }
-
+// TODO : 컬러 theme으로 적용
 const grey800 = '#333D4B';
 const purple = '#8D96F0';
 
