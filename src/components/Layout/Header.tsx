@@ -35,8 +35,6 @@ const headerBlankCss = {
 };
 
 const wrapperCss = flex({
-  width: '100%',
-
   padding: '10px 16px',
   gap: '6px',
   background: 'transparent',
