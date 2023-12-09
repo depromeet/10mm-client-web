@@ -48,9 +48,7 @@ const LoginButtonCss = css({
 
   borderRadius: '30px',
   boxShadow: '0px 4px 30px 5px rgba(18, 23, 41, 0.15)',
-  background: '#fff',
-
-  color: '#191F28',
+  background: 'basicColor.white', // token 적용
   textStyle: 'title3', // pretendard 사용예시로 일단 임시 주석입니당
 });
 
