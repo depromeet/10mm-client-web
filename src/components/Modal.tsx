@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@/styled-system/css';
+import { modalConstant } from '@/styles/constant';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
@@ -30,7 +31,7 @@ const modalOverlayCss = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: '9999',
+  zIndex: `${modalConstant}`,
 });
 const modalContentCss = css({
   background: '#fff',
