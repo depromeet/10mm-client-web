@@ -1,11 +1,14 @@
+import { colorList, semanticColorList } from '@/styles/color';
 import { defineConfig } from '@pandacss/dev';
+
+import { typographyList } from './src/styles/typography';
 
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
   jsxFramework: 'react',
   // Where to look for your css declarations
-  include: ['./src/**/*.{js,jsx,ts,tsx}', './src/app/**/*.{ts,tsx,js,jsx}'],
+  include: ['./src/**/*.{js,jsx,ts,tsx}', './src/app/**/*.{ts,tsx,js,jsx}', './stories/**/*.{js,jsx,ts,tsx}'],
 
   // Files to exclude
   exclude: [],
@@ -20,7 +23,15 @@ export default defineConfig({
           '100%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
         },
       },
+      textStyles: typographyList,
+      tokens: {
+        fonts: {
+          pretendard: { value: 'var(--pretendard)' },
+        },
+        ...colorList,
+      },
     },
+    semanticTokens: semanticColorList,
   },
 
   // The output directory for your css system
