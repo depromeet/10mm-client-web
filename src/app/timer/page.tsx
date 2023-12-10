@@ -1,13 +1,20 @@
 'use client';
+import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import TimerView from '@/app/timer/TimerView';
 import useTimer from '@/app/timer/useTimer';
 import useTimerStatus from '@/app/timer/useTimerStatus';
 import Header from '@/components/Layout/Header';
+import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
+import { type ObjectKeys } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function TimerPage() {
   const { step, stepLabel, onNextStep } = useTimerStatus();
   const { formattedTime } = useTimer(step);
+
+  const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
+
+  const category = MISSION_CATEGORIES[searchParams ?? 'exercise'].label;
 
   const onFinish = () => {
     onNextStep('stop');
@@ -25,7 +32,7 @@ export default function TimerPage() {
         <h1 className={titleCss}>{stepLabel.title}</h1>
         <p className={descCss}>{stepLabel.desc}</p>
 
-        <TimerView category="카테고리" time={formattedTime} isActive={step !== 'stop'} />
+        <TimerView category={category} time={formattedTime} isActive={step !== 'stop'} />
         <div className={css(buttonContainerCss)}>
           {step === 'ready' && (
             <button type="button" onClick={() => onNextStep('progress')}>
