@@ -1675,25 +1675,41 @@ const tokens = {
     "value": "#3b0764",
     "variable": "var(--colors-purple-950)"
   },
-  "colors.purple.purple100": {
+  "colors.purple.purple900": {
     "value": "#D9D9FF",
-    "variable": "var(--colors-purple-purple100)"
+    "variable": "var(--colors-purple-purple900)"
   },
-  "colors.purple.purple200": {
+  "colors.purple.purple800": {
     "value": "#C5C4FC",
-    "variable": "var(--colors-purple-purple200)"
+    "variable": "var(--colors-purple-purple800)"
   },
-  "colors.purple.purple300": {
+  "colors.purple.purple700": {
     "value": "#B6B5F7",
-    "variable": "var(--colors-purple-purple300)"
+    "variable": "var(--colors-purple-purple700)"
   },
-  "colors.purple.purple400": {
+  "colors.purple.purple600": {
     "value": "#AAA9F7",
-    "variable": "var(--colors-purple-purple400)"
+    "variable": "var(--colors-purple-purple600)"
   },
   "colors.purple.purple500": {
-    "value": "#7E7DF1",
+    "value": "#8483D9",
     "variable": "var(--colors-purple-purple500)"
+  },
+  "colors.purple.purple400": {
+    "value": "#7676AC",
+    "variable": "var(--colors-purple-purple400)"
+  },
+  "colors.purple.purple100": {
+    "value": "#464155",
+    "variable": "var(--colors-purple-purple100)"
+  },
+  "colors.purple.purple050": {
+    "value": "#312D3E",
+    "variable": "var(--colors-purple-purple050)"
+  },
+  "colors.purple.purple000": {
+    "value": "#23202E",
+    "variable": "var(--colors-purple-purple000)"
   },
   "colors.red.50": {
     "value": "#fef2f2",
@@ -1742,6 +1758,18 @@ const tokens = {
   "colors.red.red500": {
     "value": "#C53C3C",
     "variable": "var(--colors-red-red500)"
+  },
+  "colors.gradients.primary": {
+    "value": "linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)",
+    "variable": "var(--colors-gradients-primary)"
+  },
+  "colors.gradients.button1": {
+    "value": "linear-gradient(91deg, #FFE5EE 0%, #E9CEFF 18.75%, #B9CDFF 100%)",
+    "variable": "var(--colors-gradients-button1)"
+  },
+  "colors.gradients.button2": {
+    "value": "linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)",
+    "variable": "var(--colors-gradients-button2)"
   },
   "breakpoints.sm": {
     "value": "640px",
@@ -2075,29 +2103,57 @@ const tokens = {
     "value": "var(--colors-color-palette-pressed)",
     "variable": "var(--colors-color-palette-pressed)"
   },
-  "colors.colorPalette.purple100": {
-    "value": "var(--colors-color-palette-purple100)",
-    "variable": "var(--colors-color-palette-purple100)"
+  "colors.colorPalette.purple900": {
+    "value": "var(--colors-color-palette-purple900)",
+    "variable": "var(--colors-color-palette-purple900)"
   },
-  "colors.colorPalette.purple200": {
-    "value": "var(--colors-color-palette-purple200)",
-    "variable": "var(--colors-color-palette-purple200)"
+  "colors.colorPalette.purple800": {
+    "value": "var(--colors-color-palette-purple800)",
+    "variable": "var(--colors-color-palette-purple800)"
   },
-  "colors.colorPalette.purple300": {
-    "value": "var(--colors-color-palette-purple300)",
-    "variable": "var(--colors-color-palette-purple300)"
+  "colors.colorPalette.purple700": {
+    "value": "var(--colors-color-palette-purple700)",
+    "variable": "var(--colors-color-palette-purple700)"
   },
-  "colors.colorPalette.purple400": {
-    "value": "var(--colors-color-palette-purple400)",
-    "variable": "var(--colors-color-palette-purple400)"
+  "colors.colorPalette.purple600": {
+    "value": "var(--colors-color-palette-purple600)",
+    "variable": "var(--colors-color-palette-purple600)"
   },
   "colors.colorPalette.purple500": {
     "value": "var(--colors-color-palette-purple500)",
     "variable": "var(--colors-color-palette-purple500)"
   },
+  "colors.colorPalette.purple400": {
+    "value": "var(--colors-color-palette-purple400)",
+    "variable": "var(--colors-color-palette-purple400)"
+  },
+  "colors.colorPalette.purple100": {
+    "value": "var(--colors-color-palette-purple100)",
+    "variable": "var(--colors-color-palette-purple100)"
+  },
+  "colors.colorPalette.purple050": {
+    "value": "var(--colors-color-palette-purple050)",
+    "variable": "var(--colors-color-palette-purple050)"
+  },
+  "colors.colorPalette.purple000": {
+    "value": "var(--colors-color-palette-purple000)",
+    "variable": "var(--colors-color-palette-purple000)"
+  },
   "colors.colorPalette.red500": {
     "value": "var(--colors-color-palette-red500)",
     "variable": "var(--colors-color-palette-red500)"
+  },
+  "colors.colorPalette.primary": {
+    "value": "var(--colors-color-palette-primary)",
+    "variable": "var(--colors-color-palette-primary)"
+  },
+  "colors.colorPalette.button1": {
+    "value": "var(--colors-color-palette-button1)",
+    "variable": "var(--colors-color-palette-button1)"
+  },
+  "colors.colorPalette.button2": {
+    "value": "var(--colors-color-palette-button2)",
+    "variable": "var(--colors-color-palette-button2)"
   },
   "colors.colorPalette.surface1": {
     "value": "var(--colors-color-palette-surface1)",
@@ -2114,10 +2170,6 @@ const tokens = {
   "colors.colorPalette.surface4": {
     "value": "var(--colors-color-palette-surface4)",
     "variable": "var(--colors-color-palette-surface4)"
-  },
-  "colors.colorPalette.primary": {
-    "value": "var(--colors-color-palette-primary)",
-    "variable": "var(--colors-color-palette-primary)"
   },
   "colors.colorPalette.secondary": {
     "value": "var(--colors-color-palette-secondary)",
