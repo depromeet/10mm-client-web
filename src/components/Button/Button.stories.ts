@@ -18,10 +18,57 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Large: Story = {
+export const Default: Story = {
   args: {
     size: 'large',
-    children: 'Large Button',
+    children: 'Default Large Button',
+  },
+};
+
+export const CTALarge: Story = {
+  args: {
+    size: 'large',
+    children: 'CTA Large Button',
     variant: 'cta',
+  },
+};
+
+export const PrimaryLarge: Story = {
+  args: {
+    size: 'large',
+    children: 'PrimaryLarge',
+    variant: 'primary',
+  },
+};
+
+export const SecondaryLargeButton: Story = {
+  args: {
+    size: 'large',
+    children: 'SecondaryLargeButton',
+    variant: 'secondary',
+  },
+};
+
+export const CTAMedium: Story = {
+  args: {
+    size: 'medium',
+    children: 'CTA Large Button',
+    variant: 'cta',
+  },
+};
+
+export const PrimaryMedium: Story = {
+  args: {
+    size: 'medium',
+    children: 'PrimaryMedium',
+    variant: 'primary',
+  },
+};
+
+export const SecondaryMediumButton: Story = {
+  args: {
+    size: 'medium',
+    children: 'SecondaryMediumButton',
+    variant: 'secondary',
   },
 };
