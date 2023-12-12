@@ -10,6 +10,8 @@ export default function Home() {
         <h1 className={MainTitleCss}>하루 10분의 변화를 경험하세요.</h1>
       </div>
       <Link className={LinkCss} href={'/select'}>
+        {/* 이후 추가될 믹스패널 이벤트는 아래와 같이 추적 */}
+        {/* mixpanel.track("이벤트명"); */}
         <button type={'button'} className={LoginButtonCss}>
           게스트 로그인
         </button>
