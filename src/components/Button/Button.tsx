@@ -22,6 +22,15 @@ const buttonStyle = cva({
       cta: {
         background: 'gradients.button1',
         color: 'gray.gray100',
+        '&:hover': {
+          background: 'gradients.button2',
+        },
+        '&:pressed': {
+          background: 'gradients.button2',
+        },
+        '&:active': {
+          background: 'gradients.button2',
+        },
       },
       primary: {
         backgroundColor: 'purple.purple800',

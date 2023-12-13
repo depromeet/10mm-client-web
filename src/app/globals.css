@@ -45,3 +45,7 @@
 .docs-story {
   background-color: #141417;
 }
+
+button {
+  cursor: pointer;
+}
