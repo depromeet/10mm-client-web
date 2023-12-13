@@ -12,6 +12,6 @@ type Story = StoryObj<typeof Icon>;
 export const Default: Story = {
   args: {
     color: 'gray.900',
-    name: 'left-arrow',
+    name: 'arrow-back',
   },
 };
