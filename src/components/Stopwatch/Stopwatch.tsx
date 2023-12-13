@@ -1,7 +1,9 @@
 import Image from 'next/image';
+import LightningIcon from '@/components/Icon/LightningIcon';
 import { css } from '@/styled-system/css';
 
 function Stopwatch() {
+  const time = ['0', '00'];
   return (
     <div className={containerCss}>
       <div className={imageWrapperCss}>
@@ -31,6 +33,10 @@ function Stopwatch() {
           <span>:</span>
           <span>{time[1]}</span>
         </div>
+        <div className={lightingWrapperCss}>
+          {[...Array(6)].map((_, idx) => (
+            <LightningIcon key={idx} width={16} height={16} />
+          ))}
         </div>
       </div>
     </div>
@@ -69,6 +75,9 @@ const timerTextCss = {
   height: '84px',
   lineHeight: '84px',
 };
+
+const lightingWrapperCss = css({ display: 'flex', gap: '5px', marginTop: '12px' });
+
 // background image
 const imageWrapperCss = css({
   position: 'absolute',
