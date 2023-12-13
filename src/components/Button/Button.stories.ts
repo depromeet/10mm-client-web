@@ -45,3 +45,11 @@ export const SecondaryButton: Story = {
     children: 'Secondary Button',
   },
 };
+
+export const GhostButton: Story = {
+  args: {
+    size: 'large',
+    variant: 'ghost',
+    children: 'Ghost Button',
+  },
+};

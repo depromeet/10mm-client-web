@@ -44,7 +44,6 @@ export const colorList = defineTokens({
       purple400: {
         value: '#7676AC',
       },
-
       purple100: {
         value: '#464155',
       },
