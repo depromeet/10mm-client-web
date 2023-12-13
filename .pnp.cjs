@@ -62,7 +62,6 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:29.7.0"],\
           ["jest-environment-jsdom", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:29.7.0"],\
           ["lint-staged", "npm:15.1.0"],\
-          ["lottie-web", "npm:5.12.2"],\
           ["next", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:13.4.19"],\
           ["prettier", "npm:3.1.0"],\
           ["react", "npm:18.2.0"],\
@@ -115,7 +114,6 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:29.7.0"],\
           ["jest-environment-jsdom", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:29.7.0"],\
           ["lint-staged", "npm:15.1.0"],\
-          ["lottie-web", "npm:5.12.2"],\
           ["next", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:13.4.19"],\
           ["prettier", "npm:3.1.0"],\
           ["react", "npm:18.2.0"],\
@@ -16565,15 +16563,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["loose-envify", "npm:1.4.0"],\
           ["js-tokens", "npm:4.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["lottie-web", [\
-      ["npm:5.12.2", {\
-        "packageLocation": "./.yarn/cache/lottie-web-npm-5.12.2-942dc9e22a-cd377d54a6.zip/node_modules/lottie-web/",\
-        "packageDependencies": [\
-          ["lottie-web", "npm:5.12.2"]\
         ],\
         "linkType": "HARD"\
       }]\
