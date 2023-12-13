@@ -21,6 +21,16 @@ function Stopwatch() {
       </div>
       <div className={innerContainerCss}>
         <p className={categoryCss}>잠들기 전 오늘 하루 감사일기 쓰기</p>
+        <div
+          className={css(timerTextCss, {
+            color: 'transparent',
+            // color: isActive ? 'transparent' : '#B0B8C1',
+          })}
+        >
+          <span>{time[0]}</span>
+          <span>:</span>
+          <span>{time[1]}</span>
+        </div>
         </div>
       </div>
     </div>
@@ -47,6 +57,18 @@ const innerContainerCss = css({
 });
 
 const categoryCss = css({ color: 'purple.purple800', textStyle: 'body2', marginBottom: '4px' });
+
+const timerTextCss = {
+  fontSize: '70px',
+  fontWeight: '100',
+  animation: 'gradient 3s ease-in-out infinite',
+  backgroundSize: '150% 200%!',
+  '-webkit-background-clip': 'text!',
+  background: 'gradients.primary',
+
+  height: '84px',
+  lineHeight: '84px',
+};
 // background image
 const imageWrapperCss = css({
   position: 'absolute',
@@ -65,7 +87,7 @@ const imageWrapperCss = css({
 
   // rotate animation
   transformOrigin: '50% 50%',
-  // animation: 'circleRotate 60s linear infinite',
+  animation: 'circleRotate 60s linear infinite',
 });
 
 const smallCircleCss = css({ position: 'absolute', top: '-10px', left: 0, right: 0, margin: '0 auto' });
