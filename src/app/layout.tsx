@@ -29,4 +29,6 @@ const containerCss = {
   maxWidth: '475px',
   margin: '0 auto',
   minHeight: '100vh',
+
+  backgroundColor: 'bg.surface2',
 };
