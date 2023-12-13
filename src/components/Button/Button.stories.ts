@@ -7,7 +7,7 @@ const meta = {
   parameters: {
     layout: 'centered',
     controls: {
-      include: ['variant', 'size', 'children'],
+      include: ['variant', 'size', 'children', 'disabled'],
     },
   },
   tags: ['autodocs'],

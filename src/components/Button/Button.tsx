@@ -31,6 +31,9 @@ const buttonStyle = cva({
         '&:active': {
           background: 'gradients.button2',
         },
+        '&:disabled': {
+          opacity: '0.4',
+        },
       },
       primary: {
         backgroundColor: 'purple.purple800',
