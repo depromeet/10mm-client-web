@@ -16,6 +16,13 @@ const meta = {
       control: 'select',
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ minWidth: '327px' }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -51,5 +58,14 @@ export const GhostButton: Story = {
     size: 'large',
     variant: 'ghost',
     children: 'Ghost Button',
+  },
+};
+
+export const DisabledButton: Story = {
+  args: {
+    disabled: true,
+    size: 'large',
+    variant: 'cta',
+    children: 'Disabled Button',
   },
 };
