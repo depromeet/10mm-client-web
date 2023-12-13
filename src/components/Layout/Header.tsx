@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Icon from '@/components/Icon';
 import { flex } from '@/styled-system/patterns';
 import { css } from '@styled-system/css';
 
@@ -20,7 +20,7 @@ function Header({ title }: Props) {
     <>
       <header className={wrapperCss}>
         <button className={buttonCss} type="button" onClick={handleButtonClick}>
-          <Image src="/assets/icons/left-arrow-icon.svg" alt="Left Arrow Icon" width={20} height={20} />
+          <Icon name={'arrow-back'} color={'icon.secondary'} />
         </button>
         <h2 className={headingCss}>{title}</h2>
       </header>
@@ -39,6 +39,8 @@ const wrapperCss = flex({
   gap: '6px',
   background: 'transparent',
   position: 'fixed',
+  display: 'flex',
+  alignItems: 'center',
   margin: '0 auto',
   zIndex: 100,
 });
@@ -48,11 +50,8 @@ const buttonCss = css({
 });
 
 const headingCss = css({
-  color: '#6B7684',
-  fontSize: '16px',
-  lineHeight: '20px',
-  fontFamily: 'Pretendard',
-  fontWeight: '600',
+  textStyle: 'subtitle3',
+  color: 'text.secondary',
 });
 
 export default Header;
