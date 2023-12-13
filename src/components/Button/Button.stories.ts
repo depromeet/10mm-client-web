@@ -6,9 +6,16 @@ const meta = {
   component: Button,
   parameters: {
     layout: 'centered',
+    controls: {
+      include: ['variant', 'size', 'children'],
+    },
   },
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: 'select',
+    },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -26,15 +33,15 @@ export const CTA: Story = {
 export const Primary: Story = {
   args: {
     size: 'large',
-    children: 'Primary Button',
     variant: 'primary',
+    children: 'Primary Button',
   },
 };
 
 export const SecondaryButton: Story = {
   args: {
     size: 'large',
-    children: 'Secondary Button',
     variant: 'secondary',
+    children: 'Secondary Button',
   },
 };
