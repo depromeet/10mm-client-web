@@ -40,3 +40,16 @@
 :root {
   --pretendard: 'Pretendard', sans-serif;
 }
+
+.sb-show-main,
+.docs-story {
+  background-color: #141417;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

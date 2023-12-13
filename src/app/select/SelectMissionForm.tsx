@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import RadioInputWithImg from '@/app/select/RadioInputWithImg';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
-import Button from '@/components/Button';
+import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
 import { withQueryString } from '@/utils';
 import { getObjectValues } from '@/utils/object';
