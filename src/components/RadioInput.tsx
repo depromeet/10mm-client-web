@@ -1,11 +1,7 @@
 import { type ChangeEvent, type InputHTMLAttributes, type PropsWithChildren } from 'react';
-import CheckCircleIcon from '@/app/select/CheckCircleIcon';
+import Icon from '@/components/Icon';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
-
-const purple = '#8D96F0';
-const lightPurple = '#EFF1FF';
-const grey100 = '#F2F4F6';
 
 export interface RadioInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
   onChange?: (value: string) => void;
@@ -30,7 +26,7 @@ export default function RadioInput({ children, onChange, ...props }: PropsWithCh
         >
           {children}
         </p>
-        <CheckCircleIcon fill={purple} />
+        <Icon name={'check-circle'} color={'purple.purple700'} />
       </div>
     </label>
   );
@@ -45,13 +41,13 @@ const RadioInputWrapperCss = flex({
   padding: '10px 16px',
 
   borderRadius: '36px',
-  background: grey100,
+  background: 'bg.surface3',
 
   justifyContent: 'space-between',
   alignItems: 'center',
 
   transition: '0.3s ease',
-
+  color: 'text.secondary',
   '& svg': {
     display: 'none',
   },
@@ -64,9 +60,10 @@ const InputWrapperCss = css({
   width: 0,
   _checked: {
     '& ~ div': {
-      color: purple,
+      color: 'text.secondary',
       textStyle: 'subtitle2',
-      backgroundColor: lightPurple,
+      border: '1px solid',
+      borderColor: 'purple.purple700',
       '& svg': {
         display: 'block',
       },
