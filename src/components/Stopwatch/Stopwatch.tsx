@@ -19,6 +19,10 @@ function Stopwatch() {
           alt="small circle"
         />
       </div>
+      <div className={innerContainerCss}>
+        <p className={categoryCss}>잠들기 전 오늘 하루 감사일기 쓰기</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -28,13 +32,32 @@ const containerCss = css({
   width: '312px',
   height: '312px',
   borderRadius: '312px',
+  color: 'white',
 });
 
-const imageWrapperCss = css({
+const innerContainerCss = css({
+  padding: '74px 0',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
   position: 'relative',
+  zIndex: 1,
+});
+
+const categoryCss = css({ color: 'purple.purple800', textStyle: 'body2', marginBottom: '4px' });
+// background image
+const imageWrapperCss = css({
+  position: 'absolute',
   width: '100%',
   height: '100%',
   borderRadius: '312px',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 0,
 
   // NOTE: circle layer하나는 css로 구현
   background: 'linear-gradient(136deg, rgba(240, 168, 198, 0.02) 15.95%, rgba(143, 169, 255, 0.02) 85.07%)',
@@ -42,8 +65,9 @@ const imageWrapperCss = css({
 
   // rotate animation
   transformOrigin: '50% 50%',
-  animation: 'circleRotate 60s linear infinite',
+  // animation: 'circleRotate 60s linear infinite',
 });
+
 const smallCircleCss = css({ position: 'absolute', top: '-10px', left: 0, right: 0, margin: '0 auto' });
 
 const birCircleImageCss = css({
