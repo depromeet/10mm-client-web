@@ -26,26 +26,50 @@ export const colorList = defineTokens({
     },
 
     purple: {
-      purple100: {
+      purple900: {
         value: '#D9D9FF',
       },
-      purple200: {
+      purple800: {
         value: '#C5C4FC',
       },
-      purple300: {
+      purple700: {
         value: '#B6B5F7',
       },
-      purple400: {
+      purple600: {
         value: '#AAA9F7',
       },
       purple500: {
-        value: '#7E7DF1',
+        value: '#8483D9',
+      },
+      purple400: {
+        value: '#7676AC',
+      },
+
+      purple100: {
+        value: '#464155',
+      },
+      purple050: {
+        value: '#312D3E',
+      },
+      purple000: {
+        value: '#23202E',
       },
     },
 
     red: {
       red500: {
         value: '#C53C3C',
+      },
+    },
+    gradients: {
+      primary: {
+        value: 'linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)',
+      },
+      button1: {
+        value: 'linear-gradient(91deg, #FFE5EE 0%, #E9CEFF 18.75%, #B9CDFF 100%)',
+      },
+      button2: {
+        value: 'linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
       },
     },
   },
