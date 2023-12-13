@@ -8,7 +8,6 @@ import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
 import { withQueryString } from '@/utils';
 import { getObjectValues } from '@/utils/object';
-import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
 export default function SelectMissionForm() {
@@ -42,26 +41,12 @@ export default function SelectMissionForm() {
           />
         ))}
       </div>
-      <Button disabled={!selectedCategory} onClick={handleClick} className={nextButtonCss}>
+      <Button variant={'cta'} size={'medium'} disabled={!selectedCategory} onClick={handleClick}>
         다음
       </Button>
     </section>
   );
 }
-
-const nextButtonCss = css({
-  padding: '16px 24px',
-  textStyle: 'subtitle2',
-  color: '#FFFFFF',
-  width: 'fit',
-  borderRadius: '30px',
-  background: '#929DFF',
-  transition: '0.3s ease',
-  cursor: 'pointer',
-  _disabled: {
-    background: '#E5E5E5',
-  },
-});
 
 const sectionCss = flex({
   marginTop: '30px',
