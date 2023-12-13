@@ -29,6 +29,7 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
+    "@types/react-lottie": "npm:^1"
     "@typescript-eslint/eslint-plugin": "npm:^6.12.0"
     "@typescript-eslint/parser": "npm:^6.12.0"
     chromatic: "npm:^10.0.0"
@@ -49,6 +50,7 @@ __metadata:
     prettier: "npm:^3.1.0"
     react: "npm:^18"
     react-dom: "npm:^18"
+    react-lottie-player: "npm:^1.5.5"
     storybook: "npm:^7.5.3"
     typescript: "npm:^5"
     webpack: "npm:^5.89.0"
@@ -5558,6 +5560,15 @@ __metadata:
   dependencies:
     "@types/react": "npm:*"
   checksum: fe0dbb3224b48515da8fe25559e3777d756a27c3f22903f0b1b020de8d68bd57eb1f0af62b52ee65d9632637950afed8cbad24d158c4f3d910d083d49bd73fba
+  languageName: node
+  linkType: hard
+
+"@types/react-lottie@npm:^1":
+  version: 1.2.10
+  resolution: "@types/react-lottie@npm:1.2.10"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 83eb419d636a7a7f61af58bfdad9cbe6a4beda4bf4e608a5c489eb77b6c2d99ac29efbd99c73d080c73ffcba3de65e0f33835a5b8bf984217e1f66bb687fccdb
   languageName: node
   linkType: hard
 
@@ -12776,6 +12787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lottie-web@npm:^5.7.6":
+  version: 5.12.2
+  resolution: "lottie-web@npm:5.12.2"
+  checksum: cd377d54a675b37ac9359306b84097ea402dff3d74a2f45e6e0dbcff1df94b3a978e92e48fd34765754bdbb94bd2d8d4da31954d95f156e77489596b235cac91
+  languageName: node
+  linkType: hard
+
 "loupe@npm:^2.3.6":
   version: 2.3.7
   resolution: "loupe@npm:2.3.7"
@@ -15413,6 +15431,19 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: 200cd65bf2e0be7ba6055f647091b725a45dd2a6abef03bf2380ce701fd5edccee40b49b9d15edab7ac08a762bf83cb4081e31ec2673a5bfb549a36ba21570df
+  languageName: node
+  linkType: hard
+
+"react-lottie-player@npm:^1.5.5":
+  version: 1.5.5
+  resolution: "react-lottie-player@npm:1.5.5"
+  dependencies:
+    fast-deep-equal: "npm:^3.1.3"
+    lottie-web: "npm:^5.7.6"
+    rfdc: "npm:^1.3.0"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: db41ba43031f49dedcdac2467958657b03445ccb91952db71bd9ef5c2a4d53408af90427ac1e791cbfad811515b97ff92666a5caafe2010927a27149d70a71f1
   languageName: node
   linkType: hard
 

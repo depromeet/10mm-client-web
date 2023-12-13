@@ -1,4 +1,5 @@
 import { colorList, semanticColorList } from '@/styles/color';
+import { keyframeList } from '@/styles/motion';
 import { defineConfig } from '@pandacss/dev';
 
 import { typographyList } from './src/styles/typography';
@@ -16,13 +17,7 @@ export default defineConfig({
   // Useful for theme customization
   theme: {
     extend: {
-      keyframes: {
-        gradient: {
-          '0%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
-          '50%': { backgroundPositionX: '50%', backgroundPositionY: '100%' },
-          '100%': { transform: 'rotate(0deg)', backgroundPositionX: '0%', backgroundPositionY: '0%' },
-        },
-      },
+      keyframes: keyframeList,
       textStyles: typographyList,
       tokens: {
         fonts: {

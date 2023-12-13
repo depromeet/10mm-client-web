@@ -16,6 +16,7 @@ const meta = {
 } satisfies Meta<typeof Header>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
