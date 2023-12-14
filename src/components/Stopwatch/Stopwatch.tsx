@@ -1,9 +1,15 @@
 import Image from 'next/image';
-import LightningIcon from '@/components/Icon/LightningIcon';
+import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
-function Stopwatch() {
-  const time = ['0', '00'];
+interface Props {
+  minutes: number;
+  seconds: number;
+  category: string;
+  stack: number;
+}
+
+function Stopwatch({ minutes, seconds, category, stack }: Props) {
   return (
     <div className={containerCss}>
       <div className={imageWrapperCss}>
@@ -22,24 +28,34 @@ function Stopwatch() {
         />
       </div>
       <div className={innerContainerCss}>
-        <p className={categoryCss}>잠들기 전 오늘 하루 감사일기 쓰기</p>
+        <p className={categoryCss}>{category}</p>
         <div
           className={css(timerTextCss, {
             color: 'transparent',
-            // color: isActive ? 'transparent' : '#B0B8C1',
           })}
         >
-          <span>{time[0]}</span>
+          <span>{minutes}</span>
           <span>:</span>
-          <span>{time[1]}</span>
+          <span>{seconds}</span>
         </div>
         <div className={lightingWrapperCss}>
-          {[...Array(6)].map((_, idx) => (
-            <LightningIcon key={idx} width={16} height={16} />
-          ))}
+          <LightningStepper stack={stack} />
         </div>
       </div>
     </div>
+  );
+}
+
+function LightningStepper({ stack }: { stack: number }) {
+  return (
+    <>
+      {[...Array(stack)].map((_, idx) => (
+        <Icon key={idx} name="lightning" color="purple.purple700" width={16} height={16} />
+      ))}
+      {[...Array(6 - stack)].map((_, idx) => (
+        <Icon key={idx} name="lightning" color="purple.purple100" width={16} height={16} />
+      ))}
+    </>
   );
 }
 
