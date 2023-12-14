@@ -2,7 +2,9 @@ import { cva } from '@/styled-system/css';
 import { styled } from '@/styled-system/jsx';
 
 const buttonStyle = cva({
-  base: {},
+  base: {
+    textStyle: 'subtitle4',
+  },
   variants: {
     size: {
       medium: {
@@ -22,6 +24,14 @@ const buttonStyle = cva({
       cta: {
         background: 'gradients.button1',
         color: 'gray.gray100',
+        position: 'fixed',
+        left: '24px',
+        right: '24px',
+        bottom: '16px',
+        width: '100%',
+        maxWidth: 'calc(475px  - 48px)',
+        margin: '0 auto',
+
         '&:hover': {
           // background: 'gradients.button2',
         },
