@@ -46,7 +46,6 @@ const RadioInputWrapperCss = flex({
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  transition: '0.3s ease',
   color: 'text.secondary',
   '& svg': {
     display: 'none',

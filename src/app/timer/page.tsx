@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import TimerView from '@/app/timer/TimerView';
 import useTimer from '@/app/timer/useTimer';
@@ -11,6 +12,7 @@ import { css } from '@styled-system/css';
 export default function TimerPage() {
   const { step, stepLabel, onNextStep } = useTimerStatus();
   const { formattedTime } = useTimer(step);
+  const router = useRouter();
 
   const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
 
@@ -18,7 +20,9 @@ export default function TimerPage() {
 
   const onFinish = () => {
     onNextStep('stop');
-    alert('정말 끝내시겠습니까?');
+    if (confirm('정말 끝내시겠습니까?')) {
+      router.push('/complete');
+    }
   };
 
   return (
