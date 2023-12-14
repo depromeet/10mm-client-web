@@ -37,34 +37,50 @@ function Stopwatch({ minutes, seconds, category, stack, isDisabled }: Props) {
         />
       </div>
       <div className={innerContainerCss}>
-        <p className={categoryCss}>{category}</p>
+        <p
+          className={css(categoryCss, {
+            color: isDisabled ? 'text.tertiary' : 'purple.purple800',
+          })}
+        >
+          {category}
+        </p>
         <div
           className={css(timerTextCss, {
-            color: 'transparent',
+            color: isDisabled ? 'text.tertiary' : 'transparent',
           })}
         >
           <span>{minutes}</span>
           <span>:</span>
           <span>{seconds}</span>
         </div>
-        <div className={lightingWrapperCss}>
-          <LightningStepper stack={stack} />
-        </div>
+        <LightningStepper stack={stack} isDisabled={isDisabled} />
       </div>
     </div>
   );
 }
 
-function LightningStepper({ stack }: { stack: number }) {
+function LightningStepper({ stack, isDisabled }: { stack: number; isDisabled: boolean }) {
   return (
-    <>
+    <div className={lightingWrapperCss}>
       {[...Array(stack)].map((_, idx) => (
-        <Icon key={idx} name="lightning" color="purple.purple700" width={16} height={16} />
+        <Icon
+          key={idx}
+          name="lightning"
+          color={isDisabled ? 'icon.secondary' : 'purple.purple700'}
+          width={16}
+          height={16}
+        />
       ))}
       {[...Array(6 - stack)].map((_, idx) => (
-        <Icon key={idx} name="lightning" color="purple.purple100" width={16} height={16} />
+        <Icon
+          key={idx}
+          name="lightning"
+          color={isDisabled ? 'gray.gray300' : 'purple.purple100'}
+          width={16}
+          height={16}
+        />
       ))}
-    </>
+    </div>
   );
 }
 
@@ -87,7 +103,7 @@ const innerContainerCss = css({
   zIndex: 1,
 });
 
-const categoryCss = css({ color: 'purple.purple800', textStyle: 'body2', marginBottom: '4px' });
+const categoryCss = { textStyle: 'body2', marginBottom: '4px' };
 
 const timerTextCss = {
   fontSize: '70px',

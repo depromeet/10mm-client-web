@@ -50,7 +50,7 @@ export default function TimerPage() {
             <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('progress')}>
               다시 시작
             </Button>
-            <Button size="medium" variant="secondary" type="button" onClick={onFinish}>
+            <Button size="medium" variant="primary" type="button" onClick={onFinish}>
               끝내기
             </Button>
           </>
