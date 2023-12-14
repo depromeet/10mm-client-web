@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={pretendardFont.variable}>
-      <body>
+      <body className={css(bodyCss)}>
         <MonitoringInitializer />
         <QueryProvider>
           <div className={css(containerCss)}>{children}</div>
@@ -29,4 +29,9 @@ const containerCss = {
   maxWidth: '475px',
   margin: '0 auto',
   minHeight: '100vh',
+  backgroundColor: 'bg.surface1',
+};
+
+const bodyCss = {
+  // backgroundColor: 'bg.surface1',
 };

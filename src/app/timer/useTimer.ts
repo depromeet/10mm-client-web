@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { type StepType } from '@/app/timer/useTimerStatus';
 
-export default function useTimer(status: StepType, initSeconds = 600) {
+// 좀 더 의미론적.... useStopwatch
+export default function useStopwatch(status: StepType, initSeconds = 600) {
   const [second, setSecond] = useState(initSeconds); // 남은 시간 (단위: 초)
 
-  const formattedTime = formatMMSS(second);
+  const { minutes, seconds } = getMMSS(second);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -21,8 +22,18 @@ export default function useTimer(status: StepType, initSeconds = 600) {
     return () => clearInterval(timer);
   }, [second, status]);
 
-  return { formattedTime };
+  return { minutes, seconds };
 }
+
+const getMMSS = (second: number) => {
+  const minutes = Math.floor(second / 60); // 분 계산
+  const seconds = second % 60; // 초 계산
+
+  return {
+    minutes,
+    seconds,
+  };
+};
 
 const formatMMSS = (second: number): [string, string] => {
   const minutes = Math.floor(second / 60); // 분 계산
