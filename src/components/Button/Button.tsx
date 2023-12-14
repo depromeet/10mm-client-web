@@ -31,7 +31,9 @@ const buttonStyle = cva({
         width: '100%',
         maxWidth: 'calc(475px  - 48px)',
         margin: '0 auto',
-
+        '@media (max-width: 475px)': {
+          maxWidth: 'calc(100vw  - 48px)',
+        },
         '&:hover': {
           // background: 'gradients.button2',
         },
