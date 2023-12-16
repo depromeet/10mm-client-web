@@ -47,3 +47,6 @@ next-env.d.ts
 
 # chromatic
 build-storybook.log
+
+# vscode
+.vscode
