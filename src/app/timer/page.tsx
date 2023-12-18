@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import useTimer from '@/app/timer/useTimer';
 import useTimerStatus from '@/app/timer/useTimerStatus';
@@ -18,7 +19,9 @@ export default function TimerPage() {
 
   const onFinish = () => {
     onNextStep('stop');
-    alert('정말 끝내시겠습니까?');
+    if (confirm('정말 끝내시겠습니까?')) {
+      router.push('/complete');
+    }
   };
 
   return (

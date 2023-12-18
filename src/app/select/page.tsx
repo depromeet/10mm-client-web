@@ -16,9 +16,6 @@ export default function SelectPage() {
     </main>
   );
 }
-// TODO : 컬러 theme으로 적용
-const grey800 = '#333D4B';
-const purple = '#8D96F0';
 
 const mainWrapperCss = css({
   flex: 1,
@@ -41,9 +38,9 @@ const mainTitleCss = css({
 
   textStyle: 'title2',
 
-  color: grey800,
+  color: 'text.primary',
   '& strong': {
-    color: purple,
+    color: 'purple.purple800',
     textStyle: 'title2',
   },
 });
