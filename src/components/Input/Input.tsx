@@ -64,16 +64,6 @@ export default function Input({ iconName, iconColor, ...inputProps }: InputProps
       </div>
     </section>
   );
-
-  // <section className={sectionCss}>
-  //   <div>
-  //     <p className={subTitleCss}>
-  //       미션명 <span className={asterisk}>*</span>
-  //     </p>
-  //     <input className={inputCss} type="text" placeholder="미션명 입력" required />
-  //     <CloseCircleIcon />
-  //   </div>
-  // </section>;
 }
 const descriptionCss = css({
   display: 'flex',
