@@ -5,7 +5,9 @@ import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import useTimer from '@/app/timer/useTimer';
 import useTimerStatus from '@/app/timer/useTimerStatus';
 import Button from '@/components/Button/Button';
+import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
+import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { type ObjectKeys } from '@/utils';
 import { css } from '@styled-system/css';
@@ -15,15 +17,24 @@ export default function TimerPage() {
   const { step, stepLabel, onNextStep } = useTimerStatus();
   const { seconds, minutes, stepper } = useTimer(step);
 
+  const { isOpen, openModal, closeModal } = useModal();
+
   const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
 
   const category = MISSION_CATEGORIES[searchParams ?? 'exercise'].label;
 
-  const onFinish = () => {
+  const onFinishButtonClick = () => {
     onNextStep('stop');
-    if (confirm('정말 끝내시겠습니까?')) {
-      router.push('/complete');
-    }
+    openModal();
+  };
+
+  const onFinish = () => {
+    closeModal();
+  };
+
+  const onCancel = () => {
+    onNextStep('progress');
+    closeModal();
   };
 
   return (
@@ -52,7 +63,7 @@ export default function TimerPage() {
             <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('stop')}>
               일시정지
             </Button>
-            <Button size="medium" variant="primary" type="button" onClick={onFinish}>
+            <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
               끝내기
             </Button>
           </>
@@ -68,7 +79,23 @@ export default function TimerPage() {
           </>
         )}
       </section>
+      <FinalDialog isOpen={isOpen} onCancel={onCancel} onAction={onFinish} />
     </div>
+  );
+}
+
+function FinalDialog(props: { isOpen: boolean; onAction: VoidFunction; onCancel: VoidFunction }) {
+  return (
+    <Dialog
+      variant={'default'}
+      title="미션을 끝내시겠어요?"
+      content="지금까지 집중한 시간들이 기록됩니다."
+      confirmText="끝내기"
+      cancelText="취소"
+      isOpen={props.isOpen}
+      onClose={props.onCancel}
+      onConfirm={props.onAction}
+    />
   );
 }
 
