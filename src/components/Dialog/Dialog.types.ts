@@ -1,7 +1,7 @@
 import { type ModalProps } from '@/components/Modal/Modal';
 
 interface ButtonGroupProps {
-  confirmText?: string;
+  confirmText: string;
   onConfirm?: () => void;
   cancelText?: string;
   onCancel?: () => void;

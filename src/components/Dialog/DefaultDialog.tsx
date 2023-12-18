@@ -49,11 +49,9 @@ function DefaultDialog({
                 {cancelText}
               </Button>
             )}
-            {confirmText && (
-              <Button size={'medium'} variant={'ghost'} onClick={handleConfirm}>
-                {confirmText}
-              </Button>
-            )}
+            <Button size={'medium'} variant={'ghost'} onClick={handleConfirm}>
+              {confirmText}
+            </Button>
           </div>
         </div>
       </div>
