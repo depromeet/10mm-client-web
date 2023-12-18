@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 import { type StepType } from '@/app/timer/useTimerStatus';
 
+const INIT_SECONDS = 0;
+const MAX_SECONDS = 60 * 60; // max 1 hour
+
 // 좀 더 의미론적.... useStopwatch
-export default function useStopwatch(status: StepType, initSeconds = 600) {
-  const [second, setSecond] = useState(initSeconds); // 남은 시간 (단위: 초)
+export default function useStopwatch(status: StepType) {
+  const [second, setSecond] = useState(INIT_SECONDS); // 남은 시간 (단위: 초)
 
   const { minutes, seconds } = getMMSS(second);
 
   useEffect(() => {
-    if (second <= 0) return;
+    if (second > MAX_SECONDS) return;
     if (status === 'ready') return;
 
     let timer: NodeJS.Timeout;
 
     if (status === 'progress') {
       timer = setInterval(() => {
-        setSecond((prev) => prev - 1);
+        setSecond((prev) => prev + 1);
       }, 1000);
     }
 
