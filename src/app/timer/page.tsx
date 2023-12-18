@@ -24,17 +24,16 @@ export default function TimerPage() {
   const category = MISSION_CATEGORIES[searchParams ?? 'exercise'].label;
 
   const onFinishButtonClick = () => {
-    onNextStep('stop');
     openModal();
+    onNextStep('stop');
   };
 
   const onFinish = () => {
-    closeModal();
+    router.push('/complete');
   };
 
   const onCancel = () => {
     onNextStep('progress');
-    closeModal();
   };
 
   return (
@@ -61,7 +60,7 @@ export default function TimerPage() {
         {step === 'progress' && (
           <>
             <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('stop')}>
-              일시정지
+              일시 정지
             </Button>
             <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
               끝내기
@@ -73,18 +72,23 @@ export default function TimerPage() {
             <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('progress')}>
               다시 시작
             </Button>
-            <Button size="medium" variant="primary" type="button" onClick={onFinish}>
+            <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
               끝내기
             </Button>
           </>
         )}
       </section>
-      <FinalDialog isOpen={isOpen} onCancel={onCancel} onAction={onFinish} />
+      <FinalDialog isOpen={isOpen} onClose={closeModal} onCancel={onCancel} onAction={onFinish} />
     </div>
   );
 }
 
-function FinalDialog(props: { isOpen: boolean; onAction: VoidFunction; onCancel: VoidFunction }) {
+function FinalDialog(props: {
+  isOpen: boolean;
+  onClose: VoidFunction;
+  onAction: VoidFunction;
+  onCancel: VoidFunction;
+}) {
   return (
     <Dialog
       variant={'default'}
@@ -93,7 +97,8 @@ function FinalDialog(props: { isOpen: boolean; onAction: VoidFunction; onCancel:
       confirmText="끝내기"
       cancelText="취소"
       isOpen={props.isOpen}
-      onClose={props.onCancel}
+      onClose={props.onClose}
+      onCancel={props.onCancel}
       onConfirm={props.onAction}
     />
   );
