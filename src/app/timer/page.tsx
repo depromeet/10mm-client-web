@@ -27,6 +27,7 @@ export default function TimerPage() {
   };
 
   const onFinish = () => {
+    // TODO: 끝내기 후 로직 추가
     router.push('/complete');
   };
 
