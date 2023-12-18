@@ -14,14 +14,12 @@ import { css } from '@styled-system/css';
 
 export default function TimerPage() {
   const router = useRouter();
+  const category = useGetCategory();
+
   const { step, prevStep, stepLabel, onNextStep } = useTimerStatus();
   const { seconds, minutes, stepper } = useTimer(step);
 
   const { isOpen, openModal, closeModal } = useModal();
-
-  const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
-
-  const category = MISSION_CATEGORIES[searchParams ?? 'exercise'].label;
 
   const onFinishButtonClick = () => {
     openModal();
@@ -103,6 +101,14 @@ function FinalDialog(props: {
     />
   );
 }
+
+const useGetCategory = () => {
+  const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
+
+  const category = MISSION_CATEGORIES[searchParams ?? 'exercise'].label;
+
+  return category;
+};
 
 const containerCss = css({
   padding: '24px 16px',
