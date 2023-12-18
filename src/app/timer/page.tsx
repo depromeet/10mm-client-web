@@ -32,7 +32,14 @@ export default function TimerPage() {
       <p className={descCss}>{stepLabel.desc}</p>
 
       <section className={stopwatchCss}>
-        <Stopwatch minutes={minutes} seconds={seconds} category={category} stack={1} isDisabled={step === 'stop'} />
+        <Stopwatch
+          minutes={minutes}
+          seconds={seconds}
+          category={category}
+          stack={1}
+          isProgress={step === 'progress'}
+          isDisabled={step === 'stop'}
+        />
       </section>
       <section className={buttonContainerCss}>
         {step === 'ready' && (

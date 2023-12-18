@@ -9,14 +9,15 @@ interface Props {
   stack: number;
 
   isDisabled: boolean;
+  isProgress: boolean;
 }
 
-function Stopwatch({ minutes, seconds, category, stack, isDisabled }: Props) {
+function Stopwatch({ minutes, seconds, category, stack, isDisabled, isProgress }: Props) {
   return (
     <div className={containerCss}>
       <div
         className={css(imageWrapperCss, {
-          animationPlayState: isDisabled ? 'paused' : '',
+          animationPlayState: isProgress ? '' : 'paused',
           boxShadow: isDisabled
             ? '0px 4px 40px 4px rgba(60, 58, 75, 0.80) inset, 10px 10px 100px 0px rgba(160, 161, 188, 0.07)'
             : '0px 4px 40px 4px rgba(100, 78, 122, 0.80) inset, 10px 10px 100px 0px rgba(151, 155, 255, 0.07)',

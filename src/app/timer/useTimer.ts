@@ -8,17 +8,17 @@ export default function useStopwatch(status: StepType, initSeconds = 600) {
   const { minutes, seconds } = getMMSS(second);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    if (second <= 0) return;
+    if (status === 'ready') return;
 
-    if (second <= 0) {
-      return;
-    }
+    let timer: NodeJS.Timeout;
 
     if (status === 'progress') {
       timer = setInterval(() => {
         setSecond((prev) => prev - 1);
       }, 1000);
     }
+
     return () => clearInterval(timer);
   }, [second, status]);
 
