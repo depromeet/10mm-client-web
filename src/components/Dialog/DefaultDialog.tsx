@@ -39,38 +39,13 @@ function DefaultDialog({
     <Modal isOpen={isOpen} onClose={onClose} padding={'32px 24px 20px 24px'}>
       <div className={dialogWrapperCss}>
         <div className={textWrapperCss}>
-          {title && (
-            <p
-              className={css({
-                textStyle: 'title3',
-                color: 'text.primary',
-              })}
-            >
-              {title}
-            </p>
-          )}
-          {content && (
-            <p
-              className={css({
-                textStyle: 'body2',
-                color: 'text.secondary',
-              })}
-            >
-              {content}
-            </p>
-          )}
+          {title && <p className={dialogTitleCss}>{title}</p>}
+          {content && <p className={dialogContentCss}>{content}</p>}
         </div>
         <div>
           <div className={buttonWrapperCss}>
             {cancelText && (
-              <Button
-                size={'medium'}
-                variant={'ghost'}
-                onClick={handleCancel}
-                className={css({
-                  color: 'text.tertiary',
-                })}
-              >
+              <Button size={'medium'} variant={'ghost'} onClick={handleCancel} className={dialogButtonTextCss}>
                 {cancelText}
               </Button>
             )}
@@ -87,6 +62,20 @@ function DefaultDialog({
 }
 
 export default DefaultDialog;
+
+const dialogTitleCss = css({
+  textStyle: 'title3',
+  color: 'text.primary',
+});
+
+const dialogContentCss = css({
+  textStyle: 'body2',
+  color: 'text.secondary',
+});
+
+const dialogButtonTextCss = css({
+  color: 'text.tertiary',
+});
 
 const dialogWrapperCss = css({
   display: 'flex',
