@@ -32,4 +32,5 @@ export interface SelectDialogProps extends Omit<ButtonGroupProps, 'onConfirm'>, 
   selects: Value[];
   onConfirm: (value: Value) => void;
 }
+
 export type DialogProps = DefaultDialogProps | ListDialogProps | SelectDialogProps;
