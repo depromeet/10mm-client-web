@@ -17,7 +17,7 @@ const TIMER_STATUS = {
   },
 } as const;
 
-function useTimerStatus() {
+function useStopwatchStatus() {
   const [step, setStep] = useState<StepType>('ready');
   const [prevStep, setPrevStep] = useState<StepType>('ready');
 
@@ -31,4 +31,4 @@ function useTimerStatus() {
   return { step, prevStep, onNextStep, stepLabel };
 }
 
-export default useTimerStatus;
+export default useStopwatchStatus;

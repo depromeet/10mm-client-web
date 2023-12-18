@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
-import useTimer from '@/app/timer/useTimer';
-import useTimerStatus from '@/app/timer/useTimerStatus';
+import useTimer from '@/app/stopwatch/useStopwatch';
+import useTimerStatus from '@/app/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
