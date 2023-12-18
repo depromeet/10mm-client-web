@@ -1,5 +1,6 @@
 'use client';
-import { useRouter } from 'next/router';
+
+import { useRouter } from 'next/navigation';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import useTimer from '@/app/timer/useTimer';
 import useTimerStatus from '@/app/timer/useTimerStatus';
