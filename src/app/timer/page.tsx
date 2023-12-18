@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import useTimer from '@/app/timer/useTimer';
 import useTimerStatus from '@/app/timer/useTimerStatus';
@@ -10,6 +10,7 @@ import { type ObjectKeys } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function TimerPage() {
+  const router = useRouter();
   const { step, stepLabel, onNextStep } = useTimerStatus();
   const { seconds, minutes } = useTimer(step);
 
