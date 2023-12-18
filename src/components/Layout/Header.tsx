@@ -41,7 +41,6 @@ const wrapperCss = flex({
   alignItems: 'center',
   position: 'fixed',
   display: 'flex',
-  alignItems: 'center',
   margin: '0 auto',
   width: '100%',
   zIndex: 100,
