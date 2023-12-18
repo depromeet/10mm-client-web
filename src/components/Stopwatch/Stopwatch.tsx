@@ -3,16 +3,16 @@ import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
 interface Props {
-  minutes: number;
-  seconds: number;
+  minutes: string;
+  seconds: string;
   category: string;
-  stack: number;
+  stepper: number;
 
   isDisabled: boolean;
   isProgress: boolean;
 }
 
-function Stopwatch({ minutes, seconds, category, stack, isDisabled, isProgress }: Props) {
+function Stopwatch({ minutes, seconds, category, stepper, isDisabled, isProgress }: Props) {
   return (
     <div className={containerCss}>
       <div
@@ -54,7 +54,7 @@ function Stopwatch({ minutes, seconds, category, stack, isDisabled, isProgress }
           <span>:</span>
           <span>{seconds}</span>
         </div>
-        <LightningStepper stack={stack} isDisabled={isDisabled} />
+        <LightningStepper stack={stepper} isDisabled={isDisabled} />
       </div>
     </div>
   );

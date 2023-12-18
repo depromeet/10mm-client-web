@@ -13,7 +13,7 @@ import { css } from '@styled-system/css';
 export default function TimerPage() {
   const router = useRouter();
   const { step, stepLabel, onNextStep } = useTimerStatus();
-  const { seconds, minutes } = useTimer(step);
+  const { seconds, minutes, stepper } = useTimer(step);
 
   const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
 
@@ -36,7 +36,7 @@ export default function TimerPage() {
           minutes={minutes}
           seconds={seconds}
           category={category}
-          stack={1}
+          stepper={stepper}
           isProgress={step === 'progress'}
           isDisabled={step === 'stop'}
         />
