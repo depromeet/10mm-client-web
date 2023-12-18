@@ -20,7 +20,7 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
-const IconComponentMap = {
+export const IconComponentMap = {
   'arrow-back': ArrowBackIcon,
   'arrow-down': ArrowDownIcon,
   'arrow-forward': ArrowFoWardIcon,
