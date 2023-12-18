@@ -19,14 +19,16 @@ const TIMER_STATUS = {
 
 function useTimerStatus() {
   const [step, setStep] = useState<StepType>('ready');
+  const [prevStep, setPrevStep] = useState<StepType>('ready');
 
   const stepLabel = TIMER_STATUS[step];
 
   const onNextStep = (nextStep: StepType) => {
+    setPrevStep(step);
     setStep(nextStep);
   };
 
-  return { step, onNextStep, stepLabel };
+  return { step, prevStep, onNextStep, stepLabel };
 }
 
 export default useTimerStatus;

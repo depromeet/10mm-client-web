@@ -14,7 +14,7 @@ import { css } from '@styled-system/css';
 
 export default function TimerPage() {
   const router = useRouter();
-  const { step, stepLabel, onNextStep } = useTimerStatus();
+  const { step, prevStep, stepLabel, onNextStep } = useTimerStatus();
   const { seconds, minutes, stepper } = useTimer(step);
 
   const { isOpen, openModal, closeModal } = useModal();
@@ -33,7 +33,7 @@ export default function TimerPage() {
   };
 
   const onCancel = () => {
-    onNextStep('progress');
+    onNextStep(prevStep);
   };
 
   return (
