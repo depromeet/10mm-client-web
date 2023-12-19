@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
+import EllipseCameraIcon from '@/components/Icon/EllipseCameraIcon';
 import NormalClose from '@/components/Icon/NormalClose';
 import PlusCircle from '@/components/Icon/PlusCircle';
 import useModal from '@/hooks/useModal';
@@ -56,7 +57,7 @@ export default function CertificationPage() {
       </div>
       <div className={containerCss}>
         <div>
-          <div className={pictureUploadWrapperCss}>
+          <div className={imageUploadWrapperCss}>
             <input
               accept="image/x-png,image/jpeg,image/gif"
               onChange={handleUploadChange}
@@ -64,25 +65,28 @@ export default function CertificationPage() {
               ref={imageRef}
               type="file"
             />
-            <div className={pictureUploadTitleWrapperCss}>
-              <p className={pictureUploadTitleCss}>
-                <span className={pictureUploadTitleTextCss}>인증 사진 업로드</span>
-                <span className={pictureUploadTitleTextIconCss}>*</span>
+            <div className={imageUploadTitleWrapperCss}>
+              <p className={imageUploadTitleCss}>
+                <span className={imageUploadTitleTextCss}>인증 사진 업로드</span>
+                <span className={imageUploadTitleTextIconCss}>*</span>
               </p>
             </div>
             {!!imagePreview ? (
-              <Image
-                src={imagePreview}
-                alt="missionRemarkImage"
-                width={100}
-                height={100}
-                className={pictureUploadInputAreaCss}
-                onClick={onImageClick}
-              />
+              <div className={imageWrapperCss}>
+                <Image
+                  src={imagePreview}
+                  alt="missionRemarkImage"
+                  width={100}
+                  height={100}
+                  className={imageUploadInputAreaCss}
+                  onClick={onImageClick}
+                />
+                <EllipseCameraIcon className={imageIconCss} />
+              </div>
             ) : (
-              <div className={pictureUploadInputAreaCss} onClick={onImageClick}>
+              <div className={imageUploadInputAreaCss} onClick={onImageClick}>
                 <PlusCircle />
-                <div className={pictureUploadInputAreaTextCss}>
+                <div className={imageUploadInputAreaTextCss}>
                   인증한 사진이 없네요.
                   <br />
                   한번 올려볼까요?
@@ -167,7 +171,7 @@ const buttonTextCss = css({
   textStyle: 'subtitle4',
 });
 
-const pictureUploadWrapperCss = css({
+const imageUploadWrapperCss = css({
   marginTop: '28px',
   gap: '12px',
   display: 'flex',
@@ -176,27 +180,27 @@ const pictureUploadWrapperCss = css({
   alignItems: 'center',
 });
 
-const pictureUploadTitleWrapperCss = css({
+const imageUploadTitleWrapperCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
 });
 
-const pictureUploadTitleCss = css({
+const imageUploadTitleCss = css({
   display: 'flex',
   gap: '2px',
 });
 
-const pictureUploadTitleTextCss = css({
+const imageUploadTitleTextCss = css({
   color: 'text.primary',
   textStyle: 'body2',
 });
 
-const pictureUploadTitleTextIconCss = css({
+const imageUploadTitleTextIconCss = css({
   color: 'red.500',
 });
 
-const pictureUploadInputAreaCss = css({
+const imageUploadInputAreaCss = css({
   width: 'calc(100vw - 32px)',
   height: 'calc(100vw - 32px)',
   borderRadius: '23.08px',
@@ -210,7 +214,18 @@ const pictureUploadInputAreaCss = css({
   gap: '8px',
 });
 
-const pictureUploadInputAreaTextCss = css({
+const imageWrapperCss = css({
+  position: 'relative',
+});
+
+const imageIconCss = css({
+  position: 'absolute',
+  bottom: '16px',
+  right: '16px',
+  pointerEvents: 'none',
+});
+
+const imageUploadInputAreaTextCss = css({
   textAlign: 'center',
   color: 'text.quaternary',
   textStyle: 'subtitle3',
