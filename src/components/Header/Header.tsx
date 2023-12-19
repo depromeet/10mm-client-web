@@ -9,20 +9,21 @@ import { css } from '@styled-system/css';
 interface Props {
   title?: string;
   rightElement?: ReactNode;
+  onBackAction?: VoidFunction;
 }
 
-function Header({ title, rightElement }: Props) {
+function Header({ title, rightElement, onBackAction }: Props) {
   const router = useRouter();
 
-  const handleButtonClick = () => {
-    router.back();
+  const handleBackIconClick = () => {
+    onBackAction ? onBackAction() : router.back();
   };
 
   return (
     <>
       <header className={wrapperCss}>
         <section className={leftSectionCss}>
-          <button className={backButtonCss} type="button" onClick={handleButtonClick}>
+          <button className={backButtonCss} type="button" onClick={handleBackIconClick}>
             <Icon name={'arrow-back'} color={'icon.secondary'} width={20} height={20} />
           </button>
           <h2 className={headingCss}>{title}</h2>

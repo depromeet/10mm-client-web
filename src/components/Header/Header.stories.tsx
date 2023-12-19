@@ -1,7 +1,6 @@
-import Button from '@/components/Button/Button';
+import IconHeader from '@/components/Header/IconHeader';
 import TextButtonHeader from '@/components/Header/TextButtonHeader';
-import Icon from '@/components/Icon';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import Header from './Header';
 
@@ -29,16 +28,9 @@ export const RightActionNone = {
 };
 
 export const RightActionTextButton = () => {
-  return <TextButtonHeader title="타이틀" rightButtonText={'완료'} />;
+  return <TextButtonHeader title="타이틀" />;
 };
 
-export const RightActionIcon = {
-  args: {
-    title: '타이틀',
-    rightElement: (
-      <div>
-        <Icon name="close" width={20} height={20} />
-      </div>
-    ),
-  },
+export const RightActionIcon = () => {
+  return <IconHeader title="타이틀" />;
 };
