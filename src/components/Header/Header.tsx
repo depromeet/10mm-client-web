@@ -9,7 +9,7 @@ import { css } from '@styled-system/css';
 interface Props {
   title?: string;
   rightElement?: ReactNode;
-  onBackAction?: VoidFunction;
+  onBackAction?: () => void;
 }
 
 function Header({ title, rightElement, onBackAction }: Props) {
