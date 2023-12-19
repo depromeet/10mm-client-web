@@ -9,15 +9,30 @@ import { type IconComponentMap, type IconComponentProps } from '../Icon';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconName?: keyof typeof IconComponentMap; // iconName prop 수정
   iconColor?: IconComponentProps['color']; // 추가: iconColor prop
-  onIconClick: () => void;
+  value?: string;
+  onChange?: (value: string) => void;
+  onIconClick?: () => void;
 }
 
-export default function Input({ iconName, iconColor, onIconClick, ...inputProps }: InputProps) {
-  const { required, name, value, maxLength } = inputProps;
+export default function Input({ iconName, value, onChange, iconColor, onIconClick, ...inputProps }: InputProps) {
+  const { required, name, maxLength } = inputProps;
   const [inputValue, setInputValue] = useState(value ? String(value) : '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
+
+  const handleIconClick = () => {
+    if (onIconClick) {
+      onIconClick();
+    }
+    setInputValue('');
+    if (onChange) {
+      onChange('');
+    }
   };
 
   return (
@@ -29,21 +44,9 @@ export default function Input({ iconName, iconColor, onIconClick, ...inputProps 
       </p>
 
       <div className={inputWrapperCss}>
-        <input
-          className={inputCss}
-          {...inputProps}
-          required
-          autoComplete="off"
-          value={inputValue}
-          onChange={handleChange}
-        />
-
-        {/* input의 value가 1보다 클 때 Icon 렌더링 */}
-        {/* {isInputFocused && iconName && (
-          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClick} />
-        )} */}
+        <input className={inputCss} {...inputProps} required autoComplete="off" value={value} onChange={handleChange} />
         {inputValue.length > 0 && iconName && (
-          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClick} />
+          <Icon name={iconName} color={iconColor} className={iconCss} onClick={handleIconClick} />
         )}
       </div>
 
