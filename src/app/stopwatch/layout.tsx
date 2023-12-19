@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react';
-import Header from '@/components/Layout/Header';
+import Header from '@/components/Header/Header';
 import { css } from '@/styled-system/css';
 
 export default function Layout({ children }: PropsWithChildren) {
