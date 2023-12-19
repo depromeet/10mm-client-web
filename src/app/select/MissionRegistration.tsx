@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
@@ -7,6 +8,33 @@ import Toggle from '@/components/Toggle/Toggle';
 import { css } from '@/styled-system/css';
 
 export default function MissionRegistration() {
+  const [missionTitleInput, setMissionTitleInput] = useState('');
+  const [missionContentInput, setMissionContentInput] = useState('');
+
+  // 미션 명
+  const handleMissionTitleInput = (value: string) => {
+    setMissionTitleInput(value);
+  };
+  const onTitleCloseIconClick = () => {
+    setMissionTitleInput('');
+  };
+
+  // 미션 내용
+  const handleMissionContentInput = (value: string) => {
+    setMissionContentInput(value);
+  };
+  const onContentCloseIconClick = () => {
+    setMissionContentInput('');
+  };
+
+  //바텀시트 보여주기
+  const onArrowDownClick = () => {
+    alert('test');
+  };
+  const handleBottomSheet = () => {
+    alert('test');
+  };
+
   return (
     <section>
       <div>
@@ -18,6 +46,9 @@ export default function MissionRegistration() {
           iconName="close-circle"
           iconColor="icon.secondary"
           maxLength={20}
+          value={missionTitleInput}
+          onIconClick={onTitleCloseIconClick}
+          onChange={handleMissionTitleInput}
         />
         <Input
           type="text"
@@ -26,10 +57,13 @@ export default function MissionRegistration() {
           iconName="close-circle"
           iconColor="icon.secondary"
           maxLength={30}
+          value={missionContentInput}
+          onIconClick={onContentCloseIconClick}
+          onChange={handleMissionContentInput}
         />
         <Input
           type=""
-          placeholder="카테고리"
+          placeholder="카테고리 선택"
           name="카테고리 선택"
           required
           iconName="arrow-down"
@@ -45,6 +79,7 @@ export default function MissionRegistration() {
 
         <div className={buttonContainerCss}>
           <Link href={'/stopwatch'}>
+            {/* 버튼 사이즈 small로 수정 예정 */}
             <Button variant={'cta'} size={'medium'}>
               등록
             </Button>
