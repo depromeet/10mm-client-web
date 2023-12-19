@@ -33,7 +33,7 @@ function Modal({ isOpen, children, onClose, padding = '20px 24px' }: PropsWithCh
 
   return (
     <AnimatePortal isShowing={isOpen} mode={'popLayout'}>
-      <div className={css(modalOverlayCss, { zIndex: 9999 })}>
+      <div className={css(modalOverlayCss)}>
         <motion.div
           key="modal"
           className={css(modalContentCss, {
@@ -63,6 +63,7 @@ const modalOverlayCss = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  zIndex: 'modalOverlay',
 };
 
 const modalContentCss = {
