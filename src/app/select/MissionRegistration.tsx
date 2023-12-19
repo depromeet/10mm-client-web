@@ -44,7 +44,7 @@ export default function MissionRegistration() {
         </div>
 
         <div className={buttonContainerCss}>
-          <Link href={'/timer'}>
+          <Link href={'/stopwatch'}>
             <Button variant={'cta'} size={'medium'}>
               등록
             </Button>
