@@ -216,6 +216,17 @@ const imageUploadInputAreaCss = css({
 
 const imageWrapperCss = css({
   position: 'relative',
+
+  _before: {
+    position: 'absolute',
+    top: '0px',
+    right: '0px',
+    bottom: '0px',
+    left: '0px',
+    content: "''",
+    borderRadius: '23.08px',
+    background: 'rgba(0, 0, 0, 0.1)',
+  },
 });
 
 const imageIconCss = css({
