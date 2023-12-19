@@ -66,7 +66,7 @@ const modalOverlayCss = css({
 const modalContentCss = css({
   background: 'bg.surface4',
   borderRadius: '30px',
-  maxWidth: '400px',
+  maxWidth: '300px',
   width: '100%',
   zIndex: `${modalConstant}`,
 });
