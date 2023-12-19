@@ -25,16 +25,6 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
     }
   };
 
-  const handleIconClick = () => {
-    if (onIconClick) {
-      onIconClick();
-    }
-    setInputValue('');
-    if (onChange) {
-      onChange('');
-    }
-  };
-
   return (
     <section>
       <p className={subTitleCss}>
@@ -46,7 +36,7 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
       <div className={inputWrapperCss}>
         <input className={inputCss} {...inputProps} required autoComplete="off" value={value} onChange={handleChange} />
         {inputValue.length > 0 && iconName && (
-          <Icon name={iconName} color={iconColor} className={iconCss} onClick={handleIconClick} />
+          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClick} />
         )}
       </div>
 

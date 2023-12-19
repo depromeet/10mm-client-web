@@ -10,6 +10,7 @@ import { css } from '@/styled-system/css';
 export default function MissionRegistration() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
+  // const [categoryInput, setCategoryInput] = useState('');
 
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
@@ -29,9 +30,6 @@ export default function MissionRegistration() {
 
   //바텀시트 보여주기
   const onArrowDownClick = () => {
-    alert('test');
-  };
-  const handleBottomSheet = () => {
     alert('test');
   };
 
@@ -66,8 +64,9 @@ export default function MissionRegistration() {
           placeholder="카테고리 선택"
           name="카테고리 선택"
           required
-          iconName="arrow-down"
+          iconName={'arrow-down'}
           iconColor="icon.secondary"
+          onIconClick={onArrowDownClick}
         />
         <p className={publicSettingTitleCss}>공개 설정</p>
         <p className={publicSettingTextCss}>내 미션 현황과 인증 사진을 공유해 보세요.</p>
@@ -79,7 +78,7 @@ export default function MissionRegistration() {
 
         <div className={buttonContainerCss}>
           <Link href={'/stopwatch'}>
-            {/* 버튼 사이즈 small로 수정 예정 */}
+            {/* 추후 버튼 사이즈 small로 수정 예정 */}
             <Button variant={'cta'} size={'medium'}>
               등록
             </Button>
