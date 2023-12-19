@@ -3,20 +3,21 @@ import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
 interface Props {
-  minutes: number;
-  seconds: number;
+  minutes: string;
+  seconds: string;
   category: string;
-  stack: number;
+  stepper: number;
 
   isDisabled: boolean;
+  isProgress: boolean;
 }
 
-function Stopwatch({ minutes, seconds, category, stack, isDisabled }: Props) {
+function Stopwatch({ minutes, seconds, category, stepper, isDisabled, isProgress }: Props) {
   return (
     <div className={containerCss}>
       <div
         className={css(imageWrapperCss, {
-          animationPlayState: isDisabled ? 'paused' : '',
+          animationPlayState: isProgress ? '' : 'paused',
           boxShadow: isDisabled
             ? '0px 4px 40px 4px rgba(60, 58, 75, 0.80) inset, 10px 10px 100px 0px rgba(160, 161, 188, 0.07)'
             : '0px 4px 40px 4px rgba(100, 78, 122, 0.80) inset, 10px 10px 100px 0px rgba(151, 155, 255, 0.07)',
@@ -38,14 +39,14 @@ function Stopwatch({ minutes, seconds, category, stack, isDisabled }: Props) {
       </div>
       <div className={innerContainerCss}>
         <p
-          className={css(categoryCss, {
+          className={css(categoryCss, ellipsis, {
             color: isDisabled ? 'text.tertiary' : 'purple.purple800',
           })}
         >
           {category}
         </p>
         <div
-          className={css(timerTextCss, {
+          className={css(timeTextCss, {
             color: isDisabled ? 'text.tertiary' : 'transparent',
           })}
         >
@@ -53,7 +54,7 @@ function Stopwatch({ minutes, seconds, category, stack, isDisabled }: Props) {
           <span>:</span>
           <span>{seconds}</span>
         </div>
-        <LightningStepper stack={stack} isDisabled={isDisabled} />
+        <LightningStepper stack={stepper} isDisabled={isDisabled} />
       </div>
     </div>
   );
@@ -103,9 +104,22 @@ const innerContainerCss = css({
   zIndex: 1,
 });
 
-const categoryCss = { textStyle: 'body2', marginBottom: '4px' };
+const categoryCss = {
+  textAlign: 'center',
+  textStyle: 'body2',
+  marginBottom: '4px',
+  maxWidth: '160px',
+};
 
-const timerTextCss = {
+const ellipsis = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  '-webkit-line-clamp': 2,
+  '-webkit-box-orient': 'vertical',
+};
+
+const timeTextCss = {
   fontSize: '70px',
   fontWeight: '100',
   animation: 'gradient 3s ease-in-out infinite',

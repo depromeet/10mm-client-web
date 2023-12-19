@@ -3,7 +3,6 @@
 import React, { type PropsWithChildren, useRef } from 'react';
 import AnimatePortal from '@/components/portal/AnimationPortal';
 import useOutsideClick from '@/hooks/lifeCycle/useOutsideClick';
-import { modalConstant } from '@/styles/constant';
 import { css } from '@styled-system/css';
 import { type Property } from '@styled-system/types/csstype';
 import { motion } from 'framer-motion';
@@ -34,10 +33,12 @@ function Modal({ isOpen, children, onClose, padding = '20px 24px' }: PropsWithCh
 
   return (
     <AnimatePortal isShowing={isOpen} mode={'popLayout'}>
-      <div className={modalOverlayCss}>
+      <div className={css(modalOverlayCss, { zIndex: 9999 })}>
         <motion.div
           key="modal"
-          className={modalContentCss + ' ' + css({ padding })}
+          className={css(modalContentCss, {
+            padding,
+          })}
           ref={modalRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -51,7 +52,7 @@ function Modal({ isOpen, children, onClose, padding = '20px 24px' }: PropsWithCh
   );
 }
 
-const modalOverlayCss = css({
+const modalOverlayCss = {
   position: 'absolute',
   top: '0',
   left: '0',
@@ -62,13 +63,13 @@ const modalOverlayCss = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-});
-const modalContentCss = css({
+};
+
+const modalContentCss = {
   background: 'bg.surface4',
   borderRadius: '30px',
   maxWidth: '300px',
   width: '100%',
-  zIndex: `${modalConstant}`,
-});
+};
 
 export default Modal;
