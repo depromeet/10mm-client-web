@@ -12,6 +12,13 @@ interface Props {
   onBackAction?: () => void;
 }
 
+/**
+ * @description Header 컴포넌트
+ * @param title header title text
+ * @param rightElement header 오른쪽에 들어가는 element
+ * @param onBackAction back icon click action
+ *
+ */
 function Header({ title, rightElement, onBackAction }: Props) {
   const router = useRouter();
 
