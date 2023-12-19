@@ -46,7 +46,7 @@ function Stopwatch({ minutes, seconds, category, stepper, isDisabled, isProgress
           {category}
         </p>
         <div
-          className={css(timerTextCss, {
+          className={css(timeTextCss, {
             color: isDisabled ? 'text.tertiary' : 'transparent',
           })}
         >
@@ -119,7 +119,7 @@ const ellipsis = {
   '-webkit-box-orient': 'vertical',
 };
 
-const timerTextCss = {
+const timeTextCss = {
   fontSize: '70px',
   fontWeight: '100',
   animation: 'gradient 3s ease-in-out infinite',

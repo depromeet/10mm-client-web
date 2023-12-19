@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { MISSION_CATEGORIES } from '@/app/select/select.constants';
-import useTimer from '@/app/stopwatch/useStopwatch';
-import useTimerStatus from '@/app/stopwatch/useStopwatchStatus';
+import useStopwatch from '@/app/stopwatch/useStopwatch';
+import useStopwatchStatus from '@/app/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
@@ -12,12 +12,12 @@ import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { type ObjectKeys } from '@/utils';
 import { css } from '@styled-system/css';
 
-export default function TimerPage() {
+export default function StopwatchPage() {
   const router = useRouter();
   const category = useGetCategory();
 
-  const { step, prevStep, stepLabel, onNextStep } = useTimerStatus();
-  const { seconds, minutes, stepper } = useTimer(step);
+  const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
+  const { seconds, minutes, stepper } = useStopwatch(step);
 
   const { isOpen, openModal, closeModal } = useModal();
 
