@@ -7,17 +7,24 @@ const buttonStyle = cva({
   },
   variants: {
     size: {
+      small: {
+        width: 'fit-content',
+        height: '34px',
+        textStyle: 'subtitle5',
+        padding: '8px 12px',
+        borderRadius: '12px',
+      },
       medium: {
-        borderRadius: '16px',
+        width: 'fit-content',
         height: '44px',
         padding: '0 20px',
-        width: 'fit-content',
+        borderRadius: '16px',
       },
       large: {
+        width: '100%',
+        height: '44px',
         padding: '0 24px',
         borderRadius: '16px',
-        height: '44px',
-        width: '100%',
       },
     },
     variant: {
@@ -28,12 +35,7 @@ const buttonStyle = cva({
         left: '24px',
         right: '24px',
         bottom: '16px',
-        width: '100%',
-        maxWidth: 'calc(475px  - 48px)',
-        margin: '0 auto',
-        '@media (max-width: 475px)': {
-          maxWidth: 'calc(100vw  - 48px)',
-        },
+
         '&:hover': {
           // background: 'gradients.button2',
         },
@@ -99,6 +101,20 @@ const buttonStyle = cva({
       },
     },
   },
+  compoundVariants: [
+    {
+      size: 'large',
+      variant: 'cta',
+      css: {
+        width: '100%',
+        maxWidth: 'calc(475px  - 48px)',
+        margin: '0 auto',
+        '@media (max-width: 475px)': {
+          maxWidth: 'calc(100vw  - 48px)',
+        },
+      },
+    },
+  ],
 });
 
 const Button = styled('button', buttonStyle);
