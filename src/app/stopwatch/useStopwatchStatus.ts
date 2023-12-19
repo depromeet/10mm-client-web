@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export type StepType = 'ready' | 'progress' | 'stop';
 
-const TIMER_STATUS = {
+const STOPWATCH_STATUS = {
   ready: {
     title: '준비 되셨나요?',
     desc: '타이머를 눌러서 10분의 미션을 완성해 주세요!',
@@ -17,16 +17,18 @@ const TIMER_STATUS = {
   },
 } as const;
 
-function useTimerStatus() {
+function useStopwatchStatus() {
   const [step, setStep] = useState<StepType>('ready');
+  const [prevStep, setPrevStep] = useState<StepType>('ready');
 
-  const stepLabel = TIMER_STATUS[step];
+  const stepLabel = STOPWATCH_STATUS[step];
 
   const onNextStep = (nextStep: StepType) => {
+    setPrevStep(step);
     setStep(nextStep);
   };
 
-  return { step, onNextStep, stepLabel };
+  return { step, prevStep, onNextStep, stepLabel };
 }
 
-export default useTimerStatus;
+export default useStopwatchStatus;

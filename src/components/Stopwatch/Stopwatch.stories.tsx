@@ -20,10 +20,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    minutes: 10,
-    seconds: 10,
+    minutes: '10',
+    seconds: '10',
     category: '잠들기 전 오늘 하루 감사일기 쓰기',
-    stack: 1,
+    stepper: 1,
     isDisabled: false,
+    isProgress: true,
   },
 };
