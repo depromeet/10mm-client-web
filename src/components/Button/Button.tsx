@@ -7,17 +7,24 @@ const buttonStyle = cva({
   },
   variants: {
     size: {
+      small: {
+        width: 'fit-content',
+        height: '34px',
+        textStyle: 'subtitle5',
+        padding: '8px 12px',
+        borderRadius: '12px',
+      },
       medium: {
-        borderRadius: '16px',
+        width: 'fit-content',
         height: '44px',
         padding: '0 20px',
-        width: 'fit-content',
+        borderRadius: '16px',
       },
       large: {
+        width: '100%',
+        height: '44px',
         padding: '0 24px',
         borderRadius: '16px',
-        height: '44px',
-        width: '100%',
       },
     },
     variant: {
