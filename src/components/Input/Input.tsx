@@ -9,20 +9,12 @@ import { type IconComponentMap, type IconComponentProps } from '../Icon';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconName?: keyof typeof IconComponentMap; // iconName prop 수정
   iconColor?: IconComponentProps['color']; // 추가: iconColor prop
+  onIconClick: () => void;
 }
 
-export default function Input({ iconName, iconColor, ...inputProps }: InputProps) {
+export default function Input({ iconName, iconColor, onIconClick, ...inputProps }: InputProps) {
   const { required, name, value, maxLength } = inputProps;
   const [inputValue, setInputValue] = useState(value ? String(value) : '');
-  const [isInputFocused, setIsInputFocused] = useState(false);
-
-  const handleFocus = () => {
-    setIsInputFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsInputFocused(false);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -44,12 +36,15 @@ export default function Input({ iconName, iconColor, ...inputProps }: InputProps
           autoComplete="off"
           value={inputValue}
           onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
         />
 
-        {/* input이 포커스 돼었을때만 icon 렌더링 */}
-        {isInputFocused && iconName && <Icon name={iconName} color={iconColor} className={iconCss} />}
+        {/* input의 value가 1보다 클 때 Icon 렌더링 */}
+        {/* {isInputFocused && iconName && (
+          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClick} />
+        )} */}
+        {inputValue.length > 0 && iconName && (
+          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClick} />
+        )}
       </div>
 
       <div className={descriptionCss}>
