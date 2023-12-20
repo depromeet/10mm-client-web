@@ -52,16 +52,10 @@ export interface IconComponentProps extends SVGProps<SVGSVGElement> {
   onClick?: () => void;
 }
 
-export default function Icon({ name, onClick, ...props }: Props) {
+export default function Icon({ name, ...props }: Props) {
   const IconComponent = IconComponentMap[name];
-  const handleClick = () => {
-    if (onClick) {
-      //onClick 이 존재하면
-      onClick();
-    }
-  };
 
-  return <IconComponent {...props} onClick={handleClick} />;
+  return <IconComponent {...props} />;
 }
 
 export const DEFAULT_ICON_COLOR = '#D8D8DD';
