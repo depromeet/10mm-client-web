@@ -10,7 +10,6 @@ import { css } from '@/styled-system/css';
 export default function MissionRegistration() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
-  // const [categoryInput, setCategoryInput] = useState('');
 
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
@@ -28,62 +27,46 @@ export default function MissionRegistration() {
     setMissionContentInput('');
   };
 
-  //바텀시트 보여주기
-  const onArrowDownClick = () => {
-    alert('test');
-  };
-
   return (
     <section>
-      <div>
-        <Input
-          type="text"
-          placeholder="미션명을 입력하세요"
-          name="미션명"
-          required
-          iconName="close-circle"
-          iconColor="icon.secondary"
-          maxLength={20}
-          value={missionTitleInput}
-          onIconClick={onTitleCloseIconClick}
-          onChange={handleMissionTitleInput}
-        />
-        <Input
-          type="text"
-          placeholder="미션 내용을 입력"
-          name="미션내용"
-          iconName="close-circle"
-          iconColor="icon.secondary"
-          maxLength={30}
-          value={missionContentInput}
-          onIconClick={onContentCloseIconClick}
-          onChange={handleMissionContentInput}
-        />
-        <Input
-          type=""
-          placeholder="카테고리 선택"
-          name="카테고리 선택"
-          required
-          iconName={'arrow-down'}
-          iconColor="icon.secondary"
-          onIconClick={onArrowDownClick}
-        />
-        <p className={publicSettingTitleCss}>공개 설정</p>
-        <p className={publicSettingTextCss}>내 미션 현황과 인증 사진을 공유해 보세요.</p>
+      <Input
+        type="text"
+        placeholder="미션명을 입력하세요"
+        name="미션명"
+        required
+        iconName="close-circle"
+        iconColor="icon.secondary"
+        maxLength={20}
+        value={missionTitleInput}
+        onIconClick={onTitleCloseIconClick}
+        onChange={handleMissionTitleInput}
+      />
+      <Input
+        type="text"
+        placeholder="미션 내용을 입력"
+        name="미션내용"
+        iconName="close-circle"
+        iconColor="icon.secondary"
+        maxLength={30}
+        value={missionContentInput}
+        onIconClick={onContentCloseIconClick}
+        onChange={handleMissionContentInput}
+      />
 
-        <div className={publicSettingCss}>
-          <span className={subTitlCss}>친구에게 미션 공개하기</span>
-          <Toggle initialValue={true} />
-        </div>
+      <p className={publicSettingTitleCss}>공개 설정</p>
+      <p className={publicSettingTextCss}>내 미션 현황과 인증 사진을 공유해 보세요.</p>
 
-        <div className={buttonContainerCss}>
-          <Link href={'/stopwatch'}>
-            {/* 추후 버튼 사이즈 small로 수정 예정 */}
-            <Button variant={'cta'} size={'medium'}>
-              등록
-            </Button>
-          </Link>
-        </div>
+      <div className={publicSettingCss}>
+        <span className={subTitlCss}>친구에게 미션 공개하기</span>
+        <Toggle initialValue={true} />
+      </div>
+
+      <div className={buttonContainerCss}>
+        <Link href={'/stopwatch'}>
+          <Button variant={'cta'} size={'medium'}>
+            등록
+          </Button>
+        </Link>
       </div>
     </section>
   );
