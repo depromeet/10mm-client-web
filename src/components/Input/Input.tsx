@@ -24,6 +24,13 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
       onChange(e.target.value);
     }
   };
+  //Icon이 클릭되면 onIconClick props로 넘겨받은 함수 호출
+  const onIconClickHandler = () => {
+    setInputValue(''); // 클릭되면 input value를 빈 문자열로 초기화
+    if (onIconClick) {
+      onIconClick();
+    }
+  };
 
   return (
     <section>
@@ -34,9 +41,16 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
       </p>
 
       <div className={inputWrapperCss}>
-        <input className={inputCss} {...inputProps} required autoComplete="off" value={value} onChange={handleChange} />
+        <input
+          className={inputCss}
+          required
+          autoComplete="off"
+          value={inputValue}
+          onChange={handleChange}
+          {...inputProps}
+        />
         {inputValue.length > 0 && iconName && (
-          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClick} />
+          <Icon name={iconName} color={iconColor} className={iconCss} onClick={onIconClickHandler} />
         )}
       </div>
 
@@ -66,7 +80,7 @@ const inputWrapperCss = css({
   width: '100%',
   borderBottomWidth: '1px',
   paddingBottom: '10px',
-  backgroundColor: 'bg.surface2',
+  backgroundColor: 'bg.surface1',
   borderColor: 'border.default',
   _focusWithin: { outline: 'none', borderColor: 'purple.purple500' },
   boxSizing: 'border-box',
@@ -85,7 +99,7 @@ const inputCss = css({
   width: '375px',
   textStyle: 'body2',
   color: 'text.secondary',
-  backgroundColor: 'bg.surface2',
+  backgroundColor: 'bg.surface1',
   _focus: { outline: 'none', borderColor: 'purple.purple500' },
 });
 
@@ -94,7 +108,7 @@ const inputLengthCss = css({
   color: 'text.secondary',
 });
 const descriptionTextCss = css({
-  color: 'bg.surface2',
+  color: 'bg.surface1',
 });
 
 const iconCss = css({
