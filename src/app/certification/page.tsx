@@ -5,9 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
-import EllipseCameraIcon from '@/components/Icon/EllipseCameraIcon';
-import NormalClose from '@/components/Icon/NormalClose';
-import PlusCircle from '@/components/Icon/PlusCircle';
+import Icon from '@/components/Icon';
 import useModal from '@/hooks/useModal';
 import { css } from '@styled-system/css';
 
@@ -52,7 +50,7 @@ export default function CertificationPage() {
       <div className={headerWrapperCss}>
         <div className={headerTitleCss}>미션 인증</div>
         <div className={headerRightCss} onClick={openModal}>
-          <NormalClose />
+          <Icon name="normal-close" />
         </div>
       </div>
       <div className={containerCss}>
@@ -81,11 +79,11 @@ export default function CertificationPage() {
                   className={imageUploadInputAreaCss}
                   onClick={onImageClick}
                 />
-                <EllipseCameraIcon className={imageIconCss} />
+                <Icon name="ellipse-camera-icon" className={imageIconCss} />
               </div>
             ) : (
               <div className={imageUploadInputAreaCss} onClick={onImageClick}>
-                <PlusCircle />
+                <Icon name="plus-circle-large" />
                 <div className={imageUploadInputAreaTextCss}>
                   인증한 사진이 없네요.
                   <br />
@@ -227,6 +225,7 @@ const imageWrapperCss = css({
     content: "''",
     borderRadius: '23.08px',
     background: 'rgba(0, 0, 0, 0.1)',
+    pointerEvents: 'none',
   },
 });
 

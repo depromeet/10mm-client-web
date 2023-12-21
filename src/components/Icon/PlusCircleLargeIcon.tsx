@@ -1,6 +1,6 @@
-import { DEFAULT_ICON_COLOR, type IconComponentProps } from '@/components/Icon/index';
+import { type IconComponentProps } from '@/components/Icon/index';
 
-function PlusCircle(props: IconComponentProps) {
+function PlusCircleLarge(props: IconComponentProps) {
   const { color, ...restProps } = props;
 
   return (
@@ -15,4 +15,4 @@ function PlusCircle(props: IconComponentProps) {
   );
 }
 
-export default PlusCircle;
+export default PlusCircleLarge;

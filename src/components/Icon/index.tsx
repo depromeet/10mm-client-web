@@ -20,6 +20,10 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
+import EllipseCameraIcon from './EllipseCameraIcon';
+import NormalClose from './NormalClose';
+import PlusCircleLarge from './PlusCircleLargeIcon';
+
 export const IconComponentMap = {
   'arrow-back': ArrowBackIcon,
   'arrow-down': ArrowDownIcon,
@@ -40,6 +44,9 @@ export const IconComponentMap = {
   lightning: LightningIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
+  'plus-circle-large': PlusCircleLarge,
+  'ellipse-camera-icon': EllipseCameraIcon,
+  'normal-close': NormalClose,
 } as const;
 
 interface Props extends IconComponentProps {
