@@ -69,7 +69,7 @@ const modalOverlayCss = {
 const modalContentCss = {
   background: 'bg.surface4',
   borderRadius: '30px',
-  maxWidth: '400px',
+  maxWidth: '300px',
   width: '100%',
 };
 
