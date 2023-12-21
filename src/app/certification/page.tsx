@@ -201,6 +201,7 @@ const imageUploadTitleTextIconCss = css({
 });
 
 const imageUploadInputAreaCss = css({
+  maxWidth: '100%',
   width: 'calc(100vw - 32px)',
   height: 'calc(100vw - 32px)',
   borderRadius: '23.08px',
