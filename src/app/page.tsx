@@ -46,7 +46,7 @@ const MainTitleCss = css({
   color: '#fff',
   textShadow: '0px 0px 5px rgba(0, 0, 0, 0.08)',
   marginTop: '8px',
-  textStyle: 'title1', // pretendard 사용예시로 일단 임시 주석입니당
+  textStyle: 'subtitle1',
 });
 
 const LoginButtonCss = css({
@@ -54,10 +54,10 @@ const LoginButtonCss = css({
   padding: '16px 0px',
   cursor: 'pointer',
 
-  borderRadius: '30px',
+  borderRadius: '16px',
   boxShadow: '0px 4px 30px 5px rgba(18, 23, 41, 0.15)',
-  background: 'basicColor.white', // token 적용
-  textStyle: 'title3', // pretendard 사용예시로 일단 임시 주석입니당
+  background: 'basicColor.white',
+  textStyle: 'subtitle2',
 });
 
 const LinkCss = css({
