@@ -23,6 +23,11 @@ export default defineConfig({
         fonts: {
           pretendard: { value: 'var(--pretendard)' },
         },
+        zIndex: {
+          modalOverlay: {
+            value: 9999,
+          },
+        },
         ...colorList,
       },
     },

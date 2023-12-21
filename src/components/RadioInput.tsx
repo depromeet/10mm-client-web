@@ -40,13 +40,12 @@ const RadioInputWrapperCss = flex({
   textStyle: 'subtitle3',
   padding: '10px 16px',
 
+  border: '1px solid transparent',
   borderRadius: '36px',
   background: 'bg.surface3',
-
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  transition: '0.3s ease',
   color: 'text.secondary',
   '& svg': {
     display: 'none',

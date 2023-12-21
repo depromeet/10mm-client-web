@@ -20,7 +20,7 @@ export default function SelectMissionForm() {
       return;
     }
 
-    push(withQueryString(ROUTER.TIMER, { category: selectedCategory }));
+    push(withQueryString(ROUTER.STOPWATCH, { category: selectedCategory }));
   };
 
   const handleRadioChange = (value: string) => {

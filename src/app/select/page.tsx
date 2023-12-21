@@ -1,5 +1,5 @@
 import SelectMissionForm from '@/app/select/SelectMissionForm';
-import Header from '@/components/Layout/Header';
+import Header from '@/components/Header/Header';
 import { css } from '@styled-system/css';
 
 export default function SelectPage() {

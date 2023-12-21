@@ -18,7 +18,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div style={{ minWidth: '327px' }}>
+      <div style={{ minWidth: '327px', minHeight: '52px' }}>
         <Story />
       </div>
     ),
@@ -29,19 +29,19 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const CTA: Story = {
-  args: {
-    size: 'large',
-    children: 'CTA Button',
-    variant: 'cta',
-  },
-};
-
 export const Primary: Story = {
   args: {
     size: 'large',
     variant: 'primary',
     children: 'Primary Button',
+  },
+};
+
+export const CTA: Story = {
+  args: {
+    size: 'large',
+    children: 'CTA Button',
+    variant: 'cta',
   },
 };
 
@@ -67,5 +67,21 @@ export const DisabledButton: Story = {
     size: 'large',
     variant: 'cta',
     children: 'Disabled Button',
+  },
+};
+
+export const MediumButton: Story = {
+  args: {
+    size: 'medium',
+    variant: 'primary',
+    children: 'Medium Button',
+  },
+};
+
+export const SmallButton: Story = {
+  args: {
+    size: 'small',
+    variant: 'primary',
+    children: 'Small Button',
   },
 };
