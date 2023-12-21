@@ -671,6 +671,10 @@ const tokens = {
     "value": "var(--pretendard)",
     "variable": "var(--fonts-pretendard)"
   },
+  "zIndex.modalOverlay": {
+    "value": 9999,
+    "variable": "var(--z-index-modal-overlay)"
+  },
   "colors.current": {
     "value": "currentColor",
     "variable": "var(--colors-current)"
