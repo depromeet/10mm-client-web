@@ -202,7 +202,9 @@ const imageUploadTitleTextIconCss = css({
 });
 
 const imageUploadInputAreaCss = css({
-  maxWidth: '100%',
+  // 임시 방편용
+  maxWidth: 'calc(475px - 32px)',
+  maxHeight: 'calc(475px - 32px)',
   width: 'calc(100vw - 32px)',
   height: 'calc(100vw - 32px)',
   borderRadius: '23.08px',
@@ -217,6 +219,9 @@ const imageUploadInputAreaCss = css({
 });
 
 const imageWrapperCss = css({
+  // 임시 방편용
+  maxWidth: 'calc(475px - 32px)',
+  maxHeight: 'calc(475px - 32px)',
   position: 'relative',
 
   _before: {
