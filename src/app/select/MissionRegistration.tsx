@@ -22,6 +22,8 @@ export default function MissionRegistration() {
   const [isPublicShowing, togglePublicShowing] = useToggle();
   const [missionPublicSetting, setMissionPublicSetting] = useState<string>('팔로워에게 공개');
 
+  const isSubmitButtonDisabled = !missionTitleInput || !missionCategory;
+
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
@@ -103,7 +105,7 @@ export default function MissionRegistration() {
       </div>
 
       <div className={buttonContainerCss}>
-        <Button variant={'cta'} size={'medium'} onClick={handleSubmit}>
+        <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
           등록
         </Button>
       </div>
