@@ -52,7 +52,7 @@ export default function MissionRegistration() {
         placeholder="미션명을 입력하세요"
         name="미션명"
         required
-        iconName="close-circle"
+        iconName="input-close-circle"
         iconColor="icon.secondary"
         maxLength={20}
         value={missionTitleInput}
