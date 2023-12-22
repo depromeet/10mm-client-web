@@ -7,6 +7,7 @@ import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
 import useModal from '@/hooks/useModal';
+import { logEvent } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function CertificationPage() {
@@ -17,6 +18,7 @@ export default function CertificationPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const handleUploadChange = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
+    logEvent('click/imagePreview', 'certification');
     const file = files?.[0];
     if (!file) {
       return;
@@ -38,6 +40,7 @@ export default function CertificationPage() {
     router.replace('/complete');
   };
   const onClickModalConfirm = () => {
+    logEvent('click/confrim', 'certification', { remark });
     router.push('/');
   };
 
@@ -199,7 +202,9 @@ const imageUploadTitleTextIconCss = css({
 });
 
 const imageUploadInputAreaCss = css({
-  maxWidth: '100%',
+  // 임시 방편용
+  maxWidth: 'calc(475px - 32px)',
+  maxHeight: 'calc(475px - 32px)',
   width: 'calc(100vw - 32px)',
   height: 'calc(100vw - 32px)',
   borderRadius: '23.08px',
@@ -214,6 +219,9 @@ const imageUploadInputAreaCss = css({
 });
 
 const imageWrapperCss = css({
+  // 임시 방편용
+  maxWidth: 'calc(475px - 32px)',
+  maxHeight: 'calc(475px - 32px)',
   position: 'relative',
 
   _before: {

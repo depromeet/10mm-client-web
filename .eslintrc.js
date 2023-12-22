@@ -86,6 +86,7 @@ module.exports = {
         labelComponents: ['label'],
         labelAttributes: ['label'],
         controlComponents: ['StyledHiddenInput'],
+        labelAttributes: ['htmlFor'],
         depth: 1,
       },
     ],
