@@ -5,7 +5,7 @@ interface GTagEvent {
   category?: string;
   label?: string;
   value?: string;
-  params?: Record<string, string>;
+  params?: Record<string, string | number>;
 }
 
 export const pageView = (url: URL) => {
