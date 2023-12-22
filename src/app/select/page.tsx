@@ -37,6 +37,7 @@ const containerCss = css({
 
 const mainTitleCss = css({
   marginTop: '2px',
+  marginBottom: '36px',
 
   textStyle: 'title2',
 
