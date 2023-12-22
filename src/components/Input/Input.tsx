@@ -86,10 +86,9 @@ const descriptionCss = css({
 const inputWrapperCss = css({
   display: 'flex',
   justifyContent: 'space-between',
-  marginTop: '20px',
   width: '100%',
   borderBottomWidth: '1px',
-  paddingBottom: '10px',
+  padding: '14px 4px',
   backgroundColor: 'bg.surface1',
   borderColor: 'border.default',
   _focusWithin: { outline: 'none', borderColor: 'purple.purple500' },
@@ -97,7 +96,7 @@ const inputWrapperCss = css({
 });
 
 const subTitleCss = css({
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.primary',
 });
 const asterisk = css({
@@ -106,7 +105,8 @@ const asterisk = css({
 });
 const inputCss = css({
   width: '375px',
-  textStyle: 'body2',
+  height: '22px',
+  textStyle: 'subtitle3',
   color: 'text.secondary',
   backgroundColor: 'bg.surface1',
   _focus: { outline: 'none', borderColor: 'purple.purple500' },

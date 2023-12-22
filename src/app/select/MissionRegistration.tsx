@@ -53,7 +53,7 @@ export default function MissionRegistration() {
         placeholder="미션명을 입력하세요"
         name="미션명"
         required
-        iconName="close-circle"
+        iconName="input-close-circle"
         iconColor="icon.secondary"
         maxLength={20}
         value={missionTitleInput}
@@ -64,7 +64,7 @@ export default function MissionRegistration() {
         type="text"
         placeholder="미션 내용을 입력"
         name="미션내용"
-        iconName="close-circle"
+        iconName="input-close-circle"
         iconColor="icon.secondary"
         maxLength={30}
         value={missionContentInput}
@@ -84,8 +84,7 @@ export default function MissionRegistration() {
         >
           {missionCategory ?? '카테고리를 선택해주세요.'}
         </p>
-
-        <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+        <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
         <CategoryBottomSheet
           isShowing={isCategoryShowing}
           onClickOutside={toggleCategoryShowing}
@@ -101,7 +100,7 @@ export default function MissionRegistration() {
         <p className={publicSettingTextCss} onClick={togglePublicShowing}>
           {missionPublicSetting}
         </p>
-        <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+        <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
         <PublicBottomSheet
           isShowing={isPublicShowing}
           onClickOutside={togglePublicShowing}
@@ -129,6 +128,7 @@ const publicSettingWrapperCss = css({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   borderBottomWidth: '1px',
   borderColor: 'border.default',
 });
@@ -140,17 +140,17 @@ const publicSettingTitleCss = css({
 
 const publicSettingTextCss = css({
   width: '100%',
-  textStyle: 'body3',
+  textStyle: 'subtitle3',
   color: 'text.secondary',
-  marginBottom: '14px',
   borderColor: 'border.default',
-  marginTop: '12px',
+  padding: '14px 4px',
 });
 
 const categoryWrapperCss = css({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   borderBottomWidth: '1px',
   borderColor: 'border.default',
   marginBottom: '36px',
@@ -163,11 +163,10 @@ const categoryTitleCss = css({
 
 const categoryTextCss = css({
   width: '100%',
-  textStyle: 'body3',
+  textStyle: 'subtitle3',
   color: 'text.secondary',
-  marginBottom: '14px',
+  padding: '14px 4px',
   borderColor: 'border.default',
-  marginTop: '12px',
 });
 const asterisk = css({
   color: 'red.red500',
@@ -175,6 +174,5 @@ const asterisk = css({
 });
 
 const iconCss = css({
-  marginTop: '8px',
   cursor: 'pointer',
 });
