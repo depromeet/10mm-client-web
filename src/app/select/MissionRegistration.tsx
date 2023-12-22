@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import CategoryBottomSheet from '@/app/select/CategoryBottomSheet';
 import PublicBottomSheet from '@/app/select/PublicBottomSheet';
 import Button from '@/components/Button/Button';
@@ -11,6 +11,8 @@ import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 
 export default function MissionRegistration() {
+  const router = useRouter();
+
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
 
@@ -34,6 +36,11 @@ export default function MissionRegistration() {
   };
   const onContentCloseIconClick = () => {
     setMissionContentInput('');
+  };
+
+  const handleSubmit = () => {
+    if (!missionCategory) return;
+    router.push(`/stopwatch?category=${missionCategory}`);
   };
 
   return (
@@ -96,11 +103,9 @@ export default function MissionRegistration() {
       </div>
 
       <div className={buttonContainerCss}>
-        <Link href={'/stopwatch'}>
-          <Button variant={'cta'} size={'medium'}>
-            등록
-          </Button>
-        </Link>
+        <Button variant={'cta'} size={'medium'} onClick={handleSubmit}>
+          등록
+        </Button>
       </div>
     </section>
   );
