@@ -1,6 +1,7 @@
-import SelectMissionForm from '@/app/select/SelectMissionForm';
 import Header from '@/components/Header/Header';
 import { css } from '@styled-system/css';
+
+import MissionRegistration from './MissionRegistration';
 
 export default function SelectPage() {
   return (
@@ -8,10 +9,11 @@ export default function SelectPage() {
       <Header title={'미션 등록'} />
       <div className={containerCss}>
         <h1 className={mainTitleCss}>
-          하루 <strong>10분</strong>을 <br />
+          하루 <strong>10분</strong>씩 2주 동안
+          <br />
           어떤 일에 투자하고 싶은가요?
         </h1>
-        <SelectMissionForm />
+        <MissionRegistration />
       </div>
     </main>
   );
