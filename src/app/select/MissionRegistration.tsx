@@ -63,7 +63,7 @@ export default function MissionRegistration() {
         type="text"
         placeholder="미션 내용을 입력"
         name="미션내용"
-        iconName="close-circle"
+        iconName="input-close-circle"
         iconColor="icon.secondary"
         maxLength={30}
         value={missionContentInput}
