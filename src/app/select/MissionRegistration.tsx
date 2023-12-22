@@ -9,6 +9,7 @@ import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
 import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
+import { token } from '@/styled-system/tokens';
 
 export default function MissionRegistration() {
   const router = useRouter();
@@ -76,9 +77,14 @@ export default function MissionRegistration() {
       <span className={asterisk}>*</span>
 
       <div className={categoryWrapperCss}>
-        <p className={categoryTextCss} onClick={toggleCategoryShowing}>
+        <p
+          className={categoryTextCss}
+          onClick={toggleCategoryShowing}
+          style={{ color: missionCategory ? token.var(`colors.text.primary`) : token.var(`colors.gray.gray300`) }}
+        >
           {missionCategory ?? '카테고리를 선택해주세요.'}
         </p>
+
         <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
         <CategoryBottomSheet
           isShowing={isCategoryShowing}
