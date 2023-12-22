@@ -13,11 +13,14 @@ const Toggle: FC<ToggleProps> = ({ initialValue = false }) => {
   };
 
   return (
-    <label>
-      <input type="checkbox" checked={isToggled} onChange={handleToggle} className={toggleInputCss} />
-      {/*
-         {isToggled ? '켜기' : '끄기'} 
-         */}
+    <label htmlFor="mission-revealed">
+      <input
+        id="mission-revealed"
+        type="checkbox"
+        checked={isToggled}
+        onChange={handleToggle}
+        className={toggleInputCss}
+      />
     </label>
   );
 };
