@@ -12,7 +12,7 @@ const meta: Meta<typeof BottomSheet> = {
 export default meta;
 
 export function Default() {
-  const [isShowing, setIsShowing] = useState(true);
+  const [isShowing, setIsShowing] = useState(false);
   const toggleShowing = () => setIsShowing((prev) => !prev);
 
   return (
