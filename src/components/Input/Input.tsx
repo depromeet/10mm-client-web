@@ -23,7 +23,7 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
     const _value = e.target.value;
 
     // input의 기본 속성인 maxLength만으로는 한글 대응이 불가능.
-    if (inputProps.maxLength && _value.length >= inputProps.maxLength) {
+    if (inputProps.maxLength && _value.length > inputProps.maxLength) {
       return;
     }
 
@@ -98,7 +98,6 @@ const inputWrapperCss = css({
 });
 
 const subTitleCss = css({
-  marginTop: '36px',
   textStyle: 'body2',
   color: 'text.primary',
 });

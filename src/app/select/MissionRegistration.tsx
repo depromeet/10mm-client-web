@@ -5,8 +5,8 @@ import Link from 'next/link';
 import CategoryBottomSheet from '@/app/select/CategoryBottomSheet';
 import PublicBottomSheet from '@/app/select/PublicBottomSheet';
 import Button from '@/components/Button/Button';
+import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
-import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 
 export default function MissionRegistration() {
@@ -101,13 +101,22 @@ export default function MissionRegistration() {
         />
       </section>
 
-      {/* <p className={publicSettingTitleCss}>공개 설정</p>
-      <p className={publicSettingTextCss}>내 미션 현황과 인증 사진을 공유해 보세요.</p>
+      {/* 카테고리 */}
+      <span className={categoryTitleCss}>카테고리</span>
+      <span className={asterisk}>*</span>
 
-      <div className={publicSettingCss}>
-        <span className={subTitlCss}>친구에게 미션 공개하기</span>
-        <Toggle initialValue={true} />
-      </div> */}
+      <div className={categoryWrapperCss}>
+        <p className={categoryTextCss}>카테고리를 선택해주세요.</p>
+        <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+      </div>
+
+      {/* 공개설정 */}
+      <span className={publicSettingTitleCss}>공개설정</span>
+
+      <div className={publicSettingWrapperCss}>
+        <p className={publicSettingTextCss}>팔로워에게 공개</p>
+        <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+      </div>
 
       <div className={buttonContainerCss}>
         <Link href={'/stopwatch'}>
@@ -126,36 +135,56 @@ const buttonContainerCss = css({
   marginTop: '48px',
 });
 
-// const publicSettingCss = css({
-//   display: 'flex',
-//   justifyContent: 'space-between',
-//   alignItems: 'center',
-//   width: '343px',
-//   height: '60px',
-//   borderRadius: '16px',
-//   padding: '16px',
-//   gap: '12px',
-//   backgroundColor: 'bg.surface3',
-//   margin: '0 auto',
-// });
-
+const publicSettingWrapperCss = css({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  borderBottomWidth: '1px',
+  borderColor: 'border.default',
+});
 const publicSettingTitleCss = css({
   marginTop: '36px',
   textStyle: 'body2',
   color: 'text.primary',
 });
 
-// const publicSettingTextCss = css({
-//   textStyle: 'body3',
-//   color: 'text.secondary',
-//   marginBottom: '18px',
-// });
-// const subTitlCss = css({
-//   textStyle: 'subtitle3',
-//   color: 'text.primary',
-// });
+const publicSettingTextCss = css({
+  width: '100%',
+  textStyle: 'body3',
+  color: 'text.secondary',
+  marginBottom: '14px',
+  borderColor: 'border.default',
+  marginTop: '12px',
+});
 
+const categoryWrapperCss = css({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  borderBottomWidth: '1px',
+  borderColor: 'border.default',
+  marginBottom: '36px',
+});
+const categoryTitleCss = css({
+  marginTop: '36px',
+  textStyle: 'body2',
+  color: 'text.primary',
+});
+
+const categoryTextCss = css({
+  width: '100%',
+  textStyle: 'body3',
+  color: 'text.secondary',
+  marginBottom: '14px',
+  borderColor: 'border.default',
+  marginTop: '12px',
+});
 const asterisk = css({
   color: 'red.red500',
   fontWeight: 'bold',
+});
+
+const iconCss = css({
+  marginTop: '8px',
+  cursor: 'pointer',
 });
