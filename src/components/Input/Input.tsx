@@ -89,7 +89,7 @@ const inputWrapperCss = css({
   marginTop: '20px',
   width: '100%',
   borderBottomWidth: '1px',
-  paddingBottom: '10px',
+  padding: '14px 4px',
   backgroundColor: 'bg.surface1',
   borderColor: 'border.default',
   _focusWithin: { outline: 'none', borderColor: 'purple.purple500' },
