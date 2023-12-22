@@ -17,7 +17,12 @@ function PublicBottomSheet(props: Props) {
   };
 
   return (
-    <BottomSheet headerElement={<Header.TextButton title="카테고리" onButtonClick={props.onClickOutside} />} {...props}>
+    <BottomSheet
+      headerElement={
+        <Header.TextButton title="카테고리" onButtonClick={props.onClickOutside} isBackgroundTransparent />
+      }
+      {...props}
+    >
       <ul className={listCss}>
         {PUBLIC_LIST.map((item) => (
           <li key={item.name} className={itemCss} onClick={() => onClick(item.name)}>
