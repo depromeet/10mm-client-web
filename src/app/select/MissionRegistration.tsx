@@ -79,7 +79,7 @@ export default function MissionRegistration() {
         <p className={categoryTextCss} onClick={toggleCategoryShowing}>
           {missionCategory ?? '카테고리를 선택해주세요.'}
         </p>
-        <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+        <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
         <CategoryBottomSheet
           isShowing={isCategoryShowing}
           onClickOutside={toggleCategoryShowing}
@@ -95,7 +95,7 @@ export default function MissionRegistration() {
         <p className={publicSettingTextCss} onClick={togglePublicShowing}>
           {missionPublicSetting}
         </p>
-        <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+        <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
         <PublicBottomSheet
           isShowing={isPublicShowing}
           onClickOutside={togglePublicShowing}

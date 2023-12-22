@@ -21,6 +21,7 @@ import ShareIcon from '@/components/Icon/ShareIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
 import EllipseCameraIcon from './EllipseCameraIcon';
+import InputArrowDownIcon from './InputArrowDownIcon';
 import InputCloseCircleIcon from './InputCloseCircleIcon';
 import NormalClose from './NormalClose';
 import PlusCircleLarge from './PlusCircleLargeIcon';
@@ -49,6 +50,7 @@ export const IconComponentMap = {
   'ellipse-camera-icon': EllipseCameraIcon,
   'normal-close': NormalClose,
   'input-close-circle': InputCloseCircleIcon,
+  'input-arrow-down': InputArrowDownIcon,
 } as const;
 
 interface Props extends IconComponentProps {
