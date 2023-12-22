@@ -4,7 +4,9 @@ import { css } from '@/styled-system/css';
 import { motion } from 'framer-motion';
 
 /**
- * @description BottomSheet Component
+ * @description
+ * 화면 하단에서 올라오며 연관된 컨텐츠를 제공하기 위해 사용하는 컴포넌트 입니다.
+ * 기존의 컨텍스트에서 벗어나지 않고 연관된 작업을 빠르게 프로세스하는 느낌을 유저에게 전달합니다.
  * @param headerElement BottomSheet header element, Header element를 넣습니다.
  * @param onClickOutside  scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
  */
@@ -32,6 +34,8 @@ function BottomSheet({ children, onClickOutside, isShowing, mode, headerElement 
         >
           <div className={headerWrapperCss}>{headerElement}</div>
           {children}
+          <div className={safeAreaCss} />
+          <div className={indicatorAreaCss} />
         </motion.div>
       </motion.div>
     </AnimatePortal>
@@ -81,14 +85,15 @@ const contentCss = {
   maxWidth: '475px', // TODO: mobile max size에 따라 변경
   margin: '0 auto',
   background: 'bg.surface3',
-  minHeight: '300px',
+  // minHeight: '300px',
   borderRadius: '28px 28px 0px 0px',
-
-  //   /* TODO: 디자인에 따라 변경 필요 */
-  //   min-height: 300px;
-  //   max-height: 99%;
-  //   padding-top: 6px;
-
-  //   background-color: #fff;
-  //   border-radius: 16px 16px 0 0;
 };
+
+const safeAreaCss = css({
+  height: '16px',
+  width: '100%',
+});
+const indicatorAreaCss = css({
+  height: '34px',
+  width: '100%',
+});
