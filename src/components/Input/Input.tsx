@@ -110,6 +110,7 @@ const inputCss = css({
   color: 'text.secondary',
   backgroundColor: 'bg.surface1',
   _focus: { outline: 'none', borderColor: 'purple.purple500' },
+  _placeholder: { color: 'gray.300' },
 });
 
 const inputLengthCss = css({
