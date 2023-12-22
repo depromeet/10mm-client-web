@@ -13,14 +13,12 @@ const Toggle: FC<ToggleProps> = ({ initialValue = false }) => {
   };
 
   return (
-    <div>
-      <label>
-        <input type="checkbox" checked={isToggled} onChange={handleToggle} className={toggleInputCss} />
-        {/*
+    <label>
+      <input type="checkbox" checked={isToggled} onChange={handleToggle} className={toggleInputCss} />
+      {/*
          {isToggled ? '켜기' : '끄기'} 
          */}
-      </label>
-    </div>
+    </label>
   );
 };
 
@@ -30,8 +28,9 @@ const toggleInputCss = css({
   border: '0px solid gray',
   width: '44px',
   height: '28px',
+  marginTop: '6px',
   borderRadius: '86.27px',
-  backgroundColor: 'gray.450',
+  backgroundColor: 'gray.500',
   _before: {
     content: '" "',
     position: 'absolute',
