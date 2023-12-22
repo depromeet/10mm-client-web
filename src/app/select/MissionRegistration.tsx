@@ -123,6 +123,7 @@ const publicSettingWrapperCss = css({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   borderBottomWidth: '1px',
   borderColor: 'border.default',
 });
@@ -144,6 +145,7 @@ const categoryWrapperCss = css({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   borderBottomWidth: '1px',
   borderColor: 'border.default',
   marginBottom: '36px',
@@ -167,6 +169,5 @@ const asterisk = css({
 });
 
 const iconCss = css({
-  marginTop: '8px',
   cursor: 'pointer',
 });
