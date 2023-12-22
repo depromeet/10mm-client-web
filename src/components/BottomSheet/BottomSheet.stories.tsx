@@ -27,7 +27,11 @@ export function Default() {
         toggle
       </button>
 
-      <BottomSheet onClickOutside={toggleShowing} isShowing={isShowing} headerElement={<Header.Icon title="Header" />}>
+      <BottomSheet
+        onClickOutside={toggleShowing}
+        isShowing={isShowing}
+        headerElement={<Header.Icon title="Header" isBackgroundTransparent />}
+      >
         <div
           className={css({
             color: 'white',
