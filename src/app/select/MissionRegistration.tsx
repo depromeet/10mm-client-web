@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import CategoryBottomSheet from '@/app/select/CategoryBottomSheet';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
-import Toggle from '@/components/Toggle/Toggle';
+import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 
 export default function MissionRegistration() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
 
+  const [isCategoryShowing, toggleCategoryShowing] = useToggle();
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
@@ -52,14 +54,29 @@ export default function MissionRegistration() {
         onIconClick={onContentCloseIconClick}
         onChange={handleMissionContentInput}
       />
+      <section>
+        <h3 className={publicSettingTitleCss}>
+          카테고리 <span className={asterisk}>*</span>
+        </h3>
+        <button
+          type="button"
+          className={css({
+            color: 'white',
+          })}
+          onClick={toggleCategoryShowing}
+        >
+          toggle
+        </button>
+        <CategoryBottomSheet isShowing={isCategoryShowing} onClickOutside={toggleCategoryShowing} />
+      </section>
 
-      <p className={publicSettingTitleCss}>공개 설정</p>
+      {/* <p className={publicSettingTitleCss}>공개 설정</p>
       <p className={publicSettingTextCss}>내 미션 현황과 인증 사진을 공유해 보세요.</p>
 
       <div className={publicSettingCss}>
         <span className={subTitlCss}>친구에게 미션 공개하기</span>
         <Toggle initialValue={true} />
-      </div>
+      </div> */}
 
       <div className={buttonContainerCss}>
         <Link href={'/stopwatch'}>
@@ -71,36 +88,43 @@ export default function MissionRegistration() {
     </section>
   );
 }
+
 const buttonContainerCss = css({
   display: 'flex',
   justifyContent: 'flex-end',
   marginTop: '48px',
 });
 
-const publicSettingCss = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '343px',
-  height: '60px',
-  borderRadius: '16px',
-  padding: '16px',
-  gap: '12px',
-  backgroundColor: 'bg.surface3',
-  margin: '0 auto',
-});
+// const publicSettingCss = css({
+//   display: 'flex',
+//   justifyContent: 'space-between',
+//   alignItems: 'center',
+//   width: '343px',
+//   height: '60px',
+//   borderRadius: '16px',
+//   padding: '16px',
+//   gap: '12px',
+//   backgroundColor: 'bg.surface3',
+//   margin: '0 auto',
+// });
+
 const publicSettingTitleCss = css({
   marginTop: '36px',
   textStyle: 'body2',
   color: 'text.primary',
 });
 
-const publicSettingTextCss = css({
-  textStyle: 'body3',
-  color: 'text.secondary',
-  marginBottom: '18px',
-});
-const subTitlCss = css({
-  textStyle: 'subtitle3',
-  color: 'text.primary',
+// const publicSettingTextCss = css({
+//   textStyle: 'body3',
+//   color: 'text.secondary',
+//   marginBottom: '18px',
+// });
+// const subTitlCss = css({
+//   textStyle: 'subtitle3',
+//   color: 'text.primary',
+// });
+
+const asterisk = css({
+  color: 'red.red500',
+  fontWeight: 'bold',
 });
