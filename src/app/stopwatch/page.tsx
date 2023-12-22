@@ -9,7 +9,7 @@ import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
-import { logEvent, type ObjectKeys } from '@/utils';
+import { logEvent } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -117,11 +117,9 @@ function FinalDialog(props: {
 }
 
 const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<ObjectKeys<typeof MISSION_CATEGORIES>>('category');
+  const { searchParams } = useSearchParamsTypedValue<string>('category');
 
-  const category = MISSION_CATEGORIES[searchParams ?? 'exercise'].label;
-
-  return category;
+  return searchParams ?? '운동';
 };
 
 const containerCss = css({
