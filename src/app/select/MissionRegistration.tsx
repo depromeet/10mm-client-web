@@ -13,6 +13,8 @@ export default function MissionRegistration() {
   const [missionContentInput, setMissionContentInput] = useState('');
 
   const [isCategoryShowing, toggleCategoryShowing] = useToggle();
+  const [missionCategory, setMissionCategory] = useState<string | null>(null);
+
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
@@ -65,9 +67,14 @@ export default function MissionRegistration() {
           })}
           onClick={toggleCategoryShowing}
         >
-          toggle
+          {missionCategory}
         </button>
-        <CategoryBottomSheet isShowing={isCategoryShowing} onClickOutside={toggleCategoryShowing} />
+        <CategoryBottomSheet
+          selectCategory={missionCategory}
+          isShowing={isCategoryShowing}
+          onClickOutside={toggleCategoryShowing}
+          onSelectCategory={setMissionCategory}
+        />
       </section>
 
       {/* <p className={publicSettingTitleCss}>공개 설정</p>
