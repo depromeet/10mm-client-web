@@ -84,11 +84,7 @@ export default function MissionRegistration() {
         >
           {missionCategory ?? '카테고리를 선택해주세요.'}
         </p>
-        <p
-          className={categoryTextCss}
-          onClick={toggleCategoryShowing}
-          style={{ color: missionCategory ? token.var(`colors.text.primary`) : token.var(`colors.gray.gray300`) }}
-        ></p>
+
         <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
         <CategoryBottomSheet
           isShowing={isCategoryShowing}
