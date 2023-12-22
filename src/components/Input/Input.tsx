@@ -1,4 +1,5 @@
 'use client';
+
 import { type InputHTMLAttributes } from 'react';
 import { useState } from 'react';
 import { css } from '@/styled-system/css';
@@ -6,7 +7,7 @@ import { css } from '@/styled-system/css';
 import Icon from '../Icon';
 import { type IconComponentMap, type IconComponentProps } from '../Icon';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   iconName?: keyof typeof IconComponentMap; // iconName prop 수정
   iconColor?: IconComponentProps['color']; // 추가: iconColor prop
   value?: string;
@@ -115,6 +116,7 @@ const inputLengthCss = css({
   textStyle: 'body2',
   color: 'text.secondary',
 });
+
 const descriptionTextCss = css({
   color: 'bg.surface1',
 });
