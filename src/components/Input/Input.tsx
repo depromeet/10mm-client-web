@@ -19,11 +19,19 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
   const [inputValue, setInputValue] = useState(value ? String(value) : '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const _value = e.target.value;
+
+    // input의 기본 속성인 maxLength만으로는 한글 대응이 불가능.
+    if (inputProps.maxLength && _value.length >= inputProps.maxLength) {
+      return;
+    }
+
+    setInputValue(_value);
     if (onChange) {
-      onChange(e.target.value);
+      onChange(_value);
     }
   };
+
   //Icon이 클릭되면 onIconClick props로 넘겨받은 함수 호출
   const onIconClickHandler = () => {
     setInputValue(''); // 클릭되면 input value를 빈 문자열로 초기화
