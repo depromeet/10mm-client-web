@@ -114,6 +114,13 @@ const buttonStyle = cva({
         },
       },
     },
+    {
+      size: 'medium',
+      variant: 'cta',
+      css: {
+        position: 'inherit',
+      },
+    },
   ],
 });
 
