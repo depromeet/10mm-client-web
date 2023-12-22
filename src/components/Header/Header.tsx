@@ -52,7 +52,7 @@ const positionCss = {
 const wrapperCss = flex({
   ...positionCss,
   padding: '12px',
-  background: 'transparent',
+  background: 'bg.surface1',
   margin: '0 auto',
   left: 0,
   right: 0,
