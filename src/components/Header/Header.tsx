@@ -31,7 +31,7 @@ function Header({ title, rightElement, onBackAction }: Props) {
     <>
       <header className={wrapperCss}>
         <section className={leftSectionCss}>
-          <button className={backButtonCss} type="button" onClick={handleBackIconClick}>
+          <button className={`${backButtonCss} back-button`} type="button" onClick={handleBackIconClick}>
             <Icon name={'arrow-back'} color={'icon.secondary'} width={20} height={20} />
           </button>
           <h2 className={headingCss}>{title}</h2>

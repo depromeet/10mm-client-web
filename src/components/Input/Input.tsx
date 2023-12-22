@@ -48,7 +48,7 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
       <p className={subTitleCss}>
         {/* 인풋타이틀 */}
         {name}
-        {required && <span className={asterisk}>*</span>}
+        {required && <span className={asterisk}> *</span>}
       </p>
 
       <div className={inputWrapperCss}>

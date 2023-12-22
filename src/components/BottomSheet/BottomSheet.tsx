@@ -49,14 +49,21 @@ const headerWrapperCss = css({
   paddingTop: '16px',
   paddingBottom: '12px',
   '& header': {
-    position: 'static',
+    position: 'relative',
+    '& .back-button': {
+      // TODO : 수정 필요, 중간 발표를 위한 임시방편
+      display: 'none',
+    },
   },
   '& section': {
     gap: '0px',
   },
   '& h2': {
-    width: '100%',
-    textAlign: 'center',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    margin: '0 auto',
+    width: 'fit-content',
     textStyle: 'subtitle1',
     color: 'text.primary',
   },
