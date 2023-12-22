@@ -46,7 +46,7 @@ const buttonStyle = cva({
           background: 'gradients.button2',
         },
         '&:disabled': {
-          opacity: '0.4',
+          filter: 'brightness(0.4)',
         },
       },
       primary: {
@@ -62,7 +62,7 @@ const buttonStyle = cva({
           backgroundColor: 'purple.purple700',
         },
         '&:disabled': {
-          opacity: '0.4',
+          filter: 'brightness(0.4)',
         },
       },
       secondary: {
@@ -78,7 +78,7 @@ const buttonStyle = cva({
           backgroundColor: 'gray.gray100',
         },
         '&:disabled': {
-          opacity: '0.4',
+          filter: 'brightness(0.4)',
           backgroundColor: 'gray.gray100',
           color: 'text.placeholder',
         },
