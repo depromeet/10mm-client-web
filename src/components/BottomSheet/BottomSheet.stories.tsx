@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
+import Header from '@/components/Header';
 import { css } from '@/styled-system/css';
 import { type Meta } from '@storybook/react';
 
@@ -11,7 +12,7 @@ const meta: Meta<typeof BottomSheet> = {
 export default meta;
 
 export function Default() {
-  const [isShowing, setIsShowing] = useState(false);
+  const [isShowing, setIsShowing] = useState(true);
   const toggleShowing = () => setIsShowing((prev) => !prev);
 
   return (
@@ -25,7 +26,8 @@ export function Default() {
       >
         toggle
       </button>
-      <BottomSheet onClickOutside={toggleShowing} isShowing={isShowing}>
+
+      <BottomSheet onClickOutside={toggleShowing} isShowing={isShowing} headerElement={<Header.Icon title="완료" />}>
         <div
           className={css({
             color: 'white',

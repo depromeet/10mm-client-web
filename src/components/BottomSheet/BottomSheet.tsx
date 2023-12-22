@@ -1,16 +1,19 @@
-import { type ComponentProps, type MouseEventHandler } from 'react';
+import { type ComponentProps, type MouseEventHandler, type ReactNode } from 'react';
 import AnimatePortal from '@/components/portal/AnimationPortal';
 import { css } from '@/styled-system/css';
 import { motion } from 'framer-motion';
 
+/**
+ * @description BottomSheet Component
+ * @param headerElement BottomSheet header element, Header element를 넣습니다.
+ * @param onClickOutside  scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
+ */
 interface Props extends ComponentProps<typeof AnimatePortal> {
-  /**
-   * scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
-   */
+  headerElement: ReactNode;
   onClickOutside?: VoidFunction;
 }
 
-function BottomSheet({ children, onClickOutside, isShowing, mode }: Props) {
+function BottomSheet({ children, onClickOutside, isShowing, mode, headerElement }: Props) {
   const onClickOutsideDefault: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target !== e.currentTarget) return;
     if (onClickOutside) onClickOutside();
@@ -27,6 +30,7 @@ function BottomSheet({ children, onClickOutside, isShowing, mode }: Props) {
           transition={{ delay: 0.03 }}
           exit={{ opacity: 0 }}
         >
+          <div className={headerWrapperCss}>{headerElement}</div>
           {children}
         </motion.div>
       </motion.div>
@@ -35,6 +39,24 @@ function BottomSheet({ children, onClickOutside, isShowing, mode }: Props) {
 }
 
 export default BottomSheet;
+
+const headerWrapperCss = css({
+  width: '100%',
+  paddingTop: '16px',
+  paddingBottom: '12px',
+  '& header': {
+    position: 'static',
+  },
+  '& h2': {
+    width: '100%',
+    textAlign: 'center',
+    textStyle: 'subtitle1',
+    color: 'text.primary',
+  },
+  '& article': {
+    display: 'none',
+  },
+});
 
 const overlayCss = {
   position: 'fixed',
