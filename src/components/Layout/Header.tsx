@@ -30,22 +30,19 @@ function Header({ title }: Props) {
 }
 
 const headerBlankCss = {
-  height: '44px;',
+  height: '40px;',
   width: '100%',
 };
 
 const wrapperCss = flex({
-  padding: '12px',
+  padding: '10px 16px',
   gap: '6px',
   background: 'transparent',
-  alignItems: 'center',
   position: 'fixed',
   display: 'flex',
+  alignItems: 'center',
   margin: '0 auto',
-  width: '100%',
   zIndex: 100,
-  height: '44px;',
-  maxWidth: '475px',
 });
 
 const buttonCss = css({

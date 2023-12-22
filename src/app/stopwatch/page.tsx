@@ -28,7 +28,7 @@ export default function StopwatchPage() {
 
   const onFinish = () => {
     // TODO: 끝내기 후 로직 추가
-    router.push('/complete');
+    router.push('/certification');
   };
 
   const onCancel = () => {

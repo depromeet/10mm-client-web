@@ -1,10 +1,14 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import lottieJson from '@/assets/lotties/lottieExample.json';
 import Button from '@/components/Button/Button';
 import { css } from '@styled-system/css';
 import Lottie from 'react-lottie-player';
 
 export default function CompletePage() {
+  const router = useRouter();
+  const onClickConfirmButton = () => router.push('/');
+
   return (
     <main className={mainWrapperCss}>
       <div className={containerCss}>
@@ -17,7 +21,7 @@ export default function CompletePage() {
             <Lottie loop animationData={lottieJson} play />
           </div>
         </div>
-        <Button type="button" size="large" variant="primary">
+        <Button type="button" size="large" variant="primary" onClick={onClickConfirmButton}>
           <span className={buttonTextCss}>확인</span>
         </Button>
       </div>
