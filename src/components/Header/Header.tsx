@@ -18,7 +18,6 @@ interface Props {
  * @param title header title text
  * @param rightElement header 오른쪽에 들어가는 element
  * @param onBackAction back icon click action
- *
  */
 function Header({ title, rightElement, onBackAction }: Props) {
   const router = useRouter();
@@ -39,7 +38,7 @@ function Header({ title, rightElement, onBackAction }: Props) {
         </section>
         <section className={rightSectionCss}>{rightElement}</section>
       </header>
-      <div className={css(positionCss)} />
+      <article className={css(positionCss)} />
     </>
   );
 }
@@ -69,6 +68,7 @@ const leftSectionCss = css({
   display: 'flex',
   gap: '12px',
   alignItems: 'center',
+  flex: 1,
 });
 
 const rightSectionCss = css({});
