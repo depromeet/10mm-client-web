@@ -51,6 +51,9 @@ const headerWrapperCss = css({
   '& header': {
     position: 'static',
   },
+  '& section': {
+    gap: '0px',
+  },
   '& h2': {
     width: '100%',
     textAlign: 'center',

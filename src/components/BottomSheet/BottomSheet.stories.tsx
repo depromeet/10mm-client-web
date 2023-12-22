@@ -27,14 +27,13 @@ export function Default() {
         toggle
       </button>
 
-      <BottomSheet onClickOutside={toggleShowing} isShowing={isShowing} headerElement={<Header.Icon title="완료" />}>
+      <BottomSheet onClickOutside={toggleShowing} isShowing={isShowing} headerElement={<Header.Icon title="Header" />}>
         <div
           className={css({
             color: 'white',
-            background: 'gray',
           })}
         >
-          bottom sheet content
+          content
         </div>
       </BottomSheet>
     </>
