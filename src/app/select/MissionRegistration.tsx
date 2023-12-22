@@ -134,7 +134,7 @@ const publicSettingTitleCss = css({
 
 const publicSettingTextCss = css({
   width: '100%',
-  textStyle: 'body3',
+  textStyle: 'subtitle3',
   color: 'text.secondary',
   marginBottom: '14px',
   borderColor: 'border.default',
@@ -157,7 +157,7 @@ const categoryTitleCss = css({
 
 const categoryTextCss = css({
   width: '100%',
-  textStyle: 'body3',
+  textStyle: 'subtitle3',
   color: 'text.secondary',
   marginBottom: '14px',
   borderColor: 'border.default',
