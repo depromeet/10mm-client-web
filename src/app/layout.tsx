@@ -10,6 +10,18 @@ import './globals.css';
 export const metadata: Metadata = {
   title: '10MM',
   description: '10MM',
+  openGraph: {
+    type: 'website',
+    url: 'https://www.10mm.today',
+    title: '10MM',
+    description: '당신의 인생을 바꿀 10분',
+    siteName: '10MM',
+    images: [
+      {
+        url: 'https://www.10mm.today/og-image.png',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
