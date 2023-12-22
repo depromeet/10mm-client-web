@@ -98,7 +98,6 @@ const inputWrapperCss = css({
 });
 
 const subTitleCss = css({
-  marginTop: '36px',
   textStyle: 'body2',
   color: 'text.primary',
 });
