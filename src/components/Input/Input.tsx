@@ -36,6 +36,8 @@ export default function Input({ iconName, value, onChange, iconColor, onIconClic
   //Icon이 클릭되면 onIconClick props로 넘겨받은 함수 호출
   const onIconClickHandler = () => {
     setInputValue(''); // 클릭되면 input value를 빈 문자열로 초기화
+    onChange && onChange('');
+
     if (onIconClick) {
       onIconClick();
     }
