@@ -107,7 +107,7 @@ const asterisk = css({
 const inputCss = css({
   width: '375px',
   height: '22px',
-  textStyle: 'body2',
+  textStyle: 'subtitle3',
   color: 'text.secondary',
   backgroundColor: 'bg.surface1',
   _focus: { outline: 'none', borderColor: 'purple.purple500' },
