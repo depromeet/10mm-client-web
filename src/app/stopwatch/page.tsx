@@ -132,6 +132,9 @@ const descCss = css({ color: 'text.secondary', textStyle: 'body2', marginTop: '4
 const stopwatchCss = css({
   width: 'fit-content',
   margin: '0 auto',
+  overflow: 'hidden',
+  maxWidth: '100vw',
+  padding: '4px', // small circle 잘리지 않게
 });
 
 const buttonContainerCss = css({
