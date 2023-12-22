@@ -86,7 +86,6 @@ const descriptionCss = css({
 const inputWrapperCss = css({
   display: 'flex',
   justifyContent: 'space-between',
-  marginTop: '20px',
   width: '100%',
   borderBottomWidth: '1px',
   padding: '14px 4px',
