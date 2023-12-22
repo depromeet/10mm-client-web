@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CategoryBottomSheet from '@/app/select/CategoryBottomSheet';
+import PublicBottomSheet from '@/app/select/PublicBottomSheet';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import useToggle from '@/hooks/useToggle';
@@ -14,6 +15,9 @@ export default function MissionRegistration() {
 
   const [isCategoryShowing, toggleCategoryShowing] = useToggle();
   const [missionCategory, setMissionCategory] = useState<string | null>(null);
+
+  const [isPublicShowing, togglePublicShowing] = useToggle();
+  const [missionPublicSetting, setMissionPublicSetting] = useState<string | null>(null);
 
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
@@ -67,13 +71,33 @@ export default function MissionRegistration() {
           })}
           onClick={toggleCategoryShowing}
         >
-          {missionCategory}
+          {missionCategory ?? '선택'}
         </button>
         <CategoryBottomSheet
-          selectCategory={missionCategory}
+          select={missionCategory}
           isShowing={isCategoryShowing}
           onClickOutside={toggleCategoryShowing}
-          onSelectCategory={setMissionCategory}
+          onSelect={setMissionCategory}
+        />
+      </section>
+      <section>
+        <h3 className={publicSettingTitleCss}>
+          공개 설정 <span className={asterisk}>*</span>
+        </h3>
+        <button
+          type="button"
+          className={css({
+            color: 'white',
+          })}
+          onClick={togglePublicShowing}
+        >
+          {missionPublicSetting ?? '선택'}
+        </button>
+        <PublicBottomSheet
+          select={missionPublicSetting}
+          onSelect={setMissionPublicSetting}
+          isShowing={isPublicShowing}
+          onClickOutside={togglePublicShowing}
         />
       </section>
 

@@ -50,6 +50,10 @@ const headerWrapperCss = css({
   paddingBottom: '12px',
   '& header': {
     position: 'relative',
+    '& .back-button': {
+      // TODO : 수정 필요, 중간 발표를 위한 임시방편
+      display: 'none',
+    },
   },
   '& section': {
     gap: '0px',

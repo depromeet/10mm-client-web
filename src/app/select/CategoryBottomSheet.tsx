@@ -37,13 +37,13 @@ const CATEGORY = [
 ];
 
 interface Props extends Omit<ComponentProps<typeof BottomSheet>, 'headerElement'> {
-  selectCategory: string | null;
-  onSelectCategory: (category: string) => void;
+  select: string | null;
+  onSelect: (category: string) => void;
 }
 
 function CategoryBottomSheet(props: Props) {
   const onClick = (name: string) => {
-    props.onSelectCategory(name);
+    props.onSelect(name);
     props.onClickOutside?.();
   };
 
@@ -58,7 +58,7 @@ function CategoryBottomSheet(props: Props) {
               </div>
               <div>{item.name}</div>
             </div>
-            <div>{props.selectCategory === item.name && <Icon name="check-circle" color="purple.purple700" />}</div>
+            <div>{props.select === item.name && <Icon name="check-circle" color="purple.purple700" />}</div>
           </li>
         ))}
       </ul>
@@ -81,6 +81,8 @@ const categoryItemCss = css({
   padding: '12px 16px',
   color: 'text.secondary',
   textStyle: 'subtitle3',
+  height: '46px',
+  cursor: 'pointer',
 
   '& div': {
     display: 'flex',
