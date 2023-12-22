@@ -4,6 +4,7 @@ import { type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import Icon from '@/components/Icon';
 import { flex } from '@/styled-system/patterns';
+import { logEvent } from '@/utils';
 import { css } from '@styled-system/css';
 
 interface Props {
@@ -23,6 +24,7 @@ function Header({ title, rightElement, onBackAction }: Props) {
   const router = useRouter();
 
   const handleBackIconClick = () => {
+    logEvent('click/backButton', 'header');
     onBackAction ? onBackAction() : router.back();
   };
 

@@ -9,7 +9,7 @@ import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
-import { type ObjectKeys } from '@/utils';
+import { logEvent, type ObjectKeys } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -22,17 +22,30 @@ export default function StopwatchPage() {
   const { isOpen, openModal, closeModal } = useModal();
 
   const onFinishButtonClick = () => {
+    logEvent('click/finishButton', 'stopwatch', { category });
     openModal();
     onNextStep('stop');
   };
 
   const onFinish = () => {
+    logEvent('click/finish', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
     // TODO: 끝내기 후 로직 추가
     router.push('/certification');
   };
 
   const onCancel = () => {
+    logEvent('click/cancel', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
     onNextStep(prevStep);
+  };
+
+  const onStop = () => {
+    logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
+    onNextStep('stop');
+  };
+
+  const onStart = () => {
+    logEvent('click/start', 'stopwatch', { category });
+    onNextStep('progress');
   };
 
   return (
@@ -52,13 +65,13 @@ export default function StopwatchPage() {
       </section>
       <section className={buttonContainerCss}>
         {step === 'ready' && (
-          <Button variant="cta" size="large" type="button" onClick={() => onNextStep('progress')}>
+          <Button variant="cta" size="large" type="button" onClick={onStart}>
             시작
           </Button>
         )}
         {step === 'progress' && (
           <>
-            <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('stop')}>
+            <Button size="medium" variant="secondary" type="button" onClick={onStop}>
               일시 정지
             </Button>
             <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>

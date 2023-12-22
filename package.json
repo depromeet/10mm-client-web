@@ -19,6 +19,7 @@
   "dependencies": {
     "@tanstack/react-query": "^4.36.1",
     "framer-motion": "^10.16.5",
+    "mixpanel-browser": "^2.48.1",
     "next": "13.4",
     "react": "^18",
     "react-dom": "^18",
@@ -40,7 +41,9 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
+    "@types/gtag.js": "^0.0.18",
     "@types/jest": "^29.5.10",
+    "@types/mixpanel-browser": "^2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
