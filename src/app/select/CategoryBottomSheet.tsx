@@ -48,7 +48,7 @@ function CategoryBottomSheet(props: Props) {
   };
 
   return (
-    <BottomSheet headerElement={<Header.None title="카테고리" />} {...props}>
+    <BottomSheet headerElement={<Header.None title="카테고리" isBackgroundTransparent />} {...props}>
       <ul className={categoryListCss}>
         {CATEGORY.map((item) => (
           <li key={item.name} className={categoryItemCss} onClick={() => onClick(item.name)}>
