@@ -7,6 +7,7 @@ import PublicBottomSheet from '@/app/select/PublicBottomSheet';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
+import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 
 export default function MissionRegistration() {
@@ -17,7 +18,7 @@ export default function MissionRegistration() {
   const [missionCategory, setMissionCategory] = useState<string | null>(null);
 
   const [isPublicShowing, togglePublicShowing] = useToggle();
-  const [missionPublicSetting, setMissionPublicSetting] = useState<string | null>(null);
+  const [missionPublicSetting, setMissionPublicSetting] = useState<string>('팔로워에게 공개');
 
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
@@ -60,62 +61,38 @@ export default function MissionRegistration() {
         onIconClick={onContentCloseIconClick}
         onChange={handleMissionContentInput}
       />
-      <section>
-        <h3 className={publicSettingTitleCss}>
-          카테고리 <span className={asterisk}>*</span>
-        </h3>
-        <button
-          type="button"
-          className={css({
-            color: 'white',
-          })}
-          onClick={toggleCategoryShowing}
-        >
-          {missionCategory ?? '선택'}
-        </button>
-        <CategoryBottomSheet
-          select={missionCategory}
-          isShowing={isCategoryShowing}
-          onClickOutside={toggleCategoryShowing}
-          onSelect={setMissionCategory}
-        />
-      </section>
-      <section>
-        <h3 className={publicSettingTitleCss}>
-          공개 설정 <span className={asterisk}>*</span>
-        </h3>
-        <button
-          type="button"
-          className={css({
-            color: 'white',
-          })}
-          onClick={togglePublicShowing}
-        >
-          {missionPublicSetting ?? '선택'}
-        </button>
-        <PublicBottomSheet
-          select={missionPublicSetting}
-          onSelect={setMissionPublicSetting}
-          isShowing={isPublicShowing}
-          onClickOutside={togglePublicShowing}
-        />
-      </section>
 
       {/* 카테고리 */}
       <span className={categoryTitleCss}>카테고리</span>
       <span className={asterisk}>*</span>
 
       <div className={categoryWrapperCss}>
-        <p className={categoryTextCss}>카테고리를 선택해주세요.</p>
+        <p className={categoryTextCss} onClick={toggleCategoryShowing}>
+          {missionCategory ?? '카테고리를 선택해주세요.'}
+        </p>
         <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+        <CategoryBottomSheet
+          isShowing={isCategoryShowing}
+          onClickOutside={toggleCategoryShowing}
+          select={missionCategory}
+          onSelect={setMissionCategory}
+        />
       </div>
 
       {/* 공개설정 */}
       <span className={publicSettingTitleCss}>공개설정</span>
 
       <div className={publicSettingWrapperCss}>
-        <p className={publicSettingTextCss}>팔로워에게 공개</p>
+        <p className={publicSettingTextCss} onClick={togglePublicShowing}>
+          {missionPublicSetting}
+        </p>
         <Icon name={'arrow-down'} color={'icon.secondary'} className={iconCss} />
+        <PublicBottomSheet
+          isShowing={isPublicShowing}
+          onClickOutside={togglePublicShowing}
+          select={missionPublicSetting}
+          onSelect={setMissionPublicSetting}
+        />
       </div>
 
       <div className={buttonContainerCss}>
