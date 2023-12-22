@@ -136,10 +136,8 @@ const publicSettingTextCss = css({
   width: '100%',
   textStyle: 'subtitle3',
   color: 'text.secondary',
-  padding: '14px 4px',
-  marginBottom: '14px',
   borderColor: 'border.default',
-  marginTop: '12px',
+  padding: '14px 4px',
 });
 
 const categoryWrapperCss = css({
@@ -159,11 +157,9 @@ const categoryTitleCss = css({
 const categoryTextCss = css({
   width: '100%',
   textStyle: 'subtitle3',
-  padding: '14px 4px',
   color: 'text.secondary',
-  marginBottom: '14px',
+  padding: '14px 4px',
   borderColor: 'border.default',
-  marginTop: '12px',
 });
 const asterisk = css({
   color: 'red.red500',
