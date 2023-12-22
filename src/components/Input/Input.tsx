@@ -96,7 +96,7 @@ const inputWrapperCss = css({
 });
 
 const subTitleCss = css({
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.primary',
 });
 const asterisk = css({
