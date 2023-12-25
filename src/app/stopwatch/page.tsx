@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import useStopwatch from '@/app/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/app/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
