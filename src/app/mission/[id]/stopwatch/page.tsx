@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { MISSION_CATEGORIES } from '@/app/select/select.constants';
-import useStopwatch from '@/app/stopwatch/useStopwatch';
-import useStopwatchStatus from '@/app/stopwatch/useStopwatchStatus';
+import useStopwatch from '@/app/mission/[id]/stopwatch/useStopwatch';
+import useStopwatchStatus from '@/app/mission/[id]/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
+import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { logEvent } from '@/utils';
@@ -30,7 +30,7 @@ export default function StopwatchPage() {
   const onFinish = () => {
     logEvent('click/finish', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
     // TODO: 끝내기 후 로직 추가
-    router.push('/certification');
+    router.push(`${ROUTER.MISSION.SUCCESS('dummy')}`);
   };
 
   const onCancel = () => {

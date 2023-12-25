@@ -1,5 +1,9 @@
 export const ROUTER = {
   HOME: '/',
-  SELECT: '/select',
-  STOPWATCH: '/stopwatch',
+  MISSION: {
+    NEW: '/mission/new',
+    RECORD: (id: string) => `/mission/${id}/stopwatch`,
+    STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
+    SUCCESS: (id: string) => `/mission/${id}/success`,
+  },
 };

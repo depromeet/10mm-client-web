@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { type StepType } from '@/app/stopwatch/useStopwatchStatus';
+import { type StepType } from '@/app/mission/[id]/stopwatch/useStopwatchStatus';
 
 const INIT_SECONDS = 0;
 const MAX_SECONDS = 60 * 60; // max 1 hour
