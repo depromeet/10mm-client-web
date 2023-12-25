@@ -399,7 +399,7 @@
   --colors-gray-gray050: #18181D;
   --colors-gray-gray100: #212129;
   --colors-gray-gray150: #2A2A33;
-  --colors-gray-gray200: #292931;
+  --colors-gray-gray200: #2F2F38;
   --colors-gray-gray300: #3C3D47;
   --colors-gray-gray400: #464856;
   --colors-gray-gray500: #6B6B7C;
@@ -425,6 +425,7 @@
   --colors-purple-purple700: #B6B5F7;
   --colors-purple-purple600: #AAA9F7;
   --colors-purple-purple500: #8483D9;
+  --colors-purple-purple300: #4F4F7B;
   --colors-purple-purple400: #7676AC;
   --colors-purple-purple100: #464155;
   --colors-purple-purple050: #312D3E;
@@ -440,7 +441,10 @@
   --colors-red-800: #991b1b;
   --colors-red-900: #7f1d1d;
   --colors-red-950: #450a0a;
+  --colors-red-red700: #D37D7D;
   --colors-red-red500: #C53C3C;
+  --colors-red-red300: #7B4F4F;
+  --colors-red-red000: #2E2020;
   --colors-gradients-primary: linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%);
   --colors-gradients-button1: linear-gradient(91deg, #FFE5EE 0%, #E9CEFF 18.75%, #B9CDFF 100%);
   --colors-gradients-button2: linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%);
