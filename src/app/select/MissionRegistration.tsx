@@ -134,7 +134,7 @@ const publicSettingWrapperCss = css({
 });
 const publicSettingTitleCss = css({
   marginTop: '36px',
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.primary',
 });
 
@@ -157,7 +157,7 @@ const categoryWrapperCss = css({
 });
 const categoryTitleCss = css({
   marginTop: '36px',
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.primary',
 });
 
