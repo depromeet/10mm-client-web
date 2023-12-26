@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import LogoIcon from '@/app/LogoIcon';
+import { ROUTER } from '@/constants/router';
 import { logEvent } from '@/utils';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
@@ -17,7 +18,7 @@ export default function Home() {
         <LogoIcon />
         <h1 className={MainTitleCss}>하루 10분의 변화를 경험하세요.</h1>
       </div>
-      <Link className={LinkCss} href={'/select'} onClick={handleLogin}>
+      <Link className={LinkCss} href={ROUTER.MISSION.NEW} onClick={handleLogin}>
         <button type={'button'} className={LoginButtonCss}>
           게스트 로그인
         </button>

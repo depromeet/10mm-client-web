@@ -6,11 +6,12 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
+import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { logEvent } from '@/utils';
 import { css } from '@styled-system/css';
 
-export default function CertificationPage() {
+export default function MissionRecordPage() {
   const router = useRouter();
   const { isOpen, openModal, closeModal } = useModal();
   const [remark, setRemark] = useState('');
@@ -41,7 +42,7 @@ export default function CertificationPage() {
   };
   const onClickModalConfirm = () => {
     logEvent('click/confrim', 'certification', { remark });
-    router.push('/');
+    router.push(ROUTER.HOME);
   };
 
   const isButtonDisabled = () => {
