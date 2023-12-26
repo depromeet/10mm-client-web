@@ -15,4 +15,11 @@ export const ROUTER = {
   AUTH: {
     LOGIN: '/auth/login',
   },
+  GUEST: {
+    MISSION: {
+      NEW: '/guest/mission/new',
+      SUCCESS: `/guest/mission/success`,
+      STOP_WATCH: `/guest/mission/stopwatch`,
+    },
+  },
 };
