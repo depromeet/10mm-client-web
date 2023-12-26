@@ -1,57 +1,51 @@
-import { type ReactNode } from 'react';
+import { type PropsWithChildren } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Button/Button';
+import {
+  type EmptyProps,
+  type NoticesEmptyProps,
+  type RefreshEmptyProps,
+  type SuggestEmptyProps,
+} from '@/components/Empty/Empty.types';
 import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-interface Props {
-  title: string;
-  description: string;
-  icon: 'docs' | 'celebratory';
-  buttonElement?: ReactNode;
-}
-
-function DefaultEmpty(props: Props) {
+function DefaultEmptyView({ children, ...props }: PropsWithChildren<DefaultEmptyProps>) {
   return (
     <article className={containerCss}>
       <div className={imageCss}>
-        <Image src={`/images/empty-${props.icon}.png`} alt="empty image" width={200} height={120} />
+        <Image src={`/images/empty-${props.image}.png`} alt="empty image" width={200} height={120} />
       </div>
       <h2 className={titleCss}>{props.title}</h2>
       <p className={descriptionCss}>{props.description}</p>
-      {props.buttonElement && <div className={buttonWrapperCss}>{props.buttonElement}</div>}
+      {children}
     </article>
   );
 }
 
-function SuggestEmpty({
-  buttonText,
-  buttonAction,
-  ...props
-}: Omit<Props, 'buttonElement'> & {
-  buttonText: string;
-  buttonAction: () => void;
-}) {
+function SuggestEmpty({ buttonText, buttonAction, ...props }: SuggestEmptyProps) {
   return (
-    <DefaultEmpty
-      {...props}
-      buttonElement={
+    <DefaultEmptyView {...props}>
+      <div className={buttonWrapperCss}>
         <Button size="small" variant="secondary" onClick={buttonAction}>
           {buttonText}
         </Button>
-      }
-    />
+      </div>
+    </DefaultEmptyView>
   );
 }
 
-function NoticeEmpty(props: Omit<Props, 'buttonElement'>) {
-  return <DefaultEmpty {...props} />;
+function NoticeEmpty(props: NoticesEmptyProps) {
+  return <DefaultEmptyView {...props} />;
 }
 
-function RefreshEmpty() {
+function RefreshEmpty(props: RefreshEmptyProps) {
   return (
-    <article className={flex({ textAlign: 'center', flexDirection: 'column', alignItems: 'center', gap: '16px' })}>
+    <article
+      className={flex({ textAlign: 'center', flexDirection: 'column', alignItems: 'center', gap: '16px' })}
+      {...props}
+    >
       <div>
         <Icon name="refresh" color="icon.secondary" />
       </div>
@@ -63,11 +57,17 @@ function RefreshEmpty() {
   );
 }
 
-export default Object.assign(DefaultEmpty, {
-  Suggest: SuggestEmpty,
-  Notice: NoticeEmpty,
-  Refresh: RefreshEmpty,
-});
+function Empty({ ...props }: EmptyProps) {
+  switch (props.type) {
+    case 'suggest':
+      return <SuggestEmpty {...props} />;
+    case 'notice':
+      return <NoticeEmpty {...props} />;
+    case 'refresh':
+      return <RefreshEmpty {...props} />;
+  }
+}
+export default Empty;
 
 const containerCss = css({ textAlign: 'center' });
 const imageCss = css({});
