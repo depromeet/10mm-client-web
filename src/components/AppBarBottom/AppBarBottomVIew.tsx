@@ -1,39 +1,11 @@
-import Icon, { type IconComponentMap } from '@/components/Icon';
-import { ROUTER } from '@/constants/router';
+import Icon from '@/components/Icon';
+import { NAVIGATION, type NavigationItemType } from '@/constants/navigation';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-interface NavigationItemType {
-  icon: keyof typeof IconComponentMap;
-  key: string;
-  name: string;
-  path: string;
-}
-
-const NAVIGATION: NavigationItemType[] = [
-  {
-    icon: 'navigation-home',
-    key: 'home',
-    name: 'Home',
-    path: ROUTER.HOME,
-  },
-  {
-    icon: 'navigation-result',
-    key: 'result',
-    name: 'Result',
-    path: ROUTER.RESULT.ROOT,
-  },
-  {
-    icon: 'navigation-mypage',
-    key: 'mypage',
-    name: 'My',
-    path: ROUTER.MYPAGE.ROOT,
-  },
-];
-
 interface Props {
   current: string;
-  onClick: (key: string) => void;
+  onClick: (item: NavigationItemType) => void;
 }
 
 function AppBarBottomView(props: Props) {
@@ -44,7 +16,7 @@ function AppBarBottomView(props: Props) {
         return (
           <div
             key={item.key}
-            onClick={() => props.onClick(item.key)}
+            onClick={() => props.onClick(item)}
             className={css(itemCss, {
               color: isActive ? 'purple.purple800' : 'text.quaternary',
             })}

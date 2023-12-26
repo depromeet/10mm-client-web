@@ -21,5 +21,5 @@ export default meta;
 export const Default = () => {
   const [current, setCurrent] = useState('home');
 
-  return <AppBarBottomView current={current} onClick={setCurrent} />;
+  return <AppBarBottomView current={current} onClick={(item) => setCurrent(item.key)} />;
 };
