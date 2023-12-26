@@ -1,5 +1,3 @@
-'use client';
-
 import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { css } from '@styled-system/css';
