@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import useStopwatch from '@/app/mission/[id]/stopwatch/useStopwatch';
-import useStopwatchStatus from '@/app/mission/[id]/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
+import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
+import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { logEvent } from '@/utils';
