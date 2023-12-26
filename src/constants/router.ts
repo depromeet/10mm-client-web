@@ -7,9 +7,9 @@ export const ROUTER = {
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
   },
   MYPAGE: {
-    ROOT: '/mypage',
+    HOME: '/mypage',
   },
   RESULT: {
-    ROOT: '/result',
+    HOME: '/result',
   },
 };
