@@ -21,7 +21,7 @@ export default function SelectMissionForm() {
       return;
     }
 
-    push(withQueryString(ROUTER.STOPWATCH, { category: selectedCategory }));
+    push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: selectedCategory }));
   };
 
   const handleRadioChange = (value: string) => {

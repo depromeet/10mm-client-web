@@ -11,6 +11,7 @@ import { ROUTER } from '@/constants/router';
 import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 import { token } from '@/styled-system/tokens';
+import { withQueryString } from '@/utils';
 
 export default function MissionRegistration() {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function MissionRegistration() {
 
   const handleSubmit = () => {
     if (!missionCategory) return;
-    router.push(`${ROUTER.MISSION.STOP_WATCH('dummy')}?category=${missionCategory}`);
+    router.push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: missionCategory }));
   };
 
   return (
