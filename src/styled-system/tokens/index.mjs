@@ -1596,7 +1596,7 @@ const tokens = {
     "variable": "var(--colors-gray-gray150)"
   },
   "colors.gray.gray200": {
-    "value": "#292931",
+    "value": "#2F2F38",
     "variable": "var(--colors-gray-gray200)"
   },
   "colors.gray.gray300": {
@@ -1699,6 +1699,10 @@ const tokens = {
     "value": "#8483D9",
     "variable": "var(--colors-purple-purple500)"
   },
+  "colors.purple.purple300": {
+    "value": "#4F4F7B",
+    "variable": "var(--colors-purple-purple300)"
+  },
   "colors.purple.purple400": {
     "value": "#7676AC",
     "variable": "var(--colors-purple-purple400)"
@@ -1759,9 +1763,21 @@ const tokens = {
     "value": "#450a0a",
     "variable": "var(--colors-red-950)"
   },
+  "colors.red.red700": {
+    "value": "#D37D7D",
+    "variable": "var(--colors-red-red700)"
+  },
   "colors.red.red500": {
     "value": "#C53C3C",
     "variable": "var(--colors-red-red500)"
+  },
+  "colors.red.red300": {
+    "value": "#7B4F4F",
+    "variable": "var(--colors-red-red300)"
+  },
+  "colors.red.red000": {
+    "value": "#2E2020",
+    "variable": "var(--colors-red-red000)"
   },
   "colors.gradients.primary": {
     "value": "linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)",
@@ -2127,6 +2143,10 @@ const tokens = {
     "value": "var(--colors-color-palette-purple500)",
     "variable": "var(--colors-color-palette-purple500)"
   },
+  "colors.colorPalette.purple300": {
+    "value": "var(--colors-color-palette-purple300)",
+    "variable": "var(--colors-color-palette-purple300)"
+  },
   "colors.colorPalette.purple400": {
     "value": "var(--colors-color-palette-purple400)",
     "variable": "var(--colors-color-palette-purple400)"
@@ -2143,9 +2163,21 @@ const tokens = {
     "value": "var(--colors-color-palette-purple000)",
     "variable": "var(--colors-color-palette-purple000)"
   },
+  "colors.colorPalette.red700": {
+    "value": "var(--colors-color-palette-red700)",
+    "variable": "var(--colors-color-palette-red700)"
+  },
   "colors.colorPalette.red500": {
     "value": "var(--colors-color-palette-red500)",
     "variable": "var(--colors-color-palette-red500)"
+  },
+  "colors.colorPalette.red300": {
+    "value": "var(--colors-color-palette-red300)",
+    "variable": "var(--colors-color-palette-red300)"
+  },
+  "colors.colorPalette.red000": {
+    "value": "var(--colors-color-palette-red000)",
+    "variable": "var(--colors-color-palette-red000)"
   },
   "colors.colorPalette.primary": {
     "value": "var(--colors-color-palette-primary)",

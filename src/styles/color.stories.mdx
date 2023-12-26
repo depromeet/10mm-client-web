@@ -1,37 +1,37 @@
 import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
-import { colorList, semanticColorList } from "./color";
-import { token } from "@styled-system/tokens";
+import { colorList, semanticColorList } from './color';
+import { token } from '@styled-system/tokens';
 
-<Meta title="Colors" />
+<Meta title="Palette/Colors" />
 
 <h1>Color Palette</h1>
 
 <h2>Non Semantic Color</h2>
 <ColorPalette>
-    {Object.entries(colorList.colors).map(([key, value]) => (
-        <ColorItem
-            key={key}
-            title={key}
-            subtitle={key}
-            colors={Object.entries(value).reduce((acc,[key, value]) => {
-                acc[key] = value.value;
-                return acc;
-            },{})}
-        />
-    ))}
+  {Object.entries(colorList.colors).map(([key, value]) => (
+    <ColorItem
+      key={key}
+      title={key}
+      subtitle={key}
+      colors={Object.entries(value).reduce((acc, [key, value]) => {
+        acc[key] = value.value;
+        return acc;
+      }, {})}
+    />
+  ))}
 </ColorPalette>
 
 <h2>Semantic Color</h2>
 <ColorPalette>
-    {Object.entries(semanticColorList.colors).map(([key, value]) => (
-        <ColorItem
-            key={key}
-            title={key}
-            subtitle={key}
-            colors={Object.entries(value).reduce((acc,[key, value]) => {
-                acc[key] = token.var(value.value.replace(/[{}]/g, ''));
-                return acc;
-            },{})}
-        />
-    ))}
+  {Object.entries(semanticColorList.colors).map(([key, value]) => (
+    <ColorItem
+      key={key}
+      title={key}
+      subtitle={key}
+      colors={Object.entries(value).reduce((acc, [key, value]) => {
+        acc[key] = token.var(value.value.replace(/[{}]/g, ''));
+        return acc;
+      }, {})}
+    />
+  ))}
 </ColorPalette>
