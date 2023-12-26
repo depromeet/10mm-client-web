@@ -1,4 +1,3 @@
-import { css } from '@/styled-system/css';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Badge from './Badge';
@@ -33,44 +32,20 @@ type Story = StoryObj<typeof meta>;
 export const Purple: Story = {
   args: {
     color: 'purple',
-    children: (
-      <span
-        className={css({
-          textStyle: 'body5',
-        })}
-      >
-        badge
-      </span>
-    ),
+    children: 'badge',
   },
 };
 
 export const Gray: Story = {
   args: {
     color: 'gray',
-    children: (
-      <span
-        className={css({
-          textStyle: 'body5',
-        })}
-      >
-        badge
-      </span>
-    ),
+    children: 'badge',
   },
 };
 
 export const Red: Story = {
   args: {
     color: 'red',
-    children: (
-      <span
-        className={css({
-          textStyle: 'body5',
-        })}
-      >
-        badge
-      </span>
-    ),
+    children: 'badge',
   },
 };

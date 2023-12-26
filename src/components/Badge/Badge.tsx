@@ -12,6 +12,7 @@ const badgeStyle = cva({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    textStyle: 'body5',
   },
   variants: {
     color: {
