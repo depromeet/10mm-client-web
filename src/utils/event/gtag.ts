@@ -17,6 +17,14 @@ export const pageView = (url: URL) => {
   });
 };
 
+export const identify = (userId: string) => {
+  if (!GA_TRACKING_ID) return;
+  if (window === undefined) return;
+  window.gtag('config', GA_TRACKING_ID, {
+    user_id: userId,
+  });
+};
+
 export const event = ({ action, category, label, value, params }: GTagEvent) => {
   if (window === undefined) return;
   window.gtag('event', action, {
@@ -30,6 +38,7 @@ export const event = ({ action, category, label, value, params }: GTagEvent) => 
 const gtag = {
   pageView,
   event,
+  identify,
 };
 
 export default gtag;

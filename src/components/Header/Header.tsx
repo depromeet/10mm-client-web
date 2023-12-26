@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Icon from '@/components/Icon';
 import { flex } from '@/styled-system/patterns';
 import { token } from '@/styled-system/tokens';
-import { logEvent } from '@/utils';
+import { tracker } from '@/utils';
 import { css } from '@styled-system/css';
 
 interface Props {
@@ -26,7 +26,7 @@ function Header({ title, rightElement, onBackAction, isBackgroundTransparent = f
   const router = useRouter();
 
   const handleBackIconClick = () => {
-    logEvent('click/backButton', 'header');
+    tracker.logEvent('click/backButton', 'header');
     onBackAction ? onBackAction() : router.back();
   };
 

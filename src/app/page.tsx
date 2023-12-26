@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import LogoIcon from '@/app/LogoIcon';
-import { logEvent } from '@/utils';
+import { tracker } from '@/utils';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
 export default function Home() {
   const handleLogin = () => {
-    logEvent('click/guestLogin', 'guest_login');
+    tracker.logEvent('click/guestLogin', 'guest_login');
   };
 
   return (

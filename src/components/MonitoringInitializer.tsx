@@ -2,16 +2,13 @@
 import { useEffect } from 'react';
 import Script from 'next/script';
 import { isProd } from '@/utils/common';
-import mixpanel from 'mixpanel-browser';
+import { tracker } from '@/utils/event';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
-const MIXPANEL_ID = process.env.NEXT_PUBLIC_MIXPANEL;
 
 const MonitoringInitializer = () => {
   useEffect(() => {
-    if (!isProd()) return;
-
-    mixpanel.init(MIXPANEL_ID ?? '', { track_pageview: true, debug: true });
+    tracker.initialize();
   }, []);
   if (!isProd()) return null;
 
