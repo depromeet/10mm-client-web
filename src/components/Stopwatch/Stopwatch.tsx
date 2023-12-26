@@ -108,7 +108,7 @@ const categoryCss = {
   textAlign: 'center',
   textStyle: 'body3',
   marginBottom: '4px',
-  maxWidth: '160px',
+  maxWidth: '110px',
 };
 
 const ellipsis = {
