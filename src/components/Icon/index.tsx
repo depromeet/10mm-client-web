@@ -20,13 +20,16 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
+import AppleLoginIcon from './AppleLoginIcon';
 import EllipseCameraIcon from './EllipseCameraIcon';
 import InputArrowDownIcon from './InputArrowDownIcon';
 import InputCloseCircleIcon from './InputCloseCircleIcon';
+import KakaoLoginIcon from './KakaoLoginIcon';
 import NormalClose from './NormalClose';
 import PlusCircleLarge from './PlusCircleLargeIcon';
 
 export const IconComponentMap = {
+  'apple-login': AppleLoginIcon,
   'arrow-back': ArrowBackIcon,
   'arrow-down': ArrowDownIcon,
   'arrow-forward': ArrowFoWardIcon,
@@ -35,6 +38,7 @@ export const IconComponentMap = {
   alarm: AlarmIcon,
   plus: PlusIcon,
   menu: MenuIcon,
+  'kakao-login': KakaoLoginIcon,
   'copy-link': CopyLinkIcon,
   'arrow-diagonal': ArrowDiagonalIcon,
   'close-circle': CloseCircleIcon,
