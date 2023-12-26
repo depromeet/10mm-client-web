@@ -51,6 +51,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-lottie", "npm:1.2.10"],\
           ["@typescript-eslint/eslint-plugin", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
           ["@typescript-eslint/parser", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
+          ["axios", "npm:1.6.2"],\
           ["chromatic", "npm:10.0.0"],\
           ["eslint", "npm:8.54.0"],\
           ["eslint-config-next", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:14.0.3"],\
@@ -108,6 +109,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-lottie", "npm:1.2.10"],\
           ["@typescript-eslint/eslint-plugin", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
           ["@typescript-eslint/parser", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:6.12.0"],\
+          ["axios", "npm:1.6.2"],\
           ["chromatic", "npm:10.0.0"],\
           ["eslint", "npm:8.54.0"],\
           ["eslint-config-next", "virtual:e44dd4867a784df005635fb1c567647b3fca21257efca49e8b0fa752f029995557295c0e2ab6643b9f0de7463c5667fa1a06f0e8bf4239c4b59bb0e7277cf5be#npm:14.0.3"],\
@@ -9672,6 +9674,18 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["axios", [\
+      ["npm:1.6.2", {\
+        "packageLocation": "./.yarn/cache/axios-npm-1.6.2-2334cb6eee-612bc93f8f.zip/node_modules/axios/",\
+        "packageDependencies": [\
+          ["axios", "npm:1.6.2"],\
+          ["follow-redirects", "virtual:2334cb6eeeb6b3dfd608966f28539c2de97a7f40c2b9762074181b72a63a8cdcab5646db63b491e1572f204e304748e40aff79a28dbdc8ee85d2dd16cd3803c7#npm:1.15.3"],\
+          ["form-data", "npm:4.0.0"],\
+          ["proxy-from-env", "npm:1.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["axobject-query", [\
       ["npm:3.2.1", {\
         "packageLocation": "./.yarn/cache/axobject-query-npm-3.2.1-b147b3f32c-675af2548e.zip/node_modules/axobject-query/",\
@@ -13551,6 +13565,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/flow-parser-npm-0.222.0-485c20ac4f-b9535c9f73.zip/node_modules/flow-parser/",\
         "packageDependencies": [\
           ["flow-parser", "npm:0.222.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["follow-redirects", [\
+      ["npm:1.15.3", {\
+        "packageLocation": "./.yarn/cache/follow-redirects-npm-1.15.3-ca69c47b72-60d98693f4.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "npm:1.15.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:2334cb6eeeb6b3dfd608966f28539c2de97a7f40c2b9762074181b72a63a8cdcab5646db63b491e1572f204e304748e40aff79a28dbdc8ee85d2dd16cd3803c7#npm:1.15.3", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-be1f4daa7b/0/cache/follow-redirects-npm-1.15.3-ca69c47b72-60d98693f4.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "virtual:2334cb6eeeb6b3dfd608966f28539c2de97a7f40c2b9762074181b72a63a8cdcab5646db63b491e1572f204e304748e40aff79a28dbdc8ee85d2dd16cd3803c7#npm:1.15.3"],\
+          ["@types/debug", null],\
+          ["debug", null]\
+        ],\
+        "packagePeers": [\
+          "@types/debug",\
+          "debug"\
         ],\
         "linkType": "HARD"\
       }]\
