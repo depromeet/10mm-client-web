@@ -1,10 +1,6 @@
 import Image from 'next/image';
 import { cva, type RecipeVariantProps } from '@/styled-system/css';
 
-// interface ThumbnailVariants extends RecipeVariantProps<typeof thumbnailStyle> {
-//   url?: string;
-// }
-
 type ThumbnailVariants = RecipeVariantProps<typeof thumbnailStyle> & {
   url?: string;
 };
@@ -43,8 +39,16 @@ const thumbnailStyle = cva({
       null: {
         backgroundImage: 'url(/images/thumbnail-null.png) ',
       },
-      filled: {},
-      dimed: {},
+      filled: {
+        '& img': {
+          filter: 'brightness(0.9)',
+        },
+      },
+      dimed: {
+        '& img': {
+          filter: 'brightness(0.4)',
+        },
+      },
     },
     selected: {
       true: {
@@ -67,6 +71,14 @@ const thumbnailStyle = cva({
     },
     {
       variant: 'filled',
+      selected: true,
+      css: {
+        backgroundImage:
+          'linear-gradient(#D9D9D9, #D9D9D9), linear-gradient(103.3deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
+      },
+    },
+    {
+      variant: 'dimed',
       selected: true,
       css: {
         backgroundImage:
