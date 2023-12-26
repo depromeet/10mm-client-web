@@ -9,7 +9,7 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ minHeight: '100px' }}>
+      <div style={{ minHeight: '140px' }}>
         <Story />
       </div>
     ),
@@ -20,5 +20,6 @@ export default meta;
 
 export const Default = () => {
   const [current, setCurrent] = useState('home');
+
   return <AppBarBottomView current={current} onClick={setCurrent} />;
 };

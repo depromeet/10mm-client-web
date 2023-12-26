@@ -675,6 +675,10 @@ const tokens = {
     "value": 9999,
     "variable": "var(--z-index-modal-overlay)"
   },
+  "zIndex.appBar": {
+    "value": "100",
+    "variable": "var(--z-index-app-bar)"
+  },
   "colors.current": {
     "value": "currentColor",
     "variable": "var(--colors-current)"

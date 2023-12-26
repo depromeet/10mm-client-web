@@ -66,6 +66,13 @@ const containerCss = flex({
   backgroundColor: 'bg.surface4',
   width: 'fit-content',
   borderRadius: '24px',
+
+  position: 'fixed',
+  bottom: '34px', // indicator(34px)
+  left: 0,
+  right: 0,
+  margin: '16px auto',
+  zIndex: 'appBar',
 });
 
 const itemCss = {
