@@ -30,7 +30,7 @@ export default function StopwatchPage() {
   const onFinish = () => {
     logEvent('click/finish', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
     // TODO: 끝내기 후 로직 추가
-    router.push(`${ROUTER.MISSION.SUCCESS('dummy')}`);
+    router.push(ROUTER.MISSION.SUCCESS);
   };
 
   const onCancel = () => {
