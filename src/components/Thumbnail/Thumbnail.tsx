@@ -1,15 +1,24 @@
 import Image from 'next/image';
-import { cva, type RecipeVariantProps } from '@/styled-system/css';
-
-type ThumbnailVariants = RecipeVariantProps<typeof thumbnailStyle> & {
-  url?: string;
-};
+import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
+import { cva } from '@/styled-system/css';
 
 // NOTE: variant = null을 변수로 받아야할까?
-function Thumbnail({ url, ...props }: ThumbnailVariants) {
-  const isImageExist = url && props.variant !== 'null';
-
-  return <div className={thumbnailStyle(props)}>{isImageExist && <Image src={url} fill alt="thumbnail" />}</div>;
+function Thumbnail({ variant, url, ...props }: ThumbnailProps) {
+  switch (variant) {
+    case 'null':
+      return (
+        <div className={thumbnailStyle(props)}>
+          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
+        </div>
+      );
+    case 'filled':
+    case 'dimed':
+      return (
+        <div className={thumbnailStyle(props)}>
+          <Image src={url} fill alt="thumbnail" />
+        </div>
+      );
+  }
 }
 
 export default Thumbnail;
@@ -17,8 +26,6 @@ export default Thumbnail;
 const thumbnailStyle = cva({
   base: {
     position: 'relative',
-    backgroundSize: 'cover',
-    backgroundImage: 'url(/images/thumbnail-null.png) ',
     overflow: 'hidden',
   },
   variants: {
@@ -35,9 +42,7 @@ const thumbnailStyle = cva({
       },
     },
     variant: {
-      null: {
-        backgroundImage: 'url(/images/thumbnail-null.png) ',
-      },
+      null: {},
       filled: {
         '& img': {
           filter: 'brightness(0.9)',
@@ -56,35 +61,11 @@ const thumbnailStyle = cva({
         backgroundPosition: 'center center',
         backgroundOrigin: 'border-box',
         backgroundClip: 'content-box, border-box',
+        backgroundImage:
+          'linear-gradient(#D9D9D9, #D9D9D9), linear-gradient(103.3deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
       },
     },
   },
-  compoundVariants: [
-    {
-      variant: 'null',
-      selected: true,
-      css: {
-        backgroundImage:
-          'url(/images/thumbnail-null.png), linear-gradient(103.3deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
-      },
-    },
-    {
-      variant: 'filled',
-      selected: true,
-      css: {
-        backgroundImage:
-          'linear-gradient(#D9D9D9, #D9D9D9), linear-gradient(103.3deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
-      },
-    },
-    {
-      variant: 'dimed',
-      selected: true,
-      css: {
-        backgroundImage:
-          'linear-gradient(#D9D9D9, #D9D9D9), linear-gradient(103.3deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
-      },
-    },
-  ],
   defaultVariants: {
     size: 'h52',
     variant: 'null',

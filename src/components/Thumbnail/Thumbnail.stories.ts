@@ -19,7 +19,6 @@ const meta = {
     variant: 'null',
     size: 'h52',
     selected: false,
-    url: TEST_THUMBNAIL_IMAGE,
   },
   argTypes: {
     url: {
@@ -67,6 +66,5 @@ export const SelectedNull: Story = {
   args: {
     variant: 'null',
     selected: true,
-    url: TEST_THUMBNAIL_IMAGE,
   },
 };
