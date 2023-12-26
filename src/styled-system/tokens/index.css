@@ -169,6 +169,7 @@
   --fonts-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --fonts-pretendard: var(--pretendard);
   --z-index-modal-overlay: 9999;
+  --z-index-app-bar: 100;
   --colors-current: currentColor;
   --colors-black: #000;
   --colors-white: #fff;
