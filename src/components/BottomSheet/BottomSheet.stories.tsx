@@ -5,7 +5,7 @@ import { css } from '@/styled-system/css';
 import { type Meta } from '@storybook/react';
 
 const meta: Meta<typeof BottomSheet> = {
-  title: 'BottomSheet',
+  title: 'Component/BottomSheet',
   component: BottomSheet,
 };
 

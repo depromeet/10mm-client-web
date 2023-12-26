@@ -3,7 +3,7 @@ import { css } from '@styled-system/css';
 
 import MissionRegistration from './MissionRegistration';
 
-export default function SelectPage() {
+export default function MissionNewPage() {
   return (
     <main className={mainWrapperCss}>
       <Header title={'미션 등록'} />

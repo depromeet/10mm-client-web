@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import RadioInputWithImg from '@/app/select/RadioInputWithImg';
-import { MISSION_CATEGORIES } from '@/app/select/select.constants';
+import RadioInputWithImg from '@/app/mission/new/RadioInputWithImg';
+import { MISSION_CATEGORIES } from '@/app/mission/new/select.constants';
 import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
 import { tracker, withQueryString } from '@/utils';
@@ -21,7 +21,7 @@ export default function SelectMissionForm() {
       return;
     }
 
-    push(withQueryString(ROUTER.STOPWATCH, { category: selectedCategory }));
+    push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: selectedCategory }));
   };
 
   const handleRadioChange = (value: string) => {

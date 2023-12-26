@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CategoryBottomSheet from '@/app/select/CategoryBottomSheet';
-import PublicBottomSheet from '@/app/select/PublicBottomSheet';
+import CategoryBottomSheet from '@/app/mission/new/CategoryBottomSheet';
+import PublicBottomSheet from '@/app/mission/new/PublicBottomSheet';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
+import { ROUTER } from '@/constants/router';
 import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 import { token } from '@/styled-system/tokens';
+import { withQueryString } from '@/utils';
 
 export default function MissionRegistration() {
   const router = useRouter();
@@ -43,7 +45,7 @@ export default function MissionRegistration() {
 
   const handleSubmit = () => {
     if (!missionCategory) return;
-    router.push(`/stopwatch?category=${missionCategory}`);
+    router.push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: missionCategory }));
   };
 
   return (
@@ -134,7 +136,7 @@ const publicSettingWrapperCss = css({
 });
 const publicSettingTitleCss = css({
   marginTop: '36px',
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.primary',
 });
 
@@ -157,7 +159,7 @@ const categoryWrapperCss = css({
 });
 const categoryTitleCss = css({
   marginTop: '36px',
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.primary',
 });
 

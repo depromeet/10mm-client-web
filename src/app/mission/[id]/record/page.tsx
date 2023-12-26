@@ -6,11 +6,12 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
+import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { tracker } from '@/utils';
 import { css } from '@styled-system/css';
 
-export default function CertificationPage() {
+export default function MissionRecordPage() {
   const router = useRouter();
   const { isOpen, openModal, closeModal } = useModal();
   const [remark, setRemark] = useState('');
@@ -41,7 +42,7 @@ export default function CertificationPage() {
   };
   const onClickModalConfirm = () => {
     tracker.logEvent('click/confrim', 'certification', { remark });
-    router.push('/');
+    router.push(ROUTER.HOME);
   };
 
   const isButtonDisabled = () => {
@@ -194,7 +195,7 @@ const imageUploadTitleCss = css({
 
 const imageUploadTitleTextCss = css({
   color: 'text.primary',
-  textStyle: 'body2',
+  textStyle: 'body3',
 });
 
 const imageUploadTitleTextIconCss = css({
@@ -259,7 +260,7 @@ const remarkAreaWrapperCss = css({
 
 const remarkAreaTitleCss = css({
   color: 'text.primary',
-  textStyle: 'body2',
+  textStyle: 'body3',
 });
 
 const remarkAreaInputCss = css({
@@ -286,12 +287,12 @@ const remarkAreaCountWrapperCss = css({
 
 const remarkAreaCountTextCss = css({
   color: 'text.tertiary',
-  textStyle: 'body4',
+  textStyle: 'body5',
 });
 
 const remarkAreaCountLimitCss = css({
   color: 'text.secondary',
-  textStyle: 'body4',
+  textStyle: 'body5',
 });
 
 const hiddenInputCss = css({

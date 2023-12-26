@@ -2,12 +2,13 @@
 import { useRouter } from 'next/navigation';
 import lottieJson from '@/assets/lotties/lottieExample.json';
 import Button from '@/components/Button/Button';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 import Lottie from 'react-lottie-player';
 
-export default function CompletePage() {
+export default function MissionSuccessPage() {
   const router = useRouter();
-  const onClickConfirmButton = () => router.push('/');
+  const onClickConfirmButton = () => router.push(ROUTER.HOME);
 
   return (
     <main className={mainWrapperCss}>
@@ -65,7 +66,7 @@ const titleCss = css({
 });
 
 const subTitleCss = css({
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.secondary',
 });
 
