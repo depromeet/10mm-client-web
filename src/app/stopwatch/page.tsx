@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { MISSION_CATEGORIES } from '@/app/select/select.constants';
 import useStopwatch from '@/app/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/app/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
@@ -127,7 +126,7 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body2', marginTop: '4px', marginBottom: '96px' });
+const descCss = css({ color: 'text.secondary', textStyle: 'body3', marginTop: '4px', marginBottom: '96px' });
 
 const stopwatchCss = css({
   width: 'fit-content',

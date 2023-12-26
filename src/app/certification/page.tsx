@@ -194,7 +194,7 @@ const imageUploadTitleCss = css({
 
 const imageUploadTitleTextCss = css({
   color: 'text.primary',
-  textStyle: 'body2',
+  textStyle: 'body3',
 });
 
 const imageUploadTitleTextIconCss = css({
@@ -259,7 +259,7 @@ const remarkAreaWrapperCss = css({
 
 const remarkAreaTitleCss = css({
   color: 'text.primary',
-  textStyle: 'body2',
+  textStyle: 'body3',
 });
 
 const remarkAreaInputCss = css({
@@ -286,12 +286,12 @@ const remarkAreaCountWrapperCss = css({
 
 const remarkAreaCountTextCss = css({
   color: 'text.tertiary',
-  textStyle: 'body4',
+  textStyle: 'body5',
 });
 
 const remarkAreaCountLimitCss = css({
   color: 'text.secondary',
-  textStyle: 'body4',
+  textStyle: 'body5',
 });
 
 const hiddenInputCss = css({

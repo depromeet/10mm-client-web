@@ -11,7 +11,7 @@ export const colorList = defineTokens({
       gray050: { value: '#18181D' },
       gray100: { value: '#212129' },
       gray150: { value: '#2A2A33' },
-      gray200: { value: '#292931' },
+      gray200: { value: '#2F2F38' },
       gray300: { value: '#3C3D47' },
       gray400: { value: '#464856' },
       gray500: { value: '#6B6B7C' },
@@ -41,6 +41,9 @@ export const colorList = defineTokens({
       purple500: {
         value: '#8483D9',
       },
+      purple300: {
+        value: '#4F4F7B',
+      },
       purple400: {
         value: '#7676AC',
       },
@@ -56,8 +59,17 @@ export const colorList = defineTokens({
     },
 
     red: {
+      red700: {
+        value: '#D37D7D',
+      },
       red500: {
         value: '#C53C3C',
+      },
+      red300: {
+        value: '#7B4F4F',
+      },
+      red000: {
+        value: '#2E2020',
       },
     },
     gradients: {

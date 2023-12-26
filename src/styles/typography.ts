@@ -76,20 +76,28 @@ export const typographyList = defineTextStyles({
   body2: {
     value: {
       fontFamily: 'pretendard',
-      fontWeight: '300',
+      fontWeight: '400',
       fontSize: '14px',
-      lineHeight: '20px',
+      lineHeight: '19px',
     },
   },
   body3: {
     value: {
       fontFamily: 'pretendard',
       fontWeight: '300',
-      fontSize: '13px',
-      lineHeight: '19px',
+      fontSize: '14px',
+      lineHeight: '18px',
     },
   },
   body4: {
+    value: {
+      fontFamily: 'pretendard',
+      fontWeight: '300',
+      fontSize: '13px',
+      lineHeight: '17px',
+    },
+  },
+  body5: {
     value: {
       fontFamily: 'pretendard',
       fontWeight: '300',
