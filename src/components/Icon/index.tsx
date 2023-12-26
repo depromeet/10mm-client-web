@@ -9,7 +9,6 @@ import CheckCircleIcon from '@/components/Icon/CheckCircleIcon';
 import CloseCircleIcon from '@/components/Icon/CloseCircleIcon';
 import CloseIcon from '@/components/Icon/CloseIcon';
 import CopyLinkIcon from '@/components/Icon/CopyLinkIcon';
-import LightningIcon from '@/components/Icon/LightningIcon';
 import MenuIcon from '@/components/Icon/MenuIcon';
 import NavigationHomeIcon from '@/components/Icon/NavigationHomeIcon';
 import NavigationMypageIcon from '@/components/Icon/NavigationMypageIcon';
@@ -18,6 +17,7 @@ import NavigationUsersearchIcon from '@/components/Icon/NavigationUsersearchIcon
 import PlusCircleIcon from '@/components/Icon/PlusCircleIcon';
 import PlusIcon from '@/components/Icon/PlusIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
+import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
 import EllipseCameraIcon from './EllipseCameraIcon';
@@ -43,7 +43,6 @@ export const IconComponentMap = {
   'navigation-mypage': NavigationMypageIcon,
   'navigation-usersearch': NavigationUsersearchIcon,
   camera: CameraIcon,
-  lightning: LightningIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
   'plus-circle-large': PlusCircleLarge,
@@ -51,6 +50,7 @@ export const IconComponentMap = {
   'normal-close': NormalClose,
   'input-close-circle': InputCloseCircleIcon,
   'input-arrow-down': InputArrowDownIcon,
+  '10mm-symbol': TENMMSymbolIcon,
 } as const;
 
 interface Props extends IconComponentProps {
