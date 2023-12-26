@@ -2,6 +2,7 @@ import { type PropsWithChildren } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import {
+  type DefaultEmptyProps,
   type EmptyProps,
   type NoticesEmptyProps,
   type RefreshEmptyProps,
