@@ -5,12 +5,11 @@ type ThumbnailVariants = RecipeVariantProps<typeof thumbnailStyle> & {
   url?: string;
 };
 
+// NOTE: variant = null을 변수로 받아야할까?
 function Thumbnail({ url, ...props }: ThumbnailVariants) {
-  return (
-    <div className={thumbnailStyle(props)}>
-      {url && props.variant !== 'null' && <Image src={url} fill alt="thumbnail" />}
-    </div>
-  );
+  const isImageExist = url && props.variant !== 'null';
+
+  return <div className={thumbnailStyle(props)}>{isImageExist && <Image src={url} fill alt="thumbnail" />}</div>;
 }
 
 export default Thumbnail;
@@ -86,4 +85,8 @@ const thumbnailStyle = cva({
       },
     },
   ],
+  defaultVariants: {
+    size: 'h52',
+    variant: 'null',
+  },
 });
