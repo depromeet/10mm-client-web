@@ -9,7 +9,7 @@ import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
-import { tracker } from '@/utils';
+import { eventTracker } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -22,29 +22,35 @@ export default function StopwatchPage() {
   const { isOpen, openModal, closeModal } = useModal();
 
   const onFinishButtonClick = () => {
-    tracker.logEvent('click/finishButton', 'stopwatch', { category });
+    eventTracker.logEvent('click/finishButton', 'stopwatch', { category });
     openModal();
     onNextStep('stop');
   };
 
   const onFinish = () => {
-    tracker.logEvent('click/finish', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
+    eventTracker.logEvent('click/finish', 'stopwatch', {
+      category,
+      finishTime: Number(minutes) * 60 + Number(seconds),
+    });
     // TODO: 끝내기 후 로직 추가
     router.push(ROUTER.MISSION.SUCCESS);
   };
 
   const onCancel = () => {
-    tracker.logEvent('click/cancel', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
+    eventTracker.logEvent('click/cancel', 'stopwatch', {
+      category,
+      finishTime: Number(minutes) * 60 + Number(seconds),
+    });
     onNextStep(prevStep);
   };
 
   const onStop = () => {
-    tracker.logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
+    eventTracker.logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
     onNextStep('stop');
   };
 
   const onStart = () => {
-    tracker.logEvent('click/start', 'stopwatch', { category });
+    eventTracker.logEvent('click/start', 'stopwatch', { category });
     onNextStep('progress');
   };
 
