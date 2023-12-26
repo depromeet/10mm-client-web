@@ -17,6 +17,7 @@ import NavigationResultIcon from '@/components/Icon/NavigationResultIcon';
 import NavigationUsersearchIcon from '@/components/Icon/NavigationUsersearchIcon';
 import PlusCircleIcon from '@/components/Icon/PlusCircleIcon';
 import PlusIcon from '@/components/Icon/PlusIcon';
+import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
@@ -51,6 +52,7 @@ export const IconComponentMap = {
   'normal-close': NormalClose,
   'input-close-circle': InputCloseCircleIcon,
   'input-arrow-down': InputArrowDownIcon,
+  refresh: RefreshIcon,
 } as const;
 
 interface Props extends IconComponentProps {
