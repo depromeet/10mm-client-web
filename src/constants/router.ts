@@ -12,4 +12,7 @@ export const ROUTER = {
   RESULT: {
     HOME: '/result',
   },
+  AUTH: {
+    LOGIN: '/auth/login',
+  },
 };

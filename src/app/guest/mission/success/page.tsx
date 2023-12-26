@@ -8,7 +8,7 @@ import Lottie from 'react-lottie-player';
 
 export default function GuestMissionSuccessPage() {
   const router = useRouter();
-  const onClickConfirmButton = () => router.push(ROUTER.HOME);
+  const onClickConfirmButton = () => router.push(ROUTER.AUTH.LOGIN);
 
   return (
     <main className={mainWrapperCss}>
