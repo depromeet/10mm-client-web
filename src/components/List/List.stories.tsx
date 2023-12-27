@@ -63,7 +63,7 @@ export const ProfileFollower: Story = {
     thumbnailElement: <Thumbnail variant="null" size="h52" />,
     name: '수미칩',
     buttonElement: (
-      <Button size="small" variant="primary">
+      <Button size="small" variant="secondary">
         삭제
       </Button>
     ),
