@@ -24,6 +24,7 @@
     "next": "13.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-hotjar": "^6.2.0",
     "react-lottie-player": "^1.5.5"
   },
   "devDependencies": {
