@@ -1,4 +1,4 @@
-import { type ProfileListItemType } from '@/components/List/List.types';
+import { type ProfileListItemType } from '@/components/ListItem/ListItem.types';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 

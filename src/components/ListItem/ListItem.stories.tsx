@@ -1,12 +1,12 @@
 import Badge from '@/components/Badge/Badge';
 import Button from '@/components/Button/Button';
-import List from '@/components/List/List';
+import ListItem from '@/components/ListItem/ListItem';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Component/List',
-  component: List,
+  title: 'Component/ListItem',
+  component: ListItem,
   tags: ['autodocs'],
   parameters: {
     componentSubtitle: '리스트 요소입니다.',
@@ -19,7 +19,7 @@ const meta = {
   },
   args: {},
   argTypes: {},
-} satisfies Meta<typeof List>;
+} satisfies Meta<typeof ListItem>;
 
 export default meta;
 

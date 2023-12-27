@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Icon from '@/components/Icon';
-import { type CategoryListItemType } from '@/components/List/List.types';
+import { type CategoryListItemType } from '@/components/ListItem/ListItem.types';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 

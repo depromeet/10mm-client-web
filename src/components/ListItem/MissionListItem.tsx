@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { type MissionListItemType } from '@/components/List/List.types';
+import { type MissionListItemType } from '@/components/ListItem/ListItem.types';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
