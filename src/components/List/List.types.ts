@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import type Badge from '@/components/Badge/Badge';
 
 export interface ListItemBaseType {
   type: 'category' | 'mission' | 'profile' | 'profile-follower';
@@ -13,10 +14,10 @@ export interface CategoryListItemType extends ListItemBaseType {
 
 export interface MissionListItemType extends ListItemBaseType {
   type: 'mission';
-  iconElement: ReactNode;
+  imageUrl: string;
   category: string;
   missionTitle: string;
-  badge?: string;
+  badge?: ReactNode;
 }
 
 export interface ProfileListItemType extends ListItemBaseType {

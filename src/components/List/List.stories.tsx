@@ -1,3 +1,4 @@
+import Badge from '@/components/Badge/Badge';
 import List from '@/components/List/List';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -36,7 +37,7 @@ export const Mission: Story = {
     type: 'mission',
     category: '글쓰기',
     missionTitle: '잠들기 전 오늘 하루 감사일기 쓰기',
-    badge: 'badge',
     imageUrl: '/images/category/writting.png',
+    badgeElement: <Badge color="purple">badge</Badge>,
   },
 };
