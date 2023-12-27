@@ -2,13 +2,13 @@
 import { useEffect } from 'react';
 import Script from 'next/script';
 import { isProd } from '@/utils/common';
-import { eventTracker } from '@/utils/event';
+import { eventLogger } from '@/utils/event';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 
 const MonitoringInitializer = () => {
   useEffect(() => {
-    eventTracker.initialize();
+    eventLogger.initialize();
   }, []);
   if (!isProd()) return null;
 

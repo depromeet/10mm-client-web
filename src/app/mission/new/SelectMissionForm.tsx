@@ -6,7 +6,7 @@ import RadioInputWithImg from '@/app/mission/new/RadioInputWithImg';
 import { MISSION_CATEGORIES } from '@/app/mission/new/select.constants';
 import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
-import { eventTracker, withQueryString } from '@/utils';
+import { eventLogger, withQueryString } from '@/utils';
 import { getObjectValues } from '@/utils/object';
 import { flex } from '@styled-system/patterns';
 
@@ -15,7 +15,7 @@ export default function SelectMissionForm() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleClick = () => {
-    eventTracker.logEvent('click/nextButton', 'select_category', { category: selectedCategory ?? '' });
+    eventLogger.logEvent('click/nextButton', 'select_category', { category: selectedCategory ?? '' });
     if (selectedCategory === null) {
       alert('카테고리를 선택해주세요');
       return;
@@ -25,7 +25,7 @@ export default function SelectMissionForm() {
   };
 
   const handleRadioChange = (value: string) => {
-    eventTracker.logEvent('click/selectCategory', 'select_category', { value });
+    eventLogger.logEvent('click/selectCategory', 'select_category', { value });
     setSelectedCategory(value);
   };
 

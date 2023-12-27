@@ -4,7 +4,7 @@ import { gtagLogger } from '@/utils/event/gtag';
 import { hotjarLogger } from '@/utils/event/hotjar';
 import { mixpanelLogger } from '@/utils/event/mixpanel';
 
-class EventTracker {
+class EventLoggerController {
   eventLoggers: EventLogger[];
   category: string;
   constructor(eventLoggers: EventLogger[], category: string) {
@@ -35,4 +35,4 @@ class EventTracker {
 
 const category = process.env.NEXT_PUBLIC_WEB_VERSION ?? 'dev';
 
-export const eventTracker = new EventTracker([mixpanelLogger, hotjarLogger, gtagLogger], category);
+export const eventLogger = new EventLoggerController([mixpanelLogger, hotjarLogger, gtagLogger], category);
