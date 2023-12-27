@@ -1,6 +1,5 @@
 import React, { type ComponentProps } from 'react';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
-import Header from '@/components/Header';
 import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
@@ -18,9 +17,9 @@ function PublicBottomSheet(props: Props) {
 
   return (
     <BottomSheet
-      headerElement={
-        <Header.TextButton title="카테고리" onButtonClick={props.onClickOutside} isBackgroundTransparent />
-      }
+      // headerElement={
+      //   <Header.TextButton title="카테고리" onButtonClick={props.onClickOutside} isBackgroundTransparent />
+      // }
       {...props}
     >
       <ul className={listCss}>

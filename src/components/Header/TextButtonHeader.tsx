@@ -1,15 +1,10 @@
-import { type ComponentProps } from 'react';
 import Button from '@/components/Button/Button';
-import Header from '@/components/Header/Header';
+import { type TextButtonHeaderType } from '@/components/Header/Header.types';
+import HeaderBase from '@/components/Header/HeaderBase';
 
-interface Props extends Omit<ComponentProps<typeof Header>, 'rightElement'> {
-  rightButtonText?: string;
-  onButtonClick?: () => void;
-}
-
-function TextButtonHeader({ rightButtonText = '완료', onButtonClick, ...props }: Props) {
+function TextButtonHeader({ rightButtonText = '완료', onButtonClick, ...props }: TextButtonHeaderType) {
   return (
-    <Header
+    <HeaderBase
       rightElement={
         <Button variant="ghost" size="medium" onClick={onButtonClick}>
           {rightButtonText}

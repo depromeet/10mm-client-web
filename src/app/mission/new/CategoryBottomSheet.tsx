@@ -1,7 +1,6 @@
 import { type ComponentProps } from 'react';
 import Image from 'next/image';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
-import Header from '@/components/Header';
 import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
@@ -48,7 +47,10 @@ function CategoryBottomSheet(props: Props) {
   };
 
   return (
-    <BottomSheet headerElement={<Header.None title="카테고리" isBackgroundTransparent />} {...props}>
+    <BottomSheet
+      //  headerElement={<Header.None title="카테고리" isBackgroundTransparent />}
+      {...props}
+    >
       <ul className={categoryListCss}>
         {CATEGORY.map((item) => (
           <li key={item.name} className={categoryItemCss} onClick={() => onClick(item.name)}>

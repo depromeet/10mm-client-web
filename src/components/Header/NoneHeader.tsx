@@ -1,10 +1,8 @@
-import { type ComponentProps } from 'react';
-import Header from '@/components/Header/Header';
+import { type NoneHeaderType } from '@/components/Header/Header.types';
+import HeaderBase from '@/components/Header/HeaderBase';
 
-interface Props extends Omit<ComponentProps<typeof Header>, 'rightElement'> {}
-
-function NoneHeader(props: Props) {
-  return <Header {...props} />;
+function NoneHeader(props: NoneHeaderType) {
+  return <HeaderBase rightElement={undefined} {...props} />;
 }
 
 export default NoneHeader;

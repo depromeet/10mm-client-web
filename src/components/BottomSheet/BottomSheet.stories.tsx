@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
-import Header from '@/components/Header';
 import { css } from '@/styled-system/css';
 import { type Meta } from '@storybook/react';
 
@@ -30,7 +29,7 @@ export function Default() {
       <BottomSheet
         onClickOutside={toggleShowing}
         isShowing={isShowing}
-        headerElement={<Header.Icon title="Header" isBackgroundTransparent />}
+        // headerElement={<Header.Icon title="Header" isBackgroundTransparent />}
       >
         <div
           className={css({
