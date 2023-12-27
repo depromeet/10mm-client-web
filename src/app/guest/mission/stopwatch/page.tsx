@@ -10,7 +10,7 @@ import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
-import { logEvent } from '@/utils';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function GuestMissionStopwatchPage() {
@@ -23,13 +23,13 @@ export default function GuestMissionStopwatchPage() {
   const { isOpen, openModal, closeModal } = useModal();
 
   const onFinishButtonClick = () => {
-    logEvent('click/finishButton', 'stopwatch', { category });
+    eventLogger.logEvent('click/finishButton', 'stopwatch', { category });
     openModal();
     onNextStep('stop');
   };
 
   const onFinish = () => {
-    logEvent('click/finish', 'stopwatch', {
+    eventLogger.logEvent('click/finish', 'stopwatch', {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
@@ -38,7 +38,7 @@ export default function GuestMissionStopwatchPage() {
   };
 
   const onCancel = () => {
-    logEvent('click/cancel', 'stopwatch', {
+    eventLogger.logEvent('click/cancel', 'stopwatch', {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
@@ -47,12 +47,16 @@ export default function GuestMissionStopwatchPage() {
   };
 
   const onStop = () => {
-    logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds), isGuest: true });
+    eventLogger.logEvent('click/stop', 'stopwatch', {
+      category,
+      stopTime: Number(minutes) * 60 + Number(seconds),
+      isGuest: true,
+    });
     onNextStep('stop');
   };
 
   const onStart = () => {
-    logEvent('click/start', 'stopwatch', { category, isGuest: true });
+    eventLogger.logEvent('click/start', 'stopwatch', { category, isGuest: true });
     onNextStep('progress');
   };
 

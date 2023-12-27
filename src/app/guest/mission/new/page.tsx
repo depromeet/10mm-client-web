@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import { ROUTER } from '@/constants/router';
-import { logEvent, withQueryString } from '@/utils';
+import { eventLogger, withQueryString } from '@/utils';
 import { getObjectValues } from '@/utils/object';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
@@ -17,7 +17,7 @@ export default function GuestMissionNewPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleClick = () => {
-    logEvent('click/nextButton', 'select_category', { category: selectedCategory ?? '', isGuest: true });
+    eventLogger.logEvent('click/nextButton', 'select_category', { category: selectedCategory ?? '', isGuest: true });
     if (selectedCategory === null) {
       alert('카테고리를 선택해주세요');
       return;
@@ -27,7 +27,7 @@ export default function GuestMissionNewPage() {
   };
 
   const handleRadioChange = (value: string) => {
-    logEvent('click/selectCategory', 'select_category', { value, isGuest: true });
+    eventLogger.logEvent('click/selectCategory', 'select_category', { value, isGuest: true });
     setSelectedCategory(value);
   };
 

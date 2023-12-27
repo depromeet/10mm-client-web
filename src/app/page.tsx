@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import LogoIcon from '@/app/LogoIcon';
 import { ROUTER } from '@/constants/router';
-import { logEvent } from '@/utils';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
 export default function Home() {
   const handleLogin = () => {
-    logEvent('click/guestLogin', 'guest_login');
+    eventLogger.logEvent('click/guestLogin', 'guest_login');
   };
 
   return (
