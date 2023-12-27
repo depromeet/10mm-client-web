@@ -33,7 +33,8 @@ export default function GuestMissionNewPage() {
 
   return (
     <main className={mainWrapperCss}>
-      <Header />
+      <Header rightAction="none" />
+
       <div className={containerCss}>
         <p className={mainTitleCss}>
           하루 <strong>10분</strong>씩 2주 동안

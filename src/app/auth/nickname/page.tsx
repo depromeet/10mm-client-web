@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import router from 'next/router';
 import Button from '@/components/Button/Button';
-// import Header from '@/components/Header/Header';
+import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
@@ -28,8 +28,7 @@ export default function AuthNickNamePage() {
 
   return (
     <main className={mainWrapperCss}>
-      {/* TODO */}
-      {/* <Header /> */}
+      <Header rightAction="none" />
       <div className={containerCss}>
         <div className={subTitleWrapperCss}>
           <div className={subTitleCss}>닉네임을 설정해주세요.</div>

@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
  * @param onClickOutside  scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
  */
 interface Props extends ComponentProps<typeof AnimatePortal> {
-  headerElement?: ReactNode;
+  headerElement: ReactNode;
   onClickOutside?: VoidFunction;
 }
 

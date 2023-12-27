@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
@@ -62,7 +62,7 @@ export default function GuestMissionStopwatchPage() {
 
   return (
     <div className={containerCss}>
-      <Header />
+      <Header rightAction="none" />
       <p className={titleCss}>{stepLabel.title}</p>
       <p className={descCss}>{stepLabel.desc}</p>
 
