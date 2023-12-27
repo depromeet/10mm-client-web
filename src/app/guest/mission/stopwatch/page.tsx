@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
+import Header from '@/components/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
@@ -12,7 +13,7 @@ import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
-export default function StopwatchPage() {
+export default function GuestMissionStopwatchPage() {
   const router = useRouter();
   const category = useGetCategory();
 
@@ -31,32 +32,38 @@ export default function StopwatchPage() {
     eventLogger.logEvent('click/finish', 'stopwatch', {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
+      isGuest: true,
     });
-    // TODO: 끝내기 후 로직 추가
-    router.push(ROUTER.MISSION.SUCCESS);
+    router.push(ROUTER.GUEST.MISSION.SUCCESS);
   };
 
   const onCancel = () => {
     eventLogger.logEvent('click/cancel', 'stopwatch', {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
+      isGuest: true,
     });
     onNextStep(prevStep);
   };
 
   const onStop = () => {
-    eventLogger.logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
+    eventLogger.logEvent('click/stop', 'stopwatch', {
+      category,
+      stopTime: Number(minutes) * 60 + Number(seconds),
+      isGuest: true,
+    });
     onNextStep('stop');
   };
 
   const onStart = () => {
-    eventLogger.logEvent('click/start', 'stopwatch', { category });
+    eventLogger.logEvent('click/start', 'stopwatch', { category, isGuest: true });
     onNextStep('progress');
   };
 
   return (
     <div className={containerCss}>
-      <h1 className={titleCss}>{stepLabel.title}</h1>
+      <Header />
+      <p className={titleCss}>{stepLabel.title}</p>
       <p className={descCss}>{stepLabel.desc}</p>
 
       <section className={stopwatchCss}>

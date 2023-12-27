@@ -20,7 +20,7 @@ const CATEGORY = [
   },
   {
     name: '글 쓰기',
-    image: '/images/category/writting.png',
+    image: '/images/category/writing.png',
   },
   {
     name: '프로젝트 / 작업',
