@@ -4,13 +4,13 @@ import { flex } from '@/styled-system/patterns';
 
 function ProfileListItem(props: ProfileListItemType) {
   return (
-    <div className={containerCss}>
+    <li className={containerCss}>
       <div className={innerWrapperCss}>
         {props.thumbnailElement}
         <p className={nameCss}>{props.name}</p>
       </div>
       {Boolean(props.buttonElement) && props.buttonElement}
-    </div>
+    </li>
   );
 }
 

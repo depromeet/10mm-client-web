@@ -4,7 +4,7 @@ import { flex } from '@/styled-system/patterns';
 
 function ProfileFollowerListItem(props: ProfileFollowerListItemType) {
   return (
-    <div className={containerCss}>
+    <li className={containerCss}>
       <div className={innerWrapperCss}>
         {props.thumbnailElement}
         <p className={nameCss}>
@@ -12,7 +12,7 @@ function ProfileFollowerListItem(props: ProfileFollowerListItemType) {
         </p>
       </div>
       {Boolean(props.buttonElement) && props.buttonElement}
-    </div>
+    </li>
   );
 }
 

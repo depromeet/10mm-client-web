@@ -5,14 +5,14 @@ import { flex } from '@/styled-system/patterns';
 
 function MissionListItem(props: MissionListItemType) {
   return (
-    <div className={containerCss}>
+    <li className={containerCss}>
       <Image src={props.imageUrl} alt="mission list item" width={36} height={36} />
       <div className={textWrapperCss}>
         <p className={categoryCss}>{props.category}</p>
         <p className={missionTitleCss}>{props.missionTitle}</p>
       </div>
       {Boolean(props.badgeElement) && props.badgeElement}
-    </div>
+    </li>
   );
 }
 

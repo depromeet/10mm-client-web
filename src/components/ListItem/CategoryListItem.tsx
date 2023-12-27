@@ -6,11 +6,11 @@ import { flex } from '@/styled-system/patterns';
 
 function CategoryListItem(props: CategoryListItemType) {
   return (
-    <div className={containerCss}>
+    <li className={containerCss}>
       {props.imageUrl && <Image src={props.imageUrl} alt={props.category} width={28} height={28} />}
       <span className={categoryCss}>{props.category}</span>
       {props.checked && <Icon name="check-circle" color="purple.purple700" />}
-    </div>
+    </li>
   );
 }
 
