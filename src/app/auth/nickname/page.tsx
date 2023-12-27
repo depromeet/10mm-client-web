@@ -28,7 +28,7 @@ export default function AuthNickNamePage() {
 
   return (
     <main className={mainWrapperCss}>
-      <Header />
+      <Header rightAction="none" />
       <div className={containerCss}>
         <div className={subTitleWrapperCss}>
           <div className={subTitleCss}>닉네임을 설정해주세요.</div>

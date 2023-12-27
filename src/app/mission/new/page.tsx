@@ -6,7 +6,7 @@ import MissionRegistration from './MissionRegistration';
 export default function MissionNewPage() {
   return (
     <main className={mainWrapperCss}>
-      <Header title={'미션 등록'} />
+      <Header title={'미션 등록'} rightAction="none" />
       <div className={containerCss}>
         <h1 className={mainTitleCss}>
           하루 <strong>10분</strong>씩 2주 동안

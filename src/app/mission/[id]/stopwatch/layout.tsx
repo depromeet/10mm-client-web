@@ -5,7 +5,7 @@ import { css } from '@/styled-system/css';
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <div className={containerCss}>
-      <Header />
+      <Header rightAction="none" />
 
       {children}
     </div>
