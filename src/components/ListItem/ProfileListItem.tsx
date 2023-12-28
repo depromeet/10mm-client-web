@@ -6,12 +6,10 @@ import { flex } from '@/styled-system/patterns';
 function ProfileListItem(props: ProfileListItemType) {
   return (
     <li className={containerCss}>
-      <div className={innerWrapperCss}>
-        {props.thumbnailElement}
-        <p className={nameCss}>{props.name}</p>
-      </div>
+      {props.thumbnailElement}
+      <p className={nameCss}>{props.name}</p>
       {props.onButtonClick && (
-        <Button size="small" variant="primary" onClick={props.onButtonClick}>
+        <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
           팔로우
         </Button>
       )}
@@ -21,6 +19,17 @@ function ProfileListItem(props: ProfileListItemType) {
 
 export default ProfileListItem;
 
-const containerCss = flex({ padding: '10px 8px', gap: '16px', alignItems: 'center' });
-const innerWrapperCss = flex({ gap: '12px', alignItems: 'center', flex: 1 });
-const nameCss = css({ color: 'text.secondary', textStyle: 'subtitle4', flex: 1 });
+const containerCss = flex({ padding: '10px 8px', gap: '12px', alignItems: 'center' });
+
+const nameCss = css({
+  flex: 1,
+  color: 'text.secondary',
+  textStyle: 'subtitle4',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
+
+const buttonCss = css({
+  marginLeft: '4px',
+});

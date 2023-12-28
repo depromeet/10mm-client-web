@@ -6,14 +6,13 @@ import { flex } from '@/styled-system/patterns';
 function ProfileFollowerListItem(props: ProfileFollowerListItemType) {
   return (
     <li className={containerCss}>
-      <div className={innerWrapperCss}>
-        {props.thumbnailElement}
-        <p className={nameCss}>
-          {props.name} <span className={followLabelCss}>팔로우</span>
-        </p>
-      </div>
+      {props.thumbnailElement}
+      <p className={nameCss}>
+        {props.name}
+        <span className={followLabelCss}>팔로우</span>
+      </p>
       {props.onButtonClick && (
-        <Button size="small" variant="secondary" onClick={props.onButtonClick}>
+        <Button size="small" variant="secondary" onClick={props.onButtonClick} className={buttonCss}>
           삭제
         </Button>
       )}
@@ -23,7 +22,27 @@ function ProfileFollowerListItem(props: ProfileFollowerListItemType) {
 
 export default ProfileFollowerListItem;
 
-const containerCss = flex({ padding: '10px 8px', gap: '16px', alignItems: 'center' });
-const innerWrapperCss = flex({ gap: '12px', alignItems: 'center', flex: 1 });
-const nameCss = css({ color: 'text.secondary', textStyle: 'subtitle4' });
-const followLabelCss = css({ color: 'purple.purple600', textStyle: 'subtitle4', marginLeft: '8px' });
+const containerCss = flex({ padding: '10px 8px', gap: '12px', alignItems: 'center' });
+
+const nameCss = css({
+  flex: 1,
+  position: 'relative',
+  color: 'text.secondary',
+  textStyle: 'subtitle4',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  paddingRight: '48px',
+});
+
+const buttonCss = css({
+  marginLeft: '4px',
+});
+
+const followLabelCss = css({
+  top: 0,
+  right: 0,
+  position: 'absolute',
+  color: 'purple.purple600',
+  textStyle: 'subtitle4',
+});

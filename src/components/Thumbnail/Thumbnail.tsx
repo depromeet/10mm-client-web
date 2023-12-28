@@ -27,6 +27,7 @@ const thumbnailStyle = cva({
   base: {
     position: 'relative',
     overflow: 'hidden',
+    flexShrink: 0,
   },
   variants: {
     size: {

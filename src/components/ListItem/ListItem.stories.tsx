@@ -101,11 +101,55 @@ export const Profile: Story = {
   ],
 };
 
+export const ProfileLong: Story = {
+  args: {
+    type: 'profile',
+    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    name: '수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩',
+    onButtonClick: () => alert('profile button clicked'),
+  },
+  argTypes: {
+    category: { table: { disable: true } },
+    missionTitle: { table: { disable: true } },
+    checked: { table: { disable: true } },
+    type: { table: { disable: true } },
+  },
+  decorators: [
+    (Story) => (
+      <div className={containerCss}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 export const ProfileFollower: Story = {
   args: {
     type: 'profile-follower',
     thumbnailElement: <Thumbnail variant="null" size="h52" />,
     name: '수미칩',
+    onButtonClick: () => alert('profile follower button clicked'),
+  },
+  argTypes: {
+    category: { table: { disable: true } },
+    missionTitle: { table: { disable: true } },
+    checked: { table: { disable: true } },
+    type: { table: { disable: true } },
+  },
+  decorators: [
+    (Story) => (
+      <div className={containerCss}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const ProfileFollowerLong: Story = {
+  args: {
+    type: 'profile-follower',
+    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    name: '짱긴문자열열열열열열열열열열열열열열열열열열열열열열열열열열열',
     onButtonClick: () => alert('profile follower button clicked'),
   },
   argTypes: {
