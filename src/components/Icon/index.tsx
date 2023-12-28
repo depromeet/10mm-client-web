@@ -30,16 +30,14 @@ import NormalClose from './NormalClose';
 import PlusCircleLarge from './PlusCircleLargeIcon';
 
 export const IconComponentMap = {
-  'apple-login': AppleLoginIcon,
-  'arrow-back': ArrowBackIcon,
   'arrow-down': ArrowDownIcon,
+  'arrow-back': ArrowBackIcon,
   'arrow-forward': ArrowFoWardIcon,
   'check-circle': CheckCircleIcon,
   share: ShareIcon,
   alarm: AlarmIcon,
   plus: PlusIcon,
   menu: MenuIcon,
-  'kakao-login': KakaoLoginIcon,
   'copy-link': CopyLinkIcon,
   'arrow-diagonal': ArrowDiagonalIcon,
   'close-circle': CloseCircleIcon,
@@ -50,13 +48,15 @@ export const IconComponentMap = {
   camera: CameraIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
-  'plus-circle-large': PlusCircleLarge,
   'ellipse-camera-icon': EllipseCameraIcon,
   'normal-close': NormalClose,
   'input-close-circle': InputCloseCircleIcon,
   'input-arrow-down': InputArrowDownIcon,
   refresh: RefreshIcon,
+  'plus-circle-large': PlusCircleLarge,
   '10mm-symbol': TENMMSymbolIcon,
+  'apple-login': AppleLoginIcon,
+  'kakao-login': KakaoLoginIcon,
 } as const;
 
 interface Props extends IconComponentProps {
