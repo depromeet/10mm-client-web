@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
 import '../src/app/globals.css';
 
@@ -14,6 +15,13 @@ const preview: Preview = {
       appDirectory: true,
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ minWidth: '375px' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default preview;

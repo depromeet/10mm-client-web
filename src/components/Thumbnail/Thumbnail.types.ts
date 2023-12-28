@@ -1,8 +1,9 @@
 type ThumbnailSizeType = 'h52' | 'h32';
 interface ThumbnailBaseProps {
   size: ThumbnailSizeType;
-  selected: boolean;
+  selected?: boolean;
 }
+
 export interface FilledThumbnailProps extends ThumbnailBaseProps {
   url: string;
   variant: 'filled';
