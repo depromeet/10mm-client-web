@@ -67,7 +67,7 @@ const dialogTitleCss = css({
 });
 
 const dialogContentCss = css({
-  textStyle: 'body2',
+  textStyle: 'body3',
   color: 'text.secondary',
 });
 

@@ -27,6 +27,9 @@ export default defineConfig({
           modalOverlay: {
             value: 9999,
           },
+          appBar: {
+            value: '100',
+          },
         },
         ...colorList,
       },

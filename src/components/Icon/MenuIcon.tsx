@@ -2,12 +2,19 @@ import { DEFAULT_ICON_COLOR, type IconComponentProps } from '@/components/Icon/i
 import { token } from '@styled-system/tokens';
 
 function MenuIcon(props: IconComponentProps) {
-  const { color, ...restProps } = props;
+  const { color, size = 24, ...restProps } = props;
 
   const iconColor = color ? token.var(`colors.${color}`) : DEFAULT_ICON_COLOR;
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" color={iconColor} {...restProps}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      color={iconColor}
+      {...restProps}
+    >
       <path
         d="M6.82353 12.5C6.82353 13.3284 6.19146 14 5.41176 14C4.63207 14 4 13.3284 4 12.5C4 11.6716 4.63207 11 5.41176 11C6.19146 11 6.82353 11.6716 6.82353 12.5Z"
         fill="currenColor"

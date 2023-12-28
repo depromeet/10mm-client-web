@@ -4,6 +4,7 @@ import { styled } from '@/styled-system/jsx';
 const buttonStyle = cva({
   base: {
     textStyle: 'subtitle4',
+    flexShrink: 0,
   },
   variants: {
     size: {

@@ -1,5 +1,25 @@
 export const ROUTER = {
   HOME: '/',
-  SELECT: '/select',
-  STOPWATCH: '/stopwatch',
+  MISSION: {
+    NEW: '/mission/new',
+    SUCCESS: `/mission/success`,
+    RECORD: (id: string) => `/mission/${id}/stopwatch`,
+    STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
+  },
+  MYPAGE: {
+    HOME: '/mypage',
+  },
+  RESULT: {
+    HOME: '/result',
+  },
+  AUTH: {
+    LOGIN: '/auth/login',
+  },
+  GUEST: {
+    MISSION: {
+      NEW: '/guest/mission/new',
+      SUCCESS: `/guest/mission/success`,
+      STOP_WATCH: `/guest/mission/stopwatch`,
+    },
+  },
 };
