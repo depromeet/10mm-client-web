@@ -1,3 +1,4 @@
+import Button from '@/components/Button/Button';
 import { type ProfileFollowerListItemType } from '@/components/ListItem/ListItem.types';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
@@ -11,7 +12,11 @@ function ProfileFollowerListItem(props: ProfileFollowerListItemType) {
           {props.name} <span className={followLabelCss}>팔로우</span>
         </p>
       </div>
-      {Boolean(props.buttonElement) && props.buttonElement}
+      {props.onButtonClick && (
+        <Button size="small" variant="secondary" onClick={props.onButtonClick}>
+          삭제
+        </Button>
+      )}
     </li>
   );
 }

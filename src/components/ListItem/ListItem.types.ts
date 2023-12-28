@@ -30,7 +30,7 @@ export interface ProfileFollowerListItemType extends ListItemBaseType {
   type: 'profile-follower';
   thumbnailElement: ReactNode;
   name: string;
-  buttonElement?: ReactNode;
+  onButtonClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export type ListItemType =

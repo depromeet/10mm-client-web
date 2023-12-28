@@ -1,5 +1,4 @@
 import Badge from '@/components/Badge/Badge';
-import Button from '@/components/Button/Button';
 import ListItem from '@/components/ListItem/ListItem';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -16,14 +15,19 @@ const meta = {
       },
     },
     layout: 'centered',
+    controls: { sort: 'requiredFirst' },
   },
-  args: {},
+  args: {
+    category: '운동',
+    missionTitle: '스쿼트 30개 하기',
+    name: '수미칩',
+    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+  },
   argTypes: {
-    onButtonClick: {
-      table: {
-        disable: true,
-      },
-    },
+    onButtonClick: { table: { disable: true } },
+    badgeElement: { table: { disable: true } },
+    imageUrl: { table: { disable: true } },
+    thumbnailElement: { table: { disable: true } },
   },
 } satisfies Meta<typeof ListItem>;
 
@@ -64,10 +68,6 @@ export const ProfileFollower: Story = {
     type: 'profile-follower',
     thumbnailElement: <Thumbnail variant="null" size="h52" />,
     name: '수미칩',
-    buttonElement: (
-      <Button size="small" variant="secondary">
-        삭제
-      </Button>
-    ),
+    onButtonClick: () => alert('profile follower button clicked'),
   },
 };
