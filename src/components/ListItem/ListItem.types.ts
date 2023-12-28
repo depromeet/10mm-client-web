@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type MouseEventHandler, type ReactNode } from 'react';
 
 export interface ListItemBaseType {
   type: 'category' | 'mission' | 'profile' | 'profile-follower';
@@ -23,7 +23,7 @@ export interface ProfileListItemType extends ListItemBaseType {
   type: 'profile';
   thumbnailElement: ReactNode;
   name: string;
-  buttonElement?: ReactNode;
+  onButtonClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export interface ProfileFollowerListItemType extends ListItemBaseType {

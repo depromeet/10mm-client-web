@@ -1,3 +1,4 @@
+import Button from '@/components/Button/Button';
 import { type ProfileListItemType } from '@/components/ListItem/ListItem.types';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
@@ -9,7 +10,11 @@ function ProfileListItem(props: ProfileListItemType) {
         {props.thumbnailElement}
         <p className={nameCss}>{props.name}</p>
       </div>
-      {Boolean(props.buttonElement) && props.buttonElement}
+      {props.onButtonClick && (
+        <Button size="small" variant="primary" onClick={props.onButtonClick}>
+          팔로우
+        </Button>
+      )}
     </li>
   );
 }

@@ -18,7 +18,13 @@ const meta = {
     layout: 'centered',
   },
   args: {},
-  argTypes: {},
+  argTypes: {
+    onButtonClick: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 } satisfies Meta<typeof ListItem>;
 
 export default meta;
@@ -49,11 +55,7 @@ export const Profile: Story = {
     type: 'profile',
     thumbnailElement: <Thumbnail variant="null" size="h52" />,
     name: '수미칩',
-    buttonElement: (
-      <Button size="small" variant="primary">
-        팔로우
-      </Button>
-    ),
+    onButtonClick: () => alert('profile button clicked'),
   },
 };
 
