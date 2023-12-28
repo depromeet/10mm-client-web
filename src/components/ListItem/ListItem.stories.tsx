@@ -1,6 +1,7 @@
 import Badge from '@/components/Badge/Badge';
 import ListItem from '@/components/ListItem/ListItem';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { css } from '@/styled-system/css';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -42,6 +43,18 @@ export const Category: Story = {
     category: '운동',
     checked: true,
   },
+  argTypes: {
+    type: { table: { disable: true } },
+    name: { table: { disable: true } },
+    missionTitle: { table: { disable: true } },
+  },
+  decorators: [
+    (Story) => (
+      <div className={containerCss}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const Mission: Story = {
@@ -52,6 +65,18 @@ export const Mission: Story = {
     imageUrl: '/images/category/writting.png',
     badgeElement: <Badge color="purple">badge</Badge>,
   },
+  argTypes: {
+    type: { table: { disable: true } },
+    checked: { table: { disable: true } },
+    name: { table: { disable: true } },
+  },
+  decorators: [
+    (Story) => (
+      <div className={containerCss}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const Profile: Story = {
@@ -61,6 +86,19 @@ export const Profile: Story = {
     name: '수미칩',
     onButtonClick: () => alert('profile button clicked'),
   },
+  argTypes: {
+    category: { table: { disable: true } },
+    missionTitle: { table: { disable: true } },
+    checked: { table: { disable: true } },
+    type: { table: { disable: true } },
+  },
+  decorators: [
+    (Story) => (
+      <div className={containerCss}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const ProfileFollower: Story = {
@@ -70,4 +108,21 @@ export const ProfileFollower: Story = {
     name: '수미칩',
     onButtonClick: () => alert('profile follower button clicked'),
   },
+  argTypes: {
+    category: { table: { disable: true } },
+    missionTitle: { table: { disable: true } },
+    checked: { table: { disable: true } },
+    type: { table: { disable: true } },
+  },
+  decorators: [
+    (Story) => (
+      <div className={containerCss}>
+        <Story />
+      </div>
+    ),
+  ],
 };
+
+const containerCss = css({
+  maxWidth: '475px',
+});
