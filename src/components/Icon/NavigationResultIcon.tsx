@@ -2,12 +2,19 @@ import { DEFAULT_ICON_COLOR, type IconComponentProps } from '@/components/Icon/i
 import { token } from '@styled-system/tokens';
 
 function NavigationResultIcon(props: IconComponentProps) {
-  const { color, ...restProps } = props;
+  const { color, size = 24, ...restProps } = props;
 
   const iconColor = color ? token.var(`colors.${color}`) : DEFAULT_ICON_COLOR;
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" color={iconColor} {...restProps}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      color={iconColor}
+      {...restProps}
+    >
       <path
         d="M17.0949 21.0761H21.2663C21.4587 21.0761 21.6433 20.9996 21.7794 20.8635C21.9155 20.7274 21.992 20.5428 21.992 20.3503V3.72571C21.992 3.53324 21.9155 3.34865 21.7794 3.21256C21.6433 3.07646 21.4587 3 21.2663 3H17.0949C16.9024 3 16.7178 3.07646 16.5817 3.21256C16.4456 3.34865 16.3691 3.53324 16.3691 3.72571V20.3503C16.3691 20.5428 16.4456 20.7274 16.5817 20.8635C16.7178 20.9996 16.9024 21.0761 17.0949 21.0761Z"
         fill="currentColor"

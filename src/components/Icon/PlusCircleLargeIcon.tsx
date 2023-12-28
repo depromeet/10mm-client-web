@@ -1,10 +1,10 @@
 import { type IconComponentProps } from '@/components/Icon/index';
 
 function PlusCircleLarge(props: IconComponentProps) {
-  const { color, ...restProps } = props;
+  const { color, size = 43, ...restProps } = props;
 
   return (
-    <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg" {...restProps}>
+    <svg width={size} height={size} viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg" {...restProps}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
