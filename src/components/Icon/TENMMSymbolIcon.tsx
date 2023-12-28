@@ -2,14 +2,14 @@ import { DEFAULT_ICON_COLOR, type IconComponentProps } from '@/components/Icon/i
 import { token } from '@styled-system/tokens';
 
 function TENMMSymbolIcon(props: IconComponentProps) {
-  const { color, ...restProps } = props;
+  const { color, size = 16, ...restProps } = props;
 
   const iconColor = color ? token.var(`colors.${color}`) : DEFAULT_ICON_COLOR;
 
   return (
     <svg
-      width="16"
-      height="16"
+      width={size}
+      height={size}
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

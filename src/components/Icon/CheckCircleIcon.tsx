@@ -2,12 +2,19 @@ import { DEFAULT_ICON_COLOR, type IconComponentProps } from '@/components/Icon/i
 import { token } from '@styled-system/tokens';
 
 function CheckCircleIcon(props: IconComponentProps) {
-  const { color, ...restProps } = props;
+  const { color, size = 24, ...restProps } = props;
 
   const iconColor = color ? token.var(`colors.${color}`) : DEFAULT_ICON_COLOR;
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" color={iconColor} {...restProps}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      color={iconColor}
+      {...restProps}
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"

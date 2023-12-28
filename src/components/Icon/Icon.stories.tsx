@@ -12,7 +12,8 @@ type Story = StoryObj<typeof Icon>;
 
 export const Default: Story = {
   args: {
-    color: 'gray.900',
+    color: 'gray.700',
     name: 'arrow-back',
+    size: 24,
   },
 };

@@ -8,7 +8,7 @@ import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
-import { logEvent } from '@/utils';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function MissionRecordPage() {
@@ -19,7 +19,7 @@ export default function MissionRecordPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const handleUploadChange = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
-    logEvent('click/imagePreview', 'certification');
+    eventLogger.logEvent('click/imagePreview', 'certification');
     const file = files?.[0];
     if (!file) {
       return;
@@ -41,7 +41,7 @@ export default function MissionRecordPage() {
     router.replace('/complete');
   };
   const onClickModalConfirm = () => {
-    logEvent('click/confrim', 'certification', { remark });
+    eventLogger.logEvent('click/confrim', 'certification', { remark });
     router.push(ROUTER.HOME);
   };
 

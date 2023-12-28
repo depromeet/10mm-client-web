@@ -1,7 +1,7 @@
 import { type ComponentProps } from 'react';
 import Image from 'next/image';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
@@ -20,7 +20,7 @@ const CATEGORY = [
   },
   {
     name: '글 쓰기',
-    image: '/images/category/writting.png',
+    image: '/images/category/writing.png',
   },
   {
     name: '프로젝트 / 작업',
@@ -48,7 +48,7 @@ function CategoryBottomSheet(props: Props) {
   };
 
   return (
-    <BottomSheet headerElement={<Header.None title="카테고리" isBackgroundTransparent />} {...props}>
+    <BottomSheet headerElement={<Header rightAction="none" title="카테고리" />} {...props}>
       <ul className={categoryListCss}>
         {CATEGORY.map((item) => (
           <li key={item.name} className={categoryItemCss} onClick={() => onClick(item.name)}>

@@ -1,15 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import useStopwatch from '@/app/mission/[id]/stopwatch/useStopwatch';
-import useStopwatchStatus from '@/app/mission/[id]/stopwatch/useStopwatchStatus';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
+import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
+import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
-import { logEvent } from '@/utils';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -22,29 +22,35 @@ export default function StopwatchPage() {
   const { isOpen, openModal, closeModal } = useModal();
 
   const onFinishButtonClick = () => {
-    logEvent('click/finishButton', 'stopwatch', { category });
+    eventLogger.logEvent('click/finishButton', 'stopwatch', { category });
     openModal();
     onNextStep('stop');
   };
 
   const onFinish = () => {
-    logEvent('click/finish', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
+    eventLogger.logEvent('click/finish', 'stopwatch', {
+      category,
+      finishTime: Number(minutes) * 60 + Number(seconds),
+    });
     // TODO: 끝내기 후 로직 추가
     router.push(ROUTER.MISSION.SUCCESS);
   };
 
   const onCancel = () => {
-    logEvent('click/cancel', 'stopwatch', { category, finishTime: Number(minutes) * 60 + Number(seconds) });
+    eventLogger.logEvent('click/cancel', 'stopwatch', {
+      category,
+      finishTime: Number(minutes) * 60 + Number(seconds),
+    });
     onNextStep(prevStep);
   };
 
   const onStop = () => {
-    logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
+    eventLogger.logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
     onNextStep('stop');
   };
 
   const onStart = () => {
-    logEvent('click/start', 'stopwatch', { category });
+    eventLogger.logEvent('click/start', 'stopwatch', { category });
     onNextStep('progress');
   };
 
