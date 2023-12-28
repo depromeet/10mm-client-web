@@ -66,7 +66,7 @@ function LightningStepper({ stack, isDisabled }: { stack: number; isDisabled: bo
       {[...Array(stack)].map((_, idx) => (
         <Icon
           key={idx}
-          name="lightning"
+          name="10mm-symbol"
           color={isDisabled ? 'icon.secondary' : 'purple.purple700'}
           width={16}
           height={16}
@@ -75,7 +75,7 @@ function LightningStepper({ stack, isDisabled }: { stack: number; isDisabled: bo
       {[...Array(6 - stack)].map((_, idx) => (
         <Icon
           key={idx}
-          name="lightning"
+          name="10mm-symbol"
           color={isDisabled ? 'gray.gray300' : 'purple.purple100'}
           width={16}
           height={16}
@@ -106,9 +106,9 @@ const innerContainerCss = css({
 
 const categoryCss = {
   textAlign: 'center',
-  textStyle: 'body2',
+  textStyle: 'body3',
   marginBottom: '4px',
-  maxWidth: '160px',
+  maxWidth: '110px',
 };
 
 const ellipsis = {

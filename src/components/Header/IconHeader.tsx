@@ -1,14 +1,10 @@
-import { type ComponentProps } from 'react';
-import Header from '@/components/Header/Header';
-import Icon, { type IconComponentMap } from '@/components/Icon';
+import { type IconHeaderType } from '@/components/Header/Header.types';
+import HeaderBase from '@/components/Header/HeaderBase';
+import Icon from '@/components/Icon';
 
-interface Props extends Omit<ComponentProps<typeof Header>, 'rightElement'> {
-  iconName?: keyof typeof IconComponentMap;
-}
-
-function IconHeader({ iconName = 'close', ...props }: Props) {
+function IconHeader({ iconName = 'close', ...props }: IconHeaderType) {
   return (
-    <Header
+    <HeaderBase
       rightElement={
         <div>
           <Icon name={iconName} width={20} height={20} />

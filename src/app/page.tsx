@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import LogoIcon from '@/app/LogoIcon';
-import { logEvent } from '@/utils';
+import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
 export default function Home() {
   const handleLogin = () => {
-    logEvent('click/guestLogin', 'guest_login');
+    eventLogger.logEvent('click/guestLogin', 'guest_login');
   };
 
   return (
@@ -17,7 +18,7 @@ export default function Home() {
         <LogoIcon />
         <h1 className={MainTitleCss}>하루 10분의 변화를 경험하세요.</h1>
       </div>
-      <Link className={LinkCss} href={'/select'} onClick={handleLogin}>
+      <Link className={LinkCss} href={ROUTER.MISSION.NEW} onClick={handleLogin}>
         <button type={'button'} className={LoginButtonCss}>
           게스트 로그인
         </button>

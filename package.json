@@ -17,12 +17,14 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query": "^5.14.6",
+    "axios": "^1.6.2",
     "framer-motion": "^10.16.5",
     "mixpanel-browser": "^2.48.1",
     "next": "13.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-hotjar": "^6.2.0",
     "react-lottie-player": "^1.5.5"
   },
   "devDependencies": {
