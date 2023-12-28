@@ -9,6 +9,12 @@ const SnackBarContext = createContext<{
   triggerSnackBar: (snackBar: SnackBarType) => void;
 } | null>(null);
 
+/**
+ * useSnackBar
+ * @returns snackBar, triggerSnackBar
+ * snackBar 를 사용할땐 triggerSnackBar 를 사용해야 합니다.
+ * triggerSnackBar({ message: 'test', rightAction: 'none' })로 선엉하여 사용합니다.
+ */
 export const useSnackBar = () => {
   const context = useContext(SnackBarContext);
 
@@ -29,6 +35,7 @@ export default function SnackBarProvider({ children }: PropsWithChildren) {
   const triggerSnackBar = (addItem: SnackBarType) => {
     const id = new Date().getTime().toString();
     setSnackBar((prev) => [...prev, { ...addItem, id }]);
+
     setTimeout(
       () => {
         removeSnackBar(id);

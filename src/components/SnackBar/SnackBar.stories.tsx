@@ -1,18 +1,53 @@
+import React, { useState } from 'react';
+import AppBarBottomView from '@/components/AppBarBottom/AppBarBottomVIew';
+import Button from '@/components/Button/Button';
 import SnackBar from '@/components/SnackBar/SnackBar';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type SnackBarWithId } from '@/components/SnackBar/SnackBar.types';
+import SnackBarProvider, { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
+import type { Meta } from '@storybook/react';
 
 const meta = {
   title: 'Component/SnackBar',
   component: SnackBar,
 
   tags: ['autodocs'],
+
+  decorators: [
+    (Story) => (
+      <SnackBarProvider>
+        <Story />
+      </SnackBarProvider>
+    ),
+  ],
 } satisfies Meta<typeof SnackBar>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+export const WithCTA = (args: SnackBarWithId) => {
+  const { triggerSnackBar } = useSnackBar();
 
-export const None: Story = {
+  return (
+    <Button variant={'cta'} size={'large'} onClick={() => triggerSnackBar(args)}>
+      test
+    </Button>
+  );
+};
+
+export const WithAppBar = (args: SnackBarWithId) => {
+  const { triggerSnackBar } = useSnackBar();
+  const [current, setCurrent] = useState('home');
+
+  return (
+    <div>
+      <AppBarBottomView current={current} onClick={(item) => setCurrent(item.key)} />
+      <Button variant={'cta'} size={'large'} onClick={() => triggerSnackBar(args)}>
+        test
+      </Button>
+    </div>
+  );
+};
+
+export const None = {
   args: {
     rightAction: 'none',
     message: 'SnackBar',
@@ -20,7 +55,7 @@ export const None: Story = {
   },
 };
 
-export const Icon: Story = {
+export const Icon = {
   args: {
     rightAction: 'icon',
     message: 'SnackBar',
@@ -30,7 +65,7 @@ export const Icon: Story = {
   },
 };
 
-export const TextButton: Story = {
+export const TextButton = {
   args: {
     rightAction: 'text-button',
     message: 'SnackBar',

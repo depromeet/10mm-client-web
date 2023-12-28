@@ -2,10 +2,8 @@
 import React from 'react';
 import SnackBar from '@/components/SnackBar/SnackBar';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
-import { css } from '@styled-system/css';
+import { cva } from '@styled-system/css';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const BOTTOM_HEIGHT = 40;
 
 function SnackBarOverlay() {
   const { snackBar } = useSnackBar();
@@ -16,30 +14,11 @@ function SnackBarOverlay() {
         snackBar.map((item) => (
           <motion.div
             key={item.id}
-            className={snackBarOverlayCss}
+            className={snackBarOverlayCss({ offset: item.offset })}
             initial="initial"
             animate="animate"
             exit="exit"
-            variants={{
-              initial: {
-                opacity: 0,
-                y: BOTTOM_HEIGHT,
-                transition: {
-                  duration: 0.3,
-                },
-              },
-              animate: {
-                opacity: 1,
-                y: 0,
-              },
-              exit: {
-                opacity: 0,
-                y: BOTTOM_HEIGHT,
-                transition: {
-                  duration: 0.3,
-                },
-              },
-            }}
+            variants={snackBarMotionVariants}
           >
             <SnackBar key={item.id} {...item} />
           </motion.div>
@@ -50,11 +29,52 @@ function SnackBarOverlay() {
 
 export default SnackBarOverlay;
 
-export const snackBarOverlayCss = css({
-  position: 'fixed',
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  zIndex: 2000,
-  bottom: BOTTOM_HEIGHT,
+export const snackBarOverlayCss = cva({
+  base: {
+    position: 'fixed',
+    left: 0,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '0 16px',
+    zIndex: 2000,
+    bottom: `20px`,
+  },
+  variants: {
+    offset: {
+      default: {
+        bottom: `16px`,
+      },
+      appBar: {
+        bottom: `136px`,
+      },
+      cta: {
+        bottom: `80px`,
+      },
+    },
+  },
+  defaultVariants: {
+    offset: 'default',
+  },
 });
+
+const snackBarMotionVariants = {
+  initial: {
+    opacity: 0,
+    y: 40,
+    transition: {
+      duration: 0.3,
+    },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: 40,
+    transition: {
+      duration: 0.3,
+    },
+  },
+};

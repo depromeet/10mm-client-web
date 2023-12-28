@@ -24,6 +24,7 @@ export const snackBarWrapperCss = cva({
 
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
 
     justifyContent: 'center',
     textStyle: 'subtitle5',
