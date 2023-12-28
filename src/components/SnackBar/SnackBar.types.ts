@@ -1,19 +1,21 @@
 import { type IconComponentMap } from '@/components/Icon';
 
-interface SnackBarNoneType {
+export interface SnackBarNoneType {
   rightAction: 'none';
   message: string;
 }
-interface SnackBarIconType {
+export interface SnackBarIconType {
   rightAction: 'icon';
   iconName: keyof typeof IconComponentMap;
+  iconAction: () => void;
   message: string;
 }
-interface SnackBarTextButtonType {
+export interface SnackBarTextButtonType {
   rightAction: 'text-button';
   message: string;
-  timer?: number;
-  button: React.ReactNode;
+  timerSecond?: number;
+  buttonText: string;
+  buttonAction: () => void;
 }
 
 export type SnackBarType = SnackBarNoneType | SnackBarIconType | SnackBarTextButtonType;

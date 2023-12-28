@@ -50,7 +50,7 @@ function SnackBarOverlay() {
 
 export default SnackBarOverlay;
 
-const snackBarOverlayCss = css({
+export const snackBarOverlayCss = css({
   position: 'fixed',
   width: '100%',
   display: 'flex',
