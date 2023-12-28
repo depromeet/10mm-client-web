@@ -7,12 +7,13 @@ import { cva } from '@styled-system/css';
 
 export default function SnackBar(props: SnackBarWithId) {
   switch (props.rightAction) {
-    case 'none':
-      return <NoneSnackBar {...props} />;
     case 'icon':
       return <IconSnackBar {...props} />;
     case 'text-button':
       return <TextButtonSnackBar {...props} />;
+    case 'none':
+    default:
+      return <NoneSnackBar {...props} />;
   }
 }
 

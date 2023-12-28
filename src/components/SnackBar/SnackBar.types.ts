@@ -6,7 +6,7 @@ export interface SnackBarBaseType {
 }
 
 export interface SnackBarNoneType extends SnackBarBaseType {
-  rightAction: 'none';
+  rightAction?: 'none';
 }
 export interface SnackBarIconType extends SnackBarBaseType {
   rightAction: 'icon';
