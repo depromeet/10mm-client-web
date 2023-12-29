@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CategoryBottomSheet from '@/app/mission/new/CategoryBottomSheet';
 import PublicBottomSheet from '@/app/mission/new/PublicBottomSheet';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon';
+import DropdownInput from '@/components/Input/DropdownInput';
 import Input from '@/components/Input/Input';
+import { type DropdownValueType } from '@/components/Input/Input.types';
+import { MISSION_CATEGORY_LIST } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
-import { token } from '@/styled-system/tokens';
 import { withQueryString } from '@/utils';
 
 export default function MissionRegistration() {
@@ -19,8 +20,7 @@ export default function MissionRegistration() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
 
-  const [isCategoryShowing, toggleCategoryShowing] = useToggle();
-  const [missionCategory, setMissionCategory] = useState<string | null>(null);
+  const [missionCategory, setMissionCategory] = useState<DropdownValueType | null>(null);
 
   const [isPublicShowing, togglePublicShowing] = useToggle();
   const [missionPublicSetting, setMissionPublicSetting] = useState<string>('팔로워에게 공개');
@@ -45,7 +45,7 @@ export default function MissionRegistration() {
 
   const handleSubmit = () => {
     if (!missionCategory) return;
-    router.push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: missionCategory }));
+    router.push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: missionCategory.value }));
   };
 
   return (
@@ -75,25 +75,15 @@ export default function MissionRegistration() {
       />
 
       {/* 카테고리 */}
-      <span className={categoryTitleCss}>카테고리</span>
-      <span className={asterisk}>*</span>
 
-      <div className={categoryWrapperCss}>
-        <p
-          className={categoryTextCss}
-          onClick={toggleCategoryShowing}
-          style={{ color: missionCategory ? token.var(`colors.text.primary`) : token.var(`colors.gray.gray300`) }}
-        >
-          {missionCategory ?? '카테고리를 선택해주세요.'}
-        </p>
-        <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
-        <CategoryBottomSheet
-          isShowing={isCategoryShowing}
-          onClickOutside={toggleCategoryShowing}
-          select={missionCategory}
-          onSelect={setMissionCategory}
-        />
-      </div>
+      <DropdownInput
+        title="카테고리"
+        required
+        list={MISSION_CATEGORY_LIST}
+        placeholder="카테고리를 선택해주세요."
+        selected={missionCategory}
+        onSelect={(item) => setMissionCategory(item)}
+      />
 
       {/* 공개설정 */}
       <span className={publicSettingTitleCss}>공개설정</span>
@@ -146,33 +136,6 @@ const publicSettingTextCss = css({
   color: 'text.secondary',
   borderColor: 'border.default',
   padding: '14px 4px',
-});
-
-const categoryWrapperCss = css({
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  borderBottomWidth: '1px',
-  borderColor: 'border.default',
-  marginBottom: '36px',
-});
-const categoryTitleCss = css({
-  marginTop: '36px',
-  textStyle: 'body3',
-  color: 'text.primary',
-});
-
-const categoryTextCss = css({
-  width: '100%',
-  textStyle: 'subtitle3',
-  color: 'text.secondary',
-  padding: '14px 4px',
-  borderColor: 'border.default',
-});
-const asterisk = css({
-  color: 'red.red500',
-  fontWeight: 'bold',
 });
 
 const iconCss = css({
