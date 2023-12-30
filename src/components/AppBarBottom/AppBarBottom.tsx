@@ -1,3 +1,4 @@
+'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import AppBarBottomView from '@/components/AppBarBottom/AppBarBottomVIew';
 import { NAVIGATION, type NavigationItemType } from '@/constants/navigation';
