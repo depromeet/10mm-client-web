@@ -25,17 +25,10 @@ export default function MissionRegistration() {
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
   };
-  // const onTitleCloseIconClick = () => {
-  //   setMissionTitleInput('');
-  // };
-
   // 미션 내용
   const handleMissionContentInput = (value: string) => {
     setMissionContentInput(value);
   };
-  // const onContentCloseIconClick = () => {
-  //   setMissionContentInput('');
-  // };
 
   const handleSubmit = () => {
     if (!missionCategory) return;

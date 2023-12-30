@@ -1,43 +1,34 @@
-'use client';
-import { useState } from 'react';
 import { type NormalInputType } from '@/components/Input/Input.types';
 import { css } from '@/styled-system/css';
 
 import Icon from '../Icon';
 
 export default function NormalInput({ value, onChange, ...props }: NormalInputType) {
-  const [inputValue, setInputValue] = useState(value ? String(value) : '');
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const _value = e.target.value;
+    const inputValue = e.target.value;
 
     // input의 기본 속성인 maxLength만으로는 한글 대응이 불가능.
-    if (props.maxLength && _value.length > props.maxLength) {
+    if (props.maxLength && inputValue.length > props.maxLength) {
       return;
     }
 
-    setInputValue(_value);
-    if (onChange) {
-      onChange(_value);
-    }
+    onChange?.(inputValue);
   };
 
   const onDelete = () => {
-    setInputValue(''); // 클릭되면 input value를 빈 문자열로 초기화
-    onChange && onChange('');
+    onChange?.('');
   };
 
   return (
     <section>
       <p className={subTitleCss}>
-        {/* 인풋타이틀 */}
         {props.name}
-        {props.required && <span className={asterisk}> *</span>}
+        {props.required && <span className={asterisk}>*</span>}
       </p>
 
       <div className={inputWrapperCss}>
-        <input className={inputCss} required autoComplete="off" value={inputValue} onChange={handleChange} {...props} />
-        {inputValue.length > 0 && (
+        <input className={inputCss} required autoComplete="off" value={value} onChange={handleChange} {...props} />
+        {value.length > 0 && (
           <Icon name={'close-circle'} color={'icon.tertiary'} className={iconCss} onClick={onDelete} />
         )}
       </div>
@@ -48,13 +39,14 @@ export default function NormalInput({ value, onChange, ...props }: NormalInputTy
 
         {props.maxLength && (
           <span className={inputLengthCss}>
-            {inputValue.length}/{props.maxLength}
+            {value.length}/{props.maxLength}
           </span>
         )}
       </div>
     </section>
   );
 }
+
 const descriptionCss = css({
   display: 'flex',
   justifyContent: 'space-between',
@@ -67,6 +59,7 @@ const inputWrapperCss = css({
   width: '100%',
   borderBottomWidth: '1px',
   padding: '14px 4px',
+  height: '50px',
   backgroundColor: 'bg.surface1',
   borderColor: 'border.default',
   _focusWithin: { outline: 'none', borderColor: 'purple.purple500' },
@@ -77,10 +70,13 @@ const subTitleCss = css({
   textStyle: 'body4',
   color: 'text.primary',
 });
+
 const asterisk = css({
   color: 'red.red500',
   fontWeight: 'bold',
+  marginLeft: '2px',
 });
+
 const inputCss = css({
   width: '375px',
   height: '22px',
