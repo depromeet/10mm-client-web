@@ -1,17 +1,17 @@
 import Icon from '@/components/Icon';
-import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar';
+import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar.styles';
 import { type SnackBarIconType } from '@/components/SnackBar/SnackBar.types';
 
 /**
  * IconSnackBar
  * @param message - 스낵바 메시지
  * @param iconName - 나타낼 아이콘 이름
- * @param iconAction - 스낵바 클릭시 실행할 함수
+ * @param onClick - 스낵바 클릭시 실행할 함수
  * @constructor
  */
-function IconSnackBar({ message, iconName, iconAction }: SnackBarIconType) {
+function IconSnackBar({ message, iconName, onClick }: SnackBarIconType) {
   const handleIconClick = () => {
-    iconAction();
+    onClick();
   };
 
   return (

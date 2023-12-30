@@ -11,13 +11,13 @@ export interface SnackBarNoneType extends SnackBarBaseType {
 export interface SnackBarIconType extends SnackBarBaseType {
   rightAction: 'icon';
   iconName: keyof typeof IconComponentMap;
-  iconAction: () => void;
+  onClick: () => void;
 }
 export interface SnackBarTextButtonType extends SnackBarBaseType {
   rightAction: 'text-button';
   timerSecond?: number;
   buttonText: string;
-  buttonAction: () => void;
+  onButtonClick: () => void;
 }
 
 export type SnackBarType = SnackBarNoneType | SnackBarIconType | SnackBarTextButtonType;

@@ -1,20 +1,20 @@
 import Button from '@/components/Button/Button';
-import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar';
+import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar.styles';
 import { type SnackBarTextButtonType } from '@/components/SnackBar/SnackBar.types';
 import { formatMMSS } from '@/utils/time';
 import { css } from '@styled-system/css';
 
 /**
  * TextButtonSnackBar
- * @param buttonAction - 버튼 클릭 시 실행할 함수
+ * @param onButtonClick - 버튼 클릭 시 실행할 함수
  * @param message - 메시지
  * @param timerSecond - 타이머를 나타낼때 사용할 시간 (초)
  * @param buttonText - 버튼 텍스트
  *
  */
-function TextButtonSnackBar({ buttonAction, message, timerSecond, buttonText }: SnackBarTextButtonType) {
+function TextButtonSnackBar({ onButtonClick, message, timerSecond, buttonText }: SnackBarTextButtonType) {
   const handleTextButtonClick = () => {
-    buttonAction();
+    onButtonClick();
   };
 
   const timerText = getTimerText(timerSecond);

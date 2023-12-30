@@ -61,7 +61,7 @@ export const Icon = {
     message: 'SnackBar',
     iconName: 'arrow-forward',
     id: 'snackbar',
-    iconAction: () => {},
+    onClick: () => {},
   },
 };
 
@@ -72,6 +72,6 @@ export const TextButton = {
     buttonText: 'Button',
     timerSecond: 100,
     id: 'snackbar',
-    buttonAction: () => {},
+    onButtonClick: () => {},
   },
 };
