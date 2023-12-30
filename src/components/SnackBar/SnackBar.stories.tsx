@@ -49,7 +49,7 @@ export const WithAppBar = (args: SnackBarWithId) => {
 
 export const None = {
   args: {
-    rightAction: 'none',
+    variant: 'none',
     message: 'SnackBar',
     id: 'snackbar',
   },
@@ -57,7 +57,7 @@ export const None = {
 
 export const Icon = {
   args: {
-    rightAction: 'icon',
+    variant: 'icon',
     message: 'SnackBar',
     iconName: 'arrow-forward',
     id: 'snackbar',
@@ -67,7 +67,7 @@ export const Icon = {
 
 export const TextButton = {
   args: {
-    rightAction: 'text-button',
+    variant: 'text-button',
     message: 'SnackBar',
     buttonText: 'Button',
     timerSecond: 100,

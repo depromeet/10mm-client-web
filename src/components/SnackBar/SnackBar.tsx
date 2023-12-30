@@ -5,7 +5,7 @@ import { type SnackBarWithId } from '@/components/SnackBar/SnackBar.types';
 import TextButtonSnackBar from '@/components/SnackBar/TextButtonSnackBar';
 
 export default function SnackBar(props: SnackBarWithId) {
-  switch (props.rightAction) {
+  switch (props.variant) {
     case 'icon':
       return <IconSnackBar {...props} />;
     case 'text-button':
