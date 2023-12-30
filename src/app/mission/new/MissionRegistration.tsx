@@ -25,17 +25,17 @@ export default function MissionRegistration() {
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
   };
-  const onTitleCloseIconClick = () => {
-    setMissionTitleInput('');
-  };
+  // const onTitleCloseIconClick = () => {
+  //   setMissionTitleInput('');
+  // };
 
   // 미션 내용
   const handleMissionContentInput = (value: string) => {
     setMissionContentInput(value);
   };
-  const onContentCloseIconClick = () => {
-    setMissionContentInput('');
-  };
+  // const onContentCloseIconClick = () => {
+  //   setMissionContentInput('');
+  // };
 
   const handleSubmit = () => {
     if (!missionCategory) return;
@@ -49,27 +49,24 @@ export default function MissionRegistration() {
         placeholder="미션명을 입력하세요"
         name="미션명"
         required
-        iconName="input-close-circle"
-        iconColor="icon.secondary"
         maxLength={20}
         value={missionTitleInput}
-        onIconClick={onTitleCloseIconClick}
         onChange={handleMissionTitleInput}
+        description="디스크립션 영역입니다"
       />
       <Input
         type="text"
         placeholder="미션 내용을 입력"
         name="미션내용"
-        iconName="input-close-circle"
-        iconColor="icon.secondary"
         maxLength={30}
         value={missionContentInput}
-        onIconClick={onContentCloseIconClick}
         onChange={handleMissionContentInput}
+        description="디스크립션 영역입니다"
       />
 
       {/* 카테고리 */}
       <DropdownInput
+        variant="drop-down"
         title="카테고리"
         required
         list={MISSION_CATEGORY_LIST}
@@ -80,6 +77,7 @@ export default function MissionRegistration() {
 
       {/* 공개설정 */}
       <DropdownInput
+        variant="drop-down"
         title="공개설정"
         list={PUBLIC_SETTING_LIST}
         selected={missionPublicSetting}
