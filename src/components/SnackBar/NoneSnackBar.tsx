@@ -1,4 +1,4 @@
-import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar';
+import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar.styles';
 import { type SnackBarNoneType } from '@/components/SnackBar/SnackBar.types';
 
 /**
