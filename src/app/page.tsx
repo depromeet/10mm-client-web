@@ -1,6 +1,7 @@
 import AppBar from '@/app/home/AppBar';
 import MissionList from '@/app/home/MissionList';
 import ProfileList from '@/app/home/ProfileList';
+import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import { css } from '@styled-system/css';
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <AppBar />
       <ProfileList />
       <MissionList />
+      <AppBarBottom />
     </main>
   );
 }

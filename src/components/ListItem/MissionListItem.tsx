@@ -28,6 +28,19 @@ const containerCss = flex({
   cursor: 'pointer',
 });
 
-const textWrapperCss = flex({ flex: 1, flexDirection: 'column', gap: '2px' });
-const categoryCss = css({ color: 'text.tertiary', textStyle: 'body3' });
-const missionTitleCss = css({ color: 'text.secondary', textStyle: 'body2' });
+const textWrapperCss = flex({ flex: 1, flexDirection: 'column', gap: '2px', minWidth: '0' });
+const categoryCss = css({
+  color: 'text.tertiary',
+  textStyle: 'body3',
+  width: '100%',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+});
+const missionTitleCss = css({
+  color: 'text.secondary',
+  textStyle: 'body2',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
