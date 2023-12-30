@@ -2,15 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import PublicBottomSheet from '@/app/mission/new/PublicBottomSheet';
 import Button from '@/components/Button/Button';
-import Icon from '@/components/Icon';
 import DropdownInput from '@/components/Input/DropdownInput';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
-import { MISSION_CATEGORY_LIST } from '@/constants/mission';
+import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
-import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 import { withQueryString } from '@/utils';
 
@@ -19,11 +16,8 @@ export default function MissionRegistration() {
 
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
-
   const [missionCategory, setMissionCategory] = useState<DropdownValueType | null>(null);
-
-  const [isPublicShowing, togglePublicShowing] = useToggle();
-  const [missionPublicSetting, setMissionPublicSetting] = useState<string>('팔로워에게 공개');
+  const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType>(PUBLIC_SETTING_LIST[0]);
 
   const isSubmitButtonDisabled = !missionTitleInput || !missionCategory;
 
@@ -86,20 +80,12 @@ export default function MissionRegistration() {
       />
 
       {/* 공개설정 */}
-      <span className={publicSettingTitleCss}>공개설정</span>
-
-      <div className={publicSettingWrapperCss}>
-        <p className={publicSettingTextCss} onClick={togglePublicShowing}>
-          {missionPublicSetting}
-        </p>
-        <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
-        <PublicBottomSheet
-          isShowing={isPublicShowing}
-          onClickOutside={togglePublicShowing}
-          select={missionPublicSetting}
-          onSelect={setMissionPublicSetting}
-        />
-      </div>
+      <DropdownInput
+        title="공개설정"
+        list={PUBLIC_SETTING_LIST}
+        selected={missionPublicSetting}
+        onSelect={(item) => setMissionPublicSetting(item)}
+      />
 
       <div className={buttonContainerCss}>
         <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
@@ -114,30 +100,4 @@ const buttonContainerCss = css({
   display: 'flex',
   justifyContent: 'flex-end',
   marginTop: '48px',
-});
-
-const publicSettingWrapperCss = css({
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  borderBottomWidth: '1px',
-  borderColor: 'border.default',
-});
-const publicSettingTitleCss = css({
-  marginTop: '36px',
-  textStyle: 'body3',
-  color: 'text.primary',
-});
-
-const publicSettingTextCss = css({
-  width: '100%',
-  textStyle: 'subtitle3',
-  color: 'text.secondary',
-  borderColor: 'border.default',
-  padding: '14px 4px',
-});
-
-const iconCss = css({
-  cursor: 'pointer',
 });
