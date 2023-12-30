@@ -24,7 +24,10 @@ const containerCss = flex({
   alignItems: 'center',
   backgroundColor: 'bg.surface3',
   borderRadius: '22px',
+  height: '74px',
+  cursor: 'pointer',
 });
+
 const textWrapperCss = flex({ flex: 1, flexDirection: 'column', gap: '2px' });
 const categoryCss = css({ color: 'text.tertiary', textStyle: 'body3' });
 const missionTitleCss = css({ color: 'text.secondary', textStyle: 'body2' });

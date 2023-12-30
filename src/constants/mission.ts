@@ -32,7 +32,7 @@ export const MISSION_CATEGORY_LIST = [
   {
     label: '기타',
     value: '기타',
-    imgUrl: '/images/category/exercise.png',
+    imgUrl: '/images/category/etc.png',
   },
 ];
 

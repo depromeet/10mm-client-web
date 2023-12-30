@@ -16,7 +16,7 @@ export interface MissionListItemType extends ListItemBaseType {
   imageUrl: string;
   category: string;
   missionTitle: string;
-  badgeElement?: ReactNode;
+  badgeElement?: ReactNode; // 나중에도 '완료' badge 만을 사용한다면 제거
 }
 
 export interface ProfileListItemType extends ListItemBaseType {
