@@ -69,7 +69,6 @@ export default function MissionRegistration() {
       />
 
       {/* 카테고리 */}
-
       <DropdownInput
         title="카테고리"
         required
