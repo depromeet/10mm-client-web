@@ -19,10 +19,10 @@ function DropdownInput(props: DropDownInputType) {
     <div>
       <h3>
         <span className={titleCss}>{props.title}</span>
-        {props.required && <span className={asterisk}> *</span>}
+        {props.required && <span className={asterisk}>*</span>}
       </h3>
-      <div className={selectWrapperCss}>
-        <div className={textWrapperCss} onClick={toggleCategoryShowing}>
+      <div className={selectWrapperCss} onClick={toggleCategoryShowing}>
+        <div className={textWrapperCss}>
           {props.selected ? (
             <p className={labelCss}>
               {props.selected.imgUrl && (
@@ -57,6 +57,7 @@ const selectWrapperCss = css({
   borderBottomWidth: '1px',
   borderColor: 'border.default',
   marginBottom: '36px',
+  cursor: 'pointer',
 });
 
 const titleCss = css({
@@ -82,6 +83,7 @@ const iconCss = css({
 const asterisk = css({
   color: 'red.red500',
   fontWeight: 'bold',
+  marginLeft: '2px',
 });
 
 interface DropdownProps
