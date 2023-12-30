@@ -1,5 +1,7 @@
 type ThumbnailSizeType = 'h52' | 'h32';
+
 interface ThumbnailBaseProps {
+  variant?: 'null' | 'dimed' | 'filled';
   size: ThumbnailSizeType;
   selected?: boolean;
 }
@@ -15,7 +17,7 @@ export interface DimmedThumbnailProps extends ThumbnailBaseProps {
 }
 
 export interface NullThumbnailProps extends ThumbnailBaseProps {
-  variant: 'null';
+  variant?: 'null';
   url?: null;
 }
 

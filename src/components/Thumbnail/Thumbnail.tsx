@@ -5,17 +5,18 @@ import { cva } from '@/styled-system/css';
 // NOTE: variant = null을 변수로 받아야할까?
 function Thumbnail({ variant, url, ...props }: ThumbnailProps) {
   switch (variant) {
-    case 'null':
-      return (
-        <div className={thumbnailStyle(props)}>
-          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
-        </div>
-      );
     case 'filled':
     case 'dimed':
       return (
         <div className={thumbnailStyle(props)}>
           <Image src={url} fill alt="thumbnail" />
+        </div>
+      );
+    case 'null':
+    default:
+      return (
+        <div className={thumbnailStyle(props)}>
+          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
         </div>
       );
   }
