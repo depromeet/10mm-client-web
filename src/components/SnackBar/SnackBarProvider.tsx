@@ -40,7 +40,7 @@ export default function SnackBarProvider({ children }: PropsWithChildren) {
       () => {
         removeSnackBar(id);
       },
-      addItem.rightAction === 'none' ? 1000 : 5000,
+      addItem.variant === 'none' ? 1000 : 5000,
     );
   };
 
