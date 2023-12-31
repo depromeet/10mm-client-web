@@ -1,19 +1,29 @@
 import { WEEK_DAYS } from '@/app/mission/[id]/MissionHistoryCalender/MissionCalendar.constants';
+import MissionCalendarItem from '@/app/mission/[id]/MissionHistoryCalender/MissionCalendarItem';
 import { getCalenderInfo } from '@/app/mission/[id]/MissionHistoryCalender/MissionHistoryCalendar.utils';
 import { css } from '@styled-system/css';
 
-function MissionHistoryCalendar() {
-  const { monthCalendarData } = getCalenderInfo(1, 2024);
+const getMissionCalendarItemProps = (date: number) => {
+  const completedMissionDate = [1, 4, 5, 6, 7];
+  const isCompleted = completedMissionDate.includes(date);
+  return {
+    imageUrl: isCompleted ? '/images/mission-image-test.png' : undefined,
+  };
+};
+
+function MissionHistoryCalendar({ currentDate }: { currentDate: Date }) {
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1;
+  const selectedDate = currentDate.getDate();
+
+  const { monthCalendarData } = getCalenderInfo(currentMonth, currentYear);
 
   return (
     <section>
-      <div className={missionHistoryCalendarCss}>2023년 12월</div>
-      <table
-        className={css({
-          width: '100%',
-          textAlign: 'center',
-        })}
-      >
+      <div className={missionHistoryCalendarCss}>
+        {currentYear}년 {currentMonth}월
+      </div>
+      <table className={tableCss}>
         <thead>
           <tr className={calendarHeaderCss}>
             {WEEK_DAYS.map((day) => (
@@ -25,8 +35,16 @@ function MissionHistoryCalendar() {
           {monthCalendarData.map((week, i) => (
             <tr key={i}>
               {week.map((day, index) => {
-                if (!day) return <td key={'calender-null-' + index} />;
-                return <td key={`${day.year}-${day.month}-${day.date}`}>{day.date}</td>;
+                if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
+                return (
+                  <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
+                    <MissionCalendarItem
+                      date={day.date}
+                      imageUrl={getMissionCalendarItemProps(day.date).imageUrl}
+                      isActive={day.date === selectedDate}
+                    />
+                  </td>
+                );
               })}
             </tr>
           ))}
@@ -38,10 +56,19 @@ function MissionHistoryCalendar() {
 
 export default MissionHistoryCalendar;
 
+const tableCss = css({
+  width: '100%',
+  textAlign: 'center',
+});
+
 const missionHistoryCalendarCss = css({
   textStyle: 'body4',
   color: 'text.secondary',
   padding: '20px 4px',
+});
+
+const missionCalendarTdCss = css({
+  padding: ' 12px 0',
 });
 
 const calendarHeaderCss = css({
@@ -49,10 +76,6 @@ const calendarHeaderCss = css({
   textStyle: 'body5',
   color: 'text.tertiary',
   justifyContent: 'space-between',
-
-  '& th': {
-    maxWidth: '36px',
-  },
 });
 
 const calendarBodyCss = css({

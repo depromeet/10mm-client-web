@@ -10,7 +10,7 @@ function MissionHistoryTab() {
   return (
     <div className={missionHistoryTabCss}>
       <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />
-      <MissionHistoryCalendar />
+      <MissionHistoryCalendar currentDate={new Date()} />
     </div>
   );
 }
