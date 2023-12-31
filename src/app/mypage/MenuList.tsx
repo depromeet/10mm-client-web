@@ -21,7 +21,7 @@ function MenuList() {
         <MenuItem name="이용약관" iconName="terms" url={ROUTER.MYPAGE.TERMS} />
         <MenuItem name="로그인 정보" iconName="log-in-information" url={ROUTER.MYPAGE.LOGIN_INFO} />
         <MenuItem name="로그아웃" iconName="log-out" url="#" onClick={onLogoutClick} />
-        <MenuItem name="회원탈퇴" iconName="withdrawal" url="#" />
+        <MenuItem name="회원탈퇴" iconName="withdrawal" url={ROUTER.MYPAGE.WITHDRAWAL} />
       </ul>
       <LogoutDialog isOpen={isOpen} onClose={closeModal} />
     </>

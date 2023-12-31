@@ -13,6 +13,7 @@ export const ROUTER = {
     COMPLETE_MISSION_BOX: '/mypage/complete_mission',
     TERMS: '/mypage/terms',
     LOGIN_INFO: '/mypage/login_info',
+    WITHDRAWAL: '/mypage/withdrawal',
   },
   RESULT: {
     HOME: '/result',
