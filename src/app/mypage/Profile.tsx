@@ -17,7 +17,7 @@ function Profile(props: Props) {
         <div className={profileWrapperCss}>
           <Thumbnail size="h52" />
           <p className={nicknameCss}>{props.nickname}</p>
-          <Icon name="arrow-forward" width={16} height={16} />
+          <Icon name="arrow-forward" width={16} height={16} color="icon.secondary" />
         </div>
       </Link>
       <Link href={ROUTER.MYPAGE.COMPLETE_MISSION_BOX}>

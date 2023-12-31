@@ -27,7 +27,7 @@ function MenuItem(props: { name: string; iconName: keyof typeof IconComponentMap
   return (
     <Link href={props.url} passHref>
       <li className={itemCss}>
-        <Icon name={props.iconName} width={20} height={20} />
+        <Icon name={props.iconName} width={20} height={20} color="icon.secondary" />
         <p className={nameCss}>{props.name}</p>
         <Icon name="arrow-forward" width={16} height={16} color="icon.tertiary" />
       </li>
