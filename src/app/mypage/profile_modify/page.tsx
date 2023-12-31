@@ -18,7 +18,7 @@ function ProfileModifyPage() {
 
       <main className={mainCss}>
         <section className={thumbnailWrapperCss}>
-          <Thumbnail size="h52" />
+          <Thumbnail size="h80" />
           <div className={cameraIconWrapperCss}>
             <Icon name="camera" width={14} height={14} />
           </div>
@@ -51,6 +51,6 @@ const cameraIconWrapperCss = css({
   justifyContent: 'center',
 
   position: 'absolute',
-  bottom: 0,
-  right: 0,
+  bottom: '-2px',
+  right: '-4px',
 });
