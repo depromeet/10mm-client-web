@@ -15,10 +15,6 @@ export default function AuthNickNamePage() {
     setNickname(value);
   };
 
-  const onContentCloseIconClick = () => {
-    setNickname('');
-  };
-
   const isSubmitButtonDisabled = !nickname;
 
   const handleSubmit = () => {
@@ -39,12 +35,10 @@ export default function AuthNickNamePage() {
           placeholder="미션명을 입력하세요"
           name="닉네임"
           required
-          iconName="input-close-circle"
-          iconColor="icon.secondary"
           maxLength={20}
           value={nickname}
-          onIconClick={onContentCloseIconClick}
           onChange={handleNickname}
+          description="description"
         />
         <div className={buttonContainerCss}>
           <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
