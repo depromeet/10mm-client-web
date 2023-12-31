@@ -2,6 +2,7 @@ import AppBar from '@/app/home/AppBar';
 import MissionList from '@/app/home/MissionList';
 import ProfileList from '@/app/home/ProfileList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
+import BottomDim from '@/components/BottomDim/BottomDim';
 import { css } from '@styled-system/css';
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <ProfileList />
       <MissionList />
       <AppBarBottom />
+      <BottomDim />
     </main>
   );
 }
