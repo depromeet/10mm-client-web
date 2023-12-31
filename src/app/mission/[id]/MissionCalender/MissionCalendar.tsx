@@ -1,6 +1,6 @@
-import { WEEK_DAYS } from '@/app/mission/[id]/MissionHistoryCalender/MissionCalendar.constants';
-import MissionCalendarItem from '@/app/mission/[id]/MissionHistoryCalender/MissionCalendarItem';
-import { getCalenderInfo } from '@/app/mission/[id]/MissionHistoryCalender/MissionHistoryCalendar.utils';
+import { WEEK_DAYS } from '@/app/mission/[id]/MissionCalender/MissionCalendar.constants';
+import { getCalenderInfo } from '@/app/mission/[id]/MissionCalender/MissionCalendar.utils';
+import MissionCalendarItem from '@/app/mission/[id]/MissionCalender/MissionCalendarItem';
 import { css } from '@styled-system/css';
 
 const getMissionCalendarItemProps = (date: number) => {
@@ -11,7 +11,7 @@ const getMissionCalendarItemProps = (date: number) => {
   };
 };
 
-function MissionHistoryCalendar({ currentDate }: { currentDate: Date }) {
+function MissionCalendar({ currentDate }: { currentDate: Date }) {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
   const selectedDate = currentDate.getDate();
@@ -54,7 +54,7 @@ function MissionHistoryCalendar({ currentDate }: { currentDate: Date }) {
   );
 }
 
-export default MissionHistoryCalendar;
+export default MissionCalendar;
 
 const tableCss = css({
   width: '100%',

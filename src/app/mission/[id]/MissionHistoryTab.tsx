@@ -1,6 +1,7 @@
 import MissionHistoryBanner from '@/app/mission/[id]/MissionHistoryBanner';
-import MissionHistoryCalendar from '@/app/mission/[id]/MissionHistoryCalender/MissionHistoryCalendar';
 import { css } from '@styled-system/css';
+
+import MissionCalendar from './MissionCalender/MissionCalendar';
 
 function MissionHistoryTab() {
   const title = '디자인 아티클 읽고 기록하기';
@@ -10,7 +11,7 @@ function MissionHistoryTab() {
   return (
     <div className={missionHistoryTabCss}>
       <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />
-      <MissionHistoryCalendar currentDate={new Date()} />
+      <MissionCalendar currentDate={new Date()} />
     </div>
   );
 }
