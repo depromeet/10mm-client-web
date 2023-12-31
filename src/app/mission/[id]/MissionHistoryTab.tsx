@@ -1,4 +1,5 @@
 import MissionHistoryBanner from '@/app/mission/[id]/MissionHistoryBanner';
+import MissionHistoryCalendar from '@/app/mission/[id]/MissionHistoryCalender/MissionHistoryCalendar';
 import { css } from '@styled-system/css';
 
 function MissionHistoryTab() {
@@ -9,6 +10,7 @@ function MissionHistoryTab() {
   return (
     <div className={missionHistoryTabCss}>
       <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />
+      <MissionHistoryCalendar />
     </div>
   );
 }
@@ -16,5 +18,8 @@ function MissionHistoryTab() {
 export default MissionHistoryTab;
 
 const missionHistoryTabCss = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
   padding: '24px 16px',
 });
