@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
-import MissionHistoryBanner from '@/app/mission/[id]/MissionHistoryBanner';
+import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
+import MissionHistoryBanner from '@/app/mission/[id]/detail/MissionHistoryBanner';
 import Button from '@/components/Button/Button';
 import { css } from '@styled-system/css';
-
-import MissionCalendar from './MissionCalender/MissionCalendar';
 
 function MissionHistoryTab() {
   const title = '디자인 아티클 읽고 기록하기';

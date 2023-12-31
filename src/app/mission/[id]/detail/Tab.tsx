@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import TabItem from '@/app/mission/[id]/TabItem';
+import TabItem from '@/app/mission/[id]/detail/TabItem';
 import { css } from '@styled-system/css';
 
 /**

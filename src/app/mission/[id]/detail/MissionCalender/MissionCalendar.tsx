@@ -1,6 +1,6 @@
-import { WEEK_DAYS } from '@/app/mission/[id]/MissionCalender/MissionCalendar.constants';
-import { getCalenderInfo } from '@/app/mission/[id]/MissionCalender/MissionCalendar.utils';
-import MissionCalendarItem from '@/app/mission/[id]/MissionCalender/MissionCalendarItem';
+import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
+import { getCalenderInfo } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
+import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
 import { css } from '@styled-system/css';
 
 const getMissionCalendarItemProps = (date: number) => {
