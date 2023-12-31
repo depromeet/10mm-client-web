@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -11,12 +13,16 @@ interface Props {
 function Profile(props: Props) {
   return (
     <section className={containerCss}>
-      <div className={profileWrapperCss}>
-        <Thumbnail size="h52" />
-        <p className={nicknameCss}>{props.nickname}</p>
-        <Icon name="arrow-forward" width={16} height={16} />
-      </div>
-      <Button variant="primary">종료 미션 보관함</Button>
+      <Link href={ROUTER.MYPAGE.PROFILE_MODIFY}>
+        <div className={profileWrapperCss}>
+          <Thumbnail size="h52" />
+          <p className={nicknameCss}>{props.nickname}</p>
+          <Icon name="arrow-forward" width={16} height={16} />
+        </div>
+      </Link>
+      <Link href={ROUTER.MYPAGE.COMPLETE_MISSION_BOX}>
+        <Button variant="primary">종료 미션 보관함</Button>
+      </Link>
     </section>
   );
 }
