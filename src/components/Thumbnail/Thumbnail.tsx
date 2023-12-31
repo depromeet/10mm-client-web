@@ -42,6 +42,11 @@ const thumbnailStyle = cva({
         height: '32px',
         borderRadius: '14px', //TODO : 수정 필요
       },
+      h36: {
+        width: '36px',
+        height: '36px',
+        borderRadius: '14px', //TODO : 수정 필요
+      },
     },
     variant: {
       null: {},
