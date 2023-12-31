@@ -21,8 +21,20 @@ export const NormalInput: Story = {
     placeholder: '미션명을 입력하세요',
     value: '운동',
     description: '디스크립션 영역입니다',
+    required: false,
+    maxLength: 20,
+    errorMsg: '',
+  },
+  argTypes: {
+    title: { table: { disable: true } },
+    onSelect: { table: { disable: true } },
+    onChange: { table: { disable: true } },
+    selected: { table: { disable: true } },
+    list: { table: { disable: true } },
+    variant: { table: { disable: true } },
   },
 };
+
 export const Dropdown: Story = {
   args: {
     variant: 'drop-down',
