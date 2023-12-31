@@ -6,6 +6,7 @@ const TEST_THUMBNAIL_IMAGE = '/images/thumbnail-test.png';
 const meta = {
   title: 'Component/Thumbnail',
   component: Thumbnail,
+  tags: ['autodocs'],
   parameters: {
     componentSubtitle: '썸네일 컴포넌트는 프로필 또는 커버 등의 대한 정보를 나타내는 이미지 요소입니다. ',
     docs: {
@@ -13,7 +14,6 @@ const meta = {
         component: 'Component',
       },
     },
-    layout: 'centered',
   },
   args: {
     variant: 'null',
