@@ -35,6 +35,9 @@ const tabContainerCss = css({
 const tabWrapperCss = css({
   height: 'calc(100% - 44px)',
   overflowY: 'scroll',
+  _scrollbar: {
+    display: 'none',
+  },
 });
 
 const tabLabelCss = css({
