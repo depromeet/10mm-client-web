@@ -9,7 +9,7 @@ export interface NormalInputType extends InputBaseType, Omit<InputHTMLAttributes
   value: string;
   onChange?: (value: string) => void;
 
-  description: string;
+  description?: string;
 }
 
 export interface DropdownValueType {

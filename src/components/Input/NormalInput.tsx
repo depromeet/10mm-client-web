@@ -20,7 +20,11 @@ export default function NormalInput({ value, onChange, ...props }: NormalInputTy
   };
 
   return (
-    <section>
+    <section
+      className={css({
+        position: 'relative',
+      })}
+    >
       <p className={subTitleCss}>
         {props.name}
         {props.required && <span className={asterisk}>*</span>}
@@ -35,7 +39,7 @@ export default function NormalInput({ value, onChange, ...props }: NormalInputTy
 
       <div className={descriptionCss}>
         {/* 처음엔 안보이다가 input의 길이가 너무 길면 빨간색으로 표시 */}
-        {props.description && <span className={descriptionTextCss}>{props.description}</span>}
+        <span className={descriptionTextCss}>{props.description}</span>
 
         {props.maxLength && (
           <span className={inputLengthCss}>
