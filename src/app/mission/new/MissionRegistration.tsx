@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
-import DropdownInput from '@/components/Input/DropdownInput';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
 import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
@@ -25,16 +24,9 @@ export default function MissionRegistration() {
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
   };
-  const onTitleCloseIconClick = () => {
-    setMissionTitleInput('');
-  };
-
   // 미션 내용
   const handleMissionContentInput = (value: string) => {
     setMissionContentInput(value);
-  };
-  const onContentCloseIconClick = () => {
-    setMissionContentInput('');
   };
 
   const handleSubmit = () => {
@@ -49,27 +41,24 @@ export default function MissionRegistration() {
         placeholder="미션명을 입력하세요"
         name="미션명"
         required
-        iconName="input-close-circle"
-        iconColor="icon.secondary"
         maxLength={20}
         value={missionTitleInput}
-        onIconClick={onTitleCloseIconClick}
         onChange={handleMissionTitleInput}
+        description="디스크립션 영역입니다"
       />
       <Input
         type="text"
         placeholder="미션 내용을 입력"
         name="미션내용"
-        iconName="input-close-circle"
-        iconColor="icon.secondary"
         maxLength={30}
         value={missionContentInput}
-        onIconClick={onContentCloseIconClick}
         onChange={handleMissionContentInput}
+        description="디스크립션 영역입니다"
       />
 
       {/* 카테고리 */}
-      <DropdownInput
+      <Input
+        variant="drop-down"
         title="카테고리"
         required
         list={MISSION_CATEGORY_LIST}
@@ -79,7 +68,8 @@ export default function MissionRegistration() {
       />
 
       {/* 공개설정 */}
-      <DropdownInput
+      <Input
+        variant="drop-down"
         title="공개설정"
         list={PUBLIC_SETTING_LIST}
         selected={missionPublicSetting}

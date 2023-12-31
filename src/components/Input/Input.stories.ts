@@ -1,21 +1,31 @@
-import DropdownInput from '@/components/Input/DropdownInput';
+import Input from '@/components/Input/Input';
 import { type Meta, type StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Component/Input',
-  component: DropdownInput,
+  component: Input,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof DropdownInput>;
+} satisfies Meta<typeof Input>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const NormalInput: Story = {
   args: {
+    variant: 'normal',
+    name: '미션명',
+    placeholder: '미션명을 입력하세요',
+    value: '운동',
+    description: '디스크립션 영역입니다',
+  },
+};
+export const Dropdown: Story = {
+  args: {
+    variant: 'drop-down',
     title: '카테고리',
     required: true,
     list: [
