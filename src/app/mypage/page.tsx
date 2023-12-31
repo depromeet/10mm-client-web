@@ -6,6 +6,7 @@ function Mypage() {
   return (
     <div>
       <Header isBackIcon={false} title="마이페이지" rightAction="none" />
+      <Profile nickname={nickname} />
     </div>
   );
 }
