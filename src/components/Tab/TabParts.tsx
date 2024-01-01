@@ -16,8 +16,10 @@ export default function TabParts({ tabName, status, onTabClick }: TabPartsProps)
   }, [status]);
 
   const handleClick = () => {
-    setIsActive(!isActive);
-    onTabClick(tabName);
+    if (!isActive) {
+      setIsActive(!isActive);
+      onTabClick(tabName);
+    }
   };
   //isActive 값을 사용하기 위해 js 코드 안에서 css사용
   const tabNameCss = css({
