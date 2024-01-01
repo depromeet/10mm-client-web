@@ -27,7 +27,7 @@ export default function TabParts({ tabName, status, onTabClick }: TabPartsProps)
     borderBottomWidth: '1px',
     margin: '0 8px',
     color: isActive ? 'purple.purple700' : 'gray.gray500',
-    borderColor: isActive ? 'purple.purple700' : 'gray.gray500',
+    borderColor: isActive ? 'purple.purple700' : 'bg.surface2',
     cursor: 'pointer',
   });
 
