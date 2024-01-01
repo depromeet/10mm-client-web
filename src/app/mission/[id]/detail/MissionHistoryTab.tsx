@@ -7,7 +7,7 @@ import { css } from '@styled-system/css';
 function MissionHistoryTab() {
   const title = '디자인 아티클 읽고 기록하기';
   const description = '하루에 아티클 3개 이상 읽고 인사이트 작성하자!';
-  const imageUrl = '/images/emoji_study.png';
+  const imageUrl = '/images/category/study.png';
 
   return (
     <Fragment>
