@@ -9,15 +9,12 @@ interface Tab {
   active: boolean;
 }
 
-export default function Tab() {
-  //Tab을 사용하는 공세서 tabName과
-  const initialTabs = [
-    { tabName: '탭 1', active: true },
-    { tabName: '탭 2', active: false },
-    { tabName: '탭 3', active: false },
-  ];
+interface TabProps {
+  Tabs: Tab[];
+}
 
-  const { tabs, handleTabClick } = useTabs(initialTabs);
+export default function Tab({ Tabs }: TabProps) {
+  const { tabs, handleTabClick } = useTabs(Tabs);
 
   return (
     <div>
