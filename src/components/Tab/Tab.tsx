@@ -1,34 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import useTabs from '@/hooks/useTabs';
 
 import TabParts from './TabParts';
 
 interface Tab {
   tabName: string;
-  status: boolean;
+  active: boolean;
 }
 
 export default function Tab() {
-  //TabParts를 호출하는 상위 컴포넌트에서 각 TabPart의 status 제어하기
-  const [tabs, setTabs] = useState<Tab[]>([
-    { tabName: 'tab 1', status: true },
-    { tabName: 'tab 2', status: false },
-    { tabName: 'tab 3', status: false },
-  ]);
+  //Tab을 사용하는 공세서 tabName과
+  const initialTabs = [
+    { tabName: '탭 1', active: true },
+    { tabName: '탭 2', active: false },
+    { tabName: '탭 3', active: false },
+  ];
 
-  const handleTabClick = (clickedTabName: string) => {
-    const updatedTabs = tabs.map((tab) => ({
-      ...tab,
-      status: tab.tabName === clickedTabName,
-    }));
-    setTabs(updatedTabs); //현재 선택된 탭
-  };
+  const { tabs, handleTabClick } = useTabs(initialTabs);
 
   return (
     <div>
       {tabs.map((tab, index) => (
-        <TabParts key={index} tabName={tab.tabName} status={tab.status} onTabClick={handleTabClick} />
+        <TabParts key={index} tabName={tab.tabName} status={tab.active} onTabClick={handleTabClick} />
       ))}
     </div>
   );
