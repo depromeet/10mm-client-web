@@ -1,4 +1,3 @@
-import React from 'react';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cva } from '@styled-system/css';
