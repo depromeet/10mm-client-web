@@ -1,9 +1,16 @@
+'use client';
+
+import { useState } from 'react';
 import { type NormalInputType } from '@/components/Input/Input.types';
 import { css } from '@/styled-system/css';
 
 import Icon from '../Icon';
 
-export default function NormalInput({ value, onChange, ...props }: NormalInputType) {
+export default function NormalInput({ value, onChange, errorMsg, ...props }: NormalInputType) {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const statusColor = errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'text.tertiary';
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
@@ -20,14 +27,27 @@ export default function NormalInput({ value, onChange, ...props }: NormalInputTy
   };
 
   return (
-    <section>
+    <section className={sectionCss}>
       <p className={subTitleCss}>
         {props.name}
         {props.required && <span className={asterisk}>*</span>}
       </p>
 
-      <div className={inputWrapperCss}>
-        <input className={inputCss} required autoComplete="off" value={value} onChange={handleChange} {...props} />
+      <div
+        className={css(inputWrapperCss, {
+          borderColor: errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'border.default',
+        })}
+      >
+        <input
+          className={inputCss}
+          required
+          autoComplete="off"
+          value={value}
+          onChange={handleChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          {...props}
+        />
         {value.length > 0 && (
           <Icon name={'close-circle'} color={'icon.tertiary'} className={iconCss} onClick={onDelete} />
         )}
@@ -35,11 +55,30 @@ export default function NormalInput({ value, onChange, ...props }: NormalInputTy
 
       <div className={descriptionCss}>
         {/* 처음엔 안보이다가 input의 길이가 너무 길면 빨간색으로 표시 */}
-        {props.description && <span className={descriptionTextCss}>{props.description}</span>}
+        <span
+          className={css(descriptionTextCss, {
+            color: statusColor,
+          })}
+        >
+          {errorMsg || props.description}
+        </span>
 
         {props.maxLength && (
-          <span className={inputLengthCss}>
-            {value.length}/{props.maxLength}
+          <span className={css(inputLengthWrapperCss, { color: statusColor })}>
+            <strong
+              className={css({
+                color: errorMsg
+                  ? 'red.red500'
+                  : isFocused
+                    ? 'purple.purple500'
+                    : value.length === 0
+                      ? 'text.tertiary'
+                      : 'text.secondary',
+              })}
+            >
+              {value.length}
+            </strong>
+            /{props.maxLength}
           </span>
         )}
       </div>
@@ -51,20 +90,20 @@ const descriptionCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: '12px',
+  textStyle: 'body5',
 });
 
-const inputWrapperCss = css({
+const inputWrapperCss = {
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
   borderBottomWidth: '1px',
   padding: '14px 4px',
   height: '50px',
-  backgroundColor: 'bg.surface1',
-  borderColor: 'border.default',
-  _focusWithin: { outline: 'none', borderColor: 'purple.purple500' },
+  _focusWithin: { outline: 'none' },
   boxSizing: 'border-box',
-});
+  backgroundColor: 'bg.surface2',
+};
 
 const subTitleCss = css({
   textStyle: 'body4',
@@ -78,24 +117,29 @@ const asterisk = css({
 });
 
 const inputCss = css({
-  width: '375px',
+  flex: 1,
   height: '22px',
   textStyle: 'subtitle3',
   color: 'text.secondary',
-  backgroundColor: 'bg.surface1',
-  _focus: { outline: 'none', borderColor: 'purple.purple500' },
+  backgroundColor: 'bg.surface2',
+  _focus: { outline: 'none' },
   _placeholder: { color: 'gray.gray300' },
 });
 
-const inputLengthCss = css({
-  textStyle: 'body3',
-  color: 'text.secondary',
-});
+const inputLengthWrapperCss = {
+  textStyle: 'body5',
+  color: 'text.tertiary',
+};
 
-const descriptionTextCss = css({
+const descriptionTextCss = {
   color: 'bg.surface1',
-});
+};
 
 const iconCss = css({
   cursor: 'pointer',
+  marginLeft: '12px',
+});
+
+const sectionCss = css({
+  _focusWithin: {},
 });
