@@ -18,13 +18,14 @@ function Header({ onBackAction, isBackIcon = true, ...props }: HeaderType) {
     }
   };
 
+  // TODO : 리팩토링 하기
   switch (props.rightAction) {
     case 'icon':
-      return <IconHeader onBackAction={handleBackIconClick} {...props} />;
+      return <IconHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
     case 'none':
-      return <NoneHeader onBackAction={handleBackIconClick} {...props} />;
+      return <NoneHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
     case 'text-button':
-      return <TextButtonHeader onBackAction={handleBackIconClick} {...props} />;
+      return <TextButtonHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
   }
 }
 

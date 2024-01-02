@@ -5,7 +5,7 @@ import { flex } from '@/styled-system/patterns';
 
 function AppBar() {
   return (
-    <div>
+    <>
       <header className={headerCss}>
         <div className={logoWrapperCss}>
           <Image src={'/assets/10mm-logo.svg'} alt="10MM" width={68} height={20} />
@@ -14,7 +14,8 @@ function AppBar() {
           <Icon name="alarm" />
         </div>
       </header>
-    </div>
+      <div className={blankCss} />
+    </>
   );
 }
 
@@ -25,8 +26,16 @@ const headerCss = flex({
   alignItems: 'center',
   padding: '0 8px',
   justifyContent: 'space-between',
-  //   backgroundColor: 'bg.surface2',
+  backgroundColor: 'bg.surface2',
+
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  margin: '0 auto',
 });
+
+const blankCss = css({ height: '44px' });
 
 const logoWrapperCss = css({
   padding: '12px 6px',
