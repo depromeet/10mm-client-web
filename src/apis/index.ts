@@ -1,4 +1,4 @@
-import POST_APIS from './mission';
+import POST_APIS from './post';
 
 const APIS = {
   ...POST_APIS,
