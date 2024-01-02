@@ -14,7 +14,7 @@ function MissionHistoryPage() {
           <span className={textSecondaryColorCss}>2023년 11월 12일</span>
           <span className={textTertiaryColorCss}>{dateCount}일차</span>
         </div>
-        <HistoryThumbnail imageUrl={'/images/thumbnail-test.png'} missionDuration={21} />
+        <HistoryThumbnail imageUrl={'/images/mission-image-test.png'} missionDuration={21} />
         <span className={textSecondaryColorCss}>{missionDescription}</span>
       </section>
     </main>
