@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
+import Layout from '@/components/Layout';
 import { ROUTER } from '@/constants/router';
 import { eventLogger, withQueryString } from '@/utils';
 import { getObjectValues } from '@/utils/object';
@@ -32,40 +33,42 @@ export default function GuestMissionNewPage() {
   };
 
   return (
-    <main className={mainWrapperCss}>
-      <Header rightAction="none" />
+    <Layout>
+      <main className={mainWrapperCss}>
+        <Header rightAction="none" />
 
-      <div className={containerCss}>
-        <p className={mainTitleCss}>
-          하루 <strong>10분</strong>씩 2주 동안
-          <br />
-          어떤 일에 투자하고 싶은가요?
-        </p>
-        <section className={sectionCss}>
-          <div className={listCss}>
-            {getObjectValues(MISSION_CATEGORIES).map((category) => (
-              <RadioInputWithImg
-                key={category.id}
-                onChange={handleRadioChange}
-                imgSrc={category.imgSrc}
-                label={category.label}
-                name={'category'}
-                value={category.id}
-              />
-            ))}
-          </div>
-          {/* 
+        <div className={containerCss}>
+          <p className={mainTitleCss}>
+            하루 <strong>10분</strong>씩 2주 동안
+            <br />
+            어떤 일에 투자하고 싶은가요?
+          </p>
+          <section className={sectionCss}>
+            <div className={listCss}>
+              {getObjectValues(MISSION_CATEGORIES).map((category) => (
+                <RadioInputWithImg
+                  key={category.id}
+                  onChange={handleRadioChange}
+                  imgSrc={category.imgSrc}
+                  label={category.label}
+                  name={'category'}
+                  value={category.id}
+                />
+              ))}
+            </div>
+            {/* 
            디자인과 다르지만 일단 아래와 같이 세팅하였습니다.
            버튼 자체에 fixed박혀 있는것이 변경되어야 할것 같아요
           */}
-          <div className={buttonWrapperCss}>
-            <Button variant={'cta'} size={'medium'} disabled={!selectedCategory} onClick={handleClick}>
-              다음
-            </Button>
-          </div>
-        </section>
-      </div>
-    </main>
+            <div className={buttonWrapperCss}>
+              <Button variant={'cta'} size={'medium'} disabled={!selectedCategory} onClick={handleClick}>
+                다음
+              </Button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </Layout>
   );
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Layout from '@/components/Layout';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
 import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
 import { css } from '@/styled-system/css';
@@ -32,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MonitoringInitializer />
         <QueryProvider>
           <SnackBarProvider>
-            <div className={css(containerCss)}>{children}</div>
+            <Layout>
+              <div className={css(containerCss)}>{children}</div>
+            </Layout>
           </SnackBarProvider>
         </QueryProvider>
       </body>
