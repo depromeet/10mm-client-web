@@ -123,6 +123,9 @@ const buttonStyle = cva({
       },
     },
   ],
+  defaultVariants: {
+    size: 'large',
+  },
 });
 
 const Button = styled('button', buttonStyle);
