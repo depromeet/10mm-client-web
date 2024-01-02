@@ -36,7 +36,7 @@ function ProfileModifyPage() {
         <section className={thumbnailWrapperCss}>
           <Thumbnail size="h80" />
           <div className={cameraIconWrapperCss}>
-            <Icon name="camera" width={14} height={14} />
+            <Icon name="camera" width={14} height={14} color="icon.secondary" />
           </div>
         </section>
         <Input value={nickname} onChange={setNickname} name="닉네임" maxLength={20} />;
