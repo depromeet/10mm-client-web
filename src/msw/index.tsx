@@ -1,0 +1,1 @@
+export { MSWInitComponent } from './MSWInitComponent';
