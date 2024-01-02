@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-interface Tab {
+interface TabType {
   tabName: string;
   active: boolean;
 }
 
-const useTabs = (initialTabs: Tab[]) => {
-  const [tabs, setTabs] = useState<Tab[]>(initialTabs);
+const useTabs = (initialTabs: TabType[]) => {
+  const [tabs, setTabs] = useState<TabType[]>(initialTabs);
 
   const handleTabClick = (clickedTabName: string) => {
     const updatedTabs = tabs.map((tab) => ({
