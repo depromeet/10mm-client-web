@@ -33,7 +33,7 @@ function MissionList() {
 export default MissionList;
 
 const containerCss = css({
-  padding: '0 16px',
+  padding: '0 16px 30px',
 });
 
 const headingCss = flex({
@@ -64,6 +64,54 @@ const DUMMY_MISSION_LIST = [
     category:
       '글쓰기일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일',
     missionTitle: '포트폴리오 레퍼런스 수집하기',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
     status: 'COMPLETED',
   },
   {
