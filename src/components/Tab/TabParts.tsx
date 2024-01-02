@@ -1,25 +1,21 @@
 'use client';
-import React, { useEffect, useState } from 'react';
 import { css } from '@/styled-system/css';
 
 interface TabPartsProps {
   tabName: string;
-  status: boolean;
+  isActive: boolean;
   onTabClick: (clickedTabName: string) => void;
 }
 
-export default function TabParts({ tabName, status, onTabClick }: TabPartsProps) {
-  const [isActive, setIsActive] = useState(status);
-  useEffect(() => {
-    //클릭된 탭은 항상 true
-    setIsActive(status);
-  }, [status]);
+export default function TabParts({ tabName, isActive, onTabClick }: TabPartsProps) {
+  // const [isActive, setIsActive] = useState(status);
+  // useEffect(() => {
+  //   //클릭된 탭은 항상 true
+  //   setIsActive(status);
+  // }, [status]);
 
   const handleClick = () => {
-    if (!isActive) {
-      setIsActive(!isActive);
       onTabClick(tabName);
-    }
   };
   //isActive 값을 사용하기 위해 js 코드 안에서 css사용
   const tabNameCss = css({

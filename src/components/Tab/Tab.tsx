@@ -19,7 +19,7 @@ export default function Tab({ Tabs }: TabProps) {
   return (
     <div>
       {tabs.map((tab, index) => (
-        <TabParts key={index} tabName={tab.tabName} status={tab.active} onTabClick={handleTabClick} />
+        <TabParts key={index} tabName={tab.tabName} isActive={tab.active} onTabClick={handleTabClick} />
       ))}
     </div>
   );
