@@ -7,11 +7,7 @@ function IconHeader({ iconName = 'close', ...props }: IconHeaderType) {
   return (
     <HeaderBase
       rightElement={
-        <div
-          className={css({
-            padding: '12px',
-          })}
-        >
+        <div className={iconWrapperCss}>
           <Icon name={iconName} width={20} height={20} />
         </div>
       }
@@ -21,3 +17,7 @@ function IconHeader({ iconName = 'close', ...props }: IconHeaderType) {
 }
 
 export default IconHeader;
+
+const iconWrapperCss = css({
+  padding: '12px',
+});
