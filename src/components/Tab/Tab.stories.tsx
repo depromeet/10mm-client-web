@@ -1,4 +1,3 @@
-import React from 'react';
 import Tab from '@/components/Tab/Tab';
 import type { Meta, StoryObj } from '@storybook/react';
 
