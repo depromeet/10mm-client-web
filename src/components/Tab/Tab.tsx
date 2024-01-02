@@ -4,13 +4,13 @@ import useTabs from '@/hooks/useTabs';
 
 import TabParts from './TabParts';
 
-interface Tab {
+interface TabItemType {
   tabName: string;
   active: boolean;
 }
 
 interface TabProps {
-  Tabs: Tab[];
+  Tabs: TabItemType[];
 }
 
 export default function Tab({ Tabs }: TabProps) {
