@@ -44,7 +44,7 @@ const containerCss = {
   maxWidth: '475px',
   margin: '0 auto',
   minHeight: '100vh',
-  backgroundColor: 'bg.surface1',
+  backgroundColor: 'bg.surface2',
 };
 
 const bodyCss = {
