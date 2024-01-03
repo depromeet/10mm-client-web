@@ -1,5 +1,5 @@
 import HistoryThumbnail from '@/app/mission/[id]/history/[historyId]/HistoryThumbnail';
-import Header from '@/components/Header/Header';
+import MissionHistoryPageHeader from '@/app/mission/[id]/history/[historyId]/MissionHistoryPageHeader';
 import { css } from '@styled-system/css';
 
 function MissionHistoryPage() {
@@ -8,7 +8,7 @@ function MissionHistoryPage() {
   const missionDescription = '오늘은 디자인시스템 관련 아티클을 3개 읽었다. 10분을 알차게 써서 뿌듯하다!!';
   return (
     <main className={mainWrapperCss}>
-      <Header rightAction="text-button" title={'미션 내역'} rightButtonText={'수정'} />
+      <MissionHistoryPageHeader />
       <section className={missionHistorySectionCss}>
         <div className={sectionTitleCss}>
           <span className={textSecondaryColorCss}>2023년 11월 12일</span>

@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { ROUTER } from '@/constants/router';
 import { css, cva } from '@styled-system/css';
 
 interface MissionCalendarItemProps {
@@ -18,17 +20,19 @@ function MissionCalendarItem({ imageUrl, date, isActive }: MissionCalendarItemPr
     >
       {imageUrl ? (
         <div className={thumbnailCss}>
-          <Thumbnail size={'h36'} variant={'dimed'} url={imageUrl} />
-          <Icon
-            className={css({
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            })}
-            name={'10mm-symbol'}
-            size={24}
-          />
+          <Link href={ROUTER.MISSION.HISTORY('12', '12')}>
+            <Thumbnail size={'h36'} variant={'dimed'} url={imageUrl} />
+            <Icon
+              className={css({
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              })}
+              name={'10mm-symbol'}
+              size={24}
+            />
+          </Link>
         </div>
       ) : (
         <div
@@ -87,6 +91,7 @@ const missionCalendarItemWrapperCss = cva({
 
 const thumbnailCss = css({
   position: 'relative',
+  cursor: 'pointer',
 });
 
 export default MissionCalendarItem;
