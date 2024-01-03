@@ -1,5 +1,5 @@
 type ThumbnailSizeType = 'h52' | 'h32' | 'h36' | 'h80';
-export type ThumbnailVariantType = 'null' | 'dimed' | 'filled';
+type ThumbnailVariantType = 'null' | 'dimed' | 'filled';
 
 interface ThumbnailBaseProps {
   variant?: ThumbnailVariantType;

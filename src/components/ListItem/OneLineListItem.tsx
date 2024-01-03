@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import Image from 'next/image';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { type ThumbnailProps, type ThumbnailVariantType } from '@/components/Thumbnail/Thumbnail.types';
+import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -37,7 +37,7 @@ function ImageOneLineListItem({ imageUrl, ...props }: ImageOneLineListItemProps)
 }
 
 interface ThumbnailOneLineListItemProps extends SubOneLineListItemProps {
-  thumbnail: ThumbnailProps;
+  thumbnail?: ThumbnailProps;
 }
 
 function ThumbnailOneLineListItem({ thumbnail, ...props }: ThumbnailOneLineListItemProps) {
@@ -61,6 +61,7 @@ const leftWrapperCss = css({
 
 const nameCss = css({
   color: 'text.secondary',
+  flex: 1,
   textStyle: 'subtitle4',
 });
 
