@@ -10,11 +10,11 @@ interface TabItemType {
 }
 
 interface TabProps {
-  Tabs: TabItemType[];
+  tabs: TabItemType[];
 }
 
-export default function Tab({ Tabs }: TabProps) {
-  const { tabs, handleTabClick } = useTabs(Tabs);
+export default function Tab({ tabs: initialTabs }: TabProps) {
+  const { tabs, handleTabClick } = useTabs(initialTabs);
 
   return (
     <div>
