@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Icon from '@/components/Icon';
 import OneLineListItem from '@/components/ListItem/OneLineListItem';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
@@ -47,18 +46,12 @@ export const Long: Story = {
   },
 };
 
-export const Category: Story = {
-  args: {
-    name: '운동',
-    leftElement: <Image src={'/images/category/exercise.png'} alt={'운동'} width={28} height={28} />,
-  },
+export const CategoryStory = () => {
+  return <OneLineListItem.Image name="수미칩" imageUrl="/images/category/exercise.png" />;
 };
 
-export const ThumbnailStory: Story = {
-  args: {
-    name: '운동',
-    leftElement: <Thumbnail variant="null" size="h36" />,
-  },
+export const ThumbnailStory = () => {
+  return <OneLineListItem.Thumbnail name="수미칩" />;
 };
 
 export const RightIcon: Story = {

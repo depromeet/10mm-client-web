@@ -1,5 +1,8 @@
 import { type ReactNode } from 'react';
+import Image from 'next/image';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
+import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { type ThumbnailProps, type ThumbnailVariantType } from '@/components/Thumbnail/Thumbnail.types';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -20,7 +23,32 @@ function OneLineListItem(props: Props) {
   );
 }
 
-export default OneLineListItem;
+type SubOneLineListItemProps = Omit<Props, 'leftElement'>;
+function NoneOneLineListItem(props: SubOneLineListItemProps) {
+  return <OneLineListItem {...props} />;
+}
+
+interface ImageOneLineListItemProps extends SubOneLineListItemProps {
+  imageUrl: string;
+}
+
+function ImageOneLineListItem({ imageUrl, ...props }: ImageOneLineListItemProps) {
+  return <OneLineListItem {...props} leftElement={<Image src={imageUrl} alt={props.name} width={28} height={28} />} />;
+}
+
+interface ThumbnailOneLineListItemProps extends SubOneLineListItemProps {
+  thumbnail: ThumbnailProps;
+}
+
+function ThumbnailOneLineListItem({ thumbnail, ...props }: ThumbnailOneLineListItemProps) {
+  return <OneLineListItem {...props} leftElement={<Thumbnail {...thumbnail} size="h36" />} />;
+}
+
+export default Object.assign(OneLineListItem, {
+  None: NoneOneLineListItem,
+  Image: ImageOneLineListItem,
+  Thumbnail: ThumbnailOneLineListItem,
+});
 
 const containerCss = flex({
   alignItems: 'center',
