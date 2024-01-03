@@ -12,5 +12,4 @@ const containerCss = css({
 
   display: 'flex',
   flexDirection: 'column',
-  flex: 1,
 });
