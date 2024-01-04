@@ -31,7 +31,7 @@ const containerCss = flex({
 const textWrapperCss = flex({ flex: 1, flexDirection: 'column', gap: '2px', minWidth: '0' });
 const categoryCss = css({
   color: 'text.tertiary',
-  textStyle: 'body3',
+  textStyle: 'body4',
   width: '100%',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
@@ -39,7 +39,7 @@ const categoryCss = css({
 });
 const missionTitleCss = css({
   color: 'text.secondary',
-  textStyle: 'body2',
+  textStyle: 'body3',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

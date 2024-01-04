@@ -202,8 +202,8 @@ interface PropertyValueTypes {
 	stroke: Tokens["colors"];
 	srOnly: boolean;
 	debug: boolean;
-	colorPalette: "current" | "black" | "white" | "transparent" | "rose" | "pink" | "fuchsia" | "violet" | "indigo" | "blue" | "sky" | "cyan" | "teal" | "emerald" | "green" | "lime" | "yellow" | "amber" | "orange" | "neutral" | "stone" | "zinc" | "slate" | "basicColor" | "gray" | "scrim" | "purple" | "red" | "gradients" | "bg" | "text" | "icon" | "border";
-	textStyle: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | "title1" | "title2" | "title3" | "subtitle1" | "subtitle2" | "subtitle3" | "subtitle4" | "subtitle5" | "body1" | "body2" | "body3" | "body4" | "body5" | "caption" | "overline";
+	colorPalette: "current" | "black" | "white" | "transparent" | "rose" | "pink" | "fuchsia" | "violet" | "indigo" | "sky" | "cyan" | "teal" | "emerald" | "green" | "lime" | "yellow" | "amber" | "orange" | "neutral" | "stone" | "zinc" | "slate" | "basicColor" | "gray" | "scrim" | "purple" | "red" | "blue" | "gradients" | "bg" | "text" | "icon" | "border";
+	textStyle: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | "title1" | "title2" | "title3" | "subtitle1" | "subtitle2" | "subtitle3" | "subtitle4" | "subtitle5" | "body1" | "body2" | "body3" | "body4" | "body5" | "body6" | "caption" | "overline";
 }
 
 

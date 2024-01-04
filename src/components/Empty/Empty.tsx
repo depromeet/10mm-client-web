@@ -73,7 +73,7 @@ export default Empty;
 const containerCss = css({ textAlign: 'center' });
 const imageCss = css({});
 const titleCss = css({ color: 'text.primary', textStyle: 'subtitle2', marginTop: '8px' });
-const descriptionCss = css({ color: 'gray.gray600', textStyle: 'body4', marginTop: '6px' });
+const descriptionCss = css({ color: 'gray.gray600', textStyle: 'body5', marginTop: '6px' });
 const buttonWrapperCss = css({
   marginTop: '20px',
 });

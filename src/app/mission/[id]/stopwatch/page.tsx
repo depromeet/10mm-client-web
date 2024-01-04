@@ -133,7 +133,7 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body3', marginTop: '4px', marginBottom: '96px' });
+const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
 
 const stopwatchCss = css({
   width: 'fit-content',

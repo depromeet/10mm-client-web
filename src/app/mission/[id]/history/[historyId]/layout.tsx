@@ -6,7 +6,7 @@ export default function Layout({ children }: PropsWithChildren) {
 }
 
 const containerCss = css({
-  maxWidth: '475px',
+  maxWidth: 'maxWidth',
   margin: '0 auto',
   minHeight: '100vh',
 
