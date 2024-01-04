@@ -22,7 +22,7 @@ const meta = {
     category: '운동',
     missionTitle: '스쿼트 30개 하기',
     name: '수미칩',
-    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    thumbnailElement: <Thumbnail size="h52" />,
   },
   argTypes: {
     onButtonClick: { table: { disable: true } },
@@ -82,7 +82,7 @@ export const Mission: Story = {
 export const Profile: Story = {
   args: {
     type: 'profile',
-    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    thumbnailElement: <Thumbnail size="h52" />,
     name: '수미칩',
     onButtonClick: () => alert('profile button clicked'),
   },
@@ -104,7 +104,7 @@ export const Profile: Story = {
 export const ProfileLong: Story = {
   args: {
     type: 'profile',
-    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    thumbnailElement: <Thumbnail size="h52" />,
     name: '수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩',
     onButtonClick: () => alert('profile button clicked'),
   },
@@ -126,7 +126,7 @@ export const ProfileLong: Story = {
 export const ProfileFollower: Story = {
   args: {
     type: 'profile-follower',
-    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    thumbnailElement: <Thumbnail size="h52" />,
     name: '수미칩',
     onButtonClick: () => alert('profile follower button clicked'),
   },
@@ -148,7 +148,7 @@ export const ProfileFollower: Story = {
 export const ProfileFollowerLong: Story = {
   args: {
     type: 'profile-follower',
-    thumbnailElement: <Thumbnail variant="null" size="h52" />,
+    thumbnailElement: <Thumbnail size="h52" />,
     name: '짱긴문자열열열열열열열열열열열열열열열열열열열열열열열열열열열',
     onButtonClick: () => alert('profile follower button clicked'),
   },

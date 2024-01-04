@@ -12,7 +12,8 @@ import CopyLinkIcon from '@/components/Icon/CopyLinkIcon';
 import LoginInInformationIcon from '@/components/Icon/LoginInInformationIcon';
 import LogOutIcon from '@/components/Icon/LogOutIcon';
 import MenuIcon from '@/components/Icon/MenuIcon';
-import NavigationHomeIcon from '@/components/Icon/NavigationHomeIcon';
+import NavigationFeedIcon from '@/components/Icon/NavigationFeedIcon';
+import NavigationMissionIcon from '@/components/Icon/NavigationMissionIcon';
 import NavigationMypageIcon from '@/components/Icon/NavigationMypageIcon';
 import NavigationResultIcon from '@/components/Icon/NavigationResultIcon';
 import NavigationUsersearchIcon from '@/components/Icon/NavigationUsersearchIcon';
@@ -45,10 +46,11 @@ export const IconComponentMap = {
   'copy-link': CopyLinkIcon,
   'arrow-diagonal': ArrowDiagonalIcon,
   'close-circle': CloseCircleIcon,
-  'navigation-home': NavigationHomeIcon,
   'navigation-result': NavigationResultIcon,
   'navigation-mypage': NavigationMypageIcon,
   'navigation-usersearch': NavigationUsersearchIcon,
+  'navigation-mission': NavigationMissionIcon,
+  'navigation-feed': NavigationFeedIcon,
   camera: CameraIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
