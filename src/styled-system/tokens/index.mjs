@@ -415,6 +415,38 @@ const tokens = {
     "value": "0.875rem",
     "variable": "var(--spacing-3\\.5)"
   },
+  "animations.spin": {
+    "value": "spin 1s linear infinite",
+    "variable": "var(--animations-spin)"
+  },
+  "animations.ping": {
+    "value": "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
+    "variable": "var(--animations-ping)"
+  },
+  "animations.pulse": {
+    "value": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+    "variable": "var(--animations-pulse)"
+  },
+  "animations.bounce": {
+    "value": "bounce 1s infinite",
+    "variable": "var(--animations-bounce)"
+  },
+  "fonts.sans": {
+    "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+    "variable": "var(--fonts-sans)"
+  },
+  "fonts.serif": {
+    "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
+    "variable": "var(--fonts-serif)"
+  },
+  "fonts.mono": {
+    "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
+    "variable": "var(--fonts-mono)"
+  },
+  "fonts.pretendard": {
+    "value": "var(--pretendard)",
+    "variable": "var(--fonts-pretendard)"
+  },
   "sizes.0": {
     "value": "0rem",
     "variable": "var(--sizes-0)"
@@ -619,6 +651,10 @@ const tokens = {
     "value": "fit-content",
     "variable": "var(--sizes-fit)"
   },
+  "sizes.maxWidth": {
+    "value": "475px",
+    "variable": "var(--sizes-max-width)"
+  },
   "sizes.breakpoint-sm": {
     "value": "640px",
     "variable": "var(--sizes-breakpoint-sm)"
@@ -638,38 +674,6 @@ const tokens = {
   "sizes.breakpoint-2xl": {
     "value": "1536px",
     "variable": "var(--sizes-breakpoint-2xl)"
-  },
-  "animations.spin": {
-    "value": "spin 1s linear infinite",
-    "variable": "var(--animations-spin)"
-  },
-  "animations.ping": {
-    "value": "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
-    "variable": "var(--animations-ping)"
-  },
-  "animations.pulse": {
-    "value": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-    "variable": "var(--animations-pulse)"
-  },
-  "animations.bounce": {
-    "value": "bounce 1s infinite",
-    "variable": "var(--animations-bounce)"
-  },
-  "fonts.sans": {
-    "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
-    "variable": "var(--fonts-sans)"
-  },
-  "fonts.serif": {
-    "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-    "variable": "var(--fonts-serif)"
-  },
-  "fonts.mono": {
-    "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
-    "variable": "var(--fonts-mono)"
-  },
-  "fonts.pretendard": {
-    "value": "var(--pretendard)",
-    "variable": "var(--fonts-pretendard)"
   },
   "zIndex.modalOverlay": {
     "value": 9999,
