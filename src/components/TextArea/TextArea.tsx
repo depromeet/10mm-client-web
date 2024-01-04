@@ -55,7 +55,7 @@ const headRowCss = css({});
 
 const textAreaTitleCss = css({
   color: 'text.primary',
-  textStyle: 'body3',
+  textStyle: 'body4',
 });
 
 const bodyRowCss = css({});
@@ -84,7 +84,7 @@ const tailRowCss = css({
 const descriptionWrapperCss = css({
   flex: 1,
   color: 'text.tertiary',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });
 
 const countWrapperCss = css({
@@ -92,10 +92,10 @@ const countWrapperCss = css({
   display: 'flex',
   justifyContent: 'flex-end',
   color: 'text.tertiary',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });
 
 const countValueCss = css({
   color: 'text.secondary',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });

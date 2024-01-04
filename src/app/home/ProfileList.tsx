@@ -39,6 +39,6 @@ const nameCss = css({
   display: 'block',
   textOverflow: 'ellipsis',
   marginTop: '6px',
-  textStyle: 'body5',
+  textStyle: 'body6',
   color: 'text.primary',
 });

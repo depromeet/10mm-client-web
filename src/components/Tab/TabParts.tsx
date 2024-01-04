@@ -15,7 +15,7 @@ export default function TabParts({ tabName, isActive, onTabClick }: TabPartsProp
   const tabNameCss = css({
     width: '100%',
     paddingBottom: '8px',
-    textStyle: 'body2',
+    textStyle: 'body3',
     borderBottomWidth: '1px',
     margin: '0 8px',
     color: isActive ? 'purple.purple700' : 'gray.gray500',

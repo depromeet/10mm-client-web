@@ -106,7 +106,7 @@ const innerContainerCss = css({
 
 const categoryCss = {
   textAlign: 'center',
-  textStyle: 'body3',
+  textStyle: 'body4',
   marginBottom: '4px',
   maxWidth: '110px',
 };

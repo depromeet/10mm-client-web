@@ -62,7 +62,7 @@ const tableCss = css({
 });
 
 const missionHistoryCalendarCss = css({
-  textStyle: 'body4',
+  textStyle: 'body5',
   color: 'text.secondary',
   padding: '20px 4px',
 });
@@ -73,12 +73,12 @@ const missionCalendarTdCss = css({
 
 const calendarHeaderCss = css({
   width: '100%',
-  textStyle: 'body5',
+  textStyle: 'body6',
   color: 'text.tertiary',
   justifyContent: 'space-between',
 });
 
 const calendarBodyCss = css({
-  textStyle: 'body5',
+  textStyle: 'body6',
   color: 'text.tertiary',
 });
