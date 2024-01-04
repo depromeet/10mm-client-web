@@ -45,7 +45,7 @@ const TextArea = ({ count, description, textAreaTitle, value, ...props }: Props)
 export default TextArea;
 
 const textAreaWrapperCss = css({
-  maxWidth: '343px',
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
@@ -61,7 +61,7 @@ const textAreaTitleCss = css({
 const bodyRowCss = css({});
 
 const textAreaCss = css({
-  width: '343px',
+  width: '100%',
   height: '86px',
   borderRadius: '16px',
   padding: '16px',
