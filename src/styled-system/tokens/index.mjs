@@ -915,50 +915,6 @@ const tokens = {
     "value": "#1e1b4b",
     "variable": "var(--colors-indigo-950)"
   },
-  "colors.blue.50": {
-    "value": "#eff6ff",
-    "variable": "var(--colors-blue-50)"
-  },
-  "colors.blue.100": {
-    "value": "#dbeafe",
-    "variable": "var(--colors-blue-100)"
-  },
-  "colors.blue.200": {
-    "value": "#bfdbfe",
-    "variable": "var(--colors-blue-200)"
-  },
-  "colors.blue.300": {
-    "value": "#93c5fd",
-    "variable": "var(--colors-blue-300)"
-  },
-  "colors.blue.400": {
-    "value": "#60a5fa",
-    "variable": "var(--colors-blue-400)"
-  },
-  "colors.blue.500": {
-    "value": "#3b82f6",
-    "variable": "var(--colors-blue-500)"
-  },
-  "colors.blue.600": {
-    "value": "#2563eb",
-    "variable": "var(--colors-blue-600)"
-  },
-  "colors.blue.700": {
-    "value": "#1d4ed8",
-    "variable": "var(--colors-blue-700)"
-  },
-  "colors.blue.800": {
-    "value": "#1e40af",
-    "variable": "var(--colors-blue-800)"
-  },
-  "colors.blue.900": {
-    "value": "#1e3a8a",
-    "variable": "var(--colors-blue-900)"
-  },
-  "colors.blue.950": {
-    "value": "#172554",
-    "variable": "var(--colors-blue-950)"
-  },
   "colors.sky.50": {
     "value": "#f0f9ff",
     "variable": "var(--colors-sky-50)"
@@ -1783,6 +1739,54 @@ const tokens = {
     "value": "#2E2020",
     "variable": "var(--colors-red-red000)"
   },
+  "colors.blue.50": {
+    "value": "#eff6ff",
+    "variable": "var(--colors-blue-50)"
+  },
+  "colors.blue.100": {
+    "value": "#dbeafe",
+    "variable": "var(--colors-blue-100)"
+  },
+  "colors.blue.200": {
+    "value": "#bfdbfe",
+    "variable": "var(--colors-blue-200)"
+  },
+  "colors.blue.300": {
+    "value": "#93c5fd",
+    "variable": "var(--colors-blue-300)"
+  },
+  "colors.blue.400": {
+    "value": "#60a5fa",
+    "variable": "var(--colors-blue-400)"
+  },
+  "colors.blue.500": {
+    "value": "#3b82f6",
+    "variable": "var(--colors-blue-500)"
+  },
+  "colors.blue.600": {
+    "value": "#2563eb",
+    "variable": "var(--colors-blue-600)"
+  },
+  "colors.blue.700": {
+    "value": "#1d4ed8",
+    "variable": "var(--colors-blue-700)"
+  },
+  "colors.blue.800": {
+    "value": "#1e40af",
+    "variable": "var(--colors-blue-800)"
+  },
+  "colors.blue.900": {
+    "value": "#1e3a8a",
+    "variable": "var(--colors-blue-900)"
+  },
+  "colors.blue.950": {
+    "value": "#172554",
+    "variable": "var(--colors-blue-950)"
+  },
+  "colors.blue.blue500": {
+    "value": "#507BE9",
+    "variable": "var(--colors-blue-blue500)"
+  },
   "colors.gradients.primary": {
     "value": "linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)",
     "variable": "var(--colors-gradients-primary)"
@@ -2182,6 +2186,10 @@ const tokens = {
   "colors.colorPalette.red000": {
     "value": "var(--colors-color-palette-red000)",
     "variable": "var(--colors-color-palette-red000)"
+  },
+  "colors.colorPalette.blue500": {
+    "value": "var(--colors-color-palette-blue500)",
+    "variable": "var(--colors-color-palette-blue500)"
   },
   "colors.colorPalette.primary": {
     "value": "var(--colors-color-palette-primary)",
