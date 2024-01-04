@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
 import List from '@/components/ListItem/ListItem';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -12,7 +14,9 @@ function MissionList() {
     <div className={containerCss}>
       <h2 className={headingCss}>
         <span>내 미션 목록</span>
-        <Icon name="plus" />
+        <Link href={ROUTER.MISSION.NEW}>
+          <Icon name="plus" />
+        </Link>
       </h2>
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}

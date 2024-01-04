@@ -1,4 +1,4 @@
-import apiInstance, { BASE_URL } from './instance.api';
+import apiInstance from './instance.api';
 
 // 이부분은 emum으로 관리할지 type 으로 관리할지 고민입니다.
 export enum MissionCategory {

@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
 
-const BASE_URL = 'https://api.10mm.today';
+export const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
 const BASE_TIMEOUT = 10000;
 
 const setInterceptors = (instance: AxiosInstance) => {
@@ -27,8 +27,8 @@ const setInterceptors = (instance: AxiosInstance) => {
 
 const axiosInstance = setInterceptors(
   axios.create({
-    baseURL: BASE_URL,
     timeout: BASE_TIMEOUT,
+    baseURL: BASE_URL,
   }),
 );
 

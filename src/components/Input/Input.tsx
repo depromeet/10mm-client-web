@@ -2,7 +2,7 @@ import DropdownInput from '@/components/Input/DropdownInput';
 import { type InputType } from '@/components/Input/Input.types';
 import NormalInput from '@/components/Input/NormalInput';
 
-function Input(props: InputType) {
+function Input<Value extends string = string>(props: InputType<Value>) {
   switch (props.variant) {
     case 'drop-down':
       return <DropdownInput {...props} />;
