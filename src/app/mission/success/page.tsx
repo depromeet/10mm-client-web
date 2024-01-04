@@ -66,7 +66,7 @@ const titleCss = css({
 });
 
 const subTitleCss = css({
-  textStyle: 'body3',
+  textStyle: 'body4',
   color: 'text.secondary',
 });
 

@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 
 const containerCss = {
-  maxWidth: '475px',
+  maxWidth: 'maxWidth',
   margin: '0 auto',
   minHeight: '100vh',
   backgroundColor: 'bg.surface2',

@@ -14,6 +14,6 @@ const containerCss = css({
   right: 0,
   margin: '0 auto',
   width: 'fit-content',
-  textStyle: 'body4',
+  textStyle: 'body5',
   color: 'text.tertiary',
 });

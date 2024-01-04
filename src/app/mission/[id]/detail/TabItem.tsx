@@ -29,7 +29,7 @@ const tabItemCss = cva({
   base: {
     paddingBottom: '8px',
     borderBottom: '1px solid',
-    textStyle: 'body2',
+    textStyle: 'body3',
   },
   variants: {
     status: {

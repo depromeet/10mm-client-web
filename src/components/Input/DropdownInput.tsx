@@ -62,7 +62,7 @@ const selectWrapperCss = css({
 
 const titleCss = css({
   marginTop: '36px',
-  textStyle: 'body3',
+  textStyle: 'body4',
   color: 'text.primary',
 });
 

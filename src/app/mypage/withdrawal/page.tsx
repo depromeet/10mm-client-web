@@ -46,7 +46,7 @@ const headingCss = css({
 
 const subHeadingCss = css({
   color: 'text.secondary',
-  textStyle: 'body3',
+  textStyle: 'body4',
 });
 
 const buttonWrapper = grid({

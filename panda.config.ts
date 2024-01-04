@@ -23,6 +23,11 @@ export default defineConfig({
         fonts: {
           pretendard: { value: 'var(--pretendard)' },
         },
+        sizes: {
+          maxWidth: {
+            value: '475px',
+          },
+        },
         zIndex: {
           modalOverlay: {
             value: 9999,

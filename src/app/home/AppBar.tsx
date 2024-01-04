@@ -22,6 +22,7 @@ function AppBar() {
 export default AppBar;
 
 const headerCss = flex({
+  maxWidth: 'maxWidth',
   height: '44px',
   alignItems: 'center',
   padding: '0 8px',
