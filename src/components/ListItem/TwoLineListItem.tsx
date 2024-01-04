@@ -10,7 +10,7 @@ export interface TwoLineListItemType {
   name: string;
   badgeElement?: ReactNode;
 
-  isBackground?: boolean;
+  isBackground?: boolean; // variant `background-on` `background-off` 대체
 }
 
 function TwoLineListItem({ isBackground = true, ...props }: TwoLineListItemType) {

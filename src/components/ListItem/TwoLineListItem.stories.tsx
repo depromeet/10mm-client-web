@@ -19,6 +19,7 @@ const meta = {
   },
   args: {
     name: '운동',
+    isBackground: true,
   },
   argTypes: {},
   decorators: [
