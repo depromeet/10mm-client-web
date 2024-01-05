@@ -1,6 +1,6 @@
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
-import TwoLineListItem from '@/components/ListItem/TwoLineListItem';
+import { TwoLineListItem } from '@/components/ListItem/ListItem';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 

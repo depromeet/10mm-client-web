@@ -1,4 +1,4 @@
-import TwoLineListItem from '@/components/ListItem/TwoLineListItem';
+import { TwoLineListItem } from '@/components/ListItem/ListItem';
 import { flex } from '@/styled-system/patterns';
 
 function CompleteMissionPage() {
