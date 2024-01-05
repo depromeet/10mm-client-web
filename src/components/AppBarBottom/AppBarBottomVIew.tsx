@@ -33,12 +33,11 @@ function AppBarBottomView(props: Props) {
 export default AppBarBottomView;
 
 const containerCss = flex({
-  padding: '12px 32px',
-  gap: '24px',
-  backgroundColor: 'bg.surface4',
+  padding: '12px 16px 14px',
+  backgroundColor: 'rgba(42, 42, 51, 0.80)',
+  backdropFilter: 'blur(20px)',
   width: 'fit-content',
   borderRadius: '24px',
-
   position: 'fixed',
   bottom: '34px', // indicator(34px)
   left: 0,
@@ -53,8 +52,11 @@ const itemCss = {
   gap: '2px',
   alignItems: 'center',
   cursor: 'pointer',
-  textStyle: 'caption',
+  fontSize: '9px',
+  fontWeight: '400',
+  lineHeight: '12px',
   transition: 'all .3s',
+  width: '48px',
 
   '& svg': {
     transition: 'all .3s',
