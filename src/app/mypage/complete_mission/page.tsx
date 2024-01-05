@@ -1,11 +1,16 @@
-import List from '@/components/ListItem/ListItem';
+import { TwoLineListItem } from '@/components/ListItem';
 import { flex } from '@/styled-system/patterns';
 
 function CompleteMissionPage() {
   return (
     <div className={containerCss}>
       {DUMMY_MISSION_LIST.map((item) => (
-        <List type="mission" key={item.missionTitle} {...item} />
+        <TwoLineListItem
+          key={item.missionTitle}
+          name={item.missionTitle}
+          subName={item.category}
+          imageUrl={item.imageUrl}
+        />
       ))}
     </div>
   );
