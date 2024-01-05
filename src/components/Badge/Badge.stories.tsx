@@ -49,3 +49,11 @@ export const Red: Story = {
     children: 'badge',
   },
 };
+
+export const GrayContain: Story = {
+  args: {
+    color: 'gray',
+    variant: 'solid',
+    children: 'badge',
+  },
+};

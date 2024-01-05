@@ -7,7 +7,6 @@ const badgeStyle = cva({
     height: '23px',
     padding: '3px 10px 3px 10px',
     borderRadius: '15px',
-    border: '0.5px solid',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -32,6 +31,25 @@ const badgeStyle = cva({
         backgroundColor: 'red.red000',
       },
     },
+    variant: {
+      solid: {},
+      line: {
+        border: '0.5px solid',
+      },
+    },
+  },
+  compoundVariants: [
+    {
+      color: 'gray',
+      variant: 'solid',
+      css: {
+        backgroundColor: 'gray.gray300',
+        color: 'purple.purple800',
+      },
+    },
+  ],
+  defaultVariants: {
+    variant: 'line',
   },
 });
 
