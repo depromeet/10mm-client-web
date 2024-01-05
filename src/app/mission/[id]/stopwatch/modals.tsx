@@ -27,7 +27,12 @@ export function FinalDialog({ onConfirm, logData, ...props }: DialogProps) {
   );
 }
 
-export function BackDialog(props: DialogProps) {
+export function BackDialog({ onConfirm, logData, ...props }: DialogProps) {
+  const _onConfirm = () => {
+    logData && eventLogger.logEvent('click/back', 'stopwatch');
+    onConfirm();
+  };
+
   return (
     <Dialog
       variant={'default'}
@@ -35,12 +40,18 @@ export function BackDialog(props: DialogProps) {
       content="끝내기 버튼을 누르지 않으면 지금까지 집중한 시간들이 사라져요."
       confirmText="나가기"
       cancelText="취소"
+      onConfirm={_onConfirm}
       {...props}
     />
   );
 }
 
-export function MidOutDialog(props: DialogProps) {
+export function MidOutDialog({ onConfirm, logData, ...props }: DialogProps) {
+  const _onConfirm = () => {
+    logData && eventLogger.logEvent('click/mid-out', 'stopwatch');
+    onConfirm();
+  };
+
   return (
     <Dialog
       variant={'default'}
@@ -48,6 +59,7 @@ export function MidOutDialog(props: DialogProps) {
       content="10분을 채우지 않으면 오늘의 미션을 완료할 수 없어요."
       confirmText="끝내기"
       cancelText="취소"
+      onConfirm={_onConfirm}
       {...props}
     />
   );
