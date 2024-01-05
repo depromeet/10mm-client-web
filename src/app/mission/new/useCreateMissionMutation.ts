@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import APIS from '@/apis';
 import { ROUTER } from '@/constants/router';
 import { useMutation } from '@tanstack/react-query';
