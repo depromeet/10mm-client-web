@@ -46,8 +46,8 @@ export function MidOutDialog(props: DialogProps) {
       variant={'default'}
       title="미션을 끝내시겠어요?"
       content="10분을 채우지 않으면 오늘의 미션을 완료할 수 없어요."
-      confirmText="나가기"
-      cancelText="끝내기"
+      confirmText="끝내기"
+      cancelText="취소"
       {...props}
     />
   );

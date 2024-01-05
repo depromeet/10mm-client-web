@@ -30,9 +30,15 @@ export default function StopwatchPage() {
   const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
   const onFinishButtonClick = () => {
-    eventLogger.logEvent('click/finishButton', 'stopwatch', { category });
-    openFinalModal();
     onNextStep('stop');
+    if (Number(minutes) < 10) {
+      eventLogger.logEvent('click/finishButton-mid', 'stopwatch', logData);
+      openMidOutModal();
+      return;
+    }
+
+    eventLogger.logEvent('click/finishButton', 'stopwatch', logData);
+    openFinalModal();
   };
 
   const onExit = () => {
