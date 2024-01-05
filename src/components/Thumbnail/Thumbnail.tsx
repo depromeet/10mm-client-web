@@ -67,7 +67,7 @@ const thumbnailStyle = cva({
     },
     selected: {
       true: {
-        border: '1.5px solid transparent',
+        border: '1px solid transparent',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundOrigin: 'border-box',
