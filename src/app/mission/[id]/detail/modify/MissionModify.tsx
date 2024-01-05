@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
-import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
+import { PUBLIC_SETTING_LIST } from '@/constants/mission';
 
 export default function MissionModify() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
@@ -40,7 +40,6 @@ export default function MissionModify() {
         onChange={handleMissionContentInput}
       />
 
-      {/* 공개설정 */}
       <Input
         variant="drop-down"
         title="공개설정"
