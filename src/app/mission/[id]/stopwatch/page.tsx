@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
@@ -17,9 +18,14 @@ export default function StopwatchPage() {
   const category = useGetCategory();
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper } = useStopwatch(step);
+  const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
 
   const { isOpen, openModal, closeModal } = useModal();
+
+  // TODO: 끝내기 후 로직 추가
+  const onSubmit = () => {
+    router.push(ROUTER.GUEST.MISSION.SUCCESS);
+  };
 
   const onFinishButtonClick = () => {
     eventLogger.logEvent('click/finishButton', 'stopwatch', { category });
@@ -32,8 +38,15 @@ export default function StopwatchPage() {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
     });
-    // TODO: 끝내기 후 로직 추가
-    router.push(ROUTER.MISSION.SUCCESS);
+    onSubmit();
+  };
+
+  const onAutoFinish = () => {
+    eventLogger.logEvent('click/auto-finish', 'stopwatch', {
+      category,
+      finishTime: Number(minutes) * 60 + Number(seconds),
+    });
+    onSubmit();
   };
 
   const onCancel = () => {
@@ -53,6 +66,12 @@ export default function StopwatchPage() {
     eventLogger.logEvent('click/start', 'stopwatch', { category });
     onNextStep('progress');
   };
+
+  useEffect(() => {
+    if (isFinished) {
+      onAutoFinish();
+    }
+  }, [isFinished]);
 
   return (
     <div className={containerCss}>
