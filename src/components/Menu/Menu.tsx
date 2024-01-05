@@ -1,14 +1,14 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import { DEFAULT_OFFSET, MENU_CONTENT_WIDTH, MENU_MOTION_VARIANTS } from '@/components/Menu/Menu.contants';
+import { useRef } from 'react';
+import { MENU_MOTION_VARIANTS } from '@/components/Menu/Menu.contants';
+import { useMenuPosition } from '@/components/Menu/Menu.hooks';
 import MenuContent from '@/components/Menu/MenuContent';
 import { type MenuItemProps } from '@/components/Menu/MenuItem';
 import AnimatePortal from '@/components/portal/AnimationPortal';
 import useOutsideClick from '@/hooks/lifeCycle/useOutsideClick';
-import useThrottle from '@/hooks/lifeCycle/useThrottle';
 import { css } from '@styled-system/css';
 import { motion } from 'framer-motion';
 
-interface MenuProps {
+export interface MenuProps {
   menus: MenuItemProps[];
   onClose: () => void;
   isOpen: boolean;
@@ -30,13 +30,8 @@ interface MenuProps {
  * @constructor
  */
 function Menu({ menus, onClose, isOpen, anchorRef, offset }: MenuProps) {
-  const { topOffset, leftOffset } = offset || {
-    topOffset: DEFAULT_OFFSET,
-    leftOffset: DEFAULT_OFFSET,
-  };
-
   const modalRef = useRef(null);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const { position } = useMenuPosition({ anchorRef, offset });
 
   const newMenus = menus.map((menu) => {
     return {
@@ -54,23 +49,6 @@ function Menu({ menus, onClose, isOpen, anchorRef, offset }: MenuProps) {
       onClose();
     },
   });
-
-  const resizeHandler = () => {
-    if (!anchorRef.current) return;
-    const { top, right, height } = anchorRef.current?.getBoundingClientRect();
-    setPosition({ left: right - MENU_CONTENT_WIDTH - leftOffset, top: top + height + topOffset });
-  };
-
-  const throttledFn = useThrottle(resizeHandler, 100);
-
-  useLayoutEffect(() => {
-    if (!anchorRef.current) return;
-    resizeHandler();
-    window.addEventListener('resize', throttledFn);
-    return () => {
-      window.removeEventListener('resize', throttledFn);
-    };
-  }, [topOffset, leftOffset, anchorRef.current]);
 
   return (
     <AnimatePortal isShowing={isOpen} mode={'popLayout'}>
