@@ -19,21 +19,24 @@ interface MenuProps {
   };
 }
 
+/**
+ * @description Menu 컴포넌트
+ * useModal 을 사용하여 오픈하면 됩니다.
+ * @param menus 메뉴 리스트 (MenuItemProps)
+ * @param onClose 메뉴 닫기
+ * @param isOpen 메뉴 오픈 여부
+ * @param anchorRef 메뉴 오픈 기준이 되는 Ref
+ * @param offset 메뉴 오픈 위치 조정 (옵셔널)
+ * @constructor
+ */
 function Menu({ menus, onClose, isOpen, anchorRef, offset }: MenuProps) {
   const { topOffset, leftOffset } = offset || {
     topOffset: DEFAULT_OFFSET,
     leftOffset: DEFAULT_OFFSET,
   };
+
   const modalRef = useRef(null);
-
   const [position, setPosition] = useState({ top: 0, left: 0 });
-
-  useOutsideClick({
-    ref: modalRef,
-    handler: () => {
-      onClose();
-    },
-  });
 
   const newMenus = menus.map((menu) => {
     return {
@@ -43,6 +46,13 @@ function Menu({ menus, onClose, isOpen, anchorRef, offset }: MenuProps) {
         onClose();
       },
     };
+  });
+
+  useOutsideClick({
+    ref: modalRef,
+    handler: () => {
+      onClose();
+    },
   });
 
   const resizeHandler = () => {
