@@ -13,8 +13,8 @@ export const useMenuPosition = ({ anchorRef, offset }: Pick<MenuProps, 'anchorRe
 
   const resizeHandler = () => {
     if (!anchorRef.current) return;
-    const { top, right, height } = anchorRef.current?.getBoundingClientRect();
-    setPosition({ left: right - MENU_CONTENT_WIDTH - leftOffset, top: top + height + topOffset });
+    const { bottom, right } = anchorRef.current?.getBoundingClientRect();
+    setPosition({ left: right - MENU_CONTENT_WIDTH - leftOffset, top: bottom + topOffset });
   };
 
   const throttledFn = useThrottle(resizeHandler, 100);
