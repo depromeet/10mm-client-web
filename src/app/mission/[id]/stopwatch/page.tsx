@@ -10,6 +10,7 @@ import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
+import useInterval from '@/hooks/useInterval';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
@@ -36,6 +37,7 @@ export default function StopwatchPage() {
   const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
   useUnloadAction(time);
+  useRecordMidTime(time);
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = () => {
@@ -186,6 +188,18 @@ function useVisibilityState(onAction: VoidFunction) {
       onAction();
     }
   };
+}
+
+function useRecordMidTime(time: number) {
+  const onSaveTime = () => {
+    eventLogger.logEvent('mid-save-2', 'stopwatch', { time });
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME_2, String(time));
+  };
+
+  // 카운터 속도 증가
+  useInterval(() => {
+    onSaveTime();
+  }, 10000);
 }
 
 const containerCss = css({
