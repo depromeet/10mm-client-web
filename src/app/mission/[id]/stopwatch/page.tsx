@@ -33,6 +33,8 @@ export default function StopwatchPage() {
   const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
+  useCustomBack(openMidOutModal);
+
   // TODO: 끝내기 후 로직 추가
   const onSubmit = () => {
     router.push(ROUTER.MISSION.RECORD(missionId));
@@ -40,6 +42,8 @@ export default function StopwatchPage() {
 
   const onFinishButtonClick = () => {
     onNextStep('stop');
+
+    // 10분 지나기 전 끝내기 눌렀을 때
     if (Number(minutes) < 10) {
       eventLogger.logEvent('click/finishButton-mid', 'stopwatch', logData);
       openMidOutModal();
@@ -50,6 +54,7 @@ export default function StopwatchPage() {
     openFinalModal();
   };
 
+  // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.push(ROUTER.MISSION.DETAIL(missionId));
   };
@@ -188,3 +193,22 @@ const buttonContainerCss = css({
   justifyContent: 'center',
   gap: '12px',
 });
+
+function useCustomBack(customBack: () => void) {
+  const browserPreventEvent = (event: () => void) => {
+    history.pushState(null, '', location.href);
+    event();
+  };
+
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => {
+      browserPreventEvent(customBack);
+    });
+    return () => {
+      window.removeEventListener('popstate', () => {
+        browserPreventEvent(customBack);
+      });
+    };
+  }, []);
+}
