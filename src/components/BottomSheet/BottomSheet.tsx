@@ -1,7 +1,9 @@
-import { type ComponentProps, type MouseEventHandler, type ReactNode } from 'react';
-import AnimatePortal from '@/components/portal/AnimationPortal';
+import { type ComponentProps, type ReactNode } from 'react';
+import type AnimatePortal from '@/components/portal/AnimationPortal';
 import { css } from '@/styled-system/css';
-import { motion } from 'framer-motion';
+import { BottomSheet as SpringBottomSheet } from 'react-spring-bottom-sheet';
+
+import 'react-spring-bottom-sheet/dist/style.css';
 
 /**
  * @description
@@ -15,34 +17,22 @@ interface Props extends ComponentProps<typeof AnimatePortal> {
   onClickOutside?: VoidFunction;
 }
 
-function BottomSheet({ children, onClickOutside, isShowing, mode, headerElement }: Props) {
-  const onClickOutsideDefault: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (e.target !== e.currentTarget) return;
-    if (onClickOutside) onClickOutside();
-  };
-
+function BottomSheet({ children, onClickOutside, isShowing, headerElement }: Props) {
   return (
-    <AnimatePortal isShowing={isShowing} mode={mode}>
-      <motion.div onClick={onClickOutsideDefault} className={css(overlayCss, { zIndex: 9999 })}>
-        <motion.div
-          key="bottom-sheet"
-          className={css(contentCss)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.03 }}
-          exit={{ opacity: 0 }}
-        >
-          <div className={headerWrapperCss}>{headerElement}</div>
-          {children}
-          <div className={safeAreaCss} />
-          <div className={indicatorAreaCss} />
-        </motion.div>
-      </motion.div>
-    </AnimatePortal>
+    <SpringBottomSheet open={isShowing} className={css(bottomSheetCss)} onDismiss={onClickOutside}>
+      <div className={headerWrapperCss}>{headerElement}</div>
+      <div className={contentCss}>{children}</div>
+      <div className={safeAreaCss} />
+      <div className={indicatorAreaCss} />
+    </SpringBottomSheet>
   );
 }
 
 export default BottomSheet;
+
+const contentCss = css({
+  padding: '0 16px',
+});
 
 const headerWrapperCss = css({
   width: '100%',
@@ -72,32 +62,16 @@ const headerWrapperCss = css({
     display: 'none',
   },
 });
+// TODO : 토큰이 입력 안되는 이슈
+const bottomSheetCss = {
+  '--rsbs-backdrop-bg': 'rgba(0, 0, 0, 0.60)',
+  '--rsbs-max-w': '475px',
+  '--rsbs-ml': 'auto',
+  '--rsbs-mr': 'auto',
+  '--rsbs-bg': '#212129',
+  '--rsbs-overlay-rounded': '28px',
 
-const overlayCss = {
-  position: 'fixed',
-  top: '0',
-  left: '0',
-  width: '100%',
-  height: '100%',
-  background: 'scrim.screen',
-};
-
-const contentCss = {
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-
-  width: '100%',
-  maxWidth: '475px', // TODO: mobile max size에 따라 변경
-  margin: '0 auto',
-  background: 'bg.surface3',
-  // minHeight: '300px',
-  borderRadius: '28px 28px 0px 0px',
+  '--rsbs-handle-bg': '#3C3D47',
 };
 
 const safeAreaCss = css({
