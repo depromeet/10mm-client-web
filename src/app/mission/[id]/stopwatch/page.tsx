@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
@@ -18,7 +19,7 @@ export default function StopwatchPage() {
   const category = useGetCategory();
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper } = useStopwatch(step);
+  const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
 
   const logData = {
     category,
@@ -28,6 +29,11 @@ export default function StopwatchPage() {
   const { isOpen: isFinalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
   const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+
+  // TODO: 끝내기 후 로직 추가
+  const onSubmit = () => {
+    router.push(ROUTER.GUEST.MISSION.SUCCESS);
+  };
 
   const onFinishButtonClick = () => {
     onNextStep('stop');
@@ -50,7 +56,16 @@ export default function StopwatchPage() {
 
   const onFinish = () => {
     // TODO: 끝내기 로직 추가
-    router.push(ROUTER.MISSION.SUCCESS);
+    onSubmit();
+    // router.push(ROUTER.MISSION.SUCCESS);
+  };
+
+  const onAutoFinish = () => {
+    eventLogger.logEvent('click/auto-finish', 'stopwatch', {
+      category,
+      finishTime: Number(minutes) * 60 + Number(seconds),
+    });
+    onSubmit();
   };
 
   const onCancel = () => {
@@ -70,6 +85,12 @@ export default function StopwatchPage() {
     eventLogger.logEvent('click/start', 'stopwatch', { category });
     onNextStep('progress');
   };
+
+  useEffect(() => {
+    if (isFinished) {
+      onAutoFinish();
+    }
+  }, [isFinished]);
 
   return (
     <>
