@@ -7,6 +7,7 @@ import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
+import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
@@ -24,14 +25,17 @@ export default function StopwatchPage() {
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
 
+  const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
     category,
-    finishTime: Number(minutes) * 60 + Number(seconds),
+    finishTime: time,
   };
 
   const { isOpen: isFinalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
   const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+
+  useUnloadAction(time);
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = () => {
@@ -166,6 +170,23 @@ const useGetCategory = () => {
 
   return searchParams ?? '운동';
 };
+
+function useUnloadAction(time: number) {
+  const onSaveTime = () => {
+    eventLogger.logEvent('mid-save', 'stopwatch', { time });
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME, String(time));
+  };
+
+  useVisibilityState(onSaveTime);
+}
+
+function useVisibilityState(onAction: VoidFunction) {
+  document.onvisibilitychange = () => {
+    if (document.visibilityState === 'hidden') {
+      onAction();
+    }
+  };
+}
 
 const containerCss = css({
   padding: '24px 16px',
