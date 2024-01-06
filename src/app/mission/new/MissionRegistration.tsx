@@ -1,25 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { type MissionCategory, type MissionVisibility } from '@/apis/mission';
+import useCreateMissionMutation from '@/app/mission/new/useCreateMissionMutation';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
 import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
-import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
-import { withQueryString } from '@/utils';
 
 export default function MissionRegistration() {
-  const router = useRouter();
-
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
-  const [missionCategory, setMissionCategory] = useState<DropdownValueType | null>(null);
-  const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType>(PUBLIC_SETTING_LIST[0]);
+  const [missionCategory, setMissionCategory] = useState<DropdownValueType<MissionCategory> | null>(null);
+  const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
+    PUBLIC_SETTING_LIST[0],
+  );
 
   const isSubmitButtonDisabled = !missionTitleInput || !missionCategory;
-
+  const { mutate } = useCreateMissionMutation();
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
@@ -31,7 +30,12 @@ export default function MissionRegistration() {
 
   const handleSubmit = () => {
     if (!missionCategory) return;
-    router.push(withQueryString(ROUTER.MISSION.STOP_WATCH('dummy'), { category: missionCategory.value }));
+    mutate({
+      name: missionTitleInput,
+      content: missionContentInput,
+      category: missionCategory.value,
+      visibility: missionPublicSetting.value,
+    });
   };
 
   return (
