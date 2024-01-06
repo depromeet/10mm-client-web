@@ -25,7 +25,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hotjar": "^6.2.0",
-    "react-lottie-player": "^1.5.5"
+    "react-lottie-player": "^1.5.5",
+    "react-spring-bottom-sheet": "^3.4.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.3",
