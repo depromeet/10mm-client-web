@@ -62,6 +62,7 @@ export default function StopwatchPage() {
 
   const onFinish = () => {
     // TODO: 끝내기 로직 추가
+    // 이쪽에 로딩 추가 필요
     onSubmit();
   };
 
