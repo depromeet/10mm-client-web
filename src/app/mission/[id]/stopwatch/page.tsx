@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
@@ -15,6 +15,9 @@ import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
+  const params = useParams();
+  const missionId = params.id as string;
+
   const router = useRouter();
   const category = useGetCategory();
 
@@ -32,7 +35,7 @@ export default function StopwatchPage() {
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = () => {
-    router.push(ROUTER.GUEST.MISSION.SUCCESS);
+    router.push(ROUTER.MISSION.RECORD(missionId));
   };
 
   const onFinishButtonClick = () => {
@@ -48,16 +51,12 @@ export default function StopwatchPage() {
   };
 
   const onExit = () => {
-    // 강제 이탈
-    // TODO : id 연결
-    const DUMMY_ID = '1';
-    router.push(ROUTER.MISSION.DETAIL(DUMMY_ID));
+    router.push(ROUTER.MISSION.DETAIL(missionId));
   };
 
   const onFinish = () => {
     // TODO: 끝내기 로직 추가
     onSubmit();
-    // router.push(ROUTER.MISSION.SUCCESS);
   };
 
   const onAutoFinish = () => {
