@@ -1,4 +1,8 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import MISSION_APIS, { type MissionContentType } from '@/apis/mission';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
@@ -9,7 +13,16 @@ import { flex } from '@/styled-system/patterns';
 type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED';
 
 function MissionList() {
-  const list = DUMMY_MISSION_LIST;
+  const [missionList, setMissionList] = useState<MissionContentType[]>([]);
+  const get = async () => {
+    const data = await MISSION_APIS.getMissions({ size: 10 });
+    setMissionList(data.content);
+  };
+
+  useEffect(() => {
+    get();
+  }, []);
+
   return (
     <div className={containerCss}>
       <h2 className={headingCss}>
@@ -21,13 +34,14 @@ function MissionList() {
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
-        {list.map((item) => (
+        {missionList.map((item) => (
           <TwoLineListItem
-            key={item.missionTitle}
+            key={item.missionId}
             badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
-            name={item.missionTitle}
+            name={item.content}
             subName={item.category}
-            imageUrl={item.imageUrl}
+            // TODO: 매핑 필요
+            imageUrl={''}
           />
         ))}
       </ul>
@@ -54,78 +68,6 @@ const listCss = flex({
   flexDirection: 'column',
   gap: '8px',
 });
-
-const DUMMY_MISSION_LIST = [
-  {
-    imageUrl: '/images/category/writing.png',
-    category:
-      '글쓰기일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일',
-    missionTitle:
-      '오늘 하루 감사일기 쓰기 일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일',
-    status: 'NONE',
-  },
-  {
-    imageUrl: '/images/category/etc.png',
-    category:
-      '글쓰기일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일',
-    missionTitle: '포트폴리오 레퍼런스 수집하기',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-  {
-    imageUrl: '/images/category/exercise.png',
-    category: '운동',
-    missionTitle: '스쿼트 해서 튼튼해지자!',
-    status: 'COMPLETED',
-  },
-];
 
 function MissionBadge({ status }: { status: MissionStatusType }) {
   switch (status) {

@@ -36,12 +36,47 @@ const MISSION_APIS = {
     });
   },
 
-  getMissions: async (params: GetMissionsParams) => {
+  getMissions: async (params: GetMissionsParams): Promise<GetMissionsResponse> => {
     const { data } = await apiInstance.get('/missions', {
       params,
     });
-    return data;
+    // TODO: data 객체 wrapper 삭제하기 (확인 필요)
+    return data.data;
   },
 };
 
 export default MISSION_APIS;
+
+interface MissionContentType {
+  missionId: string;
+  name: string;
+  content: string;
+  category: string;
+  visibility: string;
+  status: string;
+  sort: number;
+}
+
+interface PageableType {
+  pageNumber: number;
+  pageSize: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+}
+
+interface GetMissionsResponse {
+  content: MissionContentType[];
+  first: boolean;
+  last: boolean;
+  pageable: PageableType;
+  size: number;
+  number: number;
+  numberOfElements: number;
+  empty: boolean;
+}
