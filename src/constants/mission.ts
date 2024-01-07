@@ -5,7 +5,7 @@ export const MISSION_CATEGORY_LABEL: Record<
   {
     imgUrl: string;
     label: string;
-    value: string;
+    value: MissionCategory;
   }
 > = {
   STUDY: {
