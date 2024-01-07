@@ -29,9 +29,9 @@ export default function StopwatchPage() {
     finishTime: Number(minutes) * 60 + Number(seconds),
   };
 
-  const { isOpen: isFinalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
-  const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
-  const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+  const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
+  const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
+  const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
   useCustomBack(openMidOutModal);
 
@@ -141,21 +141,21 @@ export default function StopwatchPage() {
           )}
         </section>
         <FinalDialog
-          isOpen={isFinalOpen}
+          isOpen={isFinalModalOpen}
           onClose={closeFinalModal}
           onCancel={onCancel}
           onConfirm={onFinish}
           logData={logData}
         />
         <BackDialog
-          isOpen={isBackOpen}
+          isOpen={isBackModalOpen}
           onClose={closeBackModal}
           onCancel={onCancel}
           onConfirm={onExit}
           logData={logData}
         />
         <MidOutDialog
-          isOpen={isMidOutOpen}
+          isOpen={isMidOutModalOpen}
           onClose={closeMidOutModal}
           onCancel={onCancel}
           onConfirm={onExit}
