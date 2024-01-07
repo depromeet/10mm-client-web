@@ -201,14 +201,12 @@ function useCustomBack(customBack: () => void) {
   };
 
   useEffect(() => {
+    const backAction = () => browserPreventEvent(customBack);
+
     history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => {
-      browserPreventEvent(customBack);
-    });
+    window.addEventListener('popstate', backAction);
     return () => {
-      window.removeEventListener('popstate', () => {
-        browserPreventEvent(customBack);
-      });
+      window.removeEventListener('popstate', backAction);
     };
   }, []);
 }
