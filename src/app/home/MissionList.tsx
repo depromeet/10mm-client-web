@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
-import List from '@/components/ListItem/ListItem';
+import { TwoLineListItem } from '@/components/ListItem';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -12,17 +14,20 @@ function MissionList() {
     <div className={containerCss}>
       <h2 className={headingCss}>
         <span>내 미션 목록</span>
-        <Icon name="plus" />
+        <Link href={ROUTER.MISSION.NEW}>
+          <Icon name="plus" />
+        </Link>
       </h2>
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
         {list.map((item) => (
-          <List
-            type="mission"
+          <TwoLineListItem
             key={item.missionTitle}
             badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
-            {...item}
+            name={item.missionTitle}
+            subName={item.category}
+            imageUrl={item.imageUrl}
           />
         ))}
       </ul>
@@ -33,7 +38,7 @@ function MissionList() {
 export default MissionList;
 
 const containerCss = css({
-  padding: '0 16px',
+  padding: '0 16px 30px',
 });
 
 const headingCss = flex({
@@ -64,6 +69,54 @@ const DUMMY_MISSION_LIST = [
     category:
       '글쓰기일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일일이삼사오육칠팔구십일이삼사오육칠팔구십일',
     missionTitle: '포트폴리오 레퍼런스 수집하기',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
+    status: 'COMPLETED',
+  },
+  {
+    imageUrl: '/images/category/exercise.png',
+    category: '운동',
+    missionTitle: '스쿼트 해서 튼튼해지자!',
     status: 'COMPLETED',
   },
   {

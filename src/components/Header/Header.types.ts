@@ -22,6 +22,7 @@ export interface TextButtonHeaderType extends HeaderBaseType {
   rightAction: 'text-button';
   rightButtonText?: string;
   onButtonClick?: () => void;
+  rightButtonDisabled?: boolean;
 }
 
 export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType;

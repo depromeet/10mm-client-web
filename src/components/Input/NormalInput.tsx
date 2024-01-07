@@ -90,7 +90,7 @@ const descriptionCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: '12px',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });
 
 const inputWrapperCss = {
@@ -106,7 +106,7 @@ const inputWrapperCss = {
 };
 
 const subTitleCss = css({
-  textStyle: 'body4',
+  textStyle: 'body5',
   color: 'text.primary',
 });
 
@@ -127,7 +127,7 @@ const inputCss = css({
 });
 
 const inputLengthWrapperCss = {
-  textStyle: 'body5',
+  textStyle: 'body6',
   color: 'text.tertiary',
 };
 

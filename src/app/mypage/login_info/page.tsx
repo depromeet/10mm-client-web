@@ -1,22 +1,22 @@
-import Image from 'next/image';
-import { type MissionListItemType } from '@/components/ListItem/ListItem.types';
+import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-function MissionListItem(props: MissionListItemType) {
+const KAKAO_LOGIN_EMAIL = 'carrotjoy123@kakao.com';
+
+function LoginInfoPage() {
   return (
-    <li className={containerCss}>
-      <Image src={props.imageUrl} alt="mission list item" width={36} height={36} />
+    <div className={containerCss}>
+      <Icon name="log-in-information" color="icon.secondary" width={20} height={20} />
       <div className={textWrapperCss}>
-        <p className={categoryCss}>{props.category}</p>
-        <p className={missionTitleCss}>{props.missionTitle}</p>
+        <p className={titleCss}>카카오 로그인</p>
+        <p className={contentCss}>{KAKAO_LOGIN_EMAIL}</p>
       </div>
-      {Boolean(props.badgeElement) && props.badgeElement}
-    </li>
+    </div>
   );
 }
 
-export default MissionListItem;
+export default LoginInfoPage;
 
 const containerCss = flex({
   gap: '10px',
@@ -29,17 +29,17 @@ const containerCss = flex({
 });
 
 const textWrapperCss = flex({ flex: 1, flexDirection: 'column', gap: '2px', minWidth: '0' });
-const categoryCss = css({
+const titleCss = css({
   color: 'text.tertiary',
-  textStyle: 'body3',
+  textStyle: 'body4',
   width: '100%',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
 });
-const missionTitleCss = css({
+const contentCss = css({
   color: 'text.secondary',
-  textStyle: 'body2',
+  textStyle: 'body3',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

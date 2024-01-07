@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { cva } from '@/styled-system/css';
 
-// NOTE: variant = null을 변수로 받아야할까?
 function Thumbnail({ variant, url, ...props }: ThumbnailProps) {
   switch (variant) {
     case 'filled':
@@ -42,10 +41,15 @@ const thumbnailStyle = cva({
         height: '52px',
         borderRadius: '20px',
       },
-      h32: {
-        width: '32px',
-        height: '32px',
+      h36: {
+        width: '36px',
+        height: '36px',
         borderRadius: '14px',
+      },
+      h24: {
+        width: '24px',
+        height: '24px',
+        borderRadius: '10px',
       },
     },
     variant: {
@@ -63,7 +67,7 @@ const thumbnailStyle = cva({
     },
     selected: {
       true: {
-        border: '1.5px solid transparent',
+        border: '1px solid transparent',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundOrigin: 'border-box',
