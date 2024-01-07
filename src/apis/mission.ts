@@ -47,11 +47,11 @@ const MISSION_APIS = {
 
 export default MISSION_APIS;
 
-interface MissionContentType {
+export interface MissionContentType {
   missionId: string;
   name: string;
   content: string;
-  category: string;
+  category: MissionCategory;
   visibility: string;
   status: string;
   sort: number;

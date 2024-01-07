@@ -6,6 +6,7 @@ import MISSION_APIS, { type MissionContentType } from '@/apis/mission';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
+import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
@@ -23,6 +24,8 @@ function MissionList() {
     get();
   }, []);
 
+  // TODO: 스켈레톤 또는 로딩 추가
+
   return (
     <div className={containerCss}>
       <h2 className={headingCss}>
@@ -39,9 +42,8 @@ function MissionList() {
             key={item.missionId}
             badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
             name={item.content}
-            subName={item.category}
-            // TODO: 매핑 필요
-            imageUrl={''}
+            subName={MISSION_CATEGORY_LABEL[item.category].label}
+            imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
           />
         ))}
       </ul>
