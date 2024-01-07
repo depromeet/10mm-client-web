@@ -183,11 +183,20 @@ function useUnloadAction(time: number) {
 }
 
 function useVisibilityState(onAction: VoidFunction) {
-  document.onvisibilitychange = () => {
-    if (document.visibilityState === 'hidden') {
-      onAction();
-    }
-  };
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        onAction();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, []); // 빈 의존성 배열을 전달하여 이 훅이 컴포넌트가 마운트되거나 언마운트될 때만 실행되도록 합니다.
 }
 
 function useRecordMidTime(time: number) {
