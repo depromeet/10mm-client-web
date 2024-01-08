@@ -14,6 +14,7 @@ import useInterval from '@/hooks/useInterval';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
+import { formatDate } from '@/utils/time';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -40,8 +41,14 @@ export default function StopwatchPage() {
   useRecordMidTime(time);
 
   // TODO: 끝내기 후 로직 추가
-  const onSubmit = () => {
+  const onSubmit = async () => {
     router.push(ROUTER.MISSION.RECORD(missionId));
+    const startTimeString = localStorage.getItem(STORAGE_KEY.STOPWATCH.START_TIME);
+    if (!startTimeString) return;
+
+    const startTime = new Date(startTimeString);
+    const startTimeFormatted = formatDate(startTime);
+    const finishTimeFormatted = formatDate(new Date());
   };
 
   const onFinishButtonClick = () => {
@@ -90,6 +97,8 @@ export default function StopwatchPage() {
   const onStart = () => {
     eventLogger.logEvent('click/start', 'stopwatch', { category });
     onNextStep('progress');
+    const startTime = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
   };
 
   useEffect(() => {
