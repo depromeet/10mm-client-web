@@ -13,20 +13,20 @@ export interface NormalInputType extends InputBaseType, Omit<InputHTMLAttributes
   errorMsg?: string;
 }
 
-export interface DropdownValueType {
+export interface DropdownValueType<Value = string> {
   imgUrl?: string;
   label: string;
-  value: string;
+  value: Value;
 }
 
-export interface DropDownInputType extends InputBaseType {
+export interface DropDownInputType<T extends string> extends InputBaseType {
   variant: 'drop-down';
-  selected: DropdownValueType | null;
-  onSelect: (value: DropdownValueType) => void;
-  list: DropdownValueType[];
+  selected: DropdownValueType<T> | null;
+  onSelect: (value: DropdownValueType<T>) => void;
+  list: DropdownValueType<T>[];
   placeholder?: string;
   title: string;
   required?: boolean;
 }
 
-export type InputType = DropDownInputType | NormalInputType;
+export type InputType<V extends string> = DropDownInputType<V> | NormalInputType;

@@ -1,8 +1,8 @@
 'use client';
 
 import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
-import Tab from '@/app/mission/[id]/detail/Tab';
 import Header from '@/components/Header/Header';
+import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
 
 export default function MissionDetailPage() {
@@ -12,8 +12,8 @@ export default function MissionDetailPage() {
 
   const tabs = [
     {
-      label: '미션 내역',
-      component: <MissionHistoryTab />,
+      tabName: '미션 내역',
+      active: true,
     },
   ];
 
@@ -21,6 +21,7 @@ export default function MissionDetailPage() {
     <main className={mainWrapperCss}>
       <Header title={'미션 상세'} rightAction="icon" iconName={'menu'} onIconClick={handleIconClick} />
       <Tab tabs={tabs} />
+      <MissionHistoryTab />
     </main>
   );
 }

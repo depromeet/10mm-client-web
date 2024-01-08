@@ -7,7 +7,7 @@ function IconHeader({ iconName = 'close', ...props }: IconHeaderType) {
   return (
     <HeaderBase
       rightElement={
-        <div className={iconWrapperCss}>
+        <div className={iconWrapperCss} onClick={props.onIconClick}>
           <Icon name={iconName} width={20} height={20} />
         </div>
       }

@@ -8,10 +8,10 @@ import useToggle from '@/hooks/useToggle';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-function DropdownInput(props: DropDownInputType) {
+function DropdownInput<Value extends string = string>(props: DropDownInputType<Value>) {
   const [isCategoryShowing, toggleCategoryShowing] = useToggle();
 
-  const onClick = (item: DropdownValueType) => {
+  const onClick = (item: DropdownValueType<Value>) => {
     props.onSelect(item);
   };
 
@@ -36,7 +36,7 @@ function DropdownInput(props: DropDownInputType) {
         </div>
         <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} />
       </div>
-      <Dropdown
+      <Dropdown<Value>
         isShowing={isCategoryShowing}
         onClickOutside={toggleCategoryShowing}
         selected={props.selected}
@@ -86,13 +86,13 @@ const asterisk = css({
   marginLeft: '2px',
 });
 
-interface DropdownProps
+interface DropdownProps<T extends string>
   extends Omit<ComponentProps<typeof BottomSheet>, 'headerElement'>,
-    Pick<DropDownInputType, 'selected' | 'list'> {
-  onClick: (item: DropdownValueType) => void;
+    Pick<DropDownInputType<T>, 'selected' | 'list'> {
+  onClick: (item: DropdownValueType<T>) => void;
 }
 
-function Dropdown(props: DropdownProps) {
+function Dropdown<T extends string>(props: DropdownProps<T>) {
   return (
     <BottomSheet
       headerElement={<Header rightAction="text-button" title="카테고리" onButtonClick={props.onClickOutside} />}
