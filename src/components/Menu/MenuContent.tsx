@@ -1,16 +1,14 @@
 import { type ForwardedRef, forwardRef } from 'react';
-import MenuItem, { type MenuItemProps } from '@/components/Menu/MenuItem';
+import MenuItem from '@/components/Menu/MenuItem';
 import { css } from '@styled-system/css';
 
-interface MenuContentProps {
-  menus: MenuItemProps[];
-}
+import { type MenuContentProps } from './Menu.types';
 
-function MenuContent({ menus }: MenuContentProps, ref: ForwardedRef<HTMLUListElement>) {
+function MenuContent({ menus, onMenuClick }: MenuContentProps, ref: ForwardedRef<HTMLUListElement>) {
   return (
     <ul className={menuCss} ref={ref}>
       {menus.map((menu) => (
-        <MenuItem key={menu.label} {...menu} />
+        <MenuItem key={menu.label} {...menu} onClick={onMenuClick} />
       ))}
     </ul>
   );

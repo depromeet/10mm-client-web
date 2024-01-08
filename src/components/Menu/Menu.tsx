@@ -1,13 +1,11 @@
-import { type PropsWithChildren, useRef } from 'react';
-import { MENU_MOTION_VARIANTS } from '@/components/Menu/Menu.contants';
+import { type ComponentProps, type PropsWithChildren, useRef } from 'react';
+import { DEFAULT_OFFSET_RIGHT, DEFAULT_OFFSET_TOP, MENU_MOTION_VARIANTS } from '@/components/Menu/Menu.contants';
 import MenuContent from '@/components/Menu/MenuContent';
-import { type MenuItemProps } from '@/components/Menu/MenuItem';
 import useOutsideClick from '@/hooks/lifeCycle/useOutsideClick';
-import { css, cx } from '@styled-system/css';
+import { css } from '@styled-system/css';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export interface MenuProps extends PropsWithChildren {
-  menus: MenuItemProps[];
+export interface MenuProps extends PropsWithChildren<ComponentProps<typeof MenuContent>> {
   onClose: () => void;
   isOpen: boolean;
   offsetTop?: number;
@@ -21,22 +19,26 @@ export interface MenuProps extends PropsWithChildren {
  * @param onClose 메뉴 닫기
  * @param isOpen 메뉴 오픈 여부
  * @param children 메뉴 오픈 버튼
+ * @param onMenuClick 메뉴 클릭시 이벤트
  * @param offsetRight 메뉴 오픈 버튼 기준으로 오른쪽으로 얼마나 떨어져 있을지
  * @param offsetTop 메뉴 오픈 버튼 기준으로 위쪽으로 얼마나 떨어져 있을지
  * @constructor
  */
-function Menu({ menus, onClose, isOpen, children, offsetRight = 8, offsetTop = 4 }: MenuProps) {
+function Menu({
+  menus,
+  onClose,
+  isOpen,
+  children,
+  onMenuClick,
+  offsetRight = DEFAULT_OFFSET_RIGHT,
+  offsetTop = DEFAULT_OFFSET_TOP,
+}: MenuProps) {
   const modalRef = useRef(null);
 
-  const newMenus = menus.map((menu) => {
-    return {
-      ...menu,
-      onClick: () => {
-        menu.onClick(menu.id);
-        onClose();
-      },
-    };
-  });
+  const newMenuClick = (id: string) => {
+    onMenuClick(id);
+    onClose();
+  };
 
   useOutsideClick({
     ref: modalRef,
@@ -56,15 +58,13 @@ function Menu({ menus, onClose, isOpen, children, offsetRight = 8, offsetTop = 4
             animate="animate"
             exit="exit"
             variants={MENU_MOTION_VARIANTS}
-            className={cx(
-              menuPositionCss,
-              css({
-                top: `calc(100% + ${offsetTop}px)`,
-                right: `${offsetRight}px`,
-              }),
-            )}
+            className={menuPositionCss}
+            style={{
+              top: `calc(100% + ${offsetTop}px)`,
+              right: `${offsetRight}px`,
+            }}
           >
-            <MenuContent menus={newMenus} ref={modalRef} />
+            <MenuContent menus={menus} onMenuClick={newMenuClick} ref={modalRef} />
           </motion.div>
         )}
       </div>
@@ -86,7 +86,5 @@ const menuOverlayCss = css({
   left: '0',
   width: '100%',
 
-  maxWidth: 'maxWidth',
-  margin: '0 auto',
   height: '100%',
 });

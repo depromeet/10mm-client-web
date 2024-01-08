@@ -1,7 +1,3 @@
-export const MENU_CONTENT_WIDTH = 153;
-
-export const DEFAULT_OFFSET = 12;
-
 export const MENU_MOTION_VARIANTS = {
   initial: {
     opacity: 0,
@@ -28,3 +24,6 @@ export const MENU_MOTION_VARIANTS = {
     },
   },
 };
+
+export const DEFAULT_OFFSET_TOP = 4;
+export const DEFAULT_OFFSET_RIGHT = 8;

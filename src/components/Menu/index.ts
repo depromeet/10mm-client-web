@@ -1,2 +1,2 @@
 export { default as Menu } from './Menu';
-export type { MenuItemProps } from './MenuItem';
+export type { MenuBaseItem } from './Menu.types';

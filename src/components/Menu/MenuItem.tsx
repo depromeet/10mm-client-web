@@ -1,10 +1,6 @@
 import { css } from '@styled-system/css';
 
-export interface MenuItemProps {
-  id: string;
-  label: string;
-  onClick: (id: string) => void;
-}
+import { type MenuItemProps } from './Menu.types';
 
 function MenuItem({ id, label, onClick }: MenuItemProps) {
   const handleClick = () => {
