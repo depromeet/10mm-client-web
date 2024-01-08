@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { type NormalButtonInputTypes } from '@/components/Input/Input.types';
 import { css } from '@/styled-system/css';
+import { getBorderColor } from '@/utils/getBorderColor';
 
 import Button from '../Button/Button';
 
@@ -27,7 +28,6 @@ export default function NormalButtonInput({
     }
 
     onChange?.(inputValue);
-    //
     setDoubleCheckAbled(inputValue.length === 0);
   };
 
@@ -35,6 +35,7 @@ export default function NormalButtonInput({
     //TODO: 중복확인 로직
     alert('중복확인 로직 추가');
   };
+
   return (
     <section className={sectionCss}>
       <p className={subTitleCss}>
@@ -44,7 +45,7 @@ export default function NormalButtonInput({
 
       <div
         className={css(inputWrapperCss, {
-          borderColor: errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'border.default',
+          borderColor: getBorderColor(errorMsg, isFocused),
         })}
       >
         <input
