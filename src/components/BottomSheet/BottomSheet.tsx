@@ -1,5 +1,4 @@
-import { type ComponentProps, type ReactNode } from 'react';
-import type AnimatePortal from '@/components/portal/AnimationPortal';
+import { type PropsWithChildren, type ReactNode } from 'react';
 import { css } from '@/styled-system/css';
 import { BottomSheet as SpringBottomSheet } from 'react-spring-bottom-sheet';
 
@@ -12,9 +11,10 @@ import 'react-spring-bottom-sheet/dist/style.css';
  * @param headerElement BottomSheet header element, Header element를 넣습니다.
  * @param onClickOutside  scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
  */
-interface Props extends ComponentProps<typeof AnimatePortal> {
+interface Props extends PropsWithChildren {
   headerElement: ReactNode;
   onClickOutside?: VoidFunction;
+  isShowing: boolean;
 }
 
 function BottomSheet({ children, onClickOutside, isShowing, headerElement }: Props) {
