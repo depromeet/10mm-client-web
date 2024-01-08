@@ -5,7 +5,7 @@ import { Menu } from '@/components/Menu';
 import useModal from '@/hooks/useModal';
 import { css } from '@styled-system/css';
 
-function IconMenuHeader({ iconName = 'close', menus, onMenuClick, ...props }: IconMenuHeaderType) {
+function IconMenuHeader({ iconName = 'menu', menus, onMenuClick, ...props }: IconMenuHeaderType) {
   const { isOpen, openModal, closeModal } = useModal();
   return (
     <HeaderBase
