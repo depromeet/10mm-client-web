@@ -1,3 +1,5 @@
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+
 import apiInstance from './instance.api';
 
 // 이부분은 emum으로 관리할지 type 으로 관리할지 고민입니다.
@@ -80,3 +82,14 @@ interface GetMissionsResponse {
   numberOfElements: number;
   empty: boolean;
 }
+
+const getMissionsIdQueryKey = (params: GetMissionsParams) => ['missions', ...Object.values(params)];
+
+export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptions<GetMissionsResponse>) => {
+  return useQuery<GetMissionsResponse>({
+    queryKey: getMissionsIdQueryKey(params),
+    queryFn: () => MISSION_APIS.getMissions(params),
+    // queryFn: () => apiInstance.get('/missions', { params }), // 2번 방법
+    ...option,
+  });
+};
