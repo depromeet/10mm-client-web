@@ -16,16 +16,12 @@ export default function NormalButtonInput({
   const [isFocused, setIsFocused] = useState(false);
 
   const statusColor = errorMsg ? 'red.red500' : 'text.tertiary';
-  //닉네임 사용 가능시 디스크립션에 보여줄 positiveColor
-  // const positiveColor = positiveMsg ? 'blue.blue500' : 'text.tertiary';
 
-  //중복확인 버튼이 사용 가능할지에 대한 상태. 네이밍 논의 필요.
   const [doubleCheckabled, setDoubleCheckAbled] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    // input의 기본 속성인 maxLength만으로는 한글 대응이 불가능.
     if (props.maxLength && inputValue.length > props.maxLength) {
       return;
     }
@@ -73,9 +69,7 @@ export default function NormalButtonInput({
         </Button>
       </div>
 
-      {/* 닉네임 사용 가능 시 positive 컬러로 보여주기 추가 예정 */}
       <div className={descriptionCss}>
-        {/* 처음엔 안보이다가 input의 길이가 너무 길면 빨간색으로 표시 */}
         <span
           className={css(descriptionTextCss, {
             color: statusColor,

@@ -14,7 +14,6 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    // input의 기본 속성인 maxLength만으로는 한글 대응이 불가능.
     if (props.maxLength && inputValue.length > props.maxLength) {
       return;
     }
@@ -54,7 +53,6 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
       </div>
 
       <div className={descriptionCss}>
-        {/* 처음엔 안보이다가 input의 길이가 너무 길면 빨간색으로 표시 */}
         <span
           className={css(descriptionTextCss, {
             color: statusColor,
