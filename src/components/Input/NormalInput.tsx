@@ -9,7 +9,7 @@ import Icon from '../Icon';
 export default function NormalInput({ value, onChange, errorMsg, ...props }: NormalInputType) {
   const [isFocused, setIsFocused] = useState(false);
 
-  const statusColor = errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'text.tertiary';
+  const statusColor = errorMsg ? 'red.red500' : 'text.tertiary';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -67,13 +67,7 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
           <span className={css(inputLengthWrapperCss, { color: statusColor })}>
             <strong
               className={css({
-                color: errorMsg
-                  ? 'red.red500'
-                  : isFocused
-                    ? 'purple.purple500'
-                    : value.length === 0
-                      ? 'text.tertiary'
-                      : 'text.secondary',
+                color: errorMsg ? 'red.red500' : 'text.tertiary',
               })}
             >
               {value.length}
