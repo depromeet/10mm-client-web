@@ -19,8 +19,6 @@ export default function NormalButtonInput({
 
   const statusColor = errorMsg ? 'red.red500' : 'text.tertiary';
 
-  const [doubleCheckabled, setDoubleCheckAbled] = useState(false);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
@@ -29,7 +27,6 @@ export default function NormalButtonInput({
     }
 
     onChange?.(inputValue);
-    setDoubleCheckAbled(inputValue.length === 0);
   };
 
   const onDoubleCheck = () => {
@@ -60,14 +57,7 @@ export default function NormalButtonInput({
           {...(required && { required: true })}
           {...props}
         />
-        <Button
-          size="small"
-          variant="secondary"
-          type="button"
-          className={buttonCss}
-          onClick={onDoubleCheck}
-          disabled={doubleCheckabled}
-        >
+        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onDoubleCheck}>
           {props.text}
         </Button>
       </div>
