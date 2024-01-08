@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import STOPWATCH_APIS from '@/apis/stopwatch';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
@@ -49,6 +50,15 @@ export default function StopwatchPage() {
     const startTime = new Date(startTimeString);
     const startTimeFormatted = formatDate(startTime);
     const finishTimeFormatted = formatDate(new Date());
+
+    // const request = ()
+    await STOPWATCH_APIS.recordTime({
+      missionId: missionId,
+      startedAt: startTimeFormatted,
+      finishedAt: finishTimeFormatted,
+      durationMin: Number(minutes),
+      durationSec: Number(seconds),
+    });
   };
 
   const onFinishButtonClick = () => {
