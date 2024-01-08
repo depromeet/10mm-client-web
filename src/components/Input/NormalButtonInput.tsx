@@ -68,7 +68,7 @@ export default function NormalButtonInput({
           onClick={onDoubleCheck}
           disabled={doubleCheckabled}
         >
-          중복확인
+          {props.text}
         </Button>
       </div>
 

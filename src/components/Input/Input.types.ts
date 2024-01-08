@@ -28,6 +28,7 @@ export interface NormalButtonInputTypes extends InputBaseType, Omit<InputHTMLAtt
   errorMsg?: string;
   positiveMsg?: string;
   required?: boolean;
+  text?: string;
 }
 
 export interface DropDownInputType<T extends string> extends InputBaseType {
