@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import Button from '@/components/Button/Button';
 import Menu from '@/components/Menu/Menu';
 import MenuContent from '@/components/Menu/MenuContent';
@@ -7,25 +6,16 @@ import useModal from '@/hooks/useModal';
 import type { Meta } from '@storybook/react';
 
 const MenuStory = (arg: { menus: MenuItemProps[]; topOffset: number; leftOffset: number }) => {
-  const { menus, topOffset, leftOffset } = arg;
+  const { menus } = arg;
   const { isOpen, openModal, closeModal } = useModal();
-  const anchorRef = useRef(null);
 
   return (
     <div>
-      <Button ref={anchorRef} size={'large'} variant={'primary'} onClick={openModal}>
-        Open Modal
-      </Button>
-      <Menu
-        anchorRef={anchorRef}
-        offset={{
-          topOffset,
-          leftOffset,
-        }}
-        menus={menus}
-        isOpen={isOpen}
-        onClose={closeModal}
-      />
+      <Menu menus={menus} isOpen={isOpen} onClose={closeModal}>
+        <Button size={'large'} variant={'primary'} onClick={openModal}>
+          Open Modal
+        </Button>
+      </Menu>
     </div>
   );
 };
@@ -35,24 +25,27 @@ const meta = {
   component: MenuStory,
 
   args: {
-    topOffset: 30,
-    leftOffset: 30,
-
     menus: [
       {
         id: 'menu1',
         label: '메뉴1',
-        onClick: () => {},
+        onClick: () => {
+          alert('메뉴1');
+        },
       },
       {
         id: 'menu2',
         label: '메뉴2',
-        onClick: () => {},
+        onClick: () => {
+          alert('메뉴2');
+        },
       },
       {
         id: 'menu3',
         label: '메뉴3',
-        onClick: () => {},
+        onClick: () => {
+          alert('메뉴3');
+        },
       },
     ],
   },
