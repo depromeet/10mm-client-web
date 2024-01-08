@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes } from 'react';
 
 interface InputBaseType {
-  variant?: 'normal' | 'drop-down';
+  variant?: 'normal' | 'drop-down' | 'normal-button';
 }
 
 export interface NormalInputType extends InputBaseType, Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -19,6 +19,16 @@ export interface DropdownValueType<Value = string> {
   value: Value;
 }
 
+export interface NormalButtonInputTypes extends InputBaseType, Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  variant: 'normal-button';
+  value: string;
+  onChange?: (value: string) => void;
+
+  description?: string;
+  errorMsg?: string;
+  positiveMsg?: string;
+}
+
 export interface DropDownInputType<T extends string> extends InputBaseType {
   variant: 'drop-down';
   selected: DropdownValueType<T> | null;
@@ -29,4 +39,4 @@ export interface DropDownInputType<T extends string> extends InputBaseType {
   required?: boolean;
 }
 
-export type InputType<V extends string> = DropDownInputType<V> | NormalInputType;
+export type InputType<V extends string> = DropDownInputType<V> | NormalInputType | NormalButtonInputTypes;
