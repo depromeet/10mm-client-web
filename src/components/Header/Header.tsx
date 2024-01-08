@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { type HeaderType } from '@/components/Header/Header.types';
 import IconHeader from '@/components/Header/IconHeader';
+import IconMenuHeader from '@/components/Header/IconMenuHeader';
 import NoneHeader from '@/components/Header/NoneHeader';
 import TextButtonHeader from '@/components/Header/TextButtonHeader';
 import { eventLogger } from '@/utils';
@@ -26,6 +27,8 @@ function Header({ onBackAction, isBackIcon = true, ...props }: HeaderType) {
       return <NoneHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
     case 'text-button':
       return <TextButtonHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
+    case 'icon-menu':
+      return <IconMenuHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
   }
 }
 
