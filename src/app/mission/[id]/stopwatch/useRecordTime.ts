@@ -9,7 +9,7 @@ const useRecordTime = (missionId: string) => {
   return useMutation({
     mutationFn: APIS.recordTime,
     onSuccess: () => {
-      router.push(ROUTER.MISSION.RECORD(missionId));
+      router.replace(ROUTER.MISSION.RECORD(missionId));
     },
     onError: () => {
       // TODO: error handling
