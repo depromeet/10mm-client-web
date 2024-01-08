@@ -1,7 +1,7 @@
 import { type ComponentProps, type PropsWithChildren, useRef } from 'react';
 import { DEFAULT_OFFSET_RIGHT, DEFAULT_OFFSET_TOP, MENU_MOTION_VARIANTS } from '@/components/Menu/Menu.contants';
 import MenuContent from '@/components/Menu/MenuContent';
-import useOutsideClick from '@/hooks/lifeCycle/useOutsideClick';
+import useOutsideClick from '@/hooks/useOutsideClick';
 import { css } from '@styled-system/css';
 import { AnimatePresence, motion } from 'framer-motion';
 
