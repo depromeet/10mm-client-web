@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import STOPWATCH_APIS from '@/apis/stopwatch';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
+import useRecordTime from '@/app/mission/[id]/stopwatch/useRecordTime';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
+import Loading from '@/components/Loading';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
@@ -41,9 +43,11 @@ export default function StopwatchPage() {
   useUnloadAction(time);
   useRecordMidTime(time);
 
+  // isError 처리 어떻게 할것인지?
+  const { mutate, isPending: isSubmitLoading } = useRecordTime(missionId);
+
   // TODO: 끝내기 후 로직 추가
   const onSubmit = async () => {
-    router.push(ROUTER.MISSION.RECORD(missionId));
     const startTimeString = localStorage.getItem(STORAGE_KEY.STOPWATCH.START_TIME);
     if (!startTimeString) return;
 
@@ -51,8 +55,7 @@ export default function StopwatchPage() {
     const startTimeFormatted = formatDate(startTime);
     const finishTimeFormatted = formatDate(new Date());
 
-    // const request = ()
-    await STOPWATCH_APIS.recordTime({
+    mutate({
       missionId: missionId,
       startedAt: startTimeFormatted,
       finishedAt: finishTimeFormatted,
@@ -119,6 +122,7 @@ export default function StopwatchPage() {
 
   return (
     <>
+      {isSubmitLoading && <Loading />}
       <Header rightAction="none" onBackAction={openBackModal} />
       <div className={containerCss}>
         <h1 className={titleCss}>{stepLabel.title}</h1>
