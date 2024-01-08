@@ -11,7 +11,7 @@ const useRecordTime = (missionId: string) => {
     mutationFn: APIS.recordTime,
     onSuccess: () => {
       router.replace(ROUTER.MISSION.RECORD(missionId));
-      eventLogger.logEvent('api/record-time', 'stopwatch', missionId);
+      eventLogger.logEvent('api/record-time', 'stopwatch', { missionId });
     },
     onError: () => {
       // TODO: error handling
