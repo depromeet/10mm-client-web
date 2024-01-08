@@ -1,6 +1,4 @@
 import Header from '@/components/Header/Header';
-import { Menu } from '@/components/Menu';
-import useModal from '@/hooks/useModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -56,21 +54,13 @@ export const IconMenu = (
       label: '메뉴3',
     },
   ];
-  const { isOpen, closeModal, openModal } = useModal();
+
   const onMenuClick = (id: string) => {
     alert(id);
   };
   return (
     <div>
-      <Menu menus={menus} onMenuClick={onMenuClick} onClose={closeModal} isOpen={isOpen}>
-        <Header
-          title={args.title}
-          rightAction={'icon'}
-          onIconClick={() => {
-            openModal();
-          }}
-        />
-      </Menu>
+      <Header title={args.title} rightAction={'icon-menu'} menus={menus} onMenuClick={onMenuClick} />
     </div>
   );
 };
