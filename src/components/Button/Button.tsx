@@ -79,7 +79,7 @@ const buttonStyle = cva({
           backgroundColor: 'gray.gray100',
         },
         '&:disabled': {
-          filter: 'brightness(0.4)',
+          filter: 'brightness(0.9)',
           backgroundColor: 'gray.gray100',
           color: 'text.placeholder',
         },
