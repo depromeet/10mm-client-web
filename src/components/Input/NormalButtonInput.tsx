@@ -12,6 +12,7 @@ export default function NormalButtonInput({
   onChange,
   errorMsg,
   positiveMsg,
+  required = false,
   ...props
 }: NormalButtonInputTypes) {
   const [isFocused, setIsFocused] = useState(false);
@@ -40,7 +41,7 @@ export default function NormalButtonInput({
     <section className={sectionCss}>
       <p className={subTitleCss}>
         {props.name}
-        {props.required && <span className={asterisk}>*</span>}
+        {required && <span className={asterisk}>*</span>}
       </p>
 
       <div
@@ -56,6 +57,7 @@ export default function NormalButtonInput({
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          {...(required && { required: true })}
           {...props}
         />
         <Button
