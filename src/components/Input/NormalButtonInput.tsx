@@ -11,7 +11,7 @@ export default function NormalButtonInput({
   value,
   onChange,
   errorMsg,
-  positiveMsg,
+  validMsg,
   required = false,
   ...props
 }: NormalButtonInputTypes) {

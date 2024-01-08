@@ -26,7 +26,7 @@ export interface NormalButtonInputTypes extends InputBaseType, Omit<InputHTMLAtt
 
   description?: string;
   errorMsg?: string;
-  positiveMsg?: string;
+  validMsg?: string;
   required?: boolean;
   text?: string;
 }
