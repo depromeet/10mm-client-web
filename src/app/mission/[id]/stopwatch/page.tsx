@@ -29,9 +29,11 @@ export default function StopwatchPage() {
     finishTime: Number(minutes) * 60 + Number(seconds),
   };
 
-  const { isOpen: isFinalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
-  const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
-  const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+  const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
+  const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
+  const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+
+  useCustomBack(openMidOutModal);
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = () => {
@@ -40,6 +42,8 @@ export default function StopwatchPage() {
 
   const onFinishButtonClick = () => {
     onNextStep('stop');
+
+    // 10분 지나기 전 끝내기 눌렀을 때
     if (Number(minutes) < 10) {
       eventLogger.logEvent('click/finishButton-mid', 'stopwatch', logData);
       openMidOutModal();
@@ -50,6 +54,7 @@ export default function StopwatchPage() {
     openFinalModal();
   };
 
+  // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.push(ROUTER.MISSION.DETAIL(missionId));
   };
@@ -137,21 +142,21 @@ export default function StopwatchPage() {
           )}
         </section>
         <FinalDialog
-          isOpen={isFinalOpen}
+          isOpen={isFinalModalOpen}
           onClose={closeFinalModal}
           onCancel={onCancel}
           onConfirm={onFinish}
           logData={logData}
         />
         <BackDialog
-          isOpen={isBackOpen}
+          isOpen={isBackModalOpen}
           onClose={closeBackModal}
           onCancel={onCancel}
           onConfirm={onExit}
           logData={logData}
         />
         <MidOutDialog
-          isOpen={isMidOutOpen}
+          isOpen={isMidOutModalOpen}
           onClose={closeMidOutModal}
           onCancel={onCancel}
           onConfirm={onExit}
@@ -189,3 +194,20 @@ const buttonContainerCss = css({
   justifyContent: 'center',
   gap: '12px',
 });
+
+function useCustomBack(customBack: () => void) {
+  const browserPreventEvent = (event: () => void) => {
+    history.pushState(null, '', location.href);
+    event();
+  };
+
+  useEffect(() => {
+    const backAction = () => browserPreventEvent(customBack);
+
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', backAction);
+    return () => {
+      window.removeEventListener('popstate', backAction);
+    };
+  }, []);
+}
