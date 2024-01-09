@@ -2,7 +2,12 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import STOPWATCH_APIS from '@/apis/stopwatch';
+import {
+  useCustomBack,
+  useGetCategory,
+  useRecordMidTime,
+  useUnloadAction,
+} from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import useRecordTime from '@/app/mission/[id]/stopwatch/useRecordTime';
 import Button from '@/components/Button/Button';
@@ -13,9 +18,7 @@ import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
-import useInterval from '@/hooks/useInterval';
 import useModal from '@/hooks/useModal';
-import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
 import { formatDate } from '@/utils/time';
 import { css } from '@styled-system/css';
@@ -36,9 +39,11 @@ export default function StopwatchPage() {
     finishTime: time,
   };
 
-  const { isOpen: isFinalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
-  const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
-  const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+  const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
+  const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
+  const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+
+  useCustomBack(openMidOutModal);
 
   useUnloadAction(time);
   useRecordMidTime(time);
@@ -66,6 +71,8 @@ export default function StopwatchPage() {
 
   const onFinishButtonClick = () => {
     onNextStep('stop');
+
+    // 10분 지나기 전 끝내기 눌렀을 때
     if (Number(minutes) < 10) {
       eventLogger.logEvent('click/finishButton-mid', 'stopwatch', logData);
       openMidOutModal();
@@ -76,6 +83,7 @@ export default function StopwatchPage() {
     openFinalModal();
   };
 
+  // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.push(ROUTER.MISSION.DETAIL(missionId));
   };
@@ -166,21 +174,21 @@ export default function StopwatchPage() {
           )}
         </section>
         <FinalDialog
-          isOpen={isFinalOpen}
+          isOpen={isFinalModalOpen}
           onClose={closeFinalModal}
           onCancel={onCancel}
           onConfirm={onFinish}
           logData={logData}
         />
         <BackDialog
-          isOpen={isBackOpen}
+          isOpen={isBackModalOpen}
           onClose={closeBackModal}
           onCancel={onCancel}
           onConfirm={onExit}
           logData={logData}
         />
         <MidOutDialog
-          isOpen={isMidOutOpen}
+          isOpen={isMidOutModalOpen}
           onClose={closeMidOutModal}
           onCancel={onCancel}
           onConfirm={onExit}
@@ -189,50 +197,6 @@ export default function StopwatchPage() {
       </div>
     </>
   );
-}
-
-const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<string>('category');
-
-  return searchParams ?? '운동';
-};
-
-function useUnloadAction(time: number) {
-  const onSaveTime = () => {
-    eventLogger.logEvent('mid-save', 'stopwatch', { time });
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME, String(time));
-  };
-
-  useVisibilityState(onSaveTime);
-}
-
-function useVisibilityState(onAction: VoidFunction) {
-  useEffect(() => {
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        onAction();
-      }
-    };
-
-    document.addEventListener('visibilitychange', onVisibilityChange);
-
-    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
-    return () => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
-  }, []); // 빈 의존성 배열을 전달하여 이 훅이 컴포넌트가 마운트되거나 언마운트될 때만 실행되도록 합니다.
-}
-
-function useRecordMidTime(time: number) {
-  const onSaveTime = () => {
-    eventLogger.logEvent('mid-save-2', 'stopwatch', { time });
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME_2, String(time));
-  };
-
-  // 카운터 속도 증가
-  useInterval(() => {
-    onSaveTime();
-  }, 10000);
 }
 
 const containerCss = css({

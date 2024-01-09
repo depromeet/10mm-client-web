@@ -1,7 +1,8 @@
 import { type IconComponentMap } from '@/components/Icon';
+import { type MenuBaseItem } from '@/components/Menu';
 
 interface HeaderBaseType {
-  rightAction: 'icon' | 'none' | 'text-button';
+  rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu';
 
   title?: string;
   onBackAction?: () => void;
@@ -25,4 +26,11 @@ export interface TextButtonHeaderType extends HeaderBaseType {
   rightButtonDisabled?: boolean;
 }
 
-export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType;
+export interface IconMenuHeaderType extends HeaderBaseType {
+  rightAction: 'icon-menu';
+  iconName?: keyof typeof IconComponentMap;
+  menus: MenuBaseItem[];
+  onMenuClick: (id: string) => void;
+}
+
+export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType | IconMenuHeaderType;
