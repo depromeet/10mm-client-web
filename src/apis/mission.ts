@@ -26,7 +26,6 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get<GetMissionsResponse>('/missions', {
       params,
     });
-    // TODO: data 객체 wrapper 삭제하기 (확인 필요)
     return data;
   },
 };
@@ -74,6 +73,7 @@ export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptio
     queryKey: getMissionsIdQueryKey(params),
     queryFn: () => MISSION_APIS.getMissions(params),
     // queryFn: () => apiInstance.get('/missions', { params }), // 2번 방법
+
     ...option,
   });
 };

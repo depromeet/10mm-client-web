@@ -8,22 +8,20 @@ type GetRecordsParams = {
   yearMonth: string;
 };
 
-type GetRecordsResponse = {
-  data: RecordType[];
-};
+type GetRecordsResponse = RecordType[];
 
 const RECORD_API = {
   getRecords: async (params: GetRecordsParams) => {
     const { data } = await apiInstance.get<GetRecordsResponse>('/missions', {
       params,
     });
-    return data.data;
+    return data;
   },
 };
 
 const getRecordQueryKey = createQueryKeyFactory<GetRecordsParams>('record');
 
-export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse['data']>) => {
+export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse>) => {
   return useQuery({
     queryKey: getRecordQueryKey(params),
     queryFn: () => RECORD_API.getRecords(params),
