@@ -47,3 +47,20 @@ export function useRecordMidTime(time: number) {
     onSaveTime();
   }, 10000);
 }
+
+export function useCustomBack(customBack: () => void) {
+  const browserPreventEvent = (event: () => void) => {
+    history.pushState(null, '', location.href);
+    event();
+  };
+
+  useEffect(() => {
+    const backAction = () => browserPreventEvent(customBack);
+
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', backAction);
+    return () => {
+      window.removeEventListener('popstate', backAction);
+    };
+  }, []);
+}

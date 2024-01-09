@@ -35,6 +35,9 @@ export default defineConfig({
           appBar: {
             value: '100',
           },
+          loading: {
+            value: '10000',
+          },
         },
         ...colorList,
       },

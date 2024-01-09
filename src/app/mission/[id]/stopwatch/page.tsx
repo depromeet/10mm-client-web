@@ -2,16 +2,25 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useRecordTime } from '@/apis/stopwatch';
+import {
+  useCustomBack,
+  useGetCategory,
+  useRecordMidTime,
+  useUnloadAction,
+} from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
-import { useGetCategory, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/time.hooks';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
+import Loading from '@/components/Loading';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
+import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
+import { formatDate } from '@/utils/time';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -39,9 +48,35 @@ export default function StopwatchPage() {
   useUnloadAction(time);
   useRecordMidTime(time);
 
+  // isError 처리 어떻게 할것인지?
+  const { mutate, isPending: isSubmitLoading } = useRecordTime({
+    onSuccess: (response) => {
+      const missionRecordId = String(response.data.data);
+      router.replace(ROUTER.MISSION.RECORD(missionRecordId));
+      eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+    },
+    onError: (error) => {
+      // TODO
+      console.log('error: ', error);
+    },
+  });
+
   // TODO: 끝내기 후 로직 추가
-  const onSubmit = () => {
-    router.push(ROUTER.MISSION.RECORD(missionId));
+  const onSubmit = async () => {
+    const startTimeString = localStorage.getItem(STORAGE_KEY.STOPWATCH.START_TIME);
+    if (!startTimeString) return;
+
+    const startTime = new Date(startTimeString);
+    const startTimeFormatted = formatDate(startTime);
+    const finishTimeFormatted = formatDate(new Date());
+
+    mutate({
+      missionId: missionId,
+      startedAt: startTimeFormatted,
+      finishedAt: finishTimeFormatted,
+      durationMin: Number(minutes),
+      durationSec: Number(seconds),
+    });
   };
 
   const onFinishButtonClick = () => {
@@ -93,6 +128,8 @@ export default function StopwatchPage() {
   const onStart = () => {
     eventLogger.logEvent('click/start', 'stopwatch', { category });
     onNextStep('progress');
+    const startTime = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
   };
 
   useEffect(() => {
@@ -103,6 +140,7 @@ export default function StopwatchPage() {
 
   return (
     <>
+      {isSubmitLoading && <Loading />}
       <Header rightAction="none" onBackAction={openBackModal} />
       <div className={containerCss}>
         <h1 className={titleCss}>{stepLabel.title}</h1>
@@ -192,20 +230,3 @@ const buttonContainerCss = css({
   justifyContent: 'center',
   gap: '12px',
 });
-
-function useCustomBack(customBack: () => void) {
-  const browserPreventEvent = (event: () => void) => {
-    history.pushState(null, '', location.href);
-    event();
-  };
-
-  useEffect(() => {
-    const backAction = () => browserPreventEvent(customBack);
-
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', backAction);
-    return () => {
-      window.removeEventListener('popstate', backAction);
-    };
-  }, []);
-}
