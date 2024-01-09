@@ -1,14 +1,13 @@
 import { css, cx } from '@/styled-system/css';
 
-interface TabPartsProps {
-  tabName: string;
-  isActive: boolean;
-  onTabClick: (clickedTabName: string) => void;
-}
+import { type TabPartsProps } from './Tab.types';
 
-export default function TabParts({ tabName, isActive, onTabClick }: TabPartsProps) {
+export default function TabParts({ tabName, id, isActive, onTabClick }: TabPartsProps) {
   const handleClick = () => {
-    onTabClick(tabName);
+    onTabClick({
+      id,
+      tabName,
+    });
   };
 
   return (

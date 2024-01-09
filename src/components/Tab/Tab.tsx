@@ -1,26 +1,13 @@
-'use client';
-
-import useTabs from '@/hooks/useTabs';
 import { css } from '@styled-system/css';
 
+import { type TabProps } from './Tab.types';
 import TabParts from './TabParts';
 
-interface TabItemType {
-  tabName: string;
-  active: boolean;
-}
-
-interface TabProps {
-  tabs: TabItemType[];
-}
-
-export default function Tab({ tabs: initialTabs }: TabProps) {
-  const { tabs, handleTabClick } = useTabs(initialTabs);
-
+export default function Tab({ tabs, activeTab, onTabClick }: TabProps) {
   return (
     <div className={tabWrapperCss}>
-      {tabs.map((tab, index) => (
-        <TabParts key={index} tabName={tab.tabName} isActive={tab.active} onTabClick={handleTabClick} />
+      {tabs.map((tab) => (
+        <TabParts key={tab.id} {...tab} isActive={tab.id === activeTab} onTabClick={onTabClick} />
       ))}
     </div>
   );
