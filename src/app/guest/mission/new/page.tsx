@@ -1,8 +1,10 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { eventLogger, withQueryString } from '@/utils';
 import { getObjectValues } from '@/utils/object';
@@ -17,7 +19,10 @@ export default function GuestMissionNewPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleClick = () => {
-    eventLogger.logEvent('click/nextButton', 'select_category', { category: selectedCategory ?? '', isGuest: true });
+    eventLogger.logEvent(EVENT_LOG_NAME.SELECT_CATEGORY.CLICK_NEXT_BUTTON, EVENT_LOG_CATEGORY.SELECT_CATEGORY, {
+      category: selectedCategory ?? '',
+      isGuest: true,
+    });
     if (selectedCategory === null) {
       alert('카테고리를 선택해주세요');
       return;
@@ -27,7 +32,10 @@ export default function GuestMissionNewPage() {
   };
 
   const handleRadioChange = (value: string) => {
-    eventLogger.logEvent('click/selectCategory', 'select_category', { value, isGuest: true });
+    eventLogger.logEvent(EVENT_LOG_NAME.SELECT_CATEGORY.CLICK_SELECT_CATEGORY, EVENT_LOG_CATEGORY.SELECT_CATEGORY, {
+      value,
+      isGuest: true,
+    });
     setSelectedCategory(value);
   };
 

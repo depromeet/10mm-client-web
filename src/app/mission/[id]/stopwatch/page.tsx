@@ -14,6 +14,7 @@ import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Loading from '@/components/Loading';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
@@ -53,7 +54,7 @@ export default function StopwatchPage() {
     onSuccess: (response) => {
       const missionRecordId = String(response.data.data);
       router.replace(ROUTER.MISSION.RECORD(missionRecordId));
-      eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+      eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.API_RECORD_TIME, EVENT_LOG_CATEGORY.STOPWATCH, { missionRecordId });
     },
     onError: (error) => {
       // TODO
@@ -84,12 +85,16 @@ export default function StopwatchPage() {
 
     // 10분 지나기 전 끝내기 눌렀을 때
     if (Number(minutes) < 10) {
-      eventLogger.logEvent('click/finishButton-mid', 'stopwatch', logData);
+      eventLogger.logEvent(
+        EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
+        EVENT_LOG_CATEGORY.STOPWATCH,
+        logData,
+      );
       openMidOutModal();
       return;
     }
 
-    eventLogger.logEvent('click/finishButton', 'stopwatch', logData);
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
     openFinalModal();
   };
 
@@ -105,7 +110,7 @@ export default function StopwatchPage() {
   };
 
   const onAutoFinish = () => {
-    eventLogger.logEvent('click/auto-finish', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_AUTO_FINISH, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
     });
@@ -113,7 +118,7 @@ export default function StopwatchPage() {
   };
 
   const onCancel = () => {
-    eventLogger.logEvent('click/cancel', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_CANCEL, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
     });
@@ -121,12 +126,15 @@ export default function StopwatchPage() {
   };
 
   const onStop = () => {
-    eventLogger.logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
+      category,
+      stopTime: Number(minutes) * 60 + Number(seconds),
+    });
     onNextStep('stop');
   };
 
   const onStart = () => {
-    eventLogger.logEvent('click/start', 'stopwatch', { category });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     onNextStep('progress');
     const startTime = new Date().toISOString();
     localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
