@@ -1,12 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { type NormalInputType } from '@/components/Input/Input.types';
+import { type NormalButtonInputTypes } from '@/components/Input/Input.types';
 import { css } from '@/styled-system/css';
+import { getBorderColor } from '@/utils/getBorderColor';
 
-import Icon from '../Icon';
+import Button from '../Button/Button';
 
-export default function NormalInput({ value, onChange, errorMsg, ...props }: NormalInputType) {
+export default function NormalButtonInput({
+  value,
+  onChange,
+  errorMsg,
+  validMsg,
+  required = false,
+  ...props
+}: NormalButtonInputTypes) {
   const [isFocused, setIsFocused] = useState(false);
 
   const statusColor = errorMsg ? 'red.red500' : 'text.tertiary';
@@ -21,20 +29,21 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
     onChange?.(inputValue);
   };
 
-  const onDelete = () => {
-    onChange?.('');
+  const onDoubleCheck = () => {
+    //TODO: 중복확인 로직
+    alert('중복확인 로직 추가');
   };
 
   return (
     <section className={sectionCss}>
       <p className={subTitleCss}>
         {props.name}
-        {props.required && <span className={asterisk}>*</span>}
+        {required && <span className={asterisk}>*</span>}
       </p>
 
       <div
         className={css(inputWrapperCss, {
-          borderColor: errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'border.default',
+          borderColor: getBorderColor(errorMsg, isFocused),
         })}
       >
         <input
@@ -45,11 +54,12 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          {...(required && { required: true })}
           {...props}
         />
-        {value.length > 0 && (
-          <Icon name={'close-circle'} color={'icon.tertiary'} className={iconCss} onClick={onDelete} />
-        )}
+        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onDoubleCheck}>
+          {props.buttonText}
+        </Button>
       </div>
 
       <div className={descriptionCss}>
@@ -88,6 +98,7 @@ const descriptionCss = css({
 const inputWrapperCss = {
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   width: '100%',
   borderBottomWidth: '1px',
   padding: '14px 4px',
@@ -127,8 +138,7 @@ const descriptionTextCss = {
   color: 'bg.surface1',
 };
 
-const iconCss = css({
-  cursor: 'pointer',
+const buttonCss = css({
   marginLeft: '12px',
 });
 
