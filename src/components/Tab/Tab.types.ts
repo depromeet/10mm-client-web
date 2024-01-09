@@ -1,7 +1,7 @@
 export interface TabProps {
   tabs: TabType[];
   activeTab: string;
-  onTabClick: (clickedTabType: TabType) => void;
+  onTabClick?: (clickedTabType: TabType) => void;
 }
 
 export type TabType = {
@@ -11,5 +11,5 @@ export type TabType = {
 
 export interface TabPartsProps extends TabType {
   isActive: boolean;
-  onTabClick: (clickedTabType: TabType) => void;
+  onTabClick?: (clickedTabType: TabType) => void;
 }

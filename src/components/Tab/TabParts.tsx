@@ -4,10 +4,11 @@ import { type TabPartsProps } from './Tab.types';
 
 export default function TabParts({ tabName, id, isActive, onTabClick }: TabPartsProps) {
   const handleClick = () => {
-    onTabClick({
-      id,
-      tabName,
-    });
+    onTabClick &&
+      onTabClick({
+        id,
+        tabName,
+      });
   };
 
   return (
