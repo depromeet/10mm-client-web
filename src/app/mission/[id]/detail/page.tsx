@@ -1,11 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
 import Header from '@/components/Header/Header';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
 
 export default function MissionDetailPage() {
+  const router = useRouter();
   const tabs = [
     {
       tabName: '미션 내역',
@@ -13,7 +15,7 @@ export default function MissionDetailPage() {
     },
   ];
   const handleMenuClick = () => {
-    // TODO : 수정하기로 라우팅
+    router.replace('detail/modify');
   };
 
   return (
