@@ -1,23 +1,7 @@
+import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
-
-// 이부분은 emum으로 관리할지 type 으로 관리할지 고민입니다.
-export enum MissionCategory {
-  STUDY = 'STUDY',
-  EXERCISE = 'EXERCISE',
-  READING = 'READING',
-  WRITING = 'WRITING',
-  PROJECT = 'PROJECT',
-  WATCHING = 'WATCHING',
-  ETC = 'ETC',
-}
-
-export enum MissionVisibility {
-  ALL = 'ALL',
-  FOLLOWER = 'FOLLOWER',
-  NONE = 'NONE',
-}
 
 interface CreateMissionRequest {
   name: string;
@@ -39,11 +23,11 @@ const MISSION_APIS = {
   },
 
   getMissions: async (params: GetMissionsParams): Promise<GetMissionsResponse> => {
-    const { data } = await apiInstance.get('/missions', {
+    const { data } = await apiInstance.get<GetMissionsResponse>('/missions', {
       params,
     });
     // TODO: data 객체 wrapper 삭제하기 (확인 필요)
-    return data.data;
+    return data;
   },
 };
 
