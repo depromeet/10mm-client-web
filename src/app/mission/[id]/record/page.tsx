@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
@@ -19,7 +20,7 @@ export default function MissionRecordPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const handleUploadChange = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
-    eventLogger.logEvent('click/imagePreview', 'certification');
+    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_IMAGE_PREVIEW, EVENT_LOG_CATEGORY.CERTIFICATION);
     const file = files?.[0];
     if (!file) {
       return;
@@ -41,7 +42,7 @@ export default function MissionRecordPage() {
     router.replace('/complete');
   };
   const onClickModalConfirm = () => {
-    eventLogger.logEvent('click/confrim', 'certification', { remark });
+    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
     router.push(ROUTER.HOME);
   };
 
