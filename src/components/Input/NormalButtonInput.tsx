@@ -58,7 +58,7 @@ export default function NormalButtonInput({
           {...props}
         />
         <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onDoubleCheck}>
-          {props.text}
+          {props.buttonText}
         </Button>
       </div>
 
