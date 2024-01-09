@@ -11,8 +11,8 @@ export interface MissionType {
   missionId: number;
   name: string;
   content: string;
-  category: string;
-  visibility: string;
+  category: MissionCategory;
+  visibility: MissionVisibility;
   sort: number;
 }
 
@@ -29,8 +29,23 @@ export interface MissionItemType {
   missionId: number;
   name: string;
   content: string;
-  category: string;
-  visibility: string;
+  category: MissionCategory;
+  visibility: MissionVisibility;
   status: string;
   sort: number;
+}
+
+export enum MissionCategory {
+  STUDY = 'STUDY',
+  EXERCISE = 'EXERCISE',
+  READING = 'READING',
+  WRITING = 'WRITING',
+  PROJECT = 'PROJECT',
+  WATCHING = 'WATCHING',
+  ETC = 'ETC',
+}
+export enum MissionVisibility {
+  ALL = 'ALL',
+  FOLLOWER = 'FOLLOWER',
+  NONE = 'NONE',
 }
