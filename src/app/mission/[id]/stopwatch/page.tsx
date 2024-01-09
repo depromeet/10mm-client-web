@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useRecordTime } from '@/apis/stopwatch';
 import {
   useCustomBack,
   useGetCategory,
@@ -9,7 +10,6 @@ import {
   useUnloadAction,
 } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
-import useRecordTime from '@/app/mission/[id]/stopwatch/useRecordTime';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Loading from '@/components/Loading';
@@ -49,7 +49,17 @@ export default function StopwatchPage() {
   useRecordMidTime(time);
 
   // isError 처리 어떻게 할것인지?
-  const { mutate, isPending: isSubmitLoading } = useRecordTime(missionId);
+  const { mutate, isPending: isSubmitLoading } = useRecordTime({
+    onSuccess: (response) => {
+      const missionRecordId = String(response.data.data);
+      router.replace(ROUTER.MISSION.RECORD(missionRecordId));
+      eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+    },
+    onError: (error) => {
+      // TODO
+      console.log('error: ', error);
+    },
+  });
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = async () => {
