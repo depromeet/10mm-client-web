@@ -3,16 +3,14 @@
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
+import { useGetCategory, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/time.hooks';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { ROUTER } from '@/constants/router';
-import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
-import useInterval from '@/hooks/useInterval';
 import useModal from '@/hooks/useModal';
-import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
@@ -165,50 +163,6 @@ export default function StopwatchPage() {
       </div>
     </>
   );
-}
-
-const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<string>('category');
-
-  return searchParams ?? '운동';
-};
-
-function useUnloadAction(time: number) {
-  const onSaveTime = () => {
-    eventLogger.logEvent('mid-save', 'stopwatch', { time });
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME, String(time));
-  };
-
-  useVisibilityState(onSaveTime);
-}
-
-function useVisibilityState(onAction: VoidFunction) {
-  useEffect(() => {
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        onAction();
-      }
-    };
-
-    document.addEventListener('visibilitychange', onVisibilityChange);
-
-    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
-    return () => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
-  }, []); // 빈 의존성 배열을 전달하여 이 훅이 컴포넌트가 마운트되거나 언마운트될 때만 실행되도록 합니다.
-}
-
-function useRecordMidTime(time: number) {
-  const onSaveTime = () => {
-    eventLogger.logEvent('mid-save-2', 'stopwatch', { time });
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME_2, String(time));
-  };
-
-  // 카운터 속도 증가
-  useInterval(() => {
-    onSaveTime();
-  }, 10000);
 }
 
 const containerCss = css({
