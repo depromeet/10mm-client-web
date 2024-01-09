@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
+import { useGetCategory, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/time.hooks';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
@@ -10,7 +11,6 @@ import { ROUTER } from '@/constants/router';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
-import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
@@ -24,9 +24,10 @@ export default function StopwatchPage() {
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
 
+  const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
     category,
-    finishTime: Number(minutes) * 60 + Number(seconds),
+    finishTime: time,
   };
 
   const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
@@ -34,6 +35,9 @@ export default function StopwatchPage() {
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
   useCustomBack(openMidOutModal);
+
+  useUnloadAction(time);
+  useRecordMidTime(time);
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = () => {
@@ -166,12 +170,6 @@ export default function StopwatchPage() {
     </>
   );
 }
-
-const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<string>('category');
-
-  return searchParams ?? '운동';
-};
 
 const containerCss = css({
   padding: '24px 16px',
