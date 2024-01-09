@@ -6,10 +6,6 @@ import { css } from '@styled-system/css';
 import MissionModify from './MissionModify';
 
 export default function MissionModifyPage() {
-  // const handleIconClick = () => {
-  //   // TODO: 메뉴 열기
-  // };
-
   return (
     <main className={mainWrapperCss}>
       <Header rightAction="text-button" title={'미션 수정'} rightButtonText={'저장'} />
