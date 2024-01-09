@@ -683,6 +683,10 @@ const tokens = {
     "value": "100",
     "variable": "var(--z-index-app-bar)"
   },
+  "zIndex.loading": {
+    "value": "10000",
+    "variable": "var(--z-index-loading)"
+  },
   "colors.current": {
     "value": "currentColor",
     "variable": "var(--colors-current)"
