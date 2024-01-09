@@ -9,7 +9,7 @@ import useModal from '@/hooks/useModal';
 import { css } from '@styled-system/css';
 
 export default function MissionDetailPage() {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
   const tabs = [
     {
@@ -19,16 +19,20 @@ export default function MissionDetailPage() {
   ];
 
   const handleMenuClick = (id: string) => {
-    id === 'mission-modify' ? router.replace('detail/modify') : openModal();
+    if (id === 'mission-modify') {
+      router.replace('detail/modify');
+      return;
+    }
+    openDeleteDialog();
   };
   const handleDeleteConfirm = () => {
     //TODO: 삭제 API 추가
     router.replace('/');
-    closeModal();
+    // closeDeleteDialog();
   };
 
   const handleDeleteCancel = () => {
-    closeModal();
+    closeDeleteDialog();
   };
 
   return (
@@ -45,7 +49,7 @@ export default function MissionDetailPage() {
       <Dialog
         variant={'default'}
         isOpen={isOpen}
-        onClose={closeModal}
+        onClose={closeDeleteDialog}
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
         title="정말 삭제하시겠어요?"
