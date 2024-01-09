@@ -32,14 +32,16 @@ function MissionList() {
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
+        {/* TODO : status 에 따라서 라우트되는곳 다르게 한다 */}
         {data?.content.map((item) => (
-          <TwoLineListItem
-            key={item.missionId}
-            badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
-            name={item.content}
-            subName={MISSION_CATEGORY_LABEL[item.category].label}
-            imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-          />
+          <Link href={ROUTER.MISSION.DETAIL(item.missionId)} key={item.missionId}>
+            <TwoLineListItem
+              badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
+              name={item.content}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+            />
+          </Link>
         ))}
       </ul>
     </div>
