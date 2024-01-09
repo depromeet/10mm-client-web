@@ -3,10 +3,10 @@ export const ROUTER = {
   MISSION: {
     NEW: '/mission/new',
     SUCCESS: `/mission/success`,
-    RECORD: (id: string) => `/mission/${id}/record`,
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
     DETAIL: (id: string) => `/mission/${id}/detail`,
   },
+  RECORD: (id: string) => `/record/${id}`,
   MYPAGE: {
     HOME: '/mypage',
     // TODO : 상황에 맞게 수정 필요
