@@ -1,18 +1,21 @@
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
+import { useParams } from 'next/navigation';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
-import MissionHistoryBanner from '@/app/mission/[id]/detail/MissionHistoryBanner';
+import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
+import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import Button from '@/components/Button/Button';
 import { css } from '@styled-system/css';
 
 function MissionHistoryTab() {
-  const title = '디자인 아티클 읽고 기록하기';
-  const description = '하루에 아티클 3개 이상 읽고 인사이트 작성하자!';
-  const imageUrl = '/images/category/study.png';
+  const { id } = useParams();
+  const missionId = Array.isArray(id) ? id[0] : id;
 
   return (
     <Fragment>
       <div className={missionHistoryTabCss}>
-        <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />
+        <Suspense fallback={<MissionHistorySkeleton />}>
+          <MissionHistoryBannerApi missionId={missionId} />
+        </Suspense>
         <MissionCalendar currentDate={new Date()} />
       </div>
       <div className={bottomDimCss}>
@@ -39,7 +42,7 @@ const bottomDimCss = css({
   backgroundColor:
     'linear-gradient(180deg, rgba(24, 24, 29, 0.00) 0%, rgba(24, 24, 29, 0.09) 7.58%, rgba(24, 24, 29, 0.59) 34.59%, rgba(24, 24, 29, 0.69) 41.18%, rgba(24, 24, 29, 0.83) 51.39%, #18181D 63.25%)',
   width: '100%',
-  maxWidth: '375px',
+  maxWidth: 'maxWidth',
   height: '166px',
   display: 'flex',
   justifyContent: 'center',
