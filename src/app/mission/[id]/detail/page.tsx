@@ -23,13 +23,11 @@ export default function MissionDetailPage() {
   };
   const handleDeleteConfirm = () => {
     //TODO: 삭제 API 추가
-    alert('미션 삭제 확인');
     router.replace('/');
     closeModal();
   };
 
   const handleDeleteCancel = () => {
-    alert('미션 삭제 취소');
     closeModal();
   };
 
