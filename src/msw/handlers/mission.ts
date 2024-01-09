@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-const BASE_URL = 'https://api.10mm.today';
+const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
 
 const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
   // if (!params.size) HttpResponse.error();
@@ -13,14 +13,23 @@ const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
   return HttpResponse.json({
     content: [
       {
-        missionId: 0,
-        name: 'DFS 문제 풀기',
-        content: 'DFS 동작 원리 이해 및 문제 풀어보기',
+        missionId: 3,
+        name: '123 mock server',
+        content: '123',
         category: 'STUDY',
         visibility: 'ALL',
         status: 'NONE',
-        sort: 1,
+        sort: 2,
       },
+      // {
+      //   missionId: 1,
+      //   name: 'default name',
+      //   content: 'default content',
+      //   category: 'STUDY',
+      //   visibility: 'ALL',
+      //   status: 'NONE',
+      //   sort: 1,
+      // },
     ],
     first: true,
     last: true,
