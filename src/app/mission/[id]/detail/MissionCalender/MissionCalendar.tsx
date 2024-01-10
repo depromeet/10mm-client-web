@@ -9,7 +9,7 @@ const getMissionCalendarItemProps = (date: number, records: RecordType[]) => {
   const filterRecord = records.filter((record) => record.missionDay === date);
   if (filterRecord.length > 0) {
     return {
-      imageUrl: filterRecord[0].imageUrl ?? '/images/mission-image-test.png',
+      imageUrl: filterRecord[0].imageUrl,
     };
   }
   return {
@@ -24,14 +24,14 @@ const getYearMonth = (currentDate: Date) => {
   return `${year}-${monthString}`;
 };
 
-function MissionCalendar({ currentDate }: { currentDate: Date }) {
+function MissionCalendar({ currentDate, missionId }: { currentDate: Date; missionId: number }) {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
   const selectedDate = currentDate.getDate();
 
   const { monthCalendarData } = getCalenderInfo(currentMonth, currentYear);
   const { data } = useGetRecord({
-    missionId: 3,
+    missionId,
     yearMonth: getYearMonth(currentDate),
   });
 

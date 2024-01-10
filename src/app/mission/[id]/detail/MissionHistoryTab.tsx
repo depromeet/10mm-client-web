@@ -18,7 +18,7 @@ function MissionHistoryTab() {
           <MissionHistoryBannerApi missionId={missionId} />
         </Suspense>
         <Suspense>
-          <MissionCalendar currentDate={currentDate} />
+          <MissionCalendar currentDate={currentDate} missionId={Number(missionId)} />
         </Suspense>
       </div>
       <div className={bottomDimCss}>
