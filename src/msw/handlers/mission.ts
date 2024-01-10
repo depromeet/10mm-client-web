@@ -1,16 +1,8 @@
 import { http, HttpResponse } from 'msw';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
-
-const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
-  // if (!params.size) HttpResponse.error();
-
-  const requestParamsKeys = ['size', 'lastId'];
-  const paramsKey = Object.keys(params);
-
-  if (!paramsKey.every((key) => requestParamsKeys.includes(key))) HttpResponse.error();
-
-  return HttpResponse.json({
+const missionResponse = {
+  data: {
     content: [
       {
         missionId: 3,
@@ -49,7 +41,18 @@ const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
     number: 0,
     numberOfElements: 0,
     empty: true,
-  });
+  },
+};
+
+const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
+  // if (!params.size) HttpResponse.error();
+
+  const requestParamsKeys = ['size', 'lastId'];
+  const paramsKey = Object.keys(params);
+
+  if (!paramsKey.every((key) => requestParamsKeys.includes(key))) HttpResponse.error();
+
+  return HttpResponse.json(missionResponse);
 });
 
 const missionHandlers = [getMissions];

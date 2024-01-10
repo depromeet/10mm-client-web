@@ -5,6 +5,7 @@
   "scripts": {
     "prepare": "panda codegen && husky install",
     "dev": "next dev",
+    "dev:msw": "cross-env NEXT_PUBLIC_SEVER_API='' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
