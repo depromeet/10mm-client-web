@@ -1,4 +1,4 @@
-import { Fragment, Suspense } from 'react';
+import { Suspense } from 'react';
 import { useParams } from 'next/navigation';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
@@ -9,25 +9,37 @@ import { css } from '@styled-system/css';
 function MissionHistoryTab() {
   const { id } = useParams();
   const missionId = Array.isArray(id) ? id[0] : id;
+  const currentDate = new Date();
 
   return (
-    <Fragment>
+    <div className={scrollAreaCss}>
       <div className={missionHistoryTabCss}>
         <Suspense fallback={<MissionHistorySkeleton />}>
           <MissionHistoryBannerApi missionId={missionId} />
         </Suspense>
-        <MissionCalendar currentDate={new Date()} />
+        <Suspense>
+          <MissionCalendar currentDate={currentDate} />
+        </Suspense>
       </div>
       <div className={bottomDimCss}>
         <Button size={'medium'} variant={'cta'} className={buttonCss}>
           미션 시작하기
         </Button>
       </div>
-    </Fragment>
+    </div>
   );
 }
 
 export default MissionHistoryTab;
+
+const scrollAreaCss = css({
+  overflowY: 'scroll',
+  height: 'calc(100vh - 24px - 44px)',
+
+  _scrollbar: {
+    display: 'none',
+  },
+});
 
 const buttonCss = css({
   position: 'relative',

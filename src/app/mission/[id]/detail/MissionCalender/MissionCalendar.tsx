@@ -1,14 +1,27 @@
+import { useGetRecord } from '@/apis';
+import { type RecordType } from '@/apis/schema/record';
 import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
 import { getCalenderInfo } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
 import { css } from '@styled-system/css';
 
-const getMissionCalendarItemProps = (date: number) => {
-  const completedMissionDate = [1, 4, 5, 6, 7];
-  const isCompleted = completedMissionDate.includes(date);
+const getMissionCalendarItemProps = (date: number, records: RecordType[]) => {
+  const filterRecord = records.filter((record) => record.missionDay === date);
+  if (filterRecord.length > 0) {
+    return {
+      imageUrl: filterRecord[0].imageUrl ?? '/images/mission-image-test.png',
+    };
+  }
   return {
-    imageUrl: isCompleted ? '/images/mission-image-test.png' : undefined,
+    imageUrl: undefined,
   };
+};
+
+const getYearMonth = (currentDate: Date) => {
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
+  const monthString = month < 10 ? `0${month}` : `${month}`;
+  return `${year}-${monthString}`;
 };
 
 function MissionCalendar({ currentDate }: { currentDate: Date }) {
@@ -17,6 +30,10 @@ function MissionCalendar({ currentDate }: { currentDate: Date }) {
   const selectedDate = currentDate.getDate();
 
   const { monthCalendarData } = getCalenderInfo(currentMonth, currentYear);
+  const { data } = useGetRecord({
+    missionId: 3,
+    yearMonth: getYearMonth(currentDate),
+  });
 
   return (
     <section>
@@ -40,7 +57,7 @@ function MissionCalendar({ currentDate }: { currentDate: Date }) {
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
                     <MissionCalendarItem
                       date={day.date}
-                      imageUrl={getMissionCalendarItemProps(day.date).imageUrl}
+                      imageUrl={getMissionCalendarItemProps(day.date, data).imageUrl}
                       isActive={day.date === selectedDate}
                     />
                   </td>
