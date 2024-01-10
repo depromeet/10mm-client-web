@@ -1,4 +1,5 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -31,6 +32,13 @@ interface GetMissionsParams {
   lastId?: number;
 }
 
+interface ModifyMissionRequest {
+  missionId: number;
+  name: string;
+  content: string;
+  visibility: MissionVisibility;
+}
+
 const MISSION_APIS = {
   createMission: (data: CreateMissionRequest) => {
     return apiInstance.post('/missions', {
@@ -44,6 +52,12 @@ const MISSION_APIS = {
     });
     // TODO: data 객체 wrapper 삭제하기 (확인 필요)
     return data.data;
+  },
+
+  modifyMission: async (data: ModifyMissionRequest, missionId: number): Promise<ModifyMissionResponse> => {
+    return apiInstance.put(`/missions/${missionId}`, {
+      ...data,
+    });
   },
 };
 
@@ -83,6 +97,14 @@ interface GetMissionsResponse {
   empty: boolean;
 }
 
+interface ModifyMissionResponse {
+  missionId: string;
+  name: string;
+  content: string;
+  category: MissionCategory;
+  visibility: string;
+}
+
 const getMissionsIdQueryKey = (params: GetMissionsParams) => ['missions', ...Object.values(params)];
 
 export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptions<GetMissionsResponse>) => {
@@ -91,5 +113,19 @@ export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptio
     queryFn: () => MISSION_APIS.getMissions(params),
     // queryFn: () => apiInstance.get('/missions', { params }), // 2번 방법
     ...option,
+  });
+};
+
+export const useModifyMissionMutation = () => {
+  // const router = useRouter();
+  return useMutation({
+    mutationFn: MISSION_APIS.modifyMission,
+    onSuccess: () => {
+      // router.push(ROUTER.HOME);
+      console.log('뮤테이션 성공');
+    },
+    onError: () => {
+      // TODO: error handling
+    },
   });
 };
