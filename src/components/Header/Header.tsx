@@ -6,13 +6,14 @@ import IconHeader from '@/components/Header/IconHeader';
 import IconMenuHeader from '@/components/Header/IconMenuHeader';
 import NoneHeader from '@/components/Header/NoneHeader';
 import TextButtonHeader from '@/components/Header/TextButtonHeader';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
 
 function Header({ onBackAction, isBackIcon = true, ...props }: HeaderType) {
   const router = useRouter();
 
   const handleBackIconClick = () => {
-    eventLogger.logEvent('click/backButton', 'header');
+    eventLogger.logEvent(EVENT_LOG_NAME.HEADER.CLICK_BACK_BUTTON, EVENT_LOG_CATEGORY.HEADER);
     if (isBackIcon) {
       onBackAction ? onBackAction() : router.back();
       return;

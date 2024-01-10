@@ -1,4 +1,5 @@
 import Dialog from '@/components/Dialog/Dialog';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
 
 interface DialogProps {
@@ -11,7 +12,7 @@ interface DialogProps {
 
 export function FinalDialog({ onConfirm, logData, ...props }: DialogProps) {
   const _onConfirm = () => {
-    logData && eventLogger.logEvent('click/finish', 'stopwatch');
+    logData && eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH, EVENT_LOG_CATEGORY.STOPWATCH);
     onConfirm();
   };
   return (
@@ -29,7 +30,7 @@ export function FinalDialog({ onConfirm, logData, ...props }: DialogProps) {
 
 export function BackDialog({ onConfirm, logData, ...props }: DialogProps) {
   const _onConfirm = () => {
-    logData && eventLogger.logEvent('click/back', 'stopwatch');
+    logData && eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_BACK, EVENT_LOG_CATEGORY.STOPWATCH);
     onConfirm();
   };
 
@@ -48,7 +49,7 @@ export function BackDialog({ onConfirm, logData, ...props }: DialogProps) {
 
 export function MidOutDialog({ onConfirm, logData, ...props }: DialogProps) {
   const _onConfirm = () => {
-    logData && eventLogger.logEvent('click/mid-out', 'stopwatch');
+    logData && eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_MID_OUT, EVENT_LOG_CATEGORY.STOPWATCH);
     onConfirm();
   };
 

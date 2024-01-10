@@ -5,6 +5,7 @@ export const ROUTER = {
     SUCCESS: `/mission/success`,
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
     DETAIL: (id: string) => `/mission/${id}/detail`,
+    MODIFY: (id: string) => `/mission/${id}/detail/modify`,
   },
   RECORD: (id: string) => `/record/${id}`,
   MYPAGE: {
