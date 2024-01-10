@@ -1,5 +1,5 @@
 import MISSION_APIS from '@/apis/mission';
-import STOPWATCH_APIS from '@/apis/stopwatch';
+import STOPWATCH_APIS from '@/apis/record';
 
 const APIS = {
   ...MISSION_APIS,

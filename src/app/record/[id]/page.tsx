@@ -2,37 +2,28 @@
 
 import { type ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
+import { type ModalProps } from '@/components/Modal/Modal';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
+import { useImage } from './index.hooks';
+
 export default function MissionRecordPage() {
-  const router = useRouter();
+  const params = useParams();
+  const missionId = params.id as string;
+
   const { isOpen, openModal, closeModal } = useModal();
   const [remark, setRemark] = useState('');
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  console.log('imagePreview: ', imagePreview);
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadChange = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
-    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_IMAGE_PREVIEW, EVENT_LOG_CATEGORY.CERTIFICATION);
-    const file = files?.[0];
-    if (!file) {
-      return;
-    }
-
-    setImagePreview(URL.createObjectURL(file));
-  };
-
-  const onImageClick = () => {
-    imageRef.current?.click();
-  };
+  const { handleUploadChange, imagePreview, uploadUrl } = useImage();
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // TODO: 200자 제한
@@ -40,15 +31,18 @@ export default function MissionRecordPage() {
   };
 
   const onClickSubmitButton = () => {
-    router.replace('/complete');
-  };
-  const onClickModalConfirm = () => {
-    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
-    router.push(ROUTER.HOME);
+    // TODO : API 연결
+    // eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
+    // router.replace('/complete');
+    uploadUrl(missionId);
   };
 
   const isButtonDisabled = () => {
     return !imagePreview;
+  };
+
+  const onImageClick = () => {
+    imageRef.current?.click();
   };
 
   return (
@@ -116,17 +110,29 @@ export default function MissionRecordPage() {
           <span className={buttonTextCss}>완료</span>
         </Button>
       </div>
-      <Dialog
-        variant="default"
-        title="잠깐! 정말 나가시겠습니까?"
-        content="미션 완료 인증을 하지 않으면 지금까지 집중한 시간들이 사라집니다."
-        cancelText="취소"
-        confirmText="나가기"
-        onConfirm={onClickModalConfirm}
-        isOpen={isOpen}
-        onClose={closeModal}
-      />
+      <BackDialog isOpen={isOpen} onClose={closeModal} />
     </main>
+  );
+}
+
+function BackDialog(props: ModalProps) {
+  const router = useRouter();
+
+  const onClickModalConfirm = () => {
+    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CANCEL, EVENT_LOG_CATEGORY.CERTIFICATION);
+    router.push(ROUTER.HOME);
+  };
+
+  return (
+    <Dialog
+      variant="default"
+      title="잠깐! 정말 나가시겠습니까?"
+      content="미션 완료 인증을 하지 않으면 지금까지 집중한 시간들이 사라집니다."
+      cancelText="취소"
+      confirmText="나가기"
+      onConfirm={onClickModalConfirm}
+      {...props}
+    />
   );
 }
 

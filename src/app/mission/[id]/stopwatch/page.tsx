@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecordTime } from '@/apis/stopwatch';
+import { useRecordTime } from '@/apis/record';
 import {
   useCustomBack,
   useGetCategory,
