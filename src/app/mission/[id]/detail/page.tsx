@@ -11,10 +11,11 @@ import { css } from '@styled-system/css';
 export default function MissionDetailPage() {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
+
   const tabs = [
     {
       tabName: '미션 내역',
-      active: true,
+      id: 'mission-history',
     },
   ];
 
@@ -44,7 +45,7 @@ export default function MissionDetailPage() {
         menus={DETAIL_MENUS}
         onMenuClick={handleMenuClick}
       />
-      <Tab tabs={tabs} />
+      <Tab tabs={tabs} activeTab={'mission-history'} />
       <MissionHistoryTab />
       <Dialog
         variant={'default'}
