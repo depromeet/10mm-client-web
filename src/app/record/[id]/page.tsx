@@ -17,6 +17,7 @@ export default function MissionRecordPage() {
   const { isOpen, openModal, closeModal } = useModal();
   const [remark, setRemark] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  console.log('imagePreview: ', imagePreview);
   const imageRef = useRef<HTMLInputElement>(null);
 
   const handleUploadChange = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
