@@ -42,6 +42,7 @@ export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<Ge
   return useSuspenseQuery({
     queryKey: ['recordDetail', recordId],
     queryFn: () => RECORD_API.getRecordDetail(recordId),
+
     ...option,
   });
 };
