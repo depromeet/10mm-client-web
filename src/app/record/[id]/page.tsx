@@ -39,7 +39,7 @@ export default function MissionRecordPage() {
 
       if (isSuccess) {
         await STOPWATCH_APIS.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
-        router.replace(ROUTER.MISSION.SUCCESS);
+        router.replace(ROUTER.RECORD.SUCCESS);
       }
     } catch (error) {
       console.error('error: ', error);

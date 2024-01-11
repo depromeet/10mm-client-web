@@ -35,12 +35,11 @@ export const useImage = () => {
 
     try {
       const presignedUrl = await getPresignedUrl(missionRecordId);
-      const res = await axios.put(presignedUrl, imageFile.current, {
+      await axios.put(presignedUrl, imageFile.current, {
         headers: {
           'Content-Type': 'image/png',
         },
       });
-      console.log('res: ', res);
       return { isSuccess: true, imageFileExtension };
     } catch (error) {
       throw error;
@@ -51,7 +50,6 @@ export const useImage = () => {
 };
 
 const checkImageType = (type?: string) => {
-  //  JPEG, JPG, PNG
   const IMAGE_TYPE: Record<string, string> = {
     'image/jpeg': 'JPEG',
     'image/png': 'PNG',

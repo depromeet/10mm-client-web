@@ -2,12 +2,15 @@ export const ROUTER = {
   HOME: '/',
   MISSION: {
     NEW: '/mission/new',
-    SUCCESS: `/mission/success`, // TODO: 여기있는것이 맞ㄴ느가?
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
     DETAIL: (id: string) => `/mission/${id}/detail`,
     MODIFY: (id: string) => `/mission/${id}/detail/modify`,
   },
-  RECORD: (id: string) => `/record/${id}`,
+
+  RECORD: {
+    CREATE: (id: string) => `/record/${id}`,
+    SUCCESS: `/mission/success`, // TODO: 여기있는것이 맞ㄴ느가?
+  },
   MYPAGE: {
     HOME: '/mypage',
     // TODO : 상황에 맞게 수정 필요

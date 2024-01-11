@@ -53,7 +53,7 @@ export default function StopwatchPage() {
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
     onSuccess: (response) => {
       const missionRecordId = String(response.data);
-      router.replace(ROUTER.RECORD(missionRecordId));
+      router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
     },
     onError: (error) => {
