@@ -42,8 +42,7 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get('/missions', {
       params,
     });
-    // TODO: data 객체 wrapper 삭제하기 (확인 필요)
-    return data.data;
+    return data;
   },
 };
 

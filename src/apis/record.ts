@@ -16,9 +16,12 @@ interface RecordTimeResponse {
   };
 }
 
+// TODO : 이동
+type ImageFileExtensionType = 'JPG' | 'JPEG' | 'PNG';
+
 interface UploadUrlRequest {
   missionRecordId: string;
-  imageFileExtension: 'JPEG'; // TODO
+  imageFileExtension: ImageFileExtensionType;
 }
 
 interface UploadUrlResponse {
@@ -27,7 +30,7 @@ interface UploadUrlResponse {
 
 interface UploadCompleteRequest {
   missionRecordId: string;
-  imageFileExtension: 'JPEG'; // TODO
+  imageFileExtension: ImageFileExtensionType;
   remark: string;
 }
 

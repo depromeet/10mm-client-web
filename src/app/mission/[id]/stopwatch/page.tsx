@@ -52,7 +52,7 @@ export default function StopwatchPage() {
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
     onSuccess: (response) => {
-      const missionRecordId = String(response.data.data);
+      const missionRecordId = String(response.data);
       router.replace(ROUTER.RECORD(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
     },
