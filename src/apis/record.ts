@@ -10,11 +10,20 @@ type GetRecordsParams = {
 
 type GetRecordsResponse = RecordType[];
 
+type GetRecordDetailResponse = RecordType & {
+  sinceDay: number;
+  duration: number;
+};
+
 const RECORD_API = {
   getRecords: async (params: GetRecordsParams) => {
     const { data } = await apiInstance.get<GetRecordsResponse>('/records', {
       params,
     });
+    return data;
+  },
+  getRecordDetail: async (recordId: string) => {
+    const { data } = await apiInstance.get<GetRecordDetailResponse>(`/records/${recordId}`);
     return data;
   },
 };
@@ -25,6 +34,14 @@ export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<
   return useSuspenseQuery({
     queryKey: getRecordQueryKey(params),
     queryFn: () => RECORD_API.getRecords(params),
+    ...option,
+  });
+};
+
+export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<GetRecordDetailResponse>) => {
+  return useSuspenseQuery({
+    queryKey: ['recordDetail', recordId],
+    queryFn: () => RECORD_API.getRecordDetail(recordId),
     ...option,
   });
 };
