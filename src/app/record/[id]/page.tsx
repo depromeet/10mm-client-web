@@ -14,7 +14,7 @@ import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
-import { useImage } from './index.hooks';
+import { useImage, useUploadImage } from './image.hooks';
 
 export default function MissionRecordPage() {
   const router = useRouter();
@@ -25,30 +25,38 @@ export default function MissionRecordPage() {
   const [remark, setRemark] = useState('');
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const { handleUploadChange, imagePreview, onSubmitImage } = useImage();
+  const { uploadImageChange, imagePreview, imageFile } = useImage();
+  const { onSubmitImage } = useUploadImage();
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // TODO: 200자 제한
     setRemark(e.target.value);
   };
 
+  const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
+    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_IMAGE_PREVIEW, EVENT_LOG_CATEGORY.CERTIFICATION);
+    if (!files) return;
+
+    uploadImageChange(files);
+  };
+
   const onClickSubmitButton = async () => {
     try {
-      eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
-      const { isSuccess, imageFileExtension } = await onSubmitImage(missionId);
-
-      if (isSuccess) {
-        await STOPWATCH_APIS.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
-        router.replace(ROUTER.RECORD.SUCCESS);
+      if (!imageFile) {
+        throw new Error('Image file Not Found');
       }
+
+      eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
+      // S3에 이미지 업로드
+      const { imageFileExtension } = await onSubmitImage(missionId, imageFile);
+      await STOPWATCH_APIS.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
+      router.replace(ROUTER.RECORD.SUCCESS);
     } catch (error) {
       console.error('error: ', error);
     }
   };
 
-  const isButtonDisabled = () => {
-    return !imagePreview;
-  };
+  const isButtonDisabled = !imagePreview;
 
   const onImageClick = () => {
     imageRef.current?.click();
@@ -115,7 +123,7 @@ export default function MissionRecordPage() {
             </div>
           </div>
         </div>
-        <Button type="button" size="large" variant="cta" disabled={isButtonDisabled()} onClick={onClickSubmitButton}>
+        <Button type="button" size="large" variant="cta" disabled={isButtonDisabled} onClick={onClickSubmitButton}>
           <span className={buttonTextCss}>완료</span>
         </Button>
       </div>
