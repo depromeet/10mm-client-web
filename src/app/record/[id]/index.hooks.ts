@@ -1,5 +1,6 @@
 import { type ChangeEvent, useRef, useState } from 'react';
 import STOPWATCH_APIS from '@/apis/record';
+import { type ImageFileExtensionType } from '@/apis/schema/record';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
 import axios from 'axios';
@@ -20,8 +21,11 @@ export const useImage = () => {
     imageFile.current = file;
   };
 
-  const getPresignedUrl = async (missionRecordId: string): Promise<string> => {
-    const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension: 'PNG' });
+  const getPresignedUrl = async (
+    missionRecordId: string,
+    imageFileExtension: ImageFileExtensionType,
+  ): Promise<string> => {
+    const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension });
     const presignedUrl = res.data.presignedUrl;
     return presignedUrl;
   };
@@ -30,16 +34,18 @@ export const useImage = () => {
     if (!imageFile.current) {
       throw new Error('Image file Not Found');
     }
+
     const imageType = imageFile.current.type;
-    const imageFileExtension = checkImageType(imageType) as string;
+
+    if (!checkImageType(imageType)) {
+      throw new Error('Image Type Not Found');
+    }
+
+    const imageFileExtension = checkImageType(imageType) as ImageFileExtensionType;
 
     try {
-      const presignedUrl = await getPresignedUrl(missionRecordId);
-      await axios.put(presignedUrl, imageFile.current, {
-        headers: {
-          'Content-Type': 'image/png',
-        },
-      });
+      const presignedUrl = await getPresignedUrl(missionRecordId, imageFileExtension);
+      await axios.put(presignedUrl, imageFile.current, { headers: { 'Content-Type': imageType } });
       return { isSuccess: true, imageFileExtension };
     } catch (error) {
       throw error;

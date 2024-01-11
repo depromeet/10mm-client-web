@@ -15,3 +15,5 @@ export interface RecordType {
   startedAt: string;
   finishedAt: string;
 }
+
+export type ImageFileExtensionType = 'JPG' | 'JPEG' | 'PNG';
