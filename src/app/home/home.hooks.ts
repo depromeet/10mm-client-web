@@ -7,7 +7,6 @@ const INIT_SIZE = 10;
 
 export const useMissions = () => {
   const { data, isLoading } = useGetMissions({ size: INIT_SIZE });
-  console.log('data: ', data);
   const missionList = data?.content ?? [];
 
   useRequireMission(data?.content);
@@ -21,9 +20,9 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
   const triggerRequireSnackBar = () => {
     triggerSnackBar({
       variant: 'text-button',
-      message: 'SnackBar',
-      buttonText: 'Button',
-      timerSecond: 100,
+      message: '미션을 완료해 주세요!',
+      buttonText: '바로가기',
+      // timerSecond: 0,
       onButtonClick: () => {},
     });
   };
@@ -32,7 +31,7 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
     if (!missionList) return;
     const requireMission = missionList.find((mission) => mission.status === MissionStatus.REQUIRED);
 
-    // if (!requireMission) return false;
+    if (!requireMission) return false;
     triggerRequireSnackBar();
   };
 
@@ -44,6 +43,7 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
   }, [missionList]);
 };
 
+// Test Data, 나중에 삭제
 const MOCK_MISSION: MissionItemType = {
   missionId: 7,
   name: 'default name REQUIRED',
