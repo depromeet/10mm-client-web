@@ -54,11 +54,13 @@ const MISSION_APIS = {
     return data.data;
   },
 
-  modifyMission: async (data: ModifyMissionRequest, missionId: number): Promise<ModifyMissionResponse> => {
-    return apiInstance.put(`/missions/${missionId}`, {
-      ...data,
-    });
-  },
+  modifyMission:
+    (missionId: number) =>
+    async ({ data }: { data: ModifyMissionRequest }): Promise<ModifyMissionResponse> => {
+      return apiInstance.put(`/missions/${missionId}`, {
+        ...data,
+      });
+    },
 };
 
 export default MISSION_APIS;
