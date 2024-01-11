@@ -18,32 +18,29 @@ export const useImage = () => {
   return { imagePreview, imageFile: imageFile.current, uploadImageChange };
 };
 
-export const useUploadImage = () => {
-  const onSubmitImage = async (missionRecordId: string, imageFile: File) => {
-    if (!missionRecordId) {
-      throw new Error('missionRecordId is required');
-    }
-    if (!imageFile) {
-      throw new Error('Image file Not Found');
-    }
+export const uploadImageToServer = async (missionRecordId: string, imageFile: File) => {
+  if (!missionRecordId) {
+    throw new Error('missionRecordId is required');
+  }
+  if (!imageFile) {
+    throw new Error('Image file Not Found');
+  }
 
-    const imageType = imageFile.type;
-    const imageFileExtension = checkImageType(imageType);
+  const imageType = imageFile.type;
+  const imageFileExtension = checkImageType(imageType);
 
-    if (!imageFileExtension) {
-      throw new Error('Image Type Not Found');
-    }
+  if (!imageFileExtension) {
+    throw new Error('Image Type Not Found');
+  }
 
-    try {
-      const presignedUrl = await getPresignedUrl(missionRecordId, imageFileExtension);
-      await axios.put(presignedUrl, imageFile, { headers: { 'Content-Type': imageType } });
-      return { isSuccess: true, imageFileExtension };
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  return { onSubmitImage };
+  try {
+    ``;
+    const presignedUrl = await getPresignedUrl(missionRecordId, imageFileExtension);
+    await axios.put(presignedUrl, imageFile, { headers: { 'Content-Type': imageType } });
+    return { imageFileExtension };
+  } catch (error) {
+    throw error;
+  }
 };
 
 const checkImageType = (type?: string): ImageFileExtensionType | false => {

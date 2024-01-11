@@ -14,7 +14,7 @@ import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
-import { useImage, useUploadImage } from './image.hooks';
+import { uploadImageToServer, useImage } from './image.hooks';
 
 export default function MissionRecordPage() {
   const router = useRouter();
@@ -26,7 +26,6 @@ export default function MissionRecordPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage();
-  const { onSubmitImage } = useUploadImage();
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // TODO: 200자 제한
@@ -48,7 +47,7 @@ export default function MissionRecordPage() {
 
       eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
       // S3에 이미지 업로드
-      const { imageFileExtension } = await onSubmitImage(missionId, imageFile);
+      const { imageFileExtension } = await uploadImageToServer(missionId, imageFile);
       await STOPWATCH_APIS.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
       router.replace(ROUTER.RECORD.SUCCESS);
     } catch (error) {
