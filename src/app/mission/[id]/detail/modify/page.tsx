@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import MISSION_APIS, { type MissionVisibility, useModifyMissionMutation } from '@/apis/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
@@ -10,6 +11,7 @@ import { css } from '@styled-system/css';
 
 export default function MissionModifyPage() {
   const { mutate } = useModifyMissionMutation(1);
+  const router = useRouter();
 
   //TODO: 미션 내역 단건 조회 get api 호출
   const PREVIOUS_MISSIONTITLE = '스쿼트해서 튼튼해지자!';
@@ -35,7 +37,7 @@ export default function MissionModifyPage() {
     missionPublicSetting === PREVIOUS_PUBLIC_SETTING;
 
   const modifyTest = () => {
-    alert('2');
+    //mutate 오류 해결 중
     mutate({
       data: {
         missionId: 1,
@@ -44,6 +46,7 @@ export default function MissionModifyPage() {
         visibility: missionPublicSetting.value,
       },
     });
+    router.replace('/mission/id/detail');
   };
 
   return (
