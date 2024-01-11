@@ -31,7 +31,7 @@ export default function MissionModifyPage() {
   };
   const isButtonDisabled =
     (missionTitleInput === PREVIOUS_MISSIONTITLE || missionTitleInput.length === 0) &&
-    (missionContentInput === PREVIOUS_MISSIONCONTENT || missionContentInput.length === 0) &&
+    missionContentInput === PREVIOUS_MISSIONCONTENT &&
     missionPublicSetting === PREVIOUS_PUBLIC_SETTING;
 
   const modifyTest = () => {
