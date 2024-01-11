@@ -1,4 +1,4 @@
-import MissionDuration from '@/app/mission/[id]/history/[historyId]/MissionDuration';
+import MissionDuration from '@/app/mission/[id]/record/[recordId]/MissionDuration';
 import { css } from '@styled-system/css';
 //TODO : s3 오리진이 정해지면 next/image로 변경
 function HistoryThumbnail({ imageUrl, missionDuration }: { imageUrl: string; missionDuration: number }) {

@@ -1,9 +1,17 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/Header/Header';
+import { ROUTER } from '@/constants/router';
 
-function MissionRecordHeader({ historyId, missionId }: { historyId: string; missionId: string }) {
+function MissionRecordHeader({ recordId, missionId }: { recordId: string; missionId: string }) {
+  const route = useRouter();
   const handleEditButtonClick = () => {
-    console.log('edit button clicked', historyId, missionId);
+    route.push(
+      ROUTER.MISSION.RECORD_EDIT({
+        missionId,
+        recordId,
+      }),
+    );
   };
   return (
     <Header

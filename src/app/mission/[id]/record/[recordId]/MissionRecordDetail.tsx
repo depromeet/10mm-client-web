@@ -1,13 +1,13 @@
 'use client';
 import { useParams } from 'next/navigation';
 import { useGetRecordDetail } from '@/apis';
-import HistoryThumbnail from '@/app/mission/[id]/history/[historyId]/HistoryThumbnail';
+import HistoryThumbnail from '@/app/mission/[id]/record/[recordId]/HistoryThumbnail';
 import { getDateFormat } from '@/utils/date';
 import { css } from '@styled-system/css';
 
 function MissionRecordDetail() {
   const params = useParams();
-  const { data } = useGetRecordDetail(params.historyId as string);
+  const { data } = useGetRecordDetail(params.recordId as string);
 
   const { sinceDay, imageUrl, remark, duration, startedAt: missionDate } = data;
 
