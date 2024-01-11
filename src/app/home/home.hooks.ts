@@ -20,9 +20,9 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
   const triggerRequireSnackBar = () => {
     triggerSnackBar({
       variant: 'text-button',
-      message: '미션을 완료해 주세요!',
+      message: '인증을 완료해 주세요!',
       buttonText: '바로가기',
-      // timerSecond: 0,
+      // timerSecond: 0, // TODO : 서버에서 주는 데이터로 추가 필요
       onButtonClick: () => {},
     });
   };
