@@ -9,9 +9,9 @@ import { PUBLIC_SETTING_LIST } from '@/constants/mission';
 import { css } from '@styled-system/css';
 
 export default function MissionModifyPage() {
-  //TODO: Header onBackButton={미션수정 api 콜 함수}
-
   const { mutate } = useModifyMissionMutation(1);
+
+  //TODO: 미션 내역 단건 조회 get api 호출
   const PREVIOUS_MISSIONTITLE = '스쿼트해서 튼튼해지자!';
   const PREVIOUS_MISSIONCONTENT = '스쿼트 100개하기';
   const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LIST[0];
@@ -48,6 +48,7 @@ export default function MissionModifyPage() {
 
   return (
     <main className={mainWrapperCss}>
+      {/* 단건 미션 수정 api 호출 */}
       <Header
         rightAction="text-button"
         title={'미션 수정'}
