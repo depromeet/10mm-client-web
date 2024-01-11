@@ -25,12 +25,14 @@ interface UploadUrlRequest {
 }
 
 interface UploadUrlResponse {
-  presignedUrl: string;
+  data: {
+    presignedUrl: string;
+  };
 }
 
 interface UploadCompleteRequest {
   missionRecordId: string;
-  imageFileExtension: ImageFileExtensionType;
+  imageFileExtension: string;
   remark: string;
 }
 
@@ -52,10 +54,3 @@ export default STOPWATCH_APIS;
 
 export const useRecordTime = (options?: UseMutationOptions<RecordTimeResponse, unknown, RecordTimeRequest>) =>
   useMutation({ mutationFn: STOPWATCH_APIS.recordTime, ...options });
-
-export const useUploadUrl = (options?: UseMutationOptions<UploadUrlResponse, unknown, UploadUrlRequest>) =>
-  useMutation({ mutationFn: STOPWATCH_APIS.uploadUrl, ...options });
-
-export const useUploadComplete = (
-  options?: UseMutationOptions<UploadCompleteResponse, unknown, UploadCompleteRequest>,
-) => useMutation({ mutationFn: STOPWATCH_APIS.uploadComplete, ...options });

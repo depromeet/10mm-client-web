@@ -3,6 +3,7 @@
 import { type ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import STOPWATCH_APIS from '@/apis/record';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
@@ -16,6 +17,7 @@ import { css } from '@styled-system/css';
 import { useImage } from './index.hooks';
 
 export default function MissionRecordPage() {
+  const router = useRouter();
   const params = useParams();
   const missionId = params.id as string;
 
@@ -23,18 +25,25 @@ export default function MissionRecordPage() {
   const [remark, setRemark] = useState('');
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const { handleUploadChange, imagePreview, uploadUrl } = useImage();
+  const { handleUploadChange, imagePreview, onSubmitImage } = useImage();
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // TODO: 200자 제한
     setRemark(e.target.value);
   };
 
-  const onClickSubmitButton = () => {
-    // TODO : API 연결
-    // eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
-    // router.replace('/complete');
-    uploadUrl(missionId);
+  const onClickSubmitButton = async () => {
+    try {
+      eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
+      const { isSuccess, imageFileExtension } = await onSubmitImage(missionId);
+
+      if (isSuccess) {
+        await STOPWATCH_APIS.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
+        router.replace(ROUTER.MISSION.SUCCESS);
+      }
+    } catch (error) {
+      console.error('error: ', error);
+    }
   };
 
   const isButtonDisabled = () => {

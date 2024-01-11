@@ -2,7 +2,7 @@ export const ROUTER = {
   HOME: '/',
   MISSION: {
     NEW: '/mission/new',
-    SUCCESS: `/mission/success`,
+    SUCCESS: `/mission/success`, // TODO: 여기있는것이 맞ㄴ느가?
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
     DETAIL: (id: string) => `/mission/${id}/detail`,
     MODIFY: (id: string) => `/mission/${id}/detail/modify`,

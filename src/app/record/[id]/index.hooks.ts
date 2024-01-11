@@ -1,21 +1,12 @@
 import { type ChangeEvent, useRef, useState } from 'react';
-import { useUploadUrl } from '@/apis/record';
+import STOPWATCH_APIS from '@/apis/record';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
+import axios from 'axios';
 
 export const useImage = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const imageFile = useRef<File>();
-  console.log('imageFile: ', imageFile);
-
-  const { mutate } = useUploadUrl({
-    onSuccess: (res) => {
-      const presignedUrl = res.presignedUrl;
-      console.log('presignedUrl: ', presignedUrl);
-      console.log(res);
-    },
-    onError: (err) => console.error(err),
-  });
 
   const handleUploadChange = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
     eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_IMAGE_PREVIEW, EVENT_LOG_CATEGORY.CERTIFICATION);
@@ -29,41 +20,44 @@ export const useImage = () => {
     imageFile.current = file;
   };
 
-  const getPresignedUrl = async (missionRecordId: string) => {
-    // TODO : error handling
-    if (!imageFile.current) return;
-
-    const type = checkImageType(imageFile.current.type);
-    if (!type) return;
-
-    console.log('type: ', type);
-    console.log('missionRecordId: ', missionRecordId);
-    mutate({ missionRecordId, imageFileExtension: 'JPG' });
+  const getPresignedUrl = async (missionRecordId: string): Promise<string> => {
+    const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension: 'PNG' });
+    const presignedUrl = res.data.presignedUrl;
+    return presignedUrl;
   };
 
-  const uploadUrl = (missionRecordId: string) => {
-    getPresignedUrl(missionRecordId);
+  const onSubmitImage = async (missionRecordId: string) => {
+    if (!imageFile.current) {
+      throw new Error('Image file Not Found');
+    }
+    const imageType = imageFile.current.type;
+    const imageFileExtension = checkImageType(imageType) as string;
+
+    try {
+      const presignedUrl = await getPresignedUrl(missionRecordId);
+      const res = await axios.put(presignedUrl, imageFile.current, {
+        headers: {
+          'Content-Type': 'image/png',
+        },
+      });
+      console.log('res: ', res);
+      return { isSuccess: true, imageFileExtension };
+    } catch (error) {
+      throw error;
+    }
   };
 
-  // TODO:
-  function uploadImageToS3(url: string, file: File) {
-    axios
-      .put(url, file)
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
-  }
-  return { handleUploadChange, imagePreview, uploadUrl, textClick };
+  return { handleUploadChange, imagePreview, onSubmitImage };
 };
 
-const checkImageType = (type: string) => {
+const checkImageType = (type?: string) => {
   //  JPEG, JPG, PNG
   const IMAGE_TYPE: Record<string, string> = {
     'image/jpeg': 'JPEG',
     'image/png': 'PNG',
     'image/jpg': 'JPG',
   };
+  if (!type) return false;
   if (type in IMAGE_TYPE) return IMAGE_TYPE[type];
   return false;
-};
-
 };
