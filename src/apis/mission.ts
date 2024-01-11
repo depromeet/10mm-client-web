@@ -118,12 +118,10 @@ export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptio
   });
 };
 
-export const useModifyMissionMutation = () => {
-  // const router = useRouter();
+export const useModifyMissionMutation = (missionId: number) => {
   return useMutation({
-    mutationFn: MISSION_APIS.modifyMission,
+    mutationFn: MISSION_APIS.modifyMission(missionId),
     onSuccess: () => {
-      // router.push(ROUTER.HOME);
       console.log('뮤테이션 성공');
     },
     onError: () => {
