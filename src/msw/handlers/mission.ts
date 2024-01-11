@@ -44,7 +44,7 @@ const missionResponse = {
   },
 };
 
-const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
+const getMissions = http.get(BASE_URL + 'missions', ({ params }) => {
   // if (!params.size) HttpResponse.error();
 
   const requestParamsKeys = ['size', 'lastId'];
