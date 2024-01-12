@@ -34,8 +34,11 @@ export const uploadImageToServer = async (missionRecordId: string, imageFile: Fi
   }
 
   try {
-    ``;
-    const presignedUrl = await getPresignedUrl(missionRecordId, imageFileExtension);
+    const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension });
+    const presignedUrl = res.data.presignedUrl;
+
+    if (presignedUrl) throw new Error('Presigned Url not found');
+
     await axios.put(presignedUrl, imageFile, { headers: { 'Content-Type': imageType } });
     return { imageFileExtension };
   } catch (error) {
@@ -47,13 +50,4 @@ const checkImageType = (type?: string): ImageFileExtensionType | false => {
   if (!type) return false;
   if (type in IMAGE_File_Extension) return IMAGE_File_Extension[type];
   return false;
-};
-
-const getPresignedUrl = async (
-  missionRecordId: string,
-  imageFileExtension: ImageFileExtensionType,
-): Promise<string> => {
-  const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension });
-  const presignedUrl = res.data.presignedUrl;
-  return presignedUrl;
 };
