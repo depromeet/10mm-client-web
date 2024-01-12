@@ -1,3 +1,4 @@
+import { type MissionItemType } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
@@ -49,16 +50,6 @@ const MISSION_APIS = {
 
 export default MISSION_APIS;
 
-export interface MissionContentType {
-  missionId: string;
-  name: string;
-  content: string;
-  category: MissionCategory;
-  visibility: string;
-  status: string;
-  sort: number;
-}
-
 interface PageableType {
   pageNumber: number;
   pageSize: number;
@@ -73,7 +64,7 @@ interface PageableType {
 }
 
 interface GetMissionsResponse {
-  content: MissionContentType[];
+  content: MissionItemType[];
   first: boolean;
   last: boolean;
   pageable: PageableType;

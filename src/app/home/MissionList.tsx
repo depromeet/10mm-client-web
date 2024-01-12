@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useGetMissions } from '@/apis/mission';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
@@ -10,13 +9,14 @@ import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED';
+import { useMissions } from './home.hooks';
+
+type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 
 function MissionList() {
-  const { data, isLoading } = useGetMissions({ size: 10 });
+  const { missionList, isLoading } = useMissions();
 
   // TODO: 스켈레톤 또는 로딩 추가
-
   if (isLoading) {
     return <>loading...</>;
   }
@@ -32,7 +32,7 @@ function MissionList() {
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
-        {data?.content.map((item) => (
+        {missionList.map((item) => (
           <TwoLineListItem
             key={item.missionId}
             badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
