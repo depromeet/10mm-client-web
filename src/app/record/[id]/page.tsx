@@ -10,11 +10,10 @@ import Icon from '@/components/Icon';
 import { type ModalProps } from '@/components/Modal/Modal';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { uploadImageToServer, useImage } from '@/hooks/useImage';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
-
-import { uploadImageToServer, useImage } from './image.hooks';
 
 export default function MissionRecordPage() {
   const router = useRouter();
