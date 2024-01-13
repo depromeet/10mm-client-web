@@ -12,7 +12,7 @@ interface RecordTimeRequest {
 
 interface RecordTimeResponse {
   data: {
-    data: number;
+    missionId: string;
   };
 }
 

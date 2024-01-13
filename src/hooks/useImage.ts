@@ -37,7 +37,7 @@ export const uploadImageToServer = async (missionRecordId: string, imageFile: Fi
     const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension });
     const presignedUrl = res.data.presignedUrl;
 
-    if (presignedUrl) throw new Error('Presigned Url not found');
+    if (!presignedUrl) throw new Error('Presigned Url not found');
 
     await axios.put(presignedUrl, imageFile, { headers: { 'Content-Type': imageType } });
     return { imageFileExtension };

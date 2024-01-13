@@ -9,7 +9,7 @@ export const ROUTER = {
 
   RECORD: {
     CREATE: (id: string) => `/record/${id}`,
-    SUCCESS: `/mission/success`, // TODO: 여기있는것이 맞ㄴ느가?
+    SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
   },
   MYPAGE: {
     HOME: '/mypage',
