@@ -23,8 +23,8 @@ const historyThumbnailWrapperCss = css({
 
 const positionCss = css({
   position: 'absolute',
-  top: 0,
-  right: '10px',
+  top: '16px',
+  right: '20px',
 });
 
 const imageCss = css({

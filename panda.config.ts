@@ -23,6 +23,11 @@ export default defineConfig({
         fonts: {
           pretendard: { value: 'var(--pretendard)' },
         },
+        animations: {
+          skeleton: {
+            value: 'pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+        },
         sizes: {
           maxWidth: {
             value: '475px',
@@ -34,6 +39,9 @@ export default defineConfig({
           },
           appBar: {
             value: '100',
+          },
+          loading: {
+            value: '10000',
           },
         },
         ...colorList,

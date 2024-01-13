@@ -2,16 +2,26 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useRecordTime } from '@/apis/record';
+import {
+  useCustomBack,
+  useGetCategory,
+  useRecordMidTime,
+  useUnloadAction,
+} from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
+import Loading from '@/components/Loading';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
-import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
+import { formatDate } from '@/utils/time';
 import { css } from '@styled-system/css';
 
 export default function StopwatchPage() {
@@ -24,32 +34,71 @@ export default function StopwatchPage() {
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
 
+  const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
     category,
-    finishTime: Number(minutes) * 60 + Number(seconds),
+    finishTime: time,
   };
 
-  const { isOpen: isFinalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
-  const { isOpen: isBackOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
-  const { isOpen: isMidOutOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+  const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
+  const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
+  const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+
+  useCustomBack(openMidOutModal);
+
+  useUnloadAction(time);
+  useRecordMidTime(time);
+
+  // isError 처리 어떻게 할것인지?
+  const { mutate, isPending: isSubmitLoading } = useRecordTime({
+    onSuccess: (response) => {
+      const missionRecordId = String(response.missionId);
+      router.replace(ROUTER.RECORD.CREATE(missionRecordId));
+      eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+    },
+    onError: (error) => {
+      // TODO
+      console.log('error: ', error);
+    },
+  });
 
   // TODO: 끝내기 후 로직 추가
-  const onSubmit = () => {
-    router.push(ROUTER.MISSION.RECORD(missionId));
+  const onSubmit = async () => {
+    const startTimeString = localStorage.getItem(STORAGE_KEY.STOPWATCH.START_TIME);
+    if (!startTimeString) return;
+
+    const startTime = new Date(startTimeString);
+    const startTimeFormatted = formatDate(startTime);
+    const finishTimeFormatted = formatDate(new Date());
+
+    mutate({
+      missionId: missionId,
+      startedAt: startTimeFormatted,
+      finishedAt: finishTimeFormatted,
+      durationMin: Number(minutes),
+      durationSec: Number(seconds),
+    });
   };
 
   const onFinishButtonClick = () => {
     onNextStep('stop');
+
+    // 10분 지나기 전 끝내기 눌렀을 때
     if (Number(minutes) < 10) {
-      eventLogger.logEvent('click/finishButton-mid', 'stopwatch', logData);
+      eventLogger.logEvent(
+        EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
+        EVENT_LOG_CATEGORY.STOPWATCH,
+        logData,
+      );
       openMidOutModal();
       return;
     }
 
-    eventLogger.logEvent('click/finishButton', 'stopwatch', logData);
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
     openFinalModal();
   };
 
+  // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.push(ROUTER.MISSION.DETAIL(missionId));
   };
@@ -61,7 +110,7 @@ export default function StopwatchPage() {
   };
 
   const onAutoFinish = () => {
-    eventLogger.logEvent('click/auto-finish', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_AUTO_FINISH, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
     });
@@ -69,7 +118,7 @@ export default function StopwatchPage() {
   };
 
   const onCancel = () => {
-    eventLogger.logEvent('click/cancel', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_CANCEL, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
     });
@@ -77,13 +126,18 @@ export default function StopwatchPage() {
   };
 
   const onStop = () => {
-    eventLogger.logEvent('click/stop', 'stopwatch', { category, stopTime: Number(minutes) * 60 + Number(seconds) });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
+      category,
+      stopTime: Number(minutes) * 60 + Number(seconds),
+    });
     onNextStep('stop');
   };
 
   const onStart = () => {
-    eventLogger.logEvent('click/start', 'stopwatch', { category });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     onNextStep('progress');
+    const startTime = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
   };
 
   useEffect(() => {
@@ -94,6 +148,7 @@ export default function StopwatchPage() {
 
   return (
     <>
+      {isSubmitLoading && <Loading />}
       <Header rightAction="none" onBackAction={openBackModal} />
       <div className={containerCss}>
         <h1 className={titleCss}>{stepLabel.title}</h1>
@@ -137,21 +192,21 @@ export default function StopwatchPage() {
           )}
         </section>
         <FinalDialog
-          isOpen={isFinalOpen}
+          isOpen={isFinalModalOpen}
           onClose={closeFinalModal}
           onCancel={onCancel}
           onConfirm={onFinish}
           logData={logData}
         />
         <BackDialog
-          isOpen={isBackOpen}
+          isOpen={isBackModalOpen}
           onClose={closeBackModal}
           onCancel={onCancel}
           onConfirm={onExit}
           logData={logData}
         />
         <MidOutDialog
-          isOpen={isMidOutOpen}
+          isOpen={isMidOutModalOpen}
           onClose={closeMidOutModal}
           onCancel={onCancel}
           onConfirm={onExit}
@@ -161,12 +216,6 @@ export default function StopwatchPage() {
     </>
   );
 }
-
-const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<string>('category');
-
-  return searchParams ?? '운동';
-};
 
 const containerCss = css({
   padding: '24px 16px',

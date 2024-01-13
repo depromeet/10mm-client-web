@@ -20,4 +20,5 @@ export default IconHeader;
 
 const iconWrapperCss = css({
   padding: '12px',
+  cursor: 'pointer',
 });

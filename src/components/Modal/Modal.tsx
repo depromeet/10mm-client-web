@@ -2,7 +2,7 @@
 
 import React, { type PropsWithChildren, useRef } from 'react';
 import AnimatePortal from '@/components/portal/AnimationPortal';
-import useOutsideClick from '@/hooks/lifeCycle/useOutsideClick';
+import useOutsideClick from '@/hooks/useOutsideClick';
 import { css } from '@styled-system/css';
 import { type Property } from '@styled-system/types/csstype';
 import { motion } from 'framer-motion';

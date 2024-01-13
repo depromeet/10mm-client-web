@@ -33,3 +33,34 @@ export const Icon: Story = {
     rightAction: 'icon',
   },
 };
+
+export const IconMenu = (
+  args = {
+    title: '타이틀',
+    rightAction: 'icon',
+  },
+) => {
+  const menus = [
+    {
+      id: 'menu1',
+      label: '메뉴1',
+    },
+    {
+      id: 'menu2',
+      label: '메뉴2',
+    },
+    {
+      id: 'menu3',
+      label: '메뉴3',
+    },
+  ];
+
+  const onMenuClick = (id: string) => {
+    alert(id);
+  };
+  return (
+    <div>
+      <Header title={args.title} rightAction={'icon-menu'} menus={menus} onMenuClick={onMenuClick} />
+    </div>
+  );
+};

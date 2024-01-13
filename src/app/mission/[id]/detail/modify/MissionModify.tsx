@@ -11,15 +11,15 @@ export default function MissionModify() {
 
   const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType>(PUBLIC_SETTING_LIST[0]);
 
-  // 미션 명
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
   };
-  // 미션 내용
+
   const handleMissionContentInput = (value: string) => {
     setMissionContentInput(value);
   };
 
+  // TODO: 미션 단건조회 GET, 미션 단건 수정PUT추가
   return (
     <section>
       <Input

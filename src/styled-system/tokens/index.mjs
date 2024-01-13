@@ -415,6 +415,22 @@ const tokens = {
     "value": "0.875rem",
     "variable": "var(--spacing-3\\.5)"
   },
+  "fonts.sans": {
+    "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+    "variable": "var(--fonts-sans)"
+  },
+  "fonts.serif": {
+    "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
+    "variable": "var(--fonts-serif)"
+  },
+  "fonts.mono": {
+    "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
+    "variable": "var(--fonts-mono)"
+  },
+  "fonts.pretendard": {
+    "value": "var(--pretendard)",
+    "variable": "var(--fonts-pretendard)"
+  },
   "animations.spin": {
     "value": "spin 1s linear infinite",
     "variable": "var(--animations-spin)"
@@ -431,21 +447,9 @@ const tokens = {
     "value": "bounce 1s infinite",
     "variable": "var(--animations-bounce)"
   },
-  "fonts.sans": {
-    "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
-    "variable": "var(--fonts-sans)"
-  },
-  "fonts.serif": {
-    "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-    "variable": "var(--fonts-serif)"
-  },
-  "fonts.mono": {
-    "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
-    "variable": "var(--fonts-mono)"
-  },
-  "fonts.pretendard": {
-    "value": "var(--pretendard)",
-    "variable": "var(--fonts-pretendard)"
+  "animations.skeleton": {
+    "value": "pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+    "variable": "var(--animations-skeleton)"
   },
   "sizes.0": {
     "value": "0rem",
@@ -682,6 +686,10 @@ const tokens = {
   "zIndex.appBar": {
     "value": "100",
     "variable": "var(--z-index-app-bar)"
+  },
+  "zIndex.loading": {
+    "value": "10000",
+    "variable": "var(--z-index-loading)"
   },
   "colors.current": {
     "value": "currentColor",
