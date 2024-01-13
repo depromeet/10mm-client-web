@@ -1,9 +1,10 @@
 'use client';
+import { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import { useGetRecordDetail } from '@/apis';
 import HistoryThumbnail from '@/app/mission/[id]/record/[recordId]/HistoryThumbnail';
-import { getDateFormat } from '@/utils/date';
 import { css } from '@styled-system/css';
+import dayjs from 'dayjs';
 
 function MissionRecordDetail() {
   const params = useParams();
@@ -11,10 +12,12 @@ function MissionRecordDetail() {
 
   const { sinceDay, imageUrl, remark, duration, startedAt: missionDate } = data;
 
+  const dateText = useMemo(() => dayjs(missionDate).format('yyyy년 mm월 dd일'), [missionDate]);
+
   return (
     <section className={missionHistorySectionCss}>
       <div className={sectionTitleCss}>
-        <span className={textSecondaryColorCss}>{getDateFormat('yyyy년 mm월 dd일', new Date(missionDate))}</span>
+        <span className={textSecondaryColorCss}>{dateText}</span>
         <span className={textTertiaryColorCss}>{sinceDay}일차</span>
       </div>
       <HistoryThumbnail imageUrl={imageUrl} missionDuration={duration} />
