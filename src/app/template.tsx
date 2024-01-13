@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { APP_USER_AGENT } from '@/constants/common';
 import { motion } from 'framer-motion';
 
 const variants = {
@@ -8,17 +9,28 @@ const variants = {
 };
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [test, setTest] = useState(true);
+  const [customMotion, setCustomMotion] = useState(true);
+  const userAgent = window.navigator.userAgent;
+  const isApp = RegExp(APP_USER_AGENT).test(userAgent);
 
   useEffect(() => {
-    window.addEventListener('popstate', (_event) => {
-      setTest(false);
-    });
+    const popStateEventHandler = (_event: PopStateEvent) => {
+      setCustomMotion(false);
+    };
+    window.addEventListener('popstate', popStateEventHandler);
+
+    return () => {
+      window.removeEventListener('popstate', popStateEventHandler);
+    };
   }, []);
+
+  if (!isApp) {
+    return <motion.main>{children}</motion.main>;
+  }
 
   return (
     <motion.main
-      custom={test}
+      custom={customMotion}
       variants={variants}
       exit="exit"
       animate="enter"
