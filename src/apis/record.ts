@@ -1,3 +1,4 @@
+import { type ImageFileExtensionType } from '@/apis/schema/record';
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
@@ -15,9 +16,6 @@ interface RecordTimeResponse {
     missionId: string;
   };
 }
-
-// TODO : 이동
-type ImageFileExtensionType = 'JPG' | 'JPEG' | 'PNG';
 
 interface UploadUrlRequest {
   missionRecordId: string;
