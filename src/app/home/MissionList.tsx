@@ -33,13 +33,14 @@ function MissionList() {
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
         {missionList.map((item) => (
-          <TwoLineListItem
-            key={item.missionId}
-            badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
-            name={item.content}
-            subName={MISSION_CATEGORY_LABEL[item.category].label}
-            imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-          />
+          <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
+            <TwoLineListItem
+              badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
+              name={item.content}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+            />
+          </Link>
         ))}
       </ul>
     </div>
