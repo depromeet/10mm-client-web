@@ -137,6 +137,7 @@ export default function StopwatchPage() {
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     onNextStep('progress');
     const startTime = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.MISSION_ID, missionId);
     localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
   };
 
