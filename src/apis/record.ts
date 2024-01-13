@@ -13,9 +13,7 @@ interface RecordTimeRequest {
 }
 
 interface RecordTimeResponse {
-  data: {
-    missionId: string;
-  };
+  missionId: string;
 }
 
 interface UploadUrlRequest {
@@ -51,8 +49,9 @@ const RECORD_API = {
     });
     return data;
   },
-  recordTime: (request: RecordTimeRequest): Promise<RecordTimeResponse> => {
-    return apiInstance.post('/records', request);
+  recordTime: async (request: RecordTimeRequest): Promise<RecordTimeResponse> => {
+    const { data } = await apiInstance.post('/records', request);
+    return data;
   },
   uploadUrl: (request: UploadUrlRequest): Promise<UploadUrlResponse> => {
     return apiInstance.post('/records/upload-url', request);
