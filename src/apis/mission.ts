@@ -1,23 +1,8 @@
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
+import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
+import { useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
-
-// 이부분은 emum으로 관리할지 type 으로 관리할지 고민입니다.
-export enum MissionCategory {
-  STUDY = 'STUDY',
-  EXERCISE = 'EXERCISE',
-  READING = 'READING',
-  WRITING = 'WRITING',
-  PROJECT = 'PROJECT',
-  WATCHING = 'WATCHING',
-  ETC = 'ETC',
-}
-
-export enum MissionVisibility {
-  ALL = 'ALL',
-  FOLLOWER = 'FOLLOWER',
-  NONE = 'NONE',
-}
 
 interface CreateMissionRequest {
   name: string;
@@ -26,10 +11,10 @@ interface CreateMissionRequest {
   visibility: MissionVisibility;
 }
 
-interface GetMissionsParams {
+type GetMissionsParams = {
   size: number;
   lastId?: number;
-}
+};
 
 const MISSION_APIS = {
   createMission: (data: CreateMissionRequest) => {
@@ -39,9 +24,14 @@ const MISSION_APIS = {
   },
 
   getMissions: async (params: GetMissionsParams): Promise<GetMissionsResponse> => {
-    const { data } = await apiInstance.get('/missions', {
+    const { data } = await apiInstance.get<GetMissionsResponse>('/missions', {
       params,
     });
+    return data;
+  },
+
+  getMissionDetail: async (missionId: string): Promise<MissionContentType> => {
+    const { data } = await apiInstance.get(`/missions/${missionId}`);
     return data;
   },
 };
@@ -72,7 +62,7 @@ interface PageableType {
 }
 
 interface GetMissionsResponse {
-  content: MissionContentType[];
+  content: MissionItemType[];
   first: boolean;
   last: boolean;
   pageable: PageableType;
@@ -82,13 +72,27 @@ interface GetMissionsResponse {
   empty: boolean;
 }
 
-const getMissionsIdQueryKey = (params: GetMissionsParams) => ['missions', ...Object.values(params)];
+const getMissionsIdQueryKey = createQueryKeyFactory<GetMissionsParams>('missions');
 
 export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptions<GetMissionsResponse>) => {
   return useQuery<GetMissionsResponse>({
     queryKey: getMissionsIdQueryKey(params),
     queryFn: () => MISSION_APIS.getMissions(params),
     // queryFn: () => apiInstance.get('/missions', { params }), // 2번 방법
+
+    ...option,
+  });
+};
+
+const getMissionDetailQueryKey = createQueryKeyFactory<{
+  missionId: string;
+}>('missionDetail');
+
+export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<MissionContentType>) => {
+  return useSuspenseQuery<MissionContentType>({
+    queryKey: getMissionDetailQueryKey({ missionId }),
+    queryFn: () => MISSION_APIS.getMissionDetail(missionId),
+
     ...option,
   });
 };

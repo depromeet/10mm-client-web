@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { type MissionCategory, type MissionVisibility } from '@/apis/mission';
+import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
 import useCreateMissionMutation from '@/app/mission/new/useCreateMissionMutation';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';

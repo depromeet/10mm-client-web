@@ -1,5 +1,6 @@
-import { type ImageFileExtensionType } from '@/apis/schema/record';
-import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
+import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
+import { type ImageFileExtensionType, type RecordType } from '@/apis/schema/record';
+import { useMutation, type UseMutationOptions, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -36,7 +37,20 @@ interface UploadCompleteRequest {
 
 interface UploadCompleteResponse {}
 
-const STOPWATCH_APIS = {
+type GetRecordsParams = {
+  missionId: number;
+  yearMonth: string;
+};
+
+type GetRecordsResponse = RecordType[];
+
+const RECORD_API = {
+  getRecords: async (params: GetRecordsParams) => {
+    const { data } = await apiInstance.get<GetRecordsResponse>('/records', {
+      params,
+    });
+    return data;
+  },
   recordTime: (request: RecordTimeRequest): Promise<RecordTimeResponse> => {
     return apiInstance.post('/records', request);
   },
@@ -48,7 +62,17 @@ const STOPWATCH_APIS = {
   },
 };
 
-export default STOPWATCH_APIS;
+export default RECORD_API;
+
+const getRecordQueryKey = createQueryKeyFactory<GetRecordsParams>('record');
+
+export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse>) => {
+  return useSuspenseQuery({
+    queryKey: getRecordQueryKey(params),
+    queryFn: () => RECORD_API.getRecords(params),
+    ...option,
+  });
+};
 
 export const useRecordTime = (options?: UseMutationOptions<RecordTimeResponse, unknown, RecordTimeRequest>) =>
-  useMutation({ mutationFn: STOPWATCH_APIS.recordTime, ...options });
+  useMutation({ mutationFn: RECORD_API.recordTime, ...options });

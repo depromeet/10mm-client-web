@@ -1,4 +1,4 @@
-import { MissionCategory, MissionVisibility } from '@/apis/mission';
+import { MissionCategory, MissionVisibility } from '@/apis/schema/mission';
 
 export const MISSION_CATEGORY_LABEL: Record<
   MissionCategory,

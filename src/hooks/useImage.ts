@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import STOPWATCH_APIS from '@/apis/record';
+import RECORD_API from '@/apis/record';
 import { IMAGE_File_Extension, type ImageFileExtensionType } from '@/apis/schema/record';
 import axios from 'axios';
 
@@ -34,7 +34,7 @@ export const uploadImageToServer = async (missionRecordId: string, imageFile: Fi
   }
 
   try {
-    const res = await STOPWATCH_APIS.uploadUrl({ missionRecordId, imageFileExtension });
+    const res = await RECORD_API.uploadUrl({ missionRecordId, imageFileExtension });
     const presignedUrl = res.data.presignedUrl;
 
     if (!presignedUrl) throw new Error('Presigned Url not found');

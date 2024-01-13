@@ -1,30 +1,45 @@
-import { Fragment } from 'react';
+import { Suspense } from 'react';
+import { useParams } from 'next/navigation';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
-import MissionHistoryBanner from '@/app/mission/[id]/detail/MissionHistoryBanner';
+import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
+import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import Button from '@/components/Button/Button';
 import { css } from '@styled-system/css';
 
 function MissionHistoryTab() {
-  const title = '디자인 아티클 읽고 기록하기';
-  const description = '하루에 아티클 3개 이상 읽고 인사이트 작성하자!';
-  const imageUrl = '/images/category/study.png';
+  const { id } = useParams();
+  const missionId = Array.isArray(id) ? id[0] : id;
+  const currentDate = new Date();
 
   return (
-    <Fragment>
+    <div className={scrollAreaCss}>
       <div className={missionHistoryTabCss}>
-        <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />
-        <MissionCalendar currentDate={new Date()} />
+        <Suspense fallback={<MissionHistorySkeleton />}>
+          <MissionHistoryBannerApi missionId={missionId} />
+        </Suspense>
+        <Suspense>
+          <MissionCalendar currentDate={currentDate} missionId={Number(missionId)} />
+        </Suspense>
       </div>
       <div className={bottomDimCss}>
         <Button size={'medium'} variant={'cta'} className={buttonCss}>
           미션 시작하기
         </Button>
       </div>
-    </Fragment>
+    </div>
   );
 }
 
 export default MissionHistoryTab;
+
+const scrollAreaCss = css({
+  overflowY: 'scroll',
+  height: 'calc(100vh - 24px - 44px)',
+
+  _scrollbar: {
+    display: 'none',
+  },
+});
 
 const buttonCss = css({
   position: 'relative',
@@ -39,7 +54,7 @@ const bottomDimCss = css({
   backgroundColor:
     'linear-gradient(180deg, rgba(24, 24, 29, 0.00) 0%, rgba(24, 24, 29, 0.09) 7.58%, rgba(24, 24, 29, 0.59) 34.59%, rgba(24, 24, 29, 0.69) 41.18%, rgba(24, 24, 29, 0.83) 51.39%, #18181D 63.25%)',
   width: '100%',
-  maxWidth: '375px',
+  maxWidth: 'maxWidth',
   height: '166px',
   display: 'flex',
   justifyContent: 'center',

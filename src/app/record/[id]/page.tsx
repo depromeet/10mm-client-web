@@ -3,7 +3,7 @@
 import { type ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import STOPWATCH_APIS from '@/apis/record';
+import RECORD_API from '@/apis/record';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
@@ -47,7 +47,7 @@ export default function MissionRecordPage() {
       eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
       // S3에 이미지 업로드
       const { imageFileExtension } = await uploadImageToServer(missionId, imageFile);
-      await STOPWATCH_APIS.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
+      await RECORD_API.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
       router.replace(ROUTER.RECORD.SUCCESS);
     } catch (error) {
       console.error('error: ', error);

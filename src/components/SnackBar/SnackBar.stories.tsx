@@ -47,6 +47,7 @@ export const WithAppBar = (args: SnackBarWithId) => {
   );
 };
 
+// TODO: 기본 arg 안들어가는 이슈 체크
 export const None = {
   args: {
     variant: 'none',
