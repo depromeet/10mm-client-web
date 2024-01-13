@@ -1,5 +1,5 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
-import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
+import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
@@ -62,7 +62,7 @@ interface PageableType {
 }
 
 interface GetMissionsResponse {
-  content: MissionContentType[];
+  content: MissionItemType[];
   first: boolean;
   last: boolean;
   pageable: PageableType;
