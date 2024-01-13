@@ -28,7 +28,8 @@ export const EVENT_LOG_NAME: Record<EventLogCategoryType, Record<string, string>
   },
   CERTIFICATION: {
     CLICK_IMAGE_PREVIEW: 'click/imagePreview',
-    CLICK_CONFIRM: 'click/confrim',
+    CLICK_CONFIRM: 'click/confirm',
+    CLICK_CANCEL: 'click/cancel',
   },
   HEADER: {
     CLICK_BACK_BUTTON: 'click/backButton',

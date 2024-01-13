@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecordTime } from '@/apis/stopwatch';
+import { useRecordTime } from '@/apis/record';
 import {
   useCustomBack,
   useGetCategory,
@@ -52,8 +52,8 @@ export default function StopwatchPage() {
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
     onSuccess: (response) => {
-      const missionRecordId = String(response.data.data);
-      router.replace(ROUTER.RECORD(missionRecordId));
+      const missionRecordId = String(response.missionId);
+      router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
     },
     onError: (error) => {
