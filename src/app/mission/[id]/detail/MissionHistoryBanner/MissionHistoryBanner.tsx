@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { css } from '@styled-system/css';
 
+// TODO : banner 컴포넌트 분리
 function MissionHistoryBanner({
   title,
   description,
@@ -22,7 +23,8 @@ function MissionHistoryBanner({
 }
 
 export default MissionHistoryBanner;
-const missionHistoryBannerCss = css({
+
+export const missionHistoryBannerCss = css({
   display: 'flex',
   flexDirection: 'row',
   padding: '16px',

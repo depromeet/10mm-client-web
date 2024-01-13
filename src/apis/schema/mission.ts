@@ -31,7 +31,7 @@ export interface MissionItemType {
   content: string;
   category: MissionCategory;
   visibility: MissionVisibility;
-  status: string;
+  status: MissionStatus;
   sort: number;
 }
 
@@ -48,4 +48,10 @@ export enum MissionVisibility {
   ALL = 'ALL',
   FOLLOWER = 'FOLLOWER',
   NONE = 'NONE',
+}
+
+export enum MissionStatus {
+  ARCHIVED = 'ARCHIVED',
+  NONE = 'NONE',
+  REQUIRED = 'REQUIRED',
 }
