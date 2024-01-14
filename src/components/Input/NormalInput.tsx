@@ -136,5 +136,6 @@ const iconCss = css({
 });
 
 const sectionCss = css({
+  width: '100%',
   _focusWithin: {},
 });
