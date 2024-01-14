@@ -32,10 +32,10 @@ export default function NormalButtonInput({
 
   return (
     <section className={sectionCss}>
-      <p className={subTitleCss}>
+      <label className={subTitleCss} htmlFor={props.id}>
         {props.name}
         {required && <span className={asterisk}>*</span>}
-      </p>
+      </label>
 
       <div
         className={css(inputWrapperCss, {
