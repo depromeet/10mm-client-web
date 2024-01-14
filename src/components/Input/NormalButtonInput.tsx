@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { type NormalButtonInputTypes } from '@/components/Input/Input.types';
 import { css } from '@/styled-system/css';
@@ -10,6 +8,7 @@ import Button from '../Button/Button';
 export default function NormalButtonInput({
   value,
   onChange,
+  onTextButtonClick,
   errorMsg,
   validMsg,
   required = false,
@@ -54,7 +53,7 @@ export default function NormalButtonInput({
           {...(required && { required: true })}
           {...props}
         />
-        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onDoubleCheck}>
+        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onTextButtonClick}>
           {props.buttonText}
         </Button>
       </div>
