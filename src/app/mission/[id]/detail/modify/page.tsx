@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import MISSION_APIS, { type MissionVisibility, useModifyMissionMutation } from '@/apis/mission';
+import { useModifyMissionMutation } from '@/apis/mission';
+import { type MissionVisibility } from '@/apis/schema/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
