@@ -24,7 +24,7 @@ const useLeaveMissionCheck = () => {
   const { triggerSnackBar } = useSnackBar();
 
   const checkLeaveMission = () => {
-    const startedMissionId = localStorage.getItem(STORAGE_KEY.STOPWATCH.START_TIME);
+    const startedMissionId = localStorage.getItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
 
     if (startedMissionId) {
       triggerSnackBar({

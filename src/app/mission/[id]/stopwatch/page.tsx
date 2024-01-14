@@ -110,6 +110,7 @@ export default function StopwatchPage() {
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.push(ROUTER.MISSION.DETAIL(missionId));
+    resetStopwatchStorage();
   };
 
   const onFinish = () => {
