@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { STORAGE_KEY } from '@/constants/storage';
 import useInterval from '@/hooks/useInterval';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
@@ -12,7 +13,7 @@ export const useGetCategory = () => {
 
 export function useUnloadAction(time: number) {
   const onSaveTime = () => {
-    eventLogger.logEvent('mid-save', 'stopwatch', { time });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.MID_SAVE, EVENT_LOG_CATEGORY.STOPWATCH, { time });
     localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME, String(time));
   };
 
@@ -38,7 +39,7 @@ function useVisibilityState(onAction: VoidFunction) {
 
 export function useRecordMidTime(time: number) {
   const onSaveTime = () => {
-    eventLogger.logEvent('mid-save-2', 'stopwatch', { time });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.MID_SAVE_2, EVENT_LOG_CATEGORY.STOPWATCH, { time });
     localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME_2, String(time));
   };
 

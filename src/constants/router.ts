@@ -2,16 +2,17 @@ export const ROUTER = {
   HOME: '/',
   MISSION: {
     NEW: '/mission/new',
-    SUCCESS: `/mission/success`,
-    RECORD: (id: string) => `/mission/${id}/record`,
-    RECORD_DETAIL: ({ missionId, recordId }: { missionId: string; recordId: string }) =>
-      `/mission/${missionId}/record/${recordId}`,
-    RECORD_EDIT: ({ missionId, recordId }: { missionId: string; recordId: string }) =>
-      `/mission/${missionId}/record/${recordId}/edit`,
 
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
     DETAIL: (id: string) => `/mission/${id}/detail`,
     MODIFY: (id: string) => `/mission/${id}/detail/modify`,
+  },
+
+  RECORD: {
+    CREATE: (id: string) => `/record/${id}`,
+    SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
+    DETAIL: (id: string) => `/record/${id}/detail`,
+    EDIT: (id: string) => `/record/${id}/edit`,
   },
   MYPAGE: {
     HOME: '/mypage',

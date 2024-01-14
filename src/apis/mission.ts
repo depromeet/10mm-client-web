@@ -1,6 +1,6 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
-import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
-import { useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
+import { useMutation, useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -15,6 +15,13 @@ type GetMissionsParams = {
   size: number;
   lastId?: number;
 };
+
+interface ModifyMissionRequest {
+  missionId: number;
+  name: string;
+  content: string;
+  visibility: MissionVisibility;
+}
 
 const MISSION_APIS = {
   createMission: (data: CreateMissionRequest) => {
@@ -34,6 +41,14 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get(`/missions/${missionId}`);
     return data;
   },
+
+  modifyMission:
+    (missionId: number) =>
+    async ({ data }: { data: ModifyMissionRequest }): Promise<ModifyMissionResponse> => {
+      return apiInstance.put(`/missions/${missionId}`, {
+        ...data,
+      });
+    },
 };
 
 export default MISSION_APIS;
@@ -62,7 +77,7 @@ interface PageableType {
 }
 
 interface GetMissionsResponse {
-  content: MissionContentType[];
+  content: MissionItemType[];
   first: boolean;
   last: boolean;
   pageable: PageableType;
@@ -70,6 +85,14 @@ interface GetMissionsResponse {
   number: number;
   numberOfElements: number;
   empty: boolean;
+}
+
+interface ModifyMissionResponse {
+  missionId: string;
+  name: string;
+  content: string;
+  category: MissionCategory;
+  visibility: string;
 }
 
 const getMissionsIdQueryKey = createQueryKeyFactory<GetMissionsParams>('missions');
@@ -94,5 +117,17 @@ export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<
     queryFn: () => MISSION_APIS.getMissionDetail(missionId),
 
     ...option,
+  });
+};
+
+export const useModifyMissionMutation = (missionId: number) => {
+  return useMutation({
+    mutationFn: MISSION_APIS.modifyMission(missionId),
+    onSuccess: () => {
+      console.log('뮤테이션 성공');
+    },
+    onError: () => {
+      // TODO: error handling
+    },
   });
 };

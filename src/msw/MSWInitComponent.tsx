@@ -1,7 +1,7 @@
 'use client';
 
 const mswInit = () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NEXT_PUBLIC_MSW_EBABLE === 'true') {
     if (typeof window === 'undefined') {
       (async () => {
         const { server } = await import('./node');

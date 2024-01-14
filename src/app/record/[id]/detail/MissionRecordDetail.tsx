@@ -2,17 +2,18 @@
 import { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import { useGetRecordDetail } from '@/apis';
-import HistoryThumbnail from '@/app/mission/[id]/record/[recordId]/HistoryThumbnail';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 
+import HistoryThumbnail from './HistoryThumbnail';
+
 function MissionRecordDetail() {
   const params = useParams();
-  const { data } = useGetRecordDetail(params.recordId as string);
+  const { data } = useGetRecordDetail(params.id as string);
 
   const { sinceDay, imageUrl, remark, duration, startedAt: missionDate } = data;
 
-  const dateText = useMemo(() => dayjs(missionDate).format('yyyy년 mm월 dd일'), [missionDate]);
+  const dateText = useMemo(() => dayjs(missionDate).format('YYYY년 MM월 DD일'), [missionDate]);
 
   return (
     <section className={missionHistorySectionCss}>

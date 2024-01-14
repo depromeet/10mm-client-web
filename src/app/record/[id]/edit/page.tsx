@@ -8,8 +8,8 @@ import TextArea from '@/components/TextArea/TextArea';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
-function MissionRecordEditPage({ params }: { params: { recordId: string; id: string } }) {
-  const { data } = useGetRecordDetail(params.recordId as string);
+function MissionRecordEditPage({ params }: { params: { id: string } }) {
+  const { data } = useGetRecordDetail(params.id as string);
   const { triggerSnackBar } = useSnackBar();
   const router = useRouter();
   const [value, setValue] = useState(data.remark);
@@ -20,13 +20,9 @@ function MissionRecordEditPage({ params }: { params: { recordId: string; id: str
 
   const handleSaveButtonClick = () => {
     triggerSnackBar({ message: '저장되었습니다.' });
-    router.push(
-      ROUTER.MISSION.RECORD_DETAIL({
-        missionId: params.id,
-        recordId: params.recordId,
-      }),
-    );
+    router.push(ROUTER.RECORD.DETAIL(params.id));
   };
+
   return (
     <main className={mainWrapperCss}>
       <Header
