@@ -1,3 +1,6 @@
+import { type RecordType } from '@/apis/schema/record';
+import { ROUTER } from '@/constants/router';
+
 const getWeekArray = (totalDate: number, offsetDate: number) => {
   return Array.from({ length: 7 }, (_, i) => {
     const currentDate = offsetDate + i;
@@ -48,4 +51,25 @@ export const getCalenderInfo = (currentMonth: number, currentYear: number) => {
   );
 
   return { monthCalendarData };
+};
+
+export const getMissionCalendarItemProps = (date: number, records: RecordType[]) => {
+  const filterRecord = records.filter((record) => record.missionDay === date);
+  if (filterRecord.length > 0) {
+    return {
+      routerLink: ROUTER.RECORD.DETAIL.HOME(filterRecord[0].recordId.toString()),
+      imageUrl: filterRecord[0].imageUrl,
+    };
+  }
+  return {
+    routerLink: ROUTER.RECORD.DETAIL.EMPTY,
+    imageUrl: undefined,
+  };
+};
+
+export const getYearMonth = (currentDate: Date) => {
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
+  const monthString = month < 10 ? `0${month}` : `${month}`;
+  return `${year}-${monthString}`;
 };
