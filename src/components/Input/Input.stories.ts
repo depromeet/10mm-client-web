@@ -86,3 +86,26 @@ export const Dropdown: Story = {
     placeholder: '카테고리를 선택해주세요.',
   },
 };
+
+export const NormalButtonInput: Story = {
+  args: {
+    onTextButtonClick: () => alert('버튼 클릭'),
+    variant: 'normal-button',
+    name: '미션명',
+    placeholder: '미션명을 입력하세요',
+    value: '운동',
+    description: '디스크립션 영역입니다',
+    buttonText: '확인',
+    required: false,
+    maxLength: 20,
+    errorMsg: '',
+  },
+  argTypes: {
+    title: { table: { disable: true } },
+    onSelect: { table: { disable: true } },
+    onChange: { table: { disable: true } },
+    selected: { table: { disable: true } },
+    list: { table: { disable: true } },
+    variant: { table: { disable: true } },
+  },
+};
