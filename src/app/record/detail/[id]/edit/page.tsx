@@ -20,7 +20,7 @@ function MissionRecordEditPage({ params }: { params: { id: string } }) {
 
   const handleSaveButtonClick = () => {
     triggerSnackBar({ message: '저장되었습니다.' });
-    router.push(ROUTER.RECORD.DETAIL(params.id));
+    router.push(ROUTER.RECORD.DETAIL.HOME(params.id));
   };
 
   return (

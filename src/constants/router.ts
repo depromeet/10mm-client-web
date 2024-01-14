@@ -11,8 +11,11 @@ export const ROUTER = {
   RECORD: {
     CREATE: (id: string) => `/record/${id}`,
     SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
-    DETAIL: (id: string) => `/record/${id}/detail`,
-    EDIT: (id: string) => `/record/${id}/edit`,
+    DETAIL: {
+      HOME: (id: string) => `/record/detail/${id}`,
+      EMPTY: `/record/detail/empty`,
+      EDIT: (id: string) => `/record/detail/${id}/edit`,
+    },
   },
   MYPAGE: {
     HOME: '/mypage',

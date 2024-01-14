@@ -6,7 +6,7 @@ import { ROUTER } from '@/constants/router';
 function MissionRecordHeader({ recordId }: { recordId: string }) {
   const route = useRouter();
   const handleEditButtonClick = () => {
-    route.push(ROUTER.RECORD.EDIT(recordId));
+    route.push(ROUTER.RECORD.DETAIL.EDIT(recordId));
   };
   return (
     <Header
