@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useModifyMissionMutation } from '@/apis/mission';
+import MISSION_APIS, { useModifyMissionMutation } from '@/apis/mission';
 import { type MissionVisibility } from '@/apis/schema/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
