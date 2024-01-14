@@ -29,10 +29,7 @@ export default function NormalButtonInput({
     onChange?.(inputValue);
   };
 
-  const onDoubleCheck = () => {
-    //TODO: 중복확인 로직
-    alert('중복확인 로직 추가');
-  };
+  const isMaxLengthTextVisible = value && props.maxLength;
 
   return (
     <section className={sectionCss}>
@@ -71,7 +68,7 @@ export default function NormalButtonInput({
           {errorMsg || props.description}
         </span>
 
-        {props.maxLength && (
+        {isMaxLengthTextVisible && (
           <span className={css(inputLengthWrapperCss, { color: statusColor })}>
             <strong
               className={css({

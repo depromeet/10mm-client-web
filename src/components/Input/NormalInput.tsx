@@ -25,6 +25,9 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
     onChange?.('');
   };
 
+  const isDeleteButtonVisible = value && value.length > 0;
+  const isMaxLengthTextVisible = value && props.maxLength;
+
   return (
     <section className={sectionCss}>
       <p className={subTitleCss}>
@@ -47,7 +50,7 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
           onBlur={() => setIsFocused(false)}
           {...props}
         />
-        {value.length > 0 && (
+        {isDeleteButtonVisible && (
           <Icon name={'close-circle'} color={'icon.tertiary'} className={iconCss} onClick={onDelete} />
         )}
       </div>
@@ -61,7 +64,7 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
           {errorMsg || props.description}
         </span>
 
-        {props.maxLength && (
+        {isMaxLengthTextVisible && (
           <span className={css(inputLengthWrapperCss, { color: statusColor })}>
             <strong
               className={css({

@@ -6,8 +6,8 @@ interface InputBaseType {
 
 export interface NormalInputType extends InputBaseType, Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   variant?: 'normal';
-  value: string;
   onChange?: (value: string) => void;
+  value?: string;
 
   description?: string;
   errorMsg?: string;
@@ -21,13 +21,14 @@ export interface DropdownValueType<Value = string> {
 
 export interface NormalButtonInputTypes extends InputBaseType, Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   variant: 'normal-button';
-  value: string;
   onChange?: (value: string) => void;
+  value?: string;
 
   description?: string;
   errorMsg?: string;
   validMsg?: string;
   required?: boolean;
+
   buttonText: string;
 }
 
