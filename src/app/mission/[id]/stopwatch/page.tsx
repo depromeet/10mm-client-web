@@ -32,7 +32,7 @@ export default function StopwatchPage() {
   const category = useGetCategory();
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
+  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);
 
   const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
@@ -46,8 +46,8 @@ export default function StopwatchPage() {
 
   useCustomBack(openMidOutModal);
 
-  useUnloadAction(time);
   useRecordMidTime(time);
+  useUnloadAction(time);
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
@@ -134,6 +134,11 @@ export default function StopwatchPage() {
   };
 
   const onStart = () => {
+    // 중도 재시작
+    if (time > 0) {
+      return;
+    }
+    // 초기시작
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     onNextStep('progress');
     const startTime = new Date().toISOString();
@@ -167,7 +172,7 @@ export default function StopwatchPage() {
         </section>
         <section className={buttonContainerCss}>
           {step === 'ready' && (
-            <Button variant="cta" size="large" type="button" onClick={onStart}>
+            <Button variant="cta" size="large" type="button" onClick={onStart} disabled={isStopwatchPending}>
               시작
             </Button>
           )}
