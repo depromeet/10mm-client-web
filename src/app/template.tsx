@@ -8,10 +8,16 @@ const variants = {
   exit: (test: boolean) => ({ zIndex: 0, opacity: 0, x: test ? -300 : 300 }),
 };
 
+const getUserAgent = () => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+  return window.navigator.userAgent;
+};
+
 export default function Template({ children }: { children: React.ReactNode }) {
   const [customMotion, setCustomMotion] = useState(true);
-  const userAgent = window.navigator.userAgent;
-  const isApp = RegExp(APP_USER_AGENT).test(userAgent);
+  const isApp = RegExp(APP_USER_AGENT).test(getUserAgent());
 
   useEffect(() => {
     const popStateEventHandler = (_event: PopStateEvent) => {
