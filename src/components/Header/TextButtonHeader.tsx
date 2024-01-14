@@ -6,12 +6,19 @@ function TextButtonHeader({
   rightButtonText = '완료',
   rightButtonDisabled,
   onButtonClick,
+  rightButtonProps,
   ...props
 }: TextButtonHeaderType) {
   return (
     <HeaderBase
       rightElement={
-        <Button variant="ghost" size="medium" onClick={onButtonClick} disabled={rightButtonDisabled}>
+        <Button
+          variant="ghost"
+          size="medium"
+          onClick={onButtonClick}
+          disabled={rightButtonDisabled}
+          {...rightButtonProps}
+        >
           {rightButtonText}
         </Button>
       }
