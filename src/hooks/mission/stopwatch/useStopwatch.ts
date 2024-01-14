@@ -8,7 +8,7 @@ const INIT_SECONDS = 0;
 const MAX_SECONDS = 60 * 60; // max 1 hour
 
 const DEFAULT_MS = 1000;
-const TEST_MS = 100;
+const TEST_MS = 50;
 
 export default function useStopwatch(status: StepType) {
   const [second, setSecond] = useState(INIT_SECONDS); // 남은 시간 (단위: 초)

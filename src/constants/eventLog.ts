@@ -18,6 +18,7 @@ export const EVENT_LOG_NAME: Record<EventLogCategoryType, Record<string, string>
     CLICK_CANCEL: 'click/cancel',
     CLICK_STOP: 'click/stop',
     CLICK_START: 'click/start',
+    CLICK_RESTART: 'click/restart',
     MID_SAVE: 'mid-save',
     MID_SAVE_2: 'mid-save-2',
     CLICK_BACK: 'click/back',

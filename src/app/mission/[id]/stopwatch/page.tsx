@@ -49,12 +49,21 @@ export default function StopwatchPage() {
   useRecordMidTime(time);
   useUnloadAction(time);
 
+  const resetStopwatchStorage = () => {
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME);
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME_2);
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.START_TIME);
+  };
+
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
     onSuccess: (response) => {
       const missionRecordId = String(response.missionId);
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+
+      resetStopwatchStorage();
     },
     onError: (error) => {
       // TODO
@@ -134,13 +143,14 @@ export default function StopwatchPage() {
   };
 
   const onStart = () => {
+    onNextStep('progress');
     // 중도 재시작
     if (time > 0) {
+      eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
       return;
     }
     // 초기시작
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
-    onNextStep('progress');
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
     const startTime = new Date().toISOString();
     localStorage.setItem(STORAGE_KEY.STOPWATCH.MISSION_ID, missionId);
     localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
