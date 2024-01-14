@@ -12,9 +12,16 @@ export default function LoginPage() {
     router.push(ROUTER.GUEST.MISSION.NEW);
   };
 
+  const onClickLoginButton = () => {
+    router.push(ROUTER.AUTH.SIGNIN);
+  };
+
   return (
     <main className={MainWrapperCss}>
       <div className={LoginButtonListWrapperCss}>
+        <Button variant="primary" size="large" onClick={onClickLoginButton}>
+          아이디로 로그인
+        </Button>
         <ButtonSocialLogin type="kakao" />
         <ButtonSocialLogin type="apple" />
         <Button size="large" variant="ghost" onClick={onClickGuest}>
@@ -42,6 +49,7 @@ const MainWrapperCss = css({
 });
 
 const LoginButtonListWrapperCss = css({
+  maxWidth: '320px',
   display: 'flex',
   gap: '8px',
   flexDirection: 'column',
