@@ -41,7 +41,7 @@ function MissionList() {
           missionList.map((item) => (
             <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
               <TwoLineListItem
-                badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
+                badgeElement={<MissionBadge status={item.missionStatus} />}
                 name={item.content}
                 subName={MISSION_CATEGORY_LABEL[item.category].label}
                 imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
