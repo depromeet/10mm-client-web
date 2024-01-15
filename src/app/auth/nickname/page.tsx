@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useNicknameRegister } from '@/apis/auth';
 import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';
@@ -13,7 +13,7 @@ import { css } from '@styled-system/css';
 
 export default function AuthNickNamePage() {
   const [nickname, setNickname] = useState('');
-
+  const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
   const { mutate } = useNicknameRegister({
     onSuccess: () => {
