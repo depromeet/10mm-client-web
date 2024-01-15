@@ -8,7 +8,7 @@ function Loading() {
   return (
     <Portal>
       <article className={containerCss}>
-        <Image src="/assets/spinner.svg" width={70} height={70} alt="loading" />
+        <Image src="/assets/spinner.svg" width={36} height={36} alt="loading" />
       </article>
     </Portal>
   );
