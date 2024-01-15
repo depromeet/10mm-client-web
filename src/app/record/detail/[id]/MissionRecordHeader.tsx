@@ -13,7 +13,9 @@ function MissionRecordHeader({ recordId }: { recordId: string }) {
       rightAction="text-button"
       title={'미션 내역'}
       rightButtonText={'수정'}
-      onButtonClick={handleEditButtonClick}
+      rightButtonProps={{
+        onClick: handleEditButtonClick,
+      }}
     />
   );
 }

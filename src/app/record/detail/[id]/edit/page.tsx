@@ -29,7 +29,9 @@ function MissionRecordEditPage({ params }: { params: { id: string } }) {
         rightAction="text-button"
         title={'일지 수정'}
         rightButtonText={'저장'}
-        onButtonClick={handleSaveButtonClick}
+        rightButtonProps={{
+          onClick: handleSaveButtonClick,
+        }}
       />
       <TextArea count placeholder={'일지를 입력해주세요'} onChange={handleChange} value={value} />
     </main>
