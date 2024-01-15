@@ -54,6 +54,26 @@ const getMissions = http.get(BASE_URL + '/missions', ({ params }) => {
   });
 });
 
-const missionHandlers = [getMissions];
+const getMission = http.get(BASE_URL + '/missions/2', ({ params }) => {
+  const requestParamsKeys = ['missionId'];
+  const paramsKey = Object.keys(params);
+
+  if (!paramsKey.every((key) => requestParamsKeys.includes(key))) HttpResponse.error();
+
+  return HttpResponse.json({
+    data: {
+      content: {
+        missionId: 2,
+        name: '123 mock server',
+        content: '123',
+        category: 'STUDY',
+        visibility: 'ALL',
+        status: 'NONE',
+      },
+    },
+  });
+});
+
+const missionHandlers = [getMissions, getMission];
 
 export default missionHandlers;
