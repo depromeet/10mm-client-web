@@ -33,6 +33,7 @@ export const ROUTER = {
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     SIGNIN: '/auth/signin',
+    NICKNAME: '/auth/nickname',
   },
   GUEST: {
     MISSION: {

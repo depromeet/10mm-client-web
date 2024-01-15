@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     instrumentationHooks: true,
+    serverActions: true,
   },
 };
 

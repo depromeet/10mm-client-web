@@ -2,14 +2,32 @@
 
 import { useState } from 'react';
 import router from 'next/router';
+import { useNicknameRegister } from '@/apis/auth';
+import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
 export default function AuthNickNamePage() {
   const [nickname, setNickname] = useState('');
+
+  const { triggerSnackBar } = useSnackBar();
+  const { mutate } = useNicknameRegister({
+    onSuccess: () => {
+      router.push(ROUTER.HOME);
+    },
+    onError: (error) => {
+      if (isSeverError(error)) {
+        triggerSnackBar({
+          message: error.data.message,
+        });
+        return;
+      }
+    },
+  });
 
   const handleNickname = (value: string) => {
     setNickname(value);
@@ -17,9 +35,9 @@ export default function AuthNickNamePage() {
 
   const isSubmitButtonDisabled = !nickname;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!nickname) return;
-    router.push(ROUTER.HOME);
+    mutate({ nickname });
   };
 
   return (
