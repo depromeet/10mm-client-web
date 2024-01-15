@@ -31,7 +31,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!isApp) {
-    return <motion.main>{children}</motion.main>;
+    return <main>{children}</main>;
   }
 
   return (
