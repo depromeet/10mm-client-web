@@ -1,6 +1,7 @@
 import apiInstance from '@/apis/instance.api';
+import { type MemberType } from '@/apis/schema/member';
 import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schema/upload';
-import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
+import { useMutation, type UseMutationOptions, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface WithdrawalMemberRequest {
@@ -15,11 +16,17 @@ interface UploadProfileImageCompleteRequest extends UploadBaseRequest {
   nickname: string;
 }
 
+type MemberMeResponse = MemberType;
+
 const MEMBER_API = {
   withdrawalMember: async (request: WithdrawalMemberRequest) => {
     const { data } = await apiInstance.delete(`/members/withdrawal`, {
       data: request,
     });
+    return data;
+  },
+  getMembersMe: async (): Promise<MemberMeResponse> => {
+    const { data } = await apiInstance.get(`/members/me`);
     return data;
   },
   checkUsername: async (request: CheckUsernameRequest) => {
@@ -65,6 +72,14 @@ export const useUploadProfileImageComplete = (
 ) => {
   return useMutation({
     mutationFn: MEMBER_API.uploadProfileImageComplete,
+    ...option,
+  });
+};
+
+export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
+  return useSuspenseQuery({
+    queryKey: ['member', 'me'],
+    queryFn: () => MEMBER_API.getMembersMe(),
     ...option,
   });
 };
