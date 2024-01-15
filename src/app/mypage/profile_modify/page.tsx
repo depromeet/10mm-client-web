@@ -28,8 +28,7 @@ function ProfileModifyPage() {
       <Header
         rightAction="text-button"
         title="프로필 수정"
-        rightButtonDisabled={isSubmitButtonDisabled}
-        onButtonClick={onSubmit}
+        rightButtonProps={{ disabled: isSubmitButtonDisabled, onClick: onSubmit }}
       />
 
       <main className={mainCss}>

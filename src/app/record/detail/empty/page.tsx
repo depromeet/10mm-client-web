@@ -6,7 +6,14 @@ import { stack } from '@styled-system/patterns';
 function MissionRecordEmptyPage() {
   return (
     <main className={mainWrapperCss}>
-      <Header rightAction="text-button" title={'미션 내역'} rightButtonText={'수정'} rightButtonDisabled={true} />
+      <Header
+        rightAction="text-button"
+        title={'미션 내역'}
+        rightButtonText={'수정'}
+        rightButtonProps={{
+          disabled: true,
+        }}
+      />
 
       <div className={containerCss}>
         <Empty type={'notice'} title={'미션 인증 내역이 없어요.'} image={'docs'} description={''} />
