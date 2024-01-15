@@ -24,8 +24,8 @@ export default function MissionModifyPage() {
   const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LIST[0];
 
   //이전 상태
-  const [missionTitleInput, setMissionTitleInput] = useState(data.content.name);
-  const [missionContentInput, setMissionContentInput] = useState(data.content.content);
+  const [missionTitleInput, setMissionTitleInput] = useState(data.name);
+  const [missionContentInput, setMissionContentInput] = useState(data.content);
   const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
     PUBLIC_SETTING_LIST[0],
   );
