@@ -1,5 +1,6 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
-import { type ImageFileExtensionType, type RecordType } from '@/apis/schema/record';
+import { type RecordType } from '@/apis/schema/record';
+import { type UploadBaseRequest } from '@/apis/schema/upload';
 import { useMutation, type UseMutationOptions, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
@@ -16,9 +17,8 @@ interface RecordTimeResponse {
   missionId: string;
 }
 
-interface UploadUrlRequest {
+interface UploadUrlRequest extends UploadBaseRequest {
   missionRecordId: string;
-  imageFileExtension: ImageFileExtensionType;
 }
 
 interface UploadUrlResponse {

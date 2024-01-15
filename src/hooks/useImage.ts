@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import RECORD_API from '@/apis/record';
-import { IMAGE_File_Extension, type ImageFileExtensionType } from '@/apis/schema/record';
+import { IMAGE_File_Extension, type ImageFileExtensionType } from '@/apis/schema/upload';
 import axios from 'axios';
 
 export const useImage = () => {
