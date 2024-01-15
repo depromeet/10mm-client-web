@@ -1,12 +1,13 @@
 'use client';
 
 import { createContext, type PropsWithChildren, useContext, useState } from 'react';
-import { type SnackBarType, type SnackBarWithId } from '@/components/SnackBar/SnackBar.types';
+import { type SnackBarType, type SnackBarWithoutId } from '@/components/SnackBar/SnackBar.types';
 import SnackBarOverlay from '@/components/SnackBar/SnackBarOverlay';
 
 const SnackBarContext = createContext<{
-  snackBar: SnackBarWithId[];
-  triggerSnackBar: (snackBar: SnackBarType) => void;
+  snackBar: SnackBarType[];
+  triggerSnackBar: (snackBar: SnackBarWithoutId) => void;
+  removeSnackBar: (id: string) => void;
 } | null>(null);
 
 /**
@@ -26,13 +27,13 @@ export const useSnackBar = () => {
 };
 
 export default function SnackBarProvider({ children }: PropsWithChildren) {
-  const [snackBar, setSnackBar] = useState<SnackBarWithId[]>([]);
+  const [snackBar, setSnackBar] = useState<SnackBarType[]>([]);
 
   const removeSnackBar = (id: string) => {
     setSnackBar((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const triggerSnackBar = (addItem: SnackBarType) => {
+  const triggerSnackBar = (addItem: SnackBarWithoutId) => {
     const id = new Date().getTime().toString();
     setSnackBar((prev) => [...prev, { ...addItem, id }]);
 
@@ -45,7 +46,7 @@ export default function SnackBarProvider({ children }: PropsWithChildren) {
   };
 
   return (
-    <SnackBarContext.Provider value={{ snackBar, triggerSnackBar }}>
+    <SnackBarContext.Provider value={{ snackBar, triggerSnackBar, removeSnackBar }}>
       {children}
       <SnackBarOverlay />
     </SnackBarContext.Provider>

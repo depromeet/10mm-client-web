@@ -1,10 +1,10 @@
 import React from 'react';
 import IconSnackBar from '@/components/SnackBar/IconSnackBar';
 import NoneSnackBar from '@/components/SnackBar/NoneSnackBar';
-import { type SnackBarWithId } from '@/components/SnackBar/SnackBar.types';
+import { type SnackBarType } from '@/components/SnackBar/SnackBar.types';
 import TextButtonSnackBar from '@/components/SnackBar/TextButtonSnackBar';
 
-export default function SnackBar(props: SnackBarWithId) {
+export default function SnackBar(props: SnackBarType) {
   switch (props.variant) {
     case 'icon':
       return <IconSnackBar {...props} />;
