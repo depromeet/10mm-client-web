@@ -20,9 +20,11 @@ import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
+import { defaultFadeInAnimation } from '@/styles/motion';
 import { eventLogger } from '@/utils';
 import { formatDate } from '@/utils/time';
-import { css } from '@styled-system/css';
+import { css, cx } from '@styled-system/css';
+import { motion } from 'framer-motion';
 
 export default function StopwatchPage() {
   const params = useParams();
@@ -151,10 +153,13 @@ export default function StopwatchPage() {
       {isSubmitLoading && <Loading />}
       <Header rightAction="none" onBackAction={openBackModal} />
       <div className={containerCss}>
-        <h1 className={titleCss}>{stepLabel.title}</h1>
-        <p className={descCss}>{stepLabel.desc}</p>
-
-        <section className={stopwatchCss}>
+        <section>
+          <motion.h1 {...defaultFadeInAnimation} className={cx(titleCss, opacityAnimation)}>
+            {stepLabel.title}
+          </motion.h1>
+          <p className={cx(descCss, opacityAnimation)}>{stepLabel.desc}</p>
+        </section>
+        <section className={cx(stopwatchCss, opacityAnimation)}>
           <Stopwatch
             minutes={minutes}
             seconds={seconds}
@@ -164,7 +169,7 @@ export default function StopwatchPage() {
             isDisabled={step === 'stop'}
           />
         </section>
-        <section className={buttonContainerCss}>
+        <section className={cx(buttonContainerCss, opacityAnimation)}>
           {step === 'ready' && (
             <Button variant="cta" size="large" type="button" onClick={onStart}>
               시작
@@ -237,4 +242,8 @@ const buttonContainerCss = css({
   display: 'flex',
   justifyContent: 'center',
   gap: '12px',
+});
+
+const opacityAnimation = css({
+  // animation: 'fadeIn 1s',
 });
