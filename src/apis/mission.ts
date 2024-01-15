@@ -1,6 +1,12 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
 import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
-import { useMutation, useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  type UseMutationOptions,
+  useQuery,
+  type UseQueryOptions,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -43,8 +49,8 @@ const MISSION_APIS = {
   },
 
   modifyMission:
-    (missionId: number) =>
-    async ({ data }: { data: ModifyMissionRequest }): Promise<ModifyMissionResponse> => {
+    (missionId: string) =>
+    async (data: ModifyMissionRequest): Promise<ModifyMissionResponse> => {
       return apiInstance.put(`/missions/${missionId}`, {
         ...data,
       });
@@ -58,7 +64,7 @@ export interface MissionContentType {
   name: string;
   content: string;
   category: MissionCategory;
-  visibility: string;
+  visibility: MissionVisibility;
   status: string;
   sort: number;
 }
@@ -96,14 +102,12 @@ export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<
   });
 };
 
-export const useModifyMissionMutation = (missionId: number) => {
+export const useModifyMissionMutation = (
+  missionId: string,
+  option?: UseMutationOptions<ModifyMissionResponse, unknown, ModifyMissionRequest>,
+) => {
   return useMutation({
     mutationFn: MISSION_APIS.modifyMission(missionId),
-    onSuccess: () => {
-      console.log('뮤테이션 성공');
-    },
-    onError: () => {
-      // TODO: error handling
-    },
+    ...option,
   });
 };
