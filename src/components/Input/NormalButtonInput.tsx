@@ -1,8 +1,6 @@
-'use client';
-
 import { useState } from 'react';
 import { type NormalButtonInputTypes } from '@/components/Input/Input.types';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 import { getBorderColor } from '@/utils/getBorderColor';
 
 import Button from '../Button/Button';
@@ -10,6 +8,7 @@ import Button from '../Button/Button';
 export default function NormalButtonInput({
   value,
   onChange,
+  onTextButtonClick,
   errorMsg,
   validMsg,
   required = false,
@@ -29,22 +28,22 @@ export default function NormalButtonInput({
     onChange?.(inputValue);
   };
 
-  const onDoubleCheck = () => {
-    //TODO: 중복확인 로직
-    alert('중복확인 로직 추가');
-  };
+  const isMaxLengthTextVisible = value && props.maxLength;
 
   return (
     <section className={sectionCss}>
-      <p className={subTitleCss}>
+      <label className={subTitleCss} htmlFor={props.id}>
         {props.name}
         {required && <span className={asterisk}>*</span>}
-      </p>
+      </label>
 
       <div
-        className={css(inputWrapperCss, {
-          borderColor: getBorderColor(errorMsg, isFocused),
-        })}
+        className={cx(
+          inputWrapperCss,
+          css({
+            borderColor: getBorderColor(errorMsg, isFocused),
+          }),
+        )}
       >
         <input
           className={inputCss}
@@ -57,7 +56,7 @@ export default function NormalButtonInput({
           {...(required && { required: true })}
           {...props}
         />
-        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onDoubleCheck}>
+        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onTextButtonClick}>
           {props.buttonText}
         </Button>
       </div>
@@ -71,8 +70,8 @@ export default function NormalButtonInput({
           {errorMsg || props.description}
         </span>
 
-        {props.maxLength && (
-          <span className={css(inputLengthWrapperCss, { color: statusColor })}>
+        {isMaxLengthTextVisible && (
+          <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
             <strong
               className={css({
                 color: errorMsg ? 'red.red500' : 'text.tertiary',
@@ -95,7 +94,7 @@ const descriptionCss = css({
   textStyle: 'body6',
 });
 
-const inputWrapperCss = {
+const inputWrapperCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -106,7 +105,7 @@ const inputWrapperCss = {
   _focusWithin: { outline: 'none' },
   boxSizing: 'border-box',
   backgroundColor: 'bg.surface2',
-};
+});
 
 const subTitleCss = css({
   textStyle: 'body5',
@@ -129,10 +128,10 @@ const inputCss = css({
   _placeholder: { color: 'gray.gray300' },
 });
 
-const inputLengthWrapperCss = {
+const inputLengthWrapperCss = css({
   textStyle: 'body6',
   color: 'text.tertiary',
-};
+});
 
 const descriptionTextCss = {
   color: 'bg.surface1',
@@ -143,5 +142,6 @@ const buttonCss = css({
 });
 
 const sectionCss = css({
+  width: '100%',
   _focusWithin: {},
 });
