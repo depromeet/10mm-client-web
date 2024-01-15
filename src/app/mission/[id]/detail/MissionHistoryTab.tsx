@@ -1,15 +1,21 @@
 import { Suspense } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import Button from '@/components/Button/Button';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
 function MissionHistoryTab() {
   const { id } = useParams();
+  const router = useRouter();
   const missionId = Array.isArray(id) ? id[0] : id;
   const currentDate = new Date();
+
+  const handleMissionStart = () => {
+    router.push(ROUTER.MISSION.STOP_WATCH(missionId));
+  };
 
   return (
     <div className={scrollAreaCss}>
@@ -22,7 +28,7 @@ function MissionHistoryTab() {
         </Suspense>
       </div>
       <div className={bottomDimCss}>
-        <Button size={'medium'} variant={'cta'} className={buttonCss}>
+        <Button size={'medium'} variant={'cta'} className={buttonCss} onClick={handleMissionStart}>
           미션 시작하기
         </Button>
       </div>
