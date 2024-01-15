@@ -42,7 +42,7 @@ export default function MissionModifyPage() {
     missionContentInput === PREVIOUS_MISSIONCONTENT &&
     missionPublicSetting === PREVIOUS_PUBLIC_SETTING;
 
-  const modifyTest = () => {
+  const missionModify = () => {
     //mutate 오류 해결 중
     mutate({
       data: {
@@ -61,7 +61,7 @@ export default function MissionModifyPage() {
       <Header
         rightAction="text-button"
         title={'미션 수정'}
-        rightButtonProps={{ disabled: isButtonDisabled, onClick: modifyTest }}
+        rightButtonProps={{ disabled: isButtonDisabled, onClick: missionModify }}
       />
       <div className={containerCss}>
         <Input
