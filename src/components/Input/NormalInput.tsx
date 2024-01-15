@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { type NormalInputType } from '@/components/Input/Input.types';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 
 import Icon from '../Icon';
 
@@ -36,9 +36,12 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
       </label>
 
       <div
-        className={css(inputWrapperCss, {
-          borderColor: errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'border.default',
-        })}
+        className={cx(
+          inputWrapperCss,
+          css({
+            borderColor: errorMsg ? 'red.red500' : isFocused ? 'purple.purple500' : 'border.default',
+          }),
+        )}
       >
         <input
           className={inputCss}
@@ -57,15 +60,18 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
 
       <div className={descriptionCss}>
         <span
-          className={css(descriptionTextCss, {
-            color: statusColor,
-          })}
+          className={cx(
+            descriptionTextCss,
+            css({
+              color: statusColor,
+            }),
+          )}
         >
           {errorMsg || props.description}
         </span>
 
         {isMaxLengthTextVisible && (
-          <span className={css(inputLengthWrapperCss, { color: statusColor })}>
+          <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
             <strong
               className={css({
                 color: errorMsg ? 'red.red500' : 'text.tertiary',
@@ -88,7 +94,7 @@ const descriptionCss = css({
   textStyle: 'body6',
 });
 
-const inputWrapperCss = {
+const inputWrapperCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
@@ -98,7 +104,7 @@ const inputWrapperCss = {
   _focusWithin: { outline: 'none' },
   boxSizing: 'border-box',
   backgroundColor: 'bg.surface2',
-};
+});
 
 const subTitleCss = css({
   textStyle: 'body5',
@@ -121,14 +127,14 @@ const inputCss = css({
   _placeholder: { color: 'gray.gray300' },
 });
 
-const inputLengthWrapperCss = {
+const inputLengthWrapperCss = css({
   textStyle: 'body6',
   color: 'text.tertiary',
-};
+});
 
-const descriptionTextCss = {
+const descriptionTextCss = css({
   color: 'bg.surface1',
-};
+});
 
 const iconCss = css({
   cursor: 'pointer',

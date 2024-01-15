@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { type NormalButtonInputTypes } from '@/components/Input/Input.types';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 import { getBorderColor } from '@/utils/getBorderColor';
 
 import Button from '../Button/Button';
@@ -38,9 +38,12 @@ export default function NormalButtonInput({
       </label>
 
       <div
-        className={css(inputWrapperCss, {
-          borderColor: getBorderColor(errorMsg, isFocused),
-        })}
+        className={cx(
+          inputWrapperCss,
+          css({
+            borderColor: getBorderColor(errorMsg, isFocused),
+          }),
+        )}
       >
         <input
           className={inputCss}
@@ -68,7 +71,7 @@ export default function NormalButtonInput({
         </span>
 
         {isMaxLengthTextVisible && (
-          <span className={css(inputLengthWrapperCss, { color: statusColor })}>
+          <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
             <strong
               className={css({
                 color: errorMsg ? 'red.red500' : 'text.tertiary',
@@ -91,7 +94,7 @@ const descriptionCss = css({
   textStyle: 'body6',
 });
 
-const inputWrapperCss = {
+const inputWrapperCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -102,7 +105,7 @@ const inputWrapperCss = {
   _focusWithin: { outline: 'none' },
   boxSizing: 'border-box',
   backgroundColor: 'bg.surface2',
-};
+});
 
 const subTitleCss = css({
   textStyle: 'body5',
@@ -125,10 +128,10 @@ const inputCss = css({
   _placeholder: { color: 'gray.gray300' },
 });
 
-const inputLengthWrapperCss = {
+const inputLengthWrapperCss = css({
   textStyle: 'body6',
   color: 'text.tertiary',
-};
+});
 
 const descriptionTextCss = {
   color: 'bg.surface1',
