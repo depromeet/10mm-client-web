@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import MISSION_APIS, { type MissionVisibility, useModifyMissionMutation } from '@/apis/mission';
+import MISSION_APIS, { useModifyMissionMutation } from '@/apis/mission';
+import { type MissionVisibility } from '@/apis/schema/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
@@ -58,9 +59,7 @@ export default function MissionModifyPage() {
       <Header
         rightAction="text-button"
         title={'미션 수정'}
-        rightButtonText={'저장'}
-        onButtonClick={modifyTest}
-        rightButtonDisabled={isButtonDisabled}
+        rightButtonProps={{ disabled: isButtonDisabled, onClick: modifyTest }}
       />
       <div className={containerCss}>
         <Input

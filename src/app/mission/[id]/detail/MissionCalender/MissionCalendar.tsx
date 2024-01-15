@@ -1,28 +1,12 @@
 import { useGetRecord } from '@/apis';
-import { type RecordType } from '@/apis/schema/record';
 import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
-import { getCalenderInfo } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
+import {
+  getCalenderInfo,
+  getMissionCalendarItemProps,
+  getYearMonth,
+} from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
 import { css } from '@styled-system/css';
-
-const getMissionCalendarItemProps = (date: number, records: RecordType[]) => {
-  const filterRecord = records.filter((record) => record.missionDay === date);
-  if (filterRecord.length > 0) {
-    return {
-      imageUrl: filterRecord[0].imageUrl,
-    };
-  }
-  return {
-    imageUrl: undefined,
-  };
-};
-
-const getYearMonth = (currentDate: Date) => {
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth() + 1;
-  const monthString = month < 10 ? `0${month}` : `${month}`;
-  return `${year}-${monthString}`;
-};
 
 function MissionCalendar({ currentDate, missionId }: { currentDate: Date; missionId: number }) {
   const currentYear = currentDate.getFullYear();
@@ -57,7 +41,7 @@ function MissionCalendar({ currentDate, missionId }: { currentDate: Date; missio
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
                     <MissionCalendarItem
                       date={day.date}
-                      imageUrl={getMissionCalendarItemProps(day.date, data).imageUrl}
+                      {...getMissionCalendarItemProps(day.date, data)}
                       isActive={day.date === selectedDate}
                     />
                   </td>

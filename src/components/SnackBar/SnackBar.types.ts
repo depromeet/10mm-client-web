@@ -3,6 +3,7 @@ import { type IconComponentMap } from '@/components/Icon';
 export interface SnackBarBaseType {
   message: string;
   offset?: 'appBar' | 'default' | 'cta';
+  id: string;
 }
 
 export interface SnackBarNoneType extends SnackBarBaseType {
@@ -22,6 +23,8 @@ export interface SnackBarTextButtonType extends SnackBarBaseType {
 }
 
 export type SnackBarType = SnackBarNoneType | SnackBarIconType | SnackBarTextButtonType;
-export type SnackBarWithId = SnackBarType & {
-  id: string;
-};
+
+export type SnackBarWithoutId =
+  | Omit<SnackBarNoneType, 'id'>
+  | Omit<SnackBarIconType, 'id'>
+  | Omit<SnackBarTextButtonType, 'id'>;
