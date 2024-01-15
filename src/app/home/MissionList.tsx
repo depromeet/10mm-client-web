@@ -16,10 +16,10 @@ type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 function MissionList() {
   const { missionList, isLoading } = useMissions();
 
-  // // TODO: 스켈레톤 또는 로딩 추가
-  // if (isLoading) {
-  //   return <>loading...</>;
-  // }
+  // TODO: 스켈레톤 또는 로딩 추가
+  if (isLoading) {
+    return <>loading...</>;
+  }
 
   return (
     <div className={containerCss}>
