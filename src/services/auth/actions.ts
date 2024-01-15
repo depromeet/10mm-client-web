@@ -34,3 +34,8 @@ export async function getTokens() {
     refreshToken: refreshToken ? refreshToken.value : null,
   };
 }
+
+export async function removeTokens() {
+  cookies().delete('accessToken');
+  cookies().delete('refreshToken');
+}

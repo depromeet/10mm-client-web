@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
-import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
@@ -22,8 +21,8 @@ export default function LoginPage() {
         <Button variant="primary" size="large" onClick={onClickLoginButton}>
           아이디로 로그인
         </Button>
-        <ButtonSocialLogin type="kakao" />
-        <ButtonSocialLogin type="apple" />
+        {/*<ButtonSocialLogin type="kakao" />*/}
+        {/*<ButtonSocialLogin type="apple" />*/}
         <Button size="large" variant="ghost" onClick={onClickGuest}>
           둘러보기
         </Button>
