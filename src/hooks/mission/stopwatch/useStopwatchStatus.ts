@@ -24,8 +24,10 @@ function useStopwatchStatus() {
   const stepLabel = STOPWATCH_STATUS[step];
 
   const onNextStep = (nextStep: StepType) => {
-    setPrevStep(step);
-    setStep(nextStep);
+    setStep((prev) => {
+      setPrevStep(prev);
+      return nextStep;
+    });
   };
 
   return { step, prevStep, onNextStep, stepLabel };

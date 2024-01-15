@@ -44,7 +44,10 @@ export default function StopwatchPage() {
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
-  useCustomBack(openMidOutModal);
+  useCustomBack(() => {
+    onNextStep('stop');
+    openMidOutModal();
+  });
 
   useUnloadAction(time);
   useRecordMidTime(time);
@@ -140,6 +143,11 @@ export default function StopwatchPage() {
     localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
   };
 
+  const onBackAction = () => {
+    onNextStep('stop');
+    openBackModal();
+  };
+
   useEffect(() => {
     if (isFinished) {
       onAutoFinish();
@@ -149,7 +157,7 @@ export default function StopwatchPage() {
   return (
     <>
       {isSubmitLoading && <Loading />}
-      <Header rightAction="none" onBackAction={openBackModal} />
+      <Header rightAction="none" onBackAction={onBackAction} />
       <div className={containerCss}>
         <section key={step} className={opacityAnimation}>
           <h1 className={cx(titleCss)}>{stepLabel.title}</h1>
