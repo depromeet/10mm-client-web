@@ -12,7 +12,7 @@ export const ROUTER = {
     CREATE: (id: string) => `/record/${id}`,
     SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
     DETAIL: {
-      HOME: (id: string) => `/record/detail/${id}`,
+      HOME: (id: string) => `/record/${id}/detail/`,
       EMPTY: `/record/detail/empty`,
       EDIT: (id: string) => `/record/detail/${id}/edit`,
     },
