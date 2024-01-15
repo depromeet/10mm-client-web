@@ -16,17 +16,17 @@ type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 function MissionList() {
   const { missionList, isLoading } = useMissions();
 
-  // TODO: 스켈레톤 또는 로딩 추가
-  if (isLoading) {
-    return <>loading...</>;
-  }
+  // // TODO: 스켈레톤 또는 로딩 추가
+  // if (isLoading) {
+  //   return <>loading...</>;
+  // }
 
   return (
     <div className={containerCss}>
       <h2 className={headingCss}>
         <span>내 미션 목록</span>
         <Link href={ROUTER.MISSION.NEW}>
-          <Icon name="plus" />
+          <Icon name="plus" size={20} />
         </Link>
       </h2>
       <ul className={listCss}>
@@ -54,9 +54,9 @@ const containerCss = css({
 });
 
 const headingCss = flex({
-  padding: '16px 0',
+  padding: '12px 4px',
   justifyContent: 'space-between',
-  textStyle: 'subtitle3',
+  textStyle: 'body4',
   color: 'text.primary',
   userSelect: 'none',
 });
