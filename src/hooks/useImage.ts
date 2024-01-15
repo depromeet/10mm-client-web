@@ -46,7 +46,7 @@ export const uploadImageToServer = async (missionRecordId: string, imageFile: Fi
   }
 };
 
-const checkImageType = (type?: string): ImageFileExtensionType | false => {
+export const checkImageType = (type?: string): ImageFileExtensionType | false => {
   if (!type) return false;
   if (type in IMAGE_File_Extension) return IMAGE_File_Extension[type];
   return false;
