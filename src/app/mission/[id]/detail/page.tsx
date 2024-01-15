@@ -1,10 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import MISSION_APIS, { useDeleteMissionMutation } from '@/apis/mission';
 import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
 import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Tab from '@/components/Tab/Tab';
+import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { css } from '@styled-system/css';
 
@@ -12,6 +15,16 @@ export default function MissionDetailPage() {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
 
+  const { triggerSnackBar } = useSnackBar();
+  const { id } = useParams();
+  const { mutate: missionDeleteMutate } = useDeleteMissionMutation(id as string, {
+    onSuccess: () => {
+      router.replace(ROUTER.HOME);
+    },
+    onError: () => {
+      triggerSnackBar({ message: '미션 삭제에 실패했습니다. 다시 시도해주세요.' });
+    },
+  });
   const tabs = [
     {
       tabName: '미션 내역',
@@ -19,17 +32,12 @@ export default function MissionDetailPage() {
     },
   ];
 
-  const handleMenuClick = (id: string) => {
-    if (id === 'mission-modify') {
-      router.replace('detail/modify');
+  const handleMenuClick = (menuId: string) => {
+    if (menuId === 'mission-modify') {
+      router.push(ROUTER.MISSION.MODIFY(id as string));
       return;
     }
     openDeleteDialog();
-  };
-  const handleDeleteConfirm = () => {
-    //TODO: 삭제 API 추가
-    router.replace('/');
-    // closeDeleteDialog();
   };
 
   const handleDeleteCancel = () => {
@@ -51,7 +59,7 @@ export default function MissionDetailPage() {
         variant={'default'}
         isOpen={isOpen}
         onClose={closeDeleteDialog}
-        onConfirm={handleDeleteConfirm}
+        onConfirm={missionDeleteMutate}
         onCancel={handleDeleteCancel}
         title="정말 삭제하시겠어요?"
         content="미션을 삭제하면 그동안의 기록들이 사라져요."

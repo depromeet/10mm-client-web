@@ -4,6 +4,7 @@ import {
   useMutation,
   type UseMutationOptions,
   useQuery,
+  useQueryClient,
   type UseQueryOptions,
   useSuspenseQuery,
 } from '@tanstack/react-query';
@@ -16,11 +17,6 @@ interface CreateMissionRequest {
   category: MissionCategory;
   visibility: MissionVisibility;
 }
-
-type GetMissionsParams = {
-  size: number;
-  lastId?: number;
-};
 
 interface ModifyMissionRequest {
   missionId: number;
@@ -36,10 +32,8 @@ const MISSION_APIS = {
     });
   },
 
-  getMissions: async (params: GetMissionsParams): Promise<GetMissionsResponse> => {
-    const { data } = await apiInstance.get<GetMissionsResponse>('/missions', {
-      params,
-    });
+  getMissions: async (): Promise<GetMissionsResponse> => {
+    const { data } = await apiInstance.get<GetMissionsResponse>('/missions');
     return data;
   },
 
@@ -55,6 +49,10 @@ const MISSION_APIS = {
         ...data,
       });
     },
+
+  deleteMission: (missionId: string) => {
+    return apiInstance.delete(`/missions/${missionId}`);
+  },
 };
 
 export default MISSION_APIS;
@@ -79,12 +77,12 @@ interface ModifyMissionResponse {
   visibility: string;
 }
 
-const getMissionsIdQueryKey = createQueryKeyFactory<GetMissionsParams>('missions');
+const missionsQueryKey = ['missions'];
 
-export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptions<GetMissionsResponse>) => {
+export const useGetMissions = (option?: UseQueryOptions<GetMissionsResponse>) => {
   return useQuery<GetMissionsResponse>({
-    queryKey: getMissionsIdQueryKey(params),
-    queryFn: () => MISSION_APIS.getMissions(params),
+    queryKey: missionsQueryKey,
+    queryFn: MISSION_APIS.getMissions,
     ...option,
   });
 };
@@ -108,6 +106,18 @@ export const useModifyMissionMutation = (
 ) => {
   return useMutation({
     mutationFn: MISSION_APIS.modifyMission(missionId),
+    ...option,
+  });
+};
+
+export const useDeleteMissionMutation = (missionId: string, option?: UseMutationOptions) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => MISSION_APIS.deleteMission(missionId),
+    onSuccess: async (...data) => {
+      await queryClient.invalidateQueries({ queryKey: missionsQueryKey });
+      option?.onSuccess?.(...data);
+    },
     ...option,
   });
 };
