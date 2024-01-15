@@ -24,8 +24,6 @@ export interface NoneHeaderType extends HeaderBaseType {
 export interface TextButtonHeaderType extends HeaderBaseType {
   rightAction: 'text-button';
   rightButtonText?: string;
-  onButtonClick?: () => void;
-  rightButtonDisabled?: boolean;
   rightButtonProps?: Omit<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'>;
 }
 

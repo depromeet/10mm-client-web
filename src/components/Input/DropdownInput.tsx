@@ -95,7 +95,15 @@ interface DropdownProps<T extends string>
 function Dropdown<T extends string>(props: DropdownProps<T>) {
   return (
     <BottomSheet
-      headerElement={<Header rightAction="text-button" title="카테고리" onButtonClick={props.onClickOutside} />}
+      headerElement={
+        <Header
+          rightAction="text-button"
+          title="카테고리"
+          rightButtonProps={{
+            onClick: props.onClickOutside,
+          }}
+        />
+      }
       {...props}
     >
       <ul className={dropdownListCss}>
