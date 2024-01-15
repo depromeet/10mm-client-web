@@ -56,9 +56,7 @@ export default function MissionModifyPage() {
       <Header
         rightAction="text-button"
         title={'미션 수정'}
-        rightButtonText={'저장'}
-        onButtonClick={modifyTest}
-        rightButtonDisabled={isButtonDisabled}
+        rightButtonProps={{ disabled: isButtonDisabled, onClick: modifyTest }}
       />
       <div className={containerCss}>
         <Input

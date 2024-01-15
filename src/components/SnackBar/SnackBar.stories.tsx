@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppBarBottomView from '@/components/AppBarBottom/AppBarBottomVIew';
 import Button from '@/components/Button/Button';
 import SnackBar from '@/components/SnackBar/SnackBar';
-import { type SnackBarWithId } from '@/components/SnackBar/SnackBar.types';
+import { type SnackBarType } from '@/components/SnackBar/SnackBar.types';
 import SnackBarProvider, { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import type { Meta } from '@storybook/react';
 
@@ -23,7 +23,7 @@ const meta = {
 
 export default meta;
 
-export const WithCTA = (args: SnackBarWithId) => {
+export const WithCTA = (args: SnackBarType) => {
   const { triggerSnackBar } = useSnackBar();
 
   return (
@@ -33,7 +33,7 @@ export const WithCTA = (args: SnackBarWithId) => {
   );
 };
 
-export const WithAppBar = (args: SnackBarWithId) => {
+export const WithAppBar = (args: SnackBarType) => {
   const { triggerSnackBar } = useSnackBar();
   const [current, setCurrent] = useState('home');
 

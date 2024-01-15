@@ -1,3 +1,5 @@
+import { type ComponentProps } from 'react';
+import type Button from '@/components/Button/Button';
 import { type IconComponentMap } from '@/components/Icon';
 import { type MenuBaseItem } from '@/components/Menu';
 
@@ -22,8 +24,7 @@ export interface NoneHeaderType extends HeaderBaseType {
 export interface TextButtonHeaderType extends HeaderBaseType {
   rightAction: 'text-button';
   rightButtonText?: string;
-  onButtonClick?: () => void;
-  rightButtonDisabled?: boolean;
+  rightButtonProps?: Omit<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'>;
 }
 
 export interface IconMenuHeaderType extends HeaderBaseType {
