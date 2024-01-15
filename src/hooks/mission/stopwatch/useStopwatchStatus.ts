@@ -17,8 +17,8 @@ const STOPWATCH_STATUS = {
   },
 } as const;
 
-function useStopwatchStatus() {
-  const [step, setStep] = useState<StepType>('ready');
+function useStopwatchStatus(initStatus?: StepType) {
+  const [step, setStep] = useState<StepType>(initStatus ?? 'ready');
   const [prevStep, setPrevStep] = useState<StepType>('ready');
 
   const stepLabel = STOPWATCH_STATUS[step];
