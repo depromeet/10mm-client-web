@@ -241,7 +241,7 @@ const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
 const descCss = css({
   color: 'text.secondary',
   textStyle: 'body4',
-  marginTop: '4px',
+  marginTop: '8px',
   marginBottom: '76px',
   minHeight: '40px',
 });
