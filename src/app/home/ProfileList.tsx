@@ -14,6 +14,7 @@ export default ProfileList;
 
 const containerCss = flex({
   padding: '16px',
+  paddingBottom: '20px',
   gap: '12px',
   alignItems: 'stretch',
 });

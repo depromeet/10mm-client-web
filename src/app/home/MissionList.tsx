@@ -28,7 +28,7 @@ function MissionList() {
       <h2 className={headingCss}>
         <span>내 미션 목록</span>
         <Link href={ROUTER.MISSION.NEW}>
-          <Icon name="plus" />
+          <Icon name="plus" size={20} />
         </Link>
       </h2>
       <ul className={listCss}>
@@ -63,9 +63,9 @@ const containerCss = flex({
 });
 
 const headingCss = flex({
-  padding: '16px 0',
+  padding: '12px 4px',
   justifyContent: 'space-between',
-  textStyle: 'subtitle3',
+  textStyle: 'body4',
   color: 'text.primary',
   userSelect: 'none',
 });

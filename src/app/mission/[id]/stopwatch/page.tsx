@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetMissionDetail } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
@@ -19,7 +19,7 @@ import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { formatDate } from '@/utils/time';
-import { css } from '@styled-system/css';
+import { css, cx } from '@styled-system/css';
 
 export default function StopwatchPage() {
   const params = useParams();
@@ -31,7 +31,7 @@ export default function StopwatchPage() {
   const category = MISSION_CATEGORY_LABEL[missionData?.category].label;
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
+  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);
 
   const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
@@ -43,10 +43,20 @@ export default function StopwatchPage() {
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
-  useCustomBack(openMidOutModal);
+  useCustomBack(() => {
+    onNextStep('stop');
+    openMidOutModal();
+  });
 
-  useUnloadAction(time);
   useRecordMidTime(time);
+  useUnloadAction(time);
+
+  const resetStopwatchStorage = () => {
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME);
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME_2);
+    localStorage.removeItem(STORAGE_KEY.STOPWATCH.START_TIME);
+  };
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
@@ -54,6 +64,8 @@ export default function StopwatchPage() {
       const missionRecordId = String(response.missionId);
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+
+      resetStopwatchStorage();
     },
     onError: (error) => {
       // TODO
@@ -100,6 +112,7 @@ export default function StopwatchPage() {
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.push(ROUTER.MISSION.DETAIL(missionId));
+    resetStopwatchStorage();
   };
 
   const onFinish = () => {
@@ -133,10 +146,22 @@ export default function StopwatchPage() {
   };
 
   const onStart = () => {
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     onNextStep('progress');
+    // 중도 재시작
+    if (time > 0) {
+      eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
+      return;
+    }
+    // 초기시작
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
     const startTime = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.MISSION_ID, missionId);
     localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
+  };
+
+  const onBackAction = () => {
+    onNextStep('stop');
+    openBackModal();
   };
 
   useEffect(() => {
@@ -148,12 +173,20 @@ export default function StopwatchPage() {
   return (
     <>
       {isSubmitLoading && <Loading />}
-      <Header rightAction="none" onBackAction={openBackModal} />
+      <Header rightAction="none" onBackAction={onBackAction} />
       <div className={containerCss}>
-        <h1 className={titleCss}>{stepLabel.title}</h1>
-        <p className={descCss}>{stepLabel.desc}</p>
-
-        <section className={stopwatchCss}>
+        <section key={step} className={opacityAnimation}>
+          <h1 className={cx(titleCss)}>{stepLabel.title}</h1>
+          <p className={cx(descCss)}>
+            {stepLabel.desc.split('\n').map((text) => (
+              <Fragment key={text}>
+                {text}
+                <br />
+              </Fragment>
+            ))}
+          </p>
+        </section>
+        <section className={cx(stopwatchCss, opacityAnimation)}>
           <Stopwatch
             minutes={minutes}
             seconds={seconds}
@@ -163,9 +196,9 @@ export default function StopwatchPage() {
             isDisabled={step === 'stop'}
           />
         </section>
-        <section className={buttonContainerCss}>
+        <section className={cx(buttonContainerCss, opacityAnimation)}>
           {step === 'ready' && (
-            <Button variant="cta" size="large" type="button" onClick={onStart}>
+            <Button variant="cta" size="large" type="button" onClick={onStart} disabled={isStopwatchPending}>
               시작
             </Button>
           )}
@@ -221,7 +254,13 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
+const descCss = css({
+  color: 'text.secondary',
+  textStyle: 'body4',
+  marginTop: '8px',
+  marginBottom: '76px',
+  minHeight: '40px',
+});
 
 const stopwatchCss = css({
   width: 'fit-content',
@@ -236,4 +275,8 @@ const buttonContainerCss = css({
   display: 'flex',
   justifyContent: 'center',
   gap: '12px',
+});
+
+const opacityAnimation = css({
+  animation: 'fadeIn .7s',
 });
