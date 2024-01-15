@@ -55,3 +55,13 @@ export const CardBanner: Story = {
     date: { table: { disable: true } },
   },
 };
+export const GraphicBanner: Story = {
+  args: {
+    type: 'graphic',
+    imageUrl: 'https://github.com/depromeet/10mm-client-web/assets/49177223/0b7b5bdf-3387-4438-b705-bfcb58fc1440', // 임시 사진
+  },
+  argTypes: {
+    imageUrl: { table: { disable: true } },
+    date: { table: { disable: true } },
+  },
+};
