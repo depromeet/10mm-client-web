@@ -1,6 +1,6 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
 import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
-import { useQuery, type UseQueryOptions, useSuspenseQuery, useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -43,7 +43,7 @@ const MISSION_APIS = {
   },
 
   modifyMission:
-    (missionId: number) =>
+    (missionId: string) =>
     async ({ data }: { data: ModifyMissionRequest }): Promise<ModifyMissionResponse> => {
       return apiInstance.put(`/missions/${missionId}`, {
         ...data,
@@ -120,7 +120,7 @@ export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<
   });
 };
 
-export const useModifyMissionMutation = (missionId: number) => {
+export const useModifyMissionMutation = (missionId: string) => {
   return useMutation({
     mutationFn: MISSION_APIS.modifyMission(missionId),
     onSuccess: () => {
