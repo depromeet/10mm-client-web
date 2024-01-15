@@ -7,9 +7,9 @@ const INIT_SIZE = 10;
 
 export const useMissions = () => {
   const { data, isLoading } = useGetMissions({ size: INIT_SIZE });
-  const missionList = data?.content ?? [];
+  const missionList = data ?? [];
 
-  useRequireMission(data?.content);
+  useRequireMission(data);
 
   return { missionList, isLoading };
 };
@@ -29,7 +29,7 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
 
   const checkRequireRecordMission = () => {
     if (!missionList) return;
-    const requireMission = missionList.find((mission) => mission.status === MissionStatus.REQUIRED);
+    const requireMission = missionList.find((mission) => mission.missionStatus === MissionStatus.REQUIRED);
 
     if (!requireMission) return false;
     triggerRequireSnackBar();
@@ -42,14 +42,3 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [missionList]);
 };
-
-// Test Data, 나중에 삭제
-const MOCK_MISSION: MissionItemType = {
-  missionId: 7,
-  name: 'default name REQUIRED',
-  content: 'default content REQUIRED',
-  category: 'STUDY',
-  visibility: 'ALL',
-  status: 'REQUIRED',
-  sort: 1,
-} as MissionItemType;
