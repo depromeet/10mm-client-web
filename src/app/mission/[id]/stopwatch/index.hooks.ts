@@ -43,7 +43,6 @@ export function useRecordMidTime(time: number) {
     localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME_2, String(time));
   };
 
-  // 카운터 속도 증가
   useInterval(() => {
     onSaveTime();
   }, 10000);
