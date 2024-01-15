@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import MISSION_APIS, { useModifyMissionMutation } from '@/apis/mission';
+import MISSION_APIS, { useGetMissionDetail, useModifyMissionMutation } from '@/apis/mission';
 import { type MissionVisibility } from '@/apis/schema/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
@@ -14,7 +14,8 @@ export default function MissionModifyPage() {
   const router = useRouter();
   const { id } = useParams();
   const missionId = Array.isArray(id) ? id[0] : id;
-  console.log(missionId);
+
+  const { data } = useGetMissionDetail(missionId);
   const { mutate } = useModifyMissionMutation(missionId);
 
   //TODO: 미션 내역 단건 조회 get api 호출
@@ -23,10 +24,11 @@ export default function MissionModifyPage() {
   const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LIST[0];
 
   //이전 상태
-  const [missionTitleInput, setMissionTitleInput] = useState(PREVIOUS_MISSIONTITLE);
-  const [missionContentInput, setMissionContentInput] = useState(PREVIOUS_MISSIONCONTENT);
-  const [missionPublicSetting, setMissionPublicSetting] =
-    useState<DropdownValueType<MissionVisibility>>(PREVIOUS_PUBLIC_SETTING);
+  const [missionTitleInput, setMissionTitleInput] = useState(data.content.name);
+  const [missionContentInput, setMissionContentInput] = useState(data.content.content);
+  const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
+    PUBLIC_SETTING_LIST[0],
+  );
 
   const handleMissionTitleInput = (value: string) => {
     setMissionTitleInput(value);
