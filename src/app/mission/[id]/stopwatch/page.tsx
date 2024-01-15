@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecordTime } from '@/apis/record';
 import {
@@ -20,11 +20,9 @@ import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
-import { defaultFadeInAnimation } from '@/styles/motion';
 import { eventLogger } from '@/utils';
 import { formatDate } from '@/utils/time';
 import { css, cx } from '@styled-system/css';
-import { motion } from 'framer-motion';
 
 export default function StopwatchPage() {
   const params = useParams();
@@ -153,11 +151,16 @@ export default function StopwatchPage() {
       {isSubmitLoading && <Loading />}
       <Header rightAction="none" onBackAction={openBackModal} />
       <div className={containerCss}>
-        <section>
-          <motion.h1 {...defaultFadeInAnimation} className={cx(titleCss, opacityAnimation)}>
-            {stepLabel.title}
-          </motion.h1>
-          <p className={cx(descCss, opacityAnimation)}>{stepLabel.desc}</p>
+        <section key={step} className={opacityAnimation}>
+          <h1 className={cx(titleCss)}>{stepLabel.title}</h1>
+          <p className={cx(descCss)}>
+            {stepLabel.desc.split('\n').map((text) => (
+              <Fragment key={text}>
+                {text}
+                <br />
+              </Fragment>
+            ))}
+          </p>
         </section>
         <section className={cx(stopwatchCss, opacityAnimation)}>
           <Stopwatch
@@ -227,7 +230,13 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
+const descCss = css({
+  color: 'text.secondary',
+  textStyle: 'body4',
+  marginTop: '4px',
+  marginBottom: '76px',
+  minHeight: '40px',
+});
 
 const stopwatchCss = css({
   width: 'fit-content',
@@ -245,5 +254,5 @@ const buttonContainerCss = css({
 });
 
 const opacityAnimation = css({
-  // animation: 'fadeIn 1s',
+  animation: 'fadeIn .7s',
 });
