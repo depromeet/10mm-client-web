@@ -124,6 +124,7 @@ const inputCss = css({
   textStyle: 'subtitle3',
   color: 'text.secondary',
   backgroundColor: 'bg.surface2',
+
   _focus: { outline: 'none' },
   _placeholder: { color: 'gray.gray300' },
 });

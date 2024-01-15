@@ -1,3 +1,4 @@
+import { getTokens } from '@/services/auth/actions';
 import axios, { type AxiosInstance } from 'axios';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
@@ -5,7 +6,15 @@ const BASE_TIMEOUT = 10000;
 
 const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
-    (config) => {
+    async (config) => {
+      const { accessToken, refreshToken } = await getTokens();
+
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+      if (refreshToken) {
+        config.headers['Refresh-Token'] = `Bearer ${refreshToken}`;
+      }
       return config;
     },
     (error) => {
@@ -18,7 +27,7 @@ const setInterceptors = (instance: AxiosInstance) => {
       return response.data;
     },
     (error) => {
-      return Promise.reject(error);
+      return Promise.reject(error && (error.response.data as ErrorResponse));
     },
   );
 
@@ -33,3 +42,20 @@ const axiosInstance = setInterceptors(
 );
 
 export default axiosInstance;
+
+//TODO : error response type 정의
+interface ErrorResponse {
+  data: {
+    errorClassName: string;
+    message: string;
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isSeverError = (e: any): e is ErrorResponse => {
+  if (!e) return false;
+  if ('data' in e) {
+    return 'errorClassName' in e.data;
+  }
+  return false;
+};
