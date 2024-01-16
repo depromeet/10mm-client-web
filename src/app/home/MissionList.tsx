@@ -49,7 +49,7 @@ function MissionListInner() {
 
   return (
     <>
-      {missionList?.map((item) => (
+      {missionList.map((item) => (
         <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
           <TwoLineListItem
             badgeElement={<MissionBadge status={item.missionStatus} />}

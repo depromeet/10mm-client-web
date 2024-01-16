@@ -18,6 +18,7 @@ import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
+import { resetStopwatchStorage } from '@/utils/storage/timer';
 import { formatDate } from '@/utils/time';
 import { css, cx } from '@styled-system/css';
 
@@ -50,13 +51,6 @@ export default function StopwatchPage() {
 
   useRecordMidTime(time);
   useUnloadAction(time);
-
-  const resetStopwatchStorage = () => {
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME);
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME_2);
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.START_TIME);
-  };
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
