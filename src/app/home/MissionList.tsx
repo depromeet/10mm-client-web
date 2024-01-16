@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import Badge from '@/components/Badge/Badge';
-import Empty from '@/components/Empty/Empty';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
@@ -16,7 +15,6 @@ type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 
 function MissionList() {
   const { missionList, isLoading } = useMissions();
-  const router = useRouter();
 
   // TODO: 스켈레톤 또는 로딩 추가
   if (isLoading) {
@@ -30,44 +28,28 @@ function MissionList() {
     return (
       <div className={containerCss}>
         <Header />
-        <article className={emptyWrapperCss}>
-          <Empty
-            type="suggest"
-            title="아직 등록된 미션이 없어요."
-            description="미션을 등록하고 습관을 형성해 보세요!"
-            buttonText="미션 등록하기"
-            buttonAction={() => router.push(ROUTER.MISSION.NEW)}
-            image="docs"
-          />
-        </article>
+        <MissionEmptyList />
       </div>
     );
   }
 
-  const isMissionEmpty = missionList.length === 0;
-
   return (
     <div className={containerCss}>
       <Header />
-
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
 
-        {isMissionEmpty ? (
-          <MissionEmptyList />
-        ) : (
-          missionList.map((item) => (
-            <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
-              <TwoLineListItem
-                badgeElement={<MissionBadge status={item.missionStatus} />}
-                name={item.content}
-                subName={MISSION_CATEGORY_LABEL[item.category].label}
-                imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-              />
-            </Link>
-          ))
-        )}
+        {missionList.map((item) => (
+          <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
+            <TwoLineListItem
+              badgeElement={<MissionBadge status={item.missionStatus} />}
+              name={item.content}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+            />
+          </Link>
+        ))}
       </ul>
     </div>
   );
@@ -75,14 +57,23 @@ function MissionList() {
 
 export default MissionList;
 
+function Header() {
+  return (
+    <h2 className={headingCss}>
+      <span>내 미션 목록</span>
+      <Link href={ROUTER.MISSION.NEW}>
+        <Icon name="plus" size={20} />
+      </Link>
+    </h2>
+  );
+}
+
 const containerCss = flex({
   flexDirection: 'column',
-  flex: 1,
   padding: '0 16px 30px',
   flex: 1,
   minWidth: '0',
   display: 'flex',
-  flexDirection: 'column',
 });
 
 const headingCss = flex({
@@ -99,14 +90,6 @@ const listCss = flex({
 
   gap: '8px',
   height: '100%',
-});
-
-const emptyWrapperCss = css({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flex: 1,
-  minWidth: '0',
 });
 
 function MissionBadge({ status }: { status: MissionStatusType }) {

@@ -62,5 +62,6 @@ export function useCustomBack(customBack: () => void) {
     return () => {
       window.removeEventListener('popstate', backAction);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

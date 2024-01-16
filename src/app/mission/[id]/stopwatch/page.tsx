@@ -165,6 +165,7 @@ export default function StopwatchPage() {
     if (isFinished) {
       onAutoFinish();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinished]);
 
   return (

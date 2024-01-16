@@ -39,6 +39,7 @@ const useLeaveMissionCheck = () => {
 
   useEffect(() => {
     checkLeaveMission();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
