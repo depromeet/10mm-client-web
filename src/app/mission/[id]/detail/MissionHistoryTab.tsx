@@ -1,16 +1,30 @@
-import { Suspense } from 'react';
-import { useParams } from 'next/navigation';
+import { Suspense, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import MISSION_APIS from '@/apis/mission';
+import { MissionStatus } from '@/apis/schema/mission';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import Button from '@/components/Button/Button';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
 function MissionHistoryTab() {
   const { id } = useParams();
+  const router = useRouter();
   const missionId = Array.isArray(id) ? id[0] : id;
   const currentDate = new Date();
 
+  const onStartMission = async () => {
+    const flag = await checkMissionProgressing();
+
+    if (flag) {
+      // TODO : 진행중
+      return;
+    }
+
+    router.push(ROUTER.MISSION.STOP_WATCH(missionId));
+  };
   return (
     <div className={scrollAreaCss}>
       <div className={missionHistoryTabCss}>
@@ -22,7 +36,7 @@ function MissionHistoryTab() {
         </Suspense>
       </div>
       <div className={bottomDimCss}>
-        <Button size={'medium'} variant={'cta'} className={buttonCss}>
+        <Button size={'medium'} variant={'cta'} className={buttonCss} onClick={onStartMission}>
           미션 시작하기
         </Button>
       </div>
@@ -31,6 +45,13 @@ function MissionHistoryTab() {
 }
 
 export default MissionHistoryTab;
+
+const checkMissionProgressing = async () => {
+  const missionList = await MISSION_APIS.getMissions({ size: 10 });
+
+  const requiredMission = missionList.find((mission) => mission.status === MissionStatus.REQUIRED);
+  return Boolean(requiredMission);
+};
 
 const scrollAreaCss = css({
   overflowY: 'scroll',
