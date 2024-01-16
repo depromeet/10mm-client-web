@@ -7,7 +7,7 @@ interface InputBaseType {
 export interface NormalInputType extends InputBaseType, Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   variant?: 'normal';
   onChange?: (value: string) => void;
-  value?: string;
+  value: string;
 
   description?: string;
   errorMsg?: string;
