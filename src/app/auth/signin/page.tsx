@@ -20,6 +20,7 @@ export default function SigninPage() {
       router.push(ROUTER.HOME);
     },
     onError: (error) => {
+      console.log('error: ', error);
       if (isSeverError(error)) {
         triggerSnackBar({
           message: error.data.message,
