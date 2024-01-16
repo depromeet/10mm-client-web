@@ -2,7 +2,7 @@
 
 import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
+import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
@@ -15,9 +15,12 @@ import { css } from '@/styled-system/css';
 const PREVIOUS_NICKNAME = '수미칩';
 
 function ProfileModifyPage() {
+  const { data } = useGetMembersMe();
+  console.log(data);
+  const { nickname, profileUrl } = data;
   const router = useRouter();
 
-  const [nickname, setNickname] = useState(PREVIOUS_NICKNAME);
+  const [userNickname, setUserNickname] = useState(nickname);
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage();
@@ -33,20 +36,20 @@ function ProfileModifyPage() {
     },
   });
 
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
-
   const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
     if (!files) return;
 
     uploadImageChange(files);
-    setIsSubmitButtonDisabled((prev) => !prev);
+    // setIsSubmitButtonDisabled((prev) => !prev);
   };
 
   const handleImageClick = () => {
     imageRef.current?.click();
   };
 
-  // const isSubmitButtonDisabled = nickname === PREVIOUS_NICKNAME || nickname.length === 0 || !isImagePreviewChanged;
+  // const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+
+  const isSubmitButtonDisabled = userNickname === nickname || nickname.length === 0;
 
   const onSubmit = async () => {
     const imageFileExtension = checkImageType(imageFile?.type);
@@ -58,7 +61,7 @@ function ProfileModifyPage() {
       });
       await uploadProfileCompleteMutate({
         imageFileExtension,
-        nickname: nickname,
+        nickname: userNickname,
       });
     } catch (e) {
       triggerSnackBar({
@@ -93,7 +96,7 @@ function ProfileModifyPage() {
             <Icon name="camera" width={14} height={14} color="icon.secondary" />
           </div>
         </section>
-        <Input value={nickname} onChange={setNickname} name="닉네임" maxLength={20} />;
+        <Input value={nickname} onChange={setUserNickname} name="닉네임" maxLength={20} />;
       </main>
     </>
   );
