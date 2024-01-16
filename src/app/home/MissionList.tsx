@@ -17,7 +17,6 @@ type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 
 function MissionList() {
   const { missionList, isLoading } = useMissions();
-  console.log('missionList: ', missionList);
   const router = useRouter();
 
   // TODO: 스켈레톤 또는 로딩 추가

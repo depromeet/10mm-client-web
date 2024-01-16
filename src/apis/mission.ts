@@ -113,7 +113,7 @@ export const useModifyMissionMutation = (missionId: number) => {
   return useMutation({
     mutationFn: MISSION_APIS.modifyMission(missionId),
     onSuccess: () => {
-      console.log('뮤테이션 성공');
+      console.info('뮤테이션 성공');
     },
     onError: () => {
       // TODO: error handling
