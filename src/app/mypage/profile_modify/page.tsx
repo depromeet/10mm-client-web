@@ -9,7 +9,7 @@ import Input from '@/components/Input/Input';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
-import { checkImageType, useImage } from '@/hooks/useImage';
+import { checkImageType, getUrlImageType, useImage } from '@/hooks/useImage';
 import { css } from '@/styled-system/css';
 
 function ProfileModifyPage() {
@@ -28,7 +28,6 @@ function ProfileModifyPage() {
   }, [nickname]);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage(data.profileImageUrl);
-
   const { triggerSnackBar } = useSnackBar();
   const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
   const { mutateAsync: uploadProfileCompleteMutate } = useUploadProfileImageComplete({
@@ -52,8 +51,8 @@ function ProfileModifyPage() {
   };
 
   const onSubmit = async () => {
-    const imageFileExtension = checkImageType(imageFile?.type);
-
+    const imageType = imageFile?.type || getUrlImageType(data.profileImageUrl);
+    const imageFileExtension = checkImageType(imageType);
     try {
       imageFileExtension &&
         (await uploadProfileMutate({

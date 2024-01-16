@@ -10,7 +10,7 @@ function Mypage() {
   return (
     <main>
       <Header isBackIcon={false} title="마이페이지" rightAction="none" />
-      <Suspense fallback={<ProfileContent nickname={''} profileUrl={null} />}>
+      <Suspense fallback={<ProfileContent nickname={''} />}>
         <Profile />
       </Suspense>
       <MenuList />
