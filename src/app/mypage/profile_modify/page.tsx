@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, useEffect, useRef, useState } from 'react';
+import { type ChangeEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
@@ -21,12 +21,6 @@ function ProfileModifyPage() {
 
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true);
-
-  useEffect(() => {
-    setSubmitButtonDisabled(data.nickname === nickname || nickname.length === 0);
-  }, [nickname]);
-
   const { uploadImageChange, imagePreview, imageFile } = useImage(data.profileImageUrl);
   const { triggerSnackBar } = useSnackBar();
   const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
@@ -43,7 +37,6 @@ function ProfileModifyPage() {
     if (!files) return;
 
     uploadImageChange(files);
-    setSubmitButtonDisabled((prev) => !prev);
   };
 
   const handleImageClick = () => {
@@ -53,6 +46,7 @@ function ProfileModifyPage() {
   const onSubmit = async () => {
     const imageType = imageFile?.type || getUrlImageType(data.profileImageUrl);
     const imageFileExtension = checkImageType(imageType);
+
     try {
       imageFileExtension &&
         (await uploadProfileMutate({
@@ -74,7 +68,7 @@ function ProfileModifyPage() {
       <Header
         rightAction="text-button"
         title="프로필 수정"
-        rightButtonProps={{ disabled: isSubmitButtonDisabled, onClick: onSubmit }}
+        rightButtonProps={{ disabled: nickname.length === 0, onClick: onSubmit }}
       />
 
       <main className={mainCss}>
