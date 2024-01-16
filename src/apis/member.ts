@@ -12,7 +12,7 @@ interface CheckUsernameRequest {
   username: string;
 }
 
-interface UploadProfileImageCompleteRequest extends UploadBaseRequest {
+interface UploadProfileImageCompleteRequest extends Partial<UploadBaseRequest> {
   nickname: string;
 }
 
@@ -80,6 +80,13 @@ export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
   return useSuspenseQuery({
     queryKey: ['member', 'me'],
     queryFn: () => MEMBER_API.getMembersMe(),
+    ...option,
+  });
+};
+
+export const useWithdrawalMember = (option?: UseMutationOptions<unknown, unknown, WithdrawalMemberRequest>) => {
+  return useMutation({
+    mutationFn: MEMBER_API.withdrawalMember,
     ...option,
   });
 };

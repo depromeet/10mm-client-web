@@ -27,7 +27,7 @@ function ProfileModifyPage() {
     setSubmitButtonDisabled(data.nickname === nickname || nickname.length === 0);
   }, [nickname]);
 
-  const { uploadImageChange, imagePreview, imageFile } = useImage();
+  const { uploadImageChange, imagePreview, imageFile } = useImage(data.profileImageUrl);
 
   const { triggerSnackBar } = useSnackBar();
   const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
@@ -54,13 +54,13 @@ function ProfileModifyPage() {
   const onSubmit = async () => {
     const imageFileExtension = checkImageType(imageFile?.type);
 
-    if (!imageFileExtension) return;
     try {
-      await uploadProfileMutate({
-        imageFileExtension,
-      });
+      imageFileExtension &&
+        (await uploadProfileMutate({
+          imageFileExtension,
+        }));
       await uploadProfileCompleteMutate({
-        imageFileExtension,
+        imageFileExtension: imageFileExtension ? imageFileExtension : undefined,
         nickname: nickname,
       });
     } catch (e) {
