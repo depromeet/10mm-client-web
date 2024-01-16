@@ -6,7 +6,6 @@ import Badge from '@/components/Badge/Badge';
 import Empty from '@/components/Empty/Empty';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
-import Loading from '@/components/Loading';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -18,22 +17,21 @@ type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 
 function MissionList() {
   const { missionList, isLoading } = useMissions();
+  console.log('missionList: ', missionList);
   const router = useRouter();
 
   // TODO: 스켈레톤 또는 로딩 추가
   if (isLoading) {
-    return <div></div>;
+    return (
+      <div className={containerCss}>
+        <Header />
+      </div>
+    );
   }
-
-  return (
-    <div className={containerCss}>
-      <h2 className={headingCss}>
-        <span>내 미션 목록</span>
-        <Link href={ROUTER.MISSION.NEW}>
-          <Icon name="plus" size={20} />
-        </Link>
-      </h2>
-      {missionList.length === 0 && (
+  if (missionList.length === 0) {
+    return (
+      <div className={containerCss}>
+        <Header />
         <article className={emptyWrapperCss}>
           <Empty
             type="suggest"
@@ -44,28 +42,43 @@ function MissionList() {
             image="docs"
           />
         </article>
-      )}
-      {missionList.length !== 0 && (
-        <ul className={listCss}>
-          {/* TODO : 미션 최근 순 정렬 */}
-          {/* TODO : 완료된 미션은 하단 정렬 */}
-          {missionList.map((item) => (
-            <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
-              <TwoLineListItem
-                badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
-                name={item.content}
-                subName={MISSION_CATEGORY_LABEL[item.category].label}
-                imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-              />
-            </Link>
-          ))}
-        </ul>
-      )}
+      </div>
+    );
+  }
+  return (
+    <div className={containerCss}>
+      <Header />
+
+      <ul className={listCss}>
+        {/* TODO : 미션 최근 순 정렬 */}
+        {/* TODO : 완료된 미션은 하단 정렬 */}
+        {missionList.map((item) => (
+          <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
+            <TwoLineListItem
+              badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
+              name={item.content}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+            />
+          </Link>
+        ))}
+      </ul>
     </div>
   );
 }
 
 export default MissionList;
+
+function Header() {
+  return (
+    <h2 className={headingCss}>
+      <span>내 미션 목록</span>
+      <Link href={ROUTER.MISSION.NEW}>
+        <Icon name="plus" size={20} />
+      </Link>
+    </h2>
+  );
+}
 
 const containerCss = css({
   padding: '0 16px 30px',

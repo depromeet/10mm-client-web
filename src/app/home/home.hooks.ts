@@ -10,9 +10,9 @@ const INIT_SIZE = 10;
 
 export const useMissions = () => {
   const { data, isLoading } = useGetMissions({ size: INIT_SIZE });
-  const missionList = data?.content ?? [];
 
-  useRequireMission(data?.content);
+  const missionList = data ?? [];
+  useRequireMission(missionList);
   useLeaveMissionCheck();
 
   return { missionList, isLoading };
@@ -41,7 +41,6 @@ const useLeaveMissionCheck = () => {
 
   useEffect(() => {
     checkLeaveMission();
-    console.log('useLeaveMissionCheck: ', useLeaveMissionCheck);
   }, []);
 };
 

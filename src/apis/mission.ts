@@ -63,29 +63,18 @@ export interface MissionContentType {
   sort: number;
 }
 
-interface PageableType {
-  pageNumber: number;
-  pageSize: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  };
-  offset: number;
-  paged: boolean;
-  unpaged: boolean;
-}
+type GetMissionsResponse = MissionItemType[];
 
-interface GetMissionsResponse {
-  content: MissionItemType[];
-  first: boolean;
-  last: boolean;
-  pageable: PageableType;
-  size: number;
-  number: number;
-  numberOfElements: number;
-  empty: boolean;
-}
+// interface GetMissionsResponse {
+//   content: MissionItemType[];
+//   first: boolean;
+//   last: boolean;
+//   pageable: PageableType;
+//   size: number;
+//   number: number;
+//   numberOfElements: number;
+//   empty: boolean;
+// }
 
 interface ModifyMissionResponse {
   missionId: string;
