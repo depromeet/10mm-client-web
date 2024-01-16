@@ -48,7 +48,6 @@ export default function MissionRegistration() {
         maxLength={20}
         value={missionTitleInput}
         onChange={handleMissionTitleInput}
-        description="디스크립션 영역입니다"
       />
       <Input
         type="text"
@@ -57,7 +56,6 @@ export default function MissionRegistration() {
         maxLength={30}
         value={missionContentInput}
         onChange={handleMissionContentInput}
-        description="디스크립션 영역입니다"
       />
 
       {/* 카테고리 */}
