@@ -25,6 +25,7 @@ function MissionHistoryTab() {
 
   const checkMissionStart = async () => {
     if (!missionId) return;
+    // 이미 완료한 미션인지?
     if (isProgress) {
       openModal();
       return;

@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetMissionDetail } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
-import { useCustomBack, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
+import { useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
@@ -45,10 +45,10 @@ export default function StopwatchPage() {
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
-  useCustomBack(() => {
-    onNextStep('stop');
-    openMidOutModal();
-  });
+  // useCustomBack(() => {
+  //   onNextStep('stop');
+  //   openMidOutModal();
+  // });
 
   useRecordMidTime(time);
   useUnloadAction(time);
@@ -106,9 +106,7 @@ export default function StopwatchPage() {
 
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
-    setIsMoveLoading(true);
-    router.back();
-    // router.replace(ROUTER.MISSION.DETAIL(missionId));
+    router.replace(ROUTER.MISSION.DETAIL(missionId));
     resetStopwatchStorage();
   };
 

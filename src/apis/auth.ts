@@ -1,4 +1,5 @@
 import apiInstance from '@/apis/instance.api';
+import { ROUTER } from '@/constants/router';
 import { storeToken } from '@/services/auth/actions';
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import { type AxiosError } from 'axios';
@@ -19,7 +20,7 @@ interface RegisterRequest {
 
 export const AUTH_APIS = {
   login: async (request: LoginRequest): Promise<LoginResponse> => {
-    const { data } = await apiInstance.post('/auth/login', {
+    const { data } = await apiInstance.post(ROUTER.AUTH.LOGIN, {
       ...request,
     });
     await storeToken(data);
@@ -27,7 +28,7 @@ export const AUTH_APIS = {
   },
 
   tempRegister: async (request: LoginRequest): Promise<LoginResponse> => {
-    const { data } = await apiInstance.post('/auth/temp-register', {
+    const { data } = await apiInstance.post(ROUTER.AUTH.TEMP_REGISTER, {
       ...request,
     });
     await storeToken(data);
@@ -35,7 +36,7 @@ export const AUTH_APIS = {
   },
 
   register: async (request: RegisterRequest) => {
-    const { data } = await apiInstance.post('/auth/register', {
+    const { data } = await apiInstance.post(ROUTER.AUTH.REGISTER, {
       ...request,
     });
     return data;

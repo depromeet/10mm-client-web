@@ -1,6 +1,4 @@
-'use server';
-
-import { cookies } from 'next/headers';
+'use client';
 
 interface StoreTokenRequest {
   accessToken: string;
@@ -8,34 +6,21 @@ interface StoreTokenRequest {
 }
 
 export async function storeToken(request: StoreTokenRequest) {
-  cookies().set({
-    name: 'accessToken',
-    value: request.accessToken,
-    httpOnly: true,
-    sameSite: 'strict',
-    secure: true,
-  });
-
-  cookies().set({
-    name: 'refreshToken',
-    value: request.refreshToken,
-    httpOnly: true,
-    sameSite: 'strict',
-    secure: true,
-  });
+  localStorage.setItem('accessToken', request.accessToken);
+  localStorage.setItem('refreshToken', request.refreshToken);
 }
 
 export async function getTokens() {
-  const accessToken = cookies().get('accessToken');
-  const refreshToken = cookies().get('refreshToken');
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
 
   return {
-    accessToken: accessToken ? accessToken.value : null,
-    refreshToken: refreshToken ? refreshToken.value : null,
+    accessToken: accessToken ?? null,
+    refreshToken: refreshToken ?? null,
   };
 }
 
 export async function removeTokens() {
-  cookies().delete('accessToken');
-  cookies().delete('refreshToken');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
 }
