@@ -26,6 +26,7 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
   };
 
   const isDeleteButtonVisible = value && value.length > 0;
+  // const isMaxLengthTextVisible = value && props.maxLength;
 
   return (
     <section className={sectionCss}>
@@ -75,7 +76,7 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
               color: errorMsg ? 'red.red500' : 'text.tertiary',
             })}
           >
-            {value.length}
+            {value?.length}
           </strong>
           /{props.maxLength}
         </span>
