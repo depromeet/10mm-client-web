@@ -12,15 +12,13 @@ import { ROUTER } from '@/constants/router';
 import { checkImageType, useImage } from '@/hooks/useImage';
 import { css } from '@/styled-system/css';
 
-const PREVIOUS_NICKNAME = '수미칩';
-
 function ProfileModifyPage() {
   const { data } = useGetMembersMe();
-  console.log(data);
-  const { nickname, profileUrl } = data;
+
   const router = useRouter();
 
-  const [userNickname, setUserNickname] = useState(nickname);
+  const [nickname, setUserNickname] = useState(data.nickname);
+
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage();
@@ -40,16 +38,13 @@ function ProfileModifyPage() {
     if (!files) return;
 
     uploadImageChange(files);
-    // setIsSubmitButtonDisabled((prev) => !prev);
   };
 
   const handleImageClick = () => {
     imageRef.current?.click();
   };
 
-  // const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
-
-  const isSubmitButtonDisabled = userNickname === nickname || nickname.length === 0;
+  const isSubmitButtonDisabled = data.nickname === nickname || nickname.length === 0;
 
   const onSubmit = async () => {
     const imageFileExtension = checkImageType(imageFile?.type);
@@ -61,7 +56,7 @@ function ProfileModifyPage() {
       });
       await uploadProfileCompleteMutate({
         imageFileExtension,
-        nickname: userNickname,
+        nickname: nickname,
       });
     } catch (e) {
       triggerSnackBar({
