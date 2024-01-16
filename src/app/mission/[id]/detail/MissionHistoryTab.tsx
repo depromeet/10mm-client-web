@@ -14,7 +14,7 @@ import useModal from '@/hooks/useModal';
 import { checkMissionProgressing, resetStopwatchStorage } from '@/utils/storage/timer';
 import { css } from '@styled-system/css';
 
-function MissionHistoryTab() {
+function MissionHistoryTab({ isButtonDisabled }: { isButtonDisabled: boolean }) {
   const { id } = useParams();
   const router = useRouter();
   const missionId = id as string | undefined;
@@ -61,7 +61,13 @@ function MissionHistoryTab() {
         </Suspense>
       </div>
       <div className={bottomDimCss}>
-        <Button size={'medium'} variant={'cta'} className={buttonCss} onClick={checkMissionStart}>
+        <Button
+          size={'medium'}
+          variant={'cta'}
+          className={buttonCss}
+          onClick={checkMissionStart}
+          disabled={isButtonDisabled}
+        >
           미션 시작하기
         </Button>
       </div>

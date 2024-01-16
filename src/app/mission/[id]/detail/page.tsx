@@ -19,7 +19,6 @@ export default function MissionDetailPage() {
   const { triggerSnackBar } = useSnackBar();
   const { id } = useParams();
   const { isCompeteMission } = useCheckCompleteMission(id as string);
-  console.log('isCompeteMission: ', isCompeteMission);
 
   const { mutate: missionDeleteMutate } = useDeleteMissionMutation(id as string, {
     onSuccess: () => {
@@ -59,7 +58,7 @@ export default function MissionDetailPage() {
         onBackAction={() => router.replace(ROUTER.HOME)}
       />
       <Tab tabs={tabs} activeTab={'mission-history'} />
-      <MissionHistoryTab />
+      <MissionHistoryTab isButtonDisabled={isCompeteMission} />
       <Dialog
         variant={'default'}
         isOpen={isOpen}
