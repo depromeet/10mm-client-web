@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { MissionStatus } from '@/apis/schema/mission';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import Badge from '@/components/Badge/Badge';
@@ -13,8 +12,6 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 import { useMissions } from './home.hooks';
-
-// type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED' ; //TODO: 삭제
 
 function MissionList() {
   return (
@@ -35,7 +32,6 @@ function MissionList() {
 export default MissionList;
 
 function MissionListInner() {
-  const router = useRouter();
   const { missionList, isLoading, progressMissionId } = useMissions();
 
   if (isLoading) {
