@@ -21,6 +21,12 @@ function ProfileModifyPage() {
 
   const imageRef = useRef<HTMLInputElement>(null);
 
+  const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    setSubmitButtonDisabled(data.nickname === nickname || nickname.length === 0);
+  }, [nickname]);
+
   const { uploadImageChange, imagePreview, imageFile } = useImage();
 
   const { triggerSnackBar } = useSnackBar();
@@ -38,13 +44,12 @@ function ProfileModifyPage() {
     if (!files) return;
 
     uploadImageChange(files);
+    setSubmitButtonDisabled((prev) => !prev);
   };
 
   const handleImageClick = () => {
     imageRef.current?.click();
   };
-
-  const isSubmitButtonDisabled = data.nickname === nickname || nickname.length === 0;
 
   const onSubmit = async () => {
     const imageFileExtension = checkImageType(imageFile?.type);
