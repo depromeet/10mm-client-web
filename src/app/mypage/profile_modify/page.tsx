@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, useRef, useState } from 'react';
+import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
@@ -21,6 +21,7 @@ function ProfileModifyPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage();
+
   const { triggerSnackBar } = useSnackBar();
   const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
   const { mutateAsync: uploadProfileCompleteMutate } = useUploadProfileImageComplete({
@@ -31,17 +32,21 @@ function ProfileModifyPage() {
       router.push(ROUTER.MYPAGE.HOME);
     },
   });
+
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+
   const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
     if (!files) return;
 
     uploadImageChange(files);
+    setIsSubmitButtonDisabled((prev) => !prev);
   };
 
   const handleImageClick = () => {
     imageRef.current?.click();
   };
 
-  const isSubmitButtonDisabled = nickname === PREVIOUS_NICKNAME || nickname.length === 0;
+  // const isSubmitButtonDisabled = nickname === PREVIOUS_NICKNAME || nickname.length === 0 || !isImagePreviewChanged;
 
   const onSubmit = async () => {
     const imageFileExtension = checkImageType(imageFile?.type);
