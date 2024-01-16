@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { MissionStatus } from '@/apis/schema/mission';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
@@ -12,7 +14,7 @@ import { flex } from '@/styled-system/patterns';
 
 import { useMissions } from './home.hooks';
 
-type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
+// type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED' ; //TODO: 삭제
 
 function MissionList() {
   return (
@@ -33,7 +35,8 @@ function MissionList() {
 export default MissionList;
 
 function MissionListInner() {
-  const { missionList, isLoading } = useMissions();
+  const router = useRouter();
+  const { missionList, isLoading, progressMissionId } = useMissions();
 
   if (isLoading) {
     return <Skeleton />;
@@ -49,16 +52,23 @@ function MissionListInner() {
 
   return (
     <>
-      {missionList.map((item) => (
-        <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
-          <TwoLineListItem
-            badgeElement={<MissionBadge status={item.missionStatus} />}
-            name={item.content}
-            subName={MISSION_CATEGORY_LABEL[item.category].label}
-            imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-          />
-        </Link>
-      ))}
+      {missionList.map((item) => {
+        const isProgressingMission = progressMissionId === String(item.missionId);
+        const status = isProgressingMission ? MissionStatus.PROGRESSING : item.missionStatus;
+
+        const missionId = item.missionId.toString();
+        const moveHref = isProgressingMission ? ROUTER.MISSION.STOP_WATCH(missionId) : ROUTER.MISSION.DETAIL(missionId);
+        return (
+          <Link href={moveHref} key={item.missionId}>
+            <TwoLineListItem
+              badgeElement={<MissionBadge status={status} />}
+              name={item.content}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+            />
+          </Link>
+        );
+      })}
     </>
   );
 }
@@ -116,12 +126,14 @@ const listCss = flex({
   height: '100%',
 });
 
-function MissionBadge({ status }: { status: MissionStatusType }) {
+function MissionBadge({ status }: { status: MissionStatus }) {
   switch (status) {
     case 'COMPLETED':
       return <Badge color="purple">완료</Badge>;
     case 'REQUIRED':
       return <Badge color="red">인증 필요</Badge>;
+    case 'PROGRESSING':
+      return <Badge color="gray">진행중</Badge>;
 
     default:
       return null;

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGetMissions } from '@/apis/mission';
 import { type MissionItemType, MissionStatus } from '@/apis/schema/mission';
@@ -10,10 +10,10 @@ export const useMissions = () => {
   const { data, isLoading } = useGetMissions();
   const missionList = data ?? [];
 
-  useLeaveMissionCheck();
+  const { progressMissionId } = useLeaveMissionCheck();
   useRequireMission(data);
 
-  return { missionList, isLoading };
+  return { missionList, isLoading, progressMissionId };
 };
 
 // 스톱워치 부분에서 예기치 못하게 종료된 미션 기록 확인
@@ -21,10 +21,12 @@ const useLeaveMissionCheck = () => {
   const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
 
+  const [progressMissionId, setProgressMissionId] = useState<string | null>(null);
+
   const checkLeaveMission = () => {
     const startedMissionId = localStorage.getItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
-
     if (startedMissionId) {
+      setProgressMissionId(startedMissionId);
       triggerSnackBar({
         variant: 'text-button',
         message: '인증을 완료해 주세요!',
@@ -41,6 +43,8 @@ const useLeaveMissionCheck = () => {
     checkLeaveMission();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  return { progressMissionId };
 };
 
 // 미션 임시 인증만 진행, 미션 인증을 진행하지 않은 경우
