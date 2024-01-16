@@ -59,6 +59,7 @@ const contentWrapperCss = css({
   justifyContent: 'center',
   display: 'flex',
   flexDirection: 'column',
+  animation: 'fadeIn 0.3s linear',
 });
 
 const titleWrapperCss = css({
