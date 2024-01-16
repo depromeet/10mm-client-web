@@ -52,6 +52,7 @@ export default function MissionDetailPage() {
         iconName={'menu'}
         menus={DETAIL_MENUS}
         onMenuClick={handleMenuClick}
+        onBackAction={() => router.push(ROUTER.HOME)}
       />
       <Tab tabs={tabs} activeTab={'mission-history'} />
       <MissionHistoryTab />

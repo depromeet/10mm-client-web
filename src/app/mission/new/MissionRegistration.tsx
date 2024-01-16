@@ -16,8 +16,9 @@ export default function MissionRegistration() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
   const [missionCategory, setMissionCategory] = useState<DropdownValueType<MissionCategory> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
-    PUBLIC_SETTING_LIST[0],
+    PUBLIC_SETTING_LIST[1],
   );
 
   const isSubmitButtonDisabled = !missionTitleInput || !missionCategory || !missionContentInput;
@@ -87,13 +88,13 @@ export default function MissionRegistration() {
       />
 
       {/* 공개설정 */}
-      <Input
+      {/* <Input
         variant="drop-down"
         title="공개설정"
         list={PUBLIC_SETTING_LIST}
         selected={missionPublicSetting}
         onSelect={(item) => setMissionPublicSetting(item)}
-      />
+      /> */}
 
       <div className={buttonContainerCss}>
         <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
