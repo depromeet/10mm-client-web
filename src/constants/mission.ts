@@ -47,6 +47,21 @@ export const MISSION_CATEGORY_LABEL: Record<
 
 export const MISSION_CATEGORY_LIST = Object.values(MISSION_CATEGORY_LABEL);
 
+export const PUBLIC_SETTING_LABEL = {
+  [MissionVisibility.FOLLOWER]: {
+    label: '팔로워에게 공개',
+    value: MissionVisibility.FOLLOWER,
+  },
+  [MissionVisibility.ALL]: {
+    label: '전체 공개',
+    value: MissionVisibility.ALL,
+  },
+  [MissionVisibility.NONE]: {
+    label: '비공개',
+    value: MissionVisibility.NONE,
+  },
+};
+
 export const PUBLIC_SETTING_LIST = [
   {
     value: MissionVisibility.FOLLOWER,

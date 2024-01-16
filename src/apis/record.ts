@@ -68,6 +68,11 @@ const RECORD_API = {
   uploadComplete: (request: UploadCompleteRequest): Promise<UploadCompleteResponse> => {
     return apiInstance.post('/records/upload-complete', request);
   },
+
+  updateRemark: (recordId: string) => async (request: { remark: string }) => {
+    const { data } = await apiInstance.put(`/records/${recordId}`, request);
+    return data;
+  },
 };
 
 export default RECORD_API;
@@ -93,3 +98,19 @@ export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<Ge
 
 export const useRecordTime = (options?: UseMutationOptions<RecordTimeResponse, unknown, RecordTimeRequest>) =>
   useMutation({ mutationFn: RECORD_API.recordTime, ...options });
+
+export const useUpdateRemarkMutation = (
+  recordId: string,
+  options?: UseMutationOptions<
+    { recordId: number },
+    unknown,
+    {
+      remark: string;
+    }
+  >,
+) => {
+  return useMutation({
+    mutationFn: RECORD_API.updateRemark(recordId),
+    ...options,
+  });
+};

@@ -20,4 +20,7 @@ export default function Home() {
 const mainCss = css({
   minHeight: '100vh',
   paddingBottom: '113px', // 64(app bar bottom) + 15(gap) + 34(indicator)
+
+  display: 'flex',
+  flexDirection: 'column',
 });

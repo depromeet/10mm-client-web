@@ -1,6 +1,13 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
 import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
-import { useMutation, useQuery, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  type UseMutationOptions,
+  useQuery,
+  useQueryClient,
+  type UseQueryOptions,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -10,11 +17,6 @@ interface CreateMissionRequest {
   category: MissionCategory;
   visibility: MissionVisibility;
 }
-
-type GetMissionsParams = {
-  size: number;
-  lastId?: number;
-};
 
 interface ModifyMissionRequest {
   missionId: number;
@@ -30,10 +32,8 @@ const MISSION_APIS = {
     });
   },
 
-  getMissions: async (params: GetMissionsParams): Promise<GetMissionsResponse> => {
-    const { data } = await apiInstance.get<GetMissionsResponse>('/missions', {
-      params,
-    });
+  getMissions: async (): Promise<GetMissionsResponse> => {
+    const { data } = await apiInstance.get<GetMissionsResponse>('/missions');
     return data;
   },
 
@@ -43,12 +43,16 @@ const MISSION_APIS = {
   },
 
   modifyMission:
-    (missionId: number) =>
-    async ({ data }: { data: ModifyMissionRequest }): Promise<ModifyMissionResponse> => {
+    (missionId: string) =>
+    async (data: ModifyMissionRequest): Promise<ModifyMissionResponse> => {
       return apiInstance.put(`/missions/${missionId}`, {
         ...data,
       });
     },
+
+  deleteMission: (missionId: string) => {
+    return apiInstance.delete(`/missions/${missionId}`);
+  },
 };
 
 export default MISSION_APIS;
@@ -58,34 +62,12 @@ export interface MissionContentType {
   name: string;
   content: string;
   category: MissionCategory;
-  visibility: string;
+  visibility: MissionVisibility;
   status: string;
   sort: number;
 }
 
-interface PageableType {
-  pageNumber: number;
-  pageSize: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  };
-  offset: number;
-  paged: boolean;
-  unpaged: boolean;
-}
-
-interface GetMissionsResponse {
-  content: MissionItemType[];
-  first: boolean;
-  last: boolean;
-  pageable: PageableType;
-  size: number;
-  number: number;
-  numberOfElements: number;
-  empty: boolean;
-}
+type GetMissionsResponse = MissionItemType[];
 
 interface ModifyMissionResponse {
   missionId: string;
@@ -95,14 +77,12 @@ interface ModifyMissionResponse {
   visibility: string;
 }
 
-const getMissionsIdQueryKey = createQueryKeyFactory<GetMissionsParams>('missions');
+const missionsQueryKey = ['missions'];
 
-export const useGetMissions = (params: GetMissionsParams, option?: UseQueryOptions<GetMissionsResponse>) => {
+export const useGetMissions = (option?: UseQueryOptions<GetMissionsResponse>) => {
   return useQuery<GetMissionsResponse>({
-    queryKey: getMissionsIdQueryKey(params),
-    queryFn: () => MISSION_APIS.getMissions(params),
-    // queryFn: () => apiInstance.get('/missions', { params }), // 2번 방법
-
+    queryKey: missionsQueryKey,
+    queryFn: MISSION_APIS.getMissions,
     ...option,
   });
 };
@@ -120,14 +100,24 @@ export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<
   });
 };
 
-export const useModifyMissionMutation = (missionId: number) => {
+export const useModifyMissionMutation = (
+  missionId: string,
+  option?: UseMutationOptions<ModifyMissionResponse, unknown, ModifyMissionRequest>,
+) => {
   return useMutation({
     mutationFn: MISSION_APIS.modifyMission(missionId),
-    onSuccess: () => {
-      console.log('뮤테이션 성공');
+    ...option,
+  });
+};
+
+export const useDeleteMissionMutation = (missionId: string, option?: UseMutationOptions) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => MISSION_APIS.deleteMission(missionId),
+    onSuccess: async (...data) => {
+      await queryClient.invalidateQueries({ queryKey: missionsQueryKey });
+      option?.onSuccess?.(...data);
     },
-    onError: () => {
-      // TODO: error handling
-    },
+    ...option,
   });
 };

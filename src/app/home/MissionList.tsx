@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import MissionEmptyList from '@/app/home/MissionEmptyList';
 import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
-import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 import { useMissions } from './home.hooks';
@@ -21,6 +21,8 @@ function MissionList() {
     return <>loading...</>;
   }
 
+  const isMissionEmpty = missionList.length === 0;
+
   return (
     <div className={containerCss}>
       <h2 className={headingCss}>
@@ -32,16 +34,21 @@ function MissionList() {
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
-        {missionList.map((item) => (
-          <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
-            <TwoLineListItem
-              badgeElement={<MissionBadge status={item.status as MissionStatusType} />}
-              name={item.content}
-              subName={MISSION_CATEGORY_LABEL[item.category].label}
-              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-            />
-          </Link>
-        ))}
+
+        {isMissionEmpty ? (
+          <MissionEmptyList />
+        ) : (
+          missionList.map((item) => (
+            <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
+              <TwoLineListItem
+                badgeElement={<MissionBadge status={item.missionStatus} />}
+                name={item.content}
+                subName={MISSION_CATEGORY_LABEL[item.category].label}
+                imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+              />
+            </Link>
+          ))
+        )}
       </ul>
     </div>
   );
@@ -49,7 +56,9 @@ function MissionList() {
 
 export default MissionList;
 
-const containerCss = css({
+const containerCss = flex({
+  flexDirection: 'column',
+  flex: 1,
   padding: '0 16px 30px',
 });
 
@@ -62,8 +71,9 @@ const headingCss = flex({
 });
 
 const listCss = flex({
-  display: 'flex',
   flexDirection: 'column',
+  flex: 1,
+
   gap: '8px',
 });
 

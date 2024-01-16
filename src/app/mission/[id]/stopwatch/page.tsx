@@ -2,19 +2,16 @@
 
 import { Fragment, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useGetMissionDetail } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
-import {
-  useCustomBack,
-  useGetCategory,
-  useRecordMidTime,
-  useUnloadAction,
-} from '@/app/mission/[id]/stopwatch/index.hooks';
+import { useCustomBack, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Loading from '@/components/Loading';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
@@ -29,7 +26,9 @@ export default function StopwatchPage() {
   const missionId = params.id as string;
 
   const router = useRouter();
-  const category = useGetCategory();
+
+  const { data: missionData } = useGetMissionDetail(missionId);
+  const category = MISSION_CATEGORY_LABEL[missionData?.category].label;
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);

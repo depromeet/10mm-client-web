@@ -1,11 +1,12 @@
+import Image from 'next/image';
 import { css } from '@styled-system/css';
 
 import MissionDuration from './MissionDuration';
-//TODO : s3 오리진이 정해지면 next/image로 변경
+
 function HistoryThumbnail({ imageUrl, missionDuration }: { imageUrl: string; missionDuration: number }) {
   return (
     <div className={historyThumbnailWrapperCss}>
-      <img className={imageCss} width={365} height={365} src={imageUrl} alt={'미션 내역 이미지'} />
+      <Image className={imageCss} width={365} height={365} src={imageUrl} alt={'미션 내역 이미지'} />
       <div className={positionCss}>
         <MissionDuration duration={missionDuration} />
       </div>
@@ -30,4 +31,6 @@ const positionCss = css({
 const imageCss = css({
   width: '100%',
   borderRadius: '22px',
+  objectFit: 'cover',
+  height: '100%',
 });
