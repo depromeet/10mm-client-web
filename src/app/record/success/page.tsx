@@ -10,7 +10,7 @@ import { css } from '@styled-system/css';
 
 export default function MissionSuccessPage() {
   const router = useRouter();
-  const onClickConfirmButton = () => router.push(ROUTER.HOME);
+  const onClickConfirmButton = () => router.replace(ROUTER.HOME);
 
   return (
     <main className={mainWrapperCss}>

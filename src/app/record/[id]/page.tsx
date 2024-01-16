@@ -139,7 +139,9 @@ function BackDialog(props: ModalProps) {
 
   const onClickModalConfirm = () => {
     eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CANCEL, EVENT_LOG_CATEGORY.CERTIFICATION);
-    router.push(ROUTER.HOME);
+    router.replace(ROUTER.HOME);
+    // TODO: 미션 완료 인증 제거
+    RECORD_API.deleteInProgressRecord();
   };
 
   return (

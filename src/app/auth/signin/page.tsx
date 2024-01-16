@@ -18,7 +18,7 @@ export default function SigninPage() {
 
   const { mutate, isPending } = useLogin({
     onSuccess: () => {
-      router.push(ROUTER.HOME);
+      router.replace(ROUTER.HOME);
     },
     onError: (error) => {
       console.error('error: ', error);

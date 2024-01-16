@@ -18,7 +18,7 @@ export default function MissionModifyPage({ params }: { params: { id: string } }
 
   const { mutate } = useModifyMissionMutation(params.id, {
     onSuccess: () => {
-      router.push(ROUTER.MISSION.DETAIL(params.id));
+      router.replace(ROUTER.MISSION.DETAIL(params.id));
     },
     onError: () => {
       triggerSnackBar({ message: '저장에 실패했습니다. 다시 시도해주세요.' });

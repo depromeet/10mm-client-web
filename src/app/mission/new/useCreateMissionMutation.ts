@@ -12,7 +12,7 @@ const useCreateMissionMutation = () => {
   return useMutation({
     mutationFn: APIS.createMission,
     onSuccess: () => {
-      router.push(ROUTER.HOME);
+      router.replace(ROUTER.HOME);
     },
     onError: (error) => {
       console.error('error: ', error);

@@ -17,7 +17,7 @@ export default function AuthNickNamePage() {
   const { triggerSnackBar } = useSnackBar();
   const { mutate } = useNicknameRegister({
     onSuccess: () => {
-      router.push(ROUTER.HOME);
+      router.replace(ROUTER.HOME);
     },
     onError: (error) => {
       if (isSeverError(error)) {

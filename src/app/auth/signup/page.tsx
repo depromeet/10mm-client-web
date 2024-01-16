@@ -15,7 +15,7 @@ export default function SignupPage() {
 
   const { mutate } = useTempRegister({
     onSuccess: () => {
-      router.push(ROUTER.AUTH.NICKNAME);
+      router.replace(ROUTER.AUTH.NICKNAME);
     },
     onError: (error) => {
       if (isSeverError(error)) {

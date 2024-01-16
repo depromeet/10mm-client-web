@@ -34,7 +34,7 @@ const badgeStyle = cva({
     variant: {
       solid: {},
       line: {
-        border: '0.5px solid',
+        border: '1px solid', // TODO : 0.5 가능?
       },
     },
   },

@@ -28,7 +28,7 @@ function ProfileModifyPage() {
       triggerSnackBar({
         message: '프로필 수정이 완료되었습니다.',
       });
-      router.push(ROUTER.MYPAGE.HOME);
+      router.replace(ROUTER.MYPAGE.HOME);
     },
   });
   const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {

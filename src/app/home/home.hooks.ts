@@ -49,15 +49,19 @@ const useLeaveMissionCheck = () => {
 
 // 미션 임시 인증만 진행, 미션 인증을 진행하지 않은 경우
 const useRequireMission = (missionList?: MissionItemType[]) => {
+  // const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
 
-  const triggerRequireSnackBar = () => {
+  const triggerRequireSnackBar = (missionId: string) => {
     triggerSnackBar({
       variant: 'text-button',
       message: '인증을 완료해 주세요!',
       buttonText: '바로가기',
       // timerSecond: 0, // TODO : 서버에서 주는 데이터로 추가 필요
-      onButtonClick: () => {},
+      onButtonClick: () => {
+        console.log(missionId);
+        // router.push(ROUTER.MISSION.STOP_WATCH(missionId));
+      },
     });
   };
 
@@ -66,7 +70,7 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
     const requireMission = missionList.find((mission) => mission.missionStatus === MissionStatus.REQUIRED);
 
     if (!requireMission) return false;
-    triggerRequireSnackBar();
+    triggerRequireSnackBar(String(requireMission.missionId));
   };
 
   // TODO : 인증이 필요한 미션 정보 API 연결 (남아있는 시간 등)
