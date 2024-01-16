@@ -7,6 +7,7 @@ import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
+import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 import { useMissions } from './home.hooks';
@@ -14,48 +15,71 @@ import { useMissions } from './home.hooks';
 type MissionStatusType = 'COMPLETED' | 'NONE' | 'REQUIRED'; //TODO: 삭제
 
 function MissionList() {
-  const { missionList, isLoading } = useMissions();
-
-  // TODO: 스켈레톤 또는 로딩 추가
-  if (isLoading) {
-    return (
-      <div className={containerCss}>
-        <Header />
-      </div>
-    );
-  }
-  if (missionList.length === 0) {
-    return (
-      <div className={containerCss}>
-        <Header />
-        <MissionEmptyList />
-      </div>
-    );
-  }
-
   return (
     <div className={containerCss}>
       <Header />
       <ul className={listCss}>
+        {/* TODO : Suspense로 리팩토링 */}
+        {/* <Suspense fallback={<Skeleton />}> */}
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
-
-        {missionList.map((item) => (
-          <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
-            <TwoLineListItem
-              badgeElement={<MissionBadge status={item.missionStatus} />}
-              name={item.content}
-              subName={MISSION_CATEGORY_LABEL[item.category].label}
-              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-            />
-          </Link>
-        ))}
+        <MissionListInner />
+        {/* </Suspense> */}
       </ul>
     </div>
   );
 }
 
 export default MissionList;
+
+function MissionListInner() {
+  const { missionList, isLoading } = useMissions();
+
+  if (isLoading) {
+    return <Skeleton />;
+  }
+
+  if (missionList.length === 0) {
+    return (
+      <div className={containerCss}>
+        <MissionEmptyList />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {missionList?.map((item) => (
+        <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
+          <TwoLineListItem
+            badgeElement={<MissionBadge status={item.missionStatus} />}
+            name={item.content}
+            subName={MISSION_CATEGORY_LABEL[item.category].label}
+            imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+          />
+        </Link>
+      ))}
+    </>
+  );
+}
+
+// TODO: 공통으로 분리
+function Skeleton() {
+  return (
+    <>
+      <div className={missionItemSkeletonCss} />
+      <div className={missionItemSkeletonCss} />
+    </>
+  );
+}
+
+const missionItemSkeletonCss = css({
+  animation: 'skeleton',
+  height: '74px',
+  width: '100%',
+  backgroundColor: 'bg.surface4',
+  borderRadius: '22px',
+});
 
 function Header() {
   return (
