@@ -10,7 +10,7 @@ function ProfileContent({ nickname, profileUrl }: { nickname: string; profileUrl
     <section className={containerCss}>
       <Link href={ROUTER.MYPAGE.PROFILE_MODIFY}>
         <div className={profileWrapperCss}>
-          <NullableThumbnail size="h52" url={profileUrl || null} />
+          <NullableThumbnail size="h52" url={addDummyQuery(profileUrl) || null} />
           <p className={nicknameCss}>{nickname}</p>
           <Icon name="arrow-forward" width={16} height={16} color="icon.secondary" />
         </div>
@@ -48,3 +48,8 @@ const nicknameCss = css({
   minWidth: '0',
   whiteSpace: 'nowrap',
 });
+
+const addDummyQuery = (url?: string) => {
+  if (!url) return '';
+  return `${url}?dummy=${Math.random()}`;
+};
