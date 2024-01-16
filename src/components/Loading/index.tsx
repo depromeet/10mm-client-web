@@ -8,7 +8,9 @@ function Loading() {
   return (
     <Portal>
       <article className={containerCss}>
-        <Icon name="spinner" />
+        <div className={loadingWrapperCss}>
+          <Icon name="spinner" />
+        </div>
       </article>
     </Portal>
   );
@@ -16,6 +18,9 @@ function Loading() {
 
 export default Loading;
 
+const loadingWrapperCss = css({
+  animation: 'circleRotate 1s linear infinite',
+});
 const containerCss = css({
   position: 'fixed',
   top: 0,
