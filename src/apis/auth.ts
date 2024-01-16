@@ -17,10 +17,6 @@ interface RegisterRequest {
   nickname: string;
 }
 
-interface CheckUsernameRequest {
-  username: string;
-}
-
 export const AUTH_APIS = {
   login: async (request: LoginRequest): Promise<LoginResponse> => {
     const { data } = await apiInstance.post('/auth/login', {
@@ -43,11 +39,6 @@ export const AUTH_APIS = {
       ...request,
     });
     return data;
-  },
-  checkUsername: (data: CheckUsernameRequest) => {
-    return apiInstance.post(`/auth/check-username`, {
-      ...data,
-    });
   },
 };
 

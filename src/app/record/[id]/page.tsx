@@ -8,6 +8,7 @@ import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
 import { type ModalProps } from '@/components/Modal/Modal';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { uploadImageToServer, useImage } from '@/hooks/useImage';
@@ -17,6 +18,7 @@ import { css } from '@styled-system/css';
 
 export default function MissionRecordPage() {
   const router = useRouter();
+  const { triggerSnackBar } = useSnackBar();
   const params = useParams();
   const missionId = params.id as string;
 
@@ -50,7 +52,9 @@ export default function MissionRecordPage() {
       await RECORD_API.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
       router.replace(ROUTER.RECORD.SUCCESS);
     } catch (error) {
-      console.error('error: ', error);
+      triggerSnackBar({
+        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
+      });
     }
   };
 

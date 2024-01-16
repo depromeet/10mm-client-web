@@ -1,7 +1,5 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import MISSION_APIS from '@/apis/mission';
-import { MissionStatus } from '@/apis/schema/mission';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
@@ -12,31 +10,26 @@ import { css } from '@styled-system/css';
 function MissionHistoryTab() {
   const { id } = useParams();
   const router = useRouter();
-  const missionId = Array.isArray(id) ? id[0] : id;
+  const missionId = id as string | undefined;
   const currentDate = new Date();
 
-  const onStartMission = async () => {
-    const flag = await checkMissionProgressing();
-
-    if (flag) {
-      // TODO : 진행중
-      return;
-    }
-
+  const handleMissionStart = () => {
+    if (!missionId) return;
     router.push(ROUTER.MISSION.STOP_WATCH(missionId));
   };
+
   return (
     <div className={scrollAreaCss}>
       <div className={missionHistoryTabCss}>
         <Suspense fallback={<MissionHistorySkeleton />}>
-          <MissionHistoryBannerApi missionId={missionId} />
+          {missionId && <MissionHistoryBannerApi missionId={missionId} />}
         </Suspense>
         <Suspense>
           <MissionCalendar currentDate={currentDate} missionId={Number(missionId)} />
         </Suspense>
       </div>
       <div className={bottomDimCss}>
-        <Button size={'medium'} variant={'cta'} className={buttonCss} onClick={onStartMission}>
+        <Button size={'medium'} variant={'cta'} className={buttonCss} onClick={handleMissionStart}>
           미션 시작하기
         </Button>
       </div>

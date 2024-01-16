@@ -1,7 +1,7 @@
 'use client';
 import { type ChangeEventHandler, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useGetRecordDetail } from '@/apis';
+import { useGetRecordDetail, useUpdateRemarkMutation } from '@/apis';
 import Header from '@/components/Header/Header';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import TextArea from '@/components/TextArea/TextArea';
@@ -12,6 +12,17 @@ function MissionRecordEditPage({ params }: { params: { id: string } }) {
   const { data } = useGetRecordDetail(params.id as string);
   const { triggerSnackBar } = useSnackBar();
   const router = useRouter();
+
+  const { mutate } = useUpdateRemarkMutation(params.id, {
+    onSuccess: () => {
+      triggerSnackBar({ message: '저장되었습니다.' });
+
+      router.push(ROUTER.RECORD.DETAIL.HOME(params.id));
+    },
+    onError: () => {
+      triggerSnackBar({ message: '저장에 실패했습니다. 다시 시도해주세요.' });
+    },
+  });
   const [value, setValue] = useState(data.remark);
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
@@ -19,8 +30,7 @@ function MissionRecordEditPage({ params }: { params: { id: string } }) {
   };
 
   const handleSaveButtonClick = () => {
-    triggerSnackBar({ message: '저장되었습니다.' });
-    router.push(ROUTER.RECORD.DETAIL.HOME(params.id));
+    mutate({ remark: value });
   };
 
   return (
