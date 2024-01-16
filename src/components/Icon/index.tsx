@@ -21,6 +21,7 @@ import PlusCircleIcon from '@/components/Icon/PlusCircleIcon';
 import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
+import SpinnerIcon from '@/components/Icon/SpinnerIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
 import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
@@ -67,6 +68,7 @@ export const IconComponentMap = {
   'log-in-information': LoginInInformationIcon,
   'log-out': LogOutIcon,
   withdrawal: WithdrawalIcon,
+  spinner: SpinnerIcon,
 } as const;
 
 interface Props extends IconComponentProps {

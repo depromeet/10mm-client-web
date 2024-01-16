@@ -6,6 +6,7 @@ import { useLogin } from '@/apis/auth';
 import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
+import Loading from '@/components/Loading';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
@@ -15,12 +16,12 @@ export default function SigninPage() {
 
   const router = useRouter();
 
-  const { mutate } = useLogin({
+  const { mutate, isPending } = useLogin({
     onSuccess: () => {
       router.push(ROUTER.HOME);
     },
     onError: (error) => {
-      console.log('error: ', error);
+      console.error('error: ', error);
       if (isSeverError(error)) {
         triggerSnackBar({
           message: error.data.message,
@@ -55,16 +56,19 @@ export default function SigninPage() {
   };
 
   return (
-    <form className={mainWrapperCss} onSubmit={onSubmit}>
-      <Input id={'userId'} name={'아이디'} variant={'normal'} />
-      <Input id={'password'} name={'비밀번호'} variant={'normal'} type={'password'} />
-      <Button variant="primary" size="large">
-        로그인
-      </Button>
-      <Button variant="ghost" size="large" type={'button'} onClick={onClick}>
-        회원가입
-      </Button>
-    </form>
+    <>
+      {isPending && <Loading />}
+      <form className={mainWrapperCss} onSubmit={onSubmit}>
+        <Input id={'userId'} name={'아이디'} variant={'normal'} />
+        <Input id={'password'} name={'비밀번호'} variant={'normal'} type={'password'} />
+        <Button variant="primary" size="large">
+          로그인
+        </Button>
+        <Button variant="ghost" size="large" type={'button'} onClick={onClick}>
+          회원가입
+        </Button>
+      </form>
+    </>
   );
 }
 
