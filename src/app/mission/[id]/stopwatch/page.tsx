@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetMissionDetail } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
@@ -33,6 +33,7 @@ export default function StopwatchPage() {
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);
+  const [isMoveLoading, setIsMoveLoading] = useState(false);
 
   const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
@@ -59,9 +60,12 @@ export default function StopwatchPage() {
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
 
+      setIsMoveLoading(true);
       resetStopwatchStorage();
     },
-    onError: () => {},
+    onError: () => {
+      setIsMoveLoading(() => false); // 없어도 되는지 확인 필요
+    },
   });
 
   // TODO: 끝내기 후 로직 추가
@@ -102,6 +106,7 @@ export default function StopwatchPage() {
 
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
+    setIsMoveLoading(true);
     router.push(ROUTER.MISSION.DETAIL(missionId));
     resetStopwatchStorage();
   };
@@ -164,7 +169,7 @@ export default function StopwatchPage() {
 
   return (
     <>
-      {isSubmitLoading && <Loading />}
+      {isSubmitLoading || (isMoveLoading && <Loading />)}
       <Header rightAction="none" onBackAction={onBackAction} />
       <div className={containerCss}>
         <section key={step} className={opacityAnimation}>
