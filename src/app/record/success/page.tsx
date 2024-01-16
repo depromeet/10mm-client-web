@@ -17,7 +17,7 @@ export default function MissionSuccessPage() {
       <div className={containerCss}>
         <div className={contentWrapperCss}>
           <div className={lottieWrapperCss}>
-            <Image src="/assets/mission/10mm-success.png" alt="success" fill />
+            <Image src="/assets/mission/10mm-success.svg" alt="success" fill />
             {/* <Lottie loop animationData={lottieJson} play /> */}
           </div>
           <div className={titleWrapperCss}>

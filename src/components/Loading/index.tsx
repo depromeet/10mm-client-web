@@ -21,6 +21,7 @@ export default Loading;
 const loadingWrapperCss = css({
   animation: 'circleRotate 1s linear infinite',
 });
+
 const containerCss = css({
   position: 'fixed',
   top: 0,
