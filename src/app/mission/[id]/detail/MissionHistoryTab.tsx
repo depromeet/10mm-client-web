@@ -10,10 +10,11 @@ import { css } from '@styled-system/css';
 function MissionHistoryTab() {
   const { id } = useParams();
   const router = useRouter();
-  const missionId = Array.isArray(id) ? id[0] : id;
+  const missionId = id as string | undefined;
   const currentDate = new Date();
 
   const handleMissionStart = () => {
+    if (!missionId) return;
     router.push(ROUTER.MISSION.STOP_WATCH(missionId));
   };
 
@@ -21,7 +22,7 @@ function MissionHistoryTab() {
     <div className={scrollAreaCss}>
       <div className={missionHistoryTabCss}>
         <Suspense fallback={<MissionHistorySkeleton />}>
-          <MissionHistoryBannerApi missionId={missionId} />
+          {missionId && <MissionHistoryBannerApi missionId={missionId} />}
         </Suspense>
         <Suspense>
           <MissionCalendar currentDate={currentDate} missionId={Number(missionId)} />

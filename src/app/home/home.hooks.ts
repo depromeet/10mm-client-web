@@ -6,10 +6,8 @@ import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
 
-const INIT_SIZE = 10;
-
 export const useMissions = () => {
-  const { data, isLoading } = useGetMissions({ size: INIT_SIZE });
+  const { data, isLoading } = useGetMissions();
   const missionList = data ?? [];
 
   useLeaveMissionCheck();
