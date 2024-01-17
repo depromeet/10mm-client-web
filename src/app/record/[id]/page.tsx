@@ -161,7 +161,7 @@ const mainWrapperCss = css({
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: 'bg.surface2',
-  height: '100vh',
+  height: '100%',
 });
 
 const headerWrapperCss = css({
