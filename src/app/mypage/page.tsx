@@ -1,7 +1,6 @@
-import { Suspense } from 'react';
+'use client';
 import MenuList from '@/app/mypage/MenuList';
 import Profile from '@/app/mypage/Profile';
-import ProfileContent from '@/app/mypage/ProfileContent';
 import VersionInfo from '@/app/mypage/VersionInfo';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Header from '@/components/Header/Header';
@@ -10,9 +9,7 @@ function Mypage() {
   return (
     <main>
       <Header isBackIcon={false} title="마이페이지" rightAction="none" />
-      <Suspense fallback={<ProfileContent nickname={''} profileUrl={null} />}>
-        <Profile />
-      </Suspense>
+      <Profile />
       <MenuList />
       <VersionInfo />
       <AppBarBottom />

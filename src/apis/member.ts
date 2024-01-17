@@ -1,7 +1,7 @@
 import apiInstance from '@/apis/instance.api';
 import { type MemberType } from '@/apis/schema/member';
 import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schema/upload';
-import { useMutation, type UseMutationOptions, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface WithdrawalMemberRequest {
@@ -77,9 +77,10 @@ export const useUploadProfileImageComplete = (
 };
 
 export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['member', 'me'],
     queryFn: () => MEMBER_API.getMembersMe(),
+
     ...option,
   });
 };
