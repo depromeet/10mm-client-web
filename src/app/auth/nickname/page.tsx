@@ -1,29 +1,40 @@
 'use client';
 
-import { useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
+import { useNicknameRegister } from '@/apis/auth';
+import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
+import useNickname from '@/hooks/useNickname';
 import { css } from '@styled-system/css';
 
 export default function AuthNickNamePage() {
-  const [nickname, setNickname] = useState('');
+  const { nickname, handleNicknameChange, massageState, handleDuplicateCheck } = useNickname();
 
-  const handleNickname = (value: string) => {
-    setNickname(value);
-  };
-
-  const onContentCloseIconClick = () => {
-    setNickname('');
-  };
+  const router = useRouter();
+  const { triggerSnackBar } = useSnackBar();
+  const { mutate } = useNicknameRegister({
+    onSuccess: () => {
+      router.replace(ROUTER.HOME);
+    },
+    onError: (error) => {
+      if (isSeverError(error)) {
+        triggerSnackBar({
+          message: error.response.data.data.message,
+        });
+        return;
+      }
+    },
+  });
 
   const isSubmitButtonDisabled = !nickname;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!nickname) return;
-    router.push(ROUTER.HOME);
+    mutate({ nickname });
   };
 
   return (
@@ -34,17 +45,19 @@ export default function AuthNickNamePage() {
           <div className={subTitleCss}>닉네임을 설정해주세요.</div>
           <div className={subTitleDescriptionCss}>20자 이내의 한글, 영문, 숫자 입력이 가능합니다.</div>
         </div>
+
         <Input
-          type="text"
-          placeholder="미션명을 입력하세요"
-          name="닉네임"
-          required
-          iconName="input-close-circle"
-          iconColor="icon.secondary"
-          maxLength={20}
+          variant="normal-button"
           value={nickname}
-          onIconClick={onContentCloseIconClick}
-          onChange={handleNickname}
+          onChange={handleNicknameChange}
+          placeholder="닉네임을 입력하세요"
+          name="닉네임"
+          maxLength={20}
+          buttonText="중복확인"
+          buttonDisabeld={Boolean(massageState.errorMsg)}
+          errorMsg={massageState.errorMsg}
+          validMsg={massageState.validMsg}
+          onTextButtonClick={handleDuplicateCheck}
         />
         <div className={buttonContainerCss}>
           <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>

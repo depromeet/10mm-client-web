@@ -23,12 +23,25 @@ export default defineConfig({
         fonts: {
           pretendard: { value: 'var(--pretendard)' },
         },
+        animations: {
+          skeleton: {
+            value: 'pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+        },
+        sizes: {
+          maxWidth: {
+            value: '475px',
+          },
+        },
         zIndex: {
           modalOverlay: {
             value: 9999,
           },
           appBar: {
             value: '100',
+          },
+          loading: {
+            value: '10000',
           },
         },
         ...colorList,

@@ -46,6 +46,14 @@ export const Gray: Story = {
 export const Red: Story = {
   args: {
     color: 'red',
+    children: '인증 완료',
+  },
+};
+
+export const GrayContain: Story = {
+  args: {
+    color: 'gray',
+    variant: 'solid',
     children: 'badge',
   },
 };

@@ -45,7 +45,7 @@ const TextArea = ({ count, description, textAreaTitle, value, ...props }: Props)
 export default TextArea;
 
 const textAreaWrapperCss = css({
-  maxWidth: '343px',
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
@@ -55,13 +55,13 @@ const headRowCss = css({});
 
 const textAreaTitleCss = css({
   color: 'text.primary',
-  textStyle: 'body3',
+  textStyle: 'body4',
 });
 
 const bodyRowCss = css({});
 
 const textAreaCss = css({
-  width: '343px',
+  width: '100%',
   height: '86px',
   borderRadius: '16px',
   padding: '16px',
@@ -84,7 +84,7 @@ const tailRowCss = css({
 const descriptionWrapperCss = css({
   flex: 1,
   color: 'text.tertiary',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });
 
 const countWrapperCss = css({
@@ -92,10 +92,10 @@ const countWrapperCss = css({
   display: 'flex',
   justifyContent: 'flex-end',
   color: 'text.tertiary',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });
 
 const countValueCss = css({
   color: 'text.secondary',
-  textStyle: 'body5',
+  textStyle: 'body6',
 });

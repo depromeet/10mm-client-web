@@ -1,7 +1,9 @@
-import POST_APIS from './post';
+import MISSION_APIS from '@/apis/mission';
+
+export * from './record';
 
 const APIS = {
-  ...POST_APIS,
+  ...MISSION_APIS,
 };
 
 export default APIS;

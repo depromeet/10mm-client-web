@@ -42,6 +42,7 @@ function Stopwatch({ minutes, seconds, category, stepper, isDisabled, isProgress
           className={css(categoryCss, ellipsis, {
             color: isDisabled ? 'text.tertiary' : 'purple.purple800',
           })}
+          key={category}
         >
           {category}
         </p>
@@ -106,9 +107,11 @@ const innerContainerCss = css({
 
 const categoryCss = {
   textAlign: 'center',
-  textStyle: 'body3',
+  textStyle: 'body4',
   marginBottom: '4px',
   maxWidth: '110px',
+  minHeight: '20px',
+  animation: 'fadeIn .7s',
 };
 
 const ellipsis = {

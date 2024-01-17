@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
+import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
+import { MSWInitComponent } from '@/msw';
 import { css } from '@/styled-system/css';
 import { pretendardFont } from '@/styles/font';
 
@@ -29,8 +31,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={pretendardFont.variable}>
       <body className={css(bodyCss)}>
         <MonitoringInitializer />
+        <MSWInitComponent />
         <QueryProvider>
-          <div className={css(containerCss)}>{children}</div>
+          <SnackBarProvider>
+            <div className={css(containerCss)}>{children}</div>
+          </SnackBarProvider>
         </QueryProvider>
       </body>
     </html>
@@ -38,10 +43,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 
 const containerCss = {
-  maxWidth: '475px',
+  maxWidth: 'maxWidth',
   margin: '0 auto',
   minHeight: '100vh',
-  backgroundColor: 'bg.surface1',
+  backgroundColor: 'bg.surface2',
 };
 
 const bodyCss = {
