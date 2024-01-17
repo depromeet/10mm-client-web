@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -9,9 +8,6 @@ function AppBar() {
       <header className={headerCss}>
         <div className={logoWrapperCss}>
           <Image src={'/assets/10mm-logo.svg'} alt="10MM" width={68} height={20} />
-        </div>
-        <div>
-          <Icon name="alarm" />
         </div>
       </header>
       <div className={blankCss} />
