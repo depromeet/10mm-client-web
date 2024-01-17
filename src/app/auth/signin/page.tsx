@@ -21,8 +21,6 @@ export default function SigninPage() {
       router.replace(ROUTER.HOME);
     },
     onError: (error) => {
-      console.error('error: ', error, isSeverError(error));
-
       if (isSeverError(error)) {
         triggerSnackBar({
           message: error.response.data.data.message,
