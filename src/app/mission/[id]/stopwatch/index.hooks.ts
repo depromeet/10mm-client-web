@@ -2,14 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { STORAGE_KEY } from '@/constants/storage';
 import useInterval from '@/hooks/useInterval';
-import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
-
-export const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<string>('category');
-
-  return searchParams ?? '운동';
-};
 
 export function useUnloadAction(time: number) {
   const onSaveTime = useCallback(() => {

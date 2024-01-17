@@ -30,7 +30,7 @@ export default function useStopwatch(status: StepType) {
     if (status === 'progress') {
       timer = setInterval(() => {
         setSecond((prev) => (prev >= MAX_SECONDS ? prev : prev + 1));
-      }, TEST_MS);
+      }, DEFAULT_MS);
     }
 
     return () => clearInterval(timer);
