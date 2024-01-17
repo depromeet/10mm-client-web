@@ -17,9 +17,18 @@ function ProfileModifyPage() {
 
   const router = useRouter();
 
-  const [nickname, setUserNickname] = useState(data?.nickname || '');
+  const [nickname, setNickname] = useState(data?.nickname || '');
+
+  const validateNickname = (value: string) => {
+    const regex = /^[가-힣a-zA-Z0-9]{2,20}$/;
+    return regex.test(value);
+  };
+  const isValid = validateNickname(nickname);
+
+  const errorMsg = isValid ? '' : '2~20자 이내의 한글, 영문, 숫자로만 입력해 주세요.';
 
   const imageRef = useRef<HTMLInputElement>(null);
+  const duplicateCheckButtonDisabled = data?.nickname === nickname || !isValid;
 
   const { uploadImageChange, imagePreview, imageFile } = useImage(data?.profileImageUrl || '');
   const { triggerSnackBar } = useSnackBar();
@@ -89,7 +98,17 @@ function ProfileModifyPage() {
             <Icon name="camera" width={14} height={14} color="icon.secondary" />
           </div>
         </section>
-        <Input value={nickname} onChange={setUserNickname} name="닉네임" maxLength={20} />;
+        <Input
+          variant="normal-button"
+          value={nickname}
+          onChange={setNickname}
+          name="닉네임"
+          maxLength={20}
+          buttonText="중복확인"
+          buttonDisabeld={duplicateCheckButtonDisabled}
+          errorMsg={errorMsg}
+        />
+        ;
       </main>
     </>
   );
