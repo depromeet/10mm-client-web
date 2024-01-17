@@ -47,8 +47,10 @@ export default axiosInstance;
 interface ErrorResponse {
   response: {
     data: {
-      errorClassName: string;
-      message: string;
+      data: {
+        errorClassName: string;
+        message: string;
+      };
     };
   };
 }
@@ -57,7 +59,7 @@ interface ErrorResponse {
 export const isSeverError = (e: any): e is ErrorResponse => {
   if (!e) return false;
   if ('response' in e) {
-    return 'data' in e.response && 'errorClassName' in e.response.data;
+    return 'data' in e.response && 'data' in e.response.data && 'errorClassName' in e.response.data.data;
   }
 
   return false;

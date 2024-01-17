@@ -22,7 +22,7 @@ export default function AuthNickNamePage() {
     onError: (error) => {
       if (isSeverError(error)) {
         triggerSnackBar({
-          message: error.response.data.message,
+          message: error.response.data.data.message,
         });
         return;
       }
