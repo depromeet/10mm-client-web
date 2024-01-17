@@ -17,12 +17,12 @@ export default function AuthNickNamePage() {
   const { triggerSnackBar } = useSnackBar();
   const { mutate } = useNicknameRegister({
     onSuccess: () => {
-      router.push(ROUTER.HOME);
+      router.replace(ROUTER.HOME);
     },
     onError: (error) => {
       if (isSeverError(error)) {
         triggerSnackBar({
-          message: error.data.message,
+          message: error.response.data.data.message,
         });
         return;
       }
@@ -50,13 +50,12 @@ export default function AuthNickNamePage() {
         </div>
         <Input
           type="text"
-          placeholder="미션명을 입력하세요"
+          placeholder="닉네임을 입력하세요"
           name="닉네임"
           required
           maxLength={20}
           value={nickname}
           onChange={handleNickname}
-          description="description"
         />
         <div className={buttonContainerCss}>
           <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>

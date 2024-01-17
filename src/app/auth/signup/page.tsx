@@ -15,12 +15,12 @@ export default function SignupPage() {
 
   const { mutate } = useTempRegister({
     onSuccess: () => {
-      router.push(ROUTER.AUTH.NICKNAME);
+      router.replace(ROUTER.AUTH.NICKNAME);
     },
     onError: (error) => {
       if (isSeverError(error)) {
         triggerSnackBar({
-          message: error.data.message,
+          message: error.response.data.data.message,
         });
         return;
       }

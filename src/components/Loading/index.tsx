@@ -1,6 +1,6 @@
 'use client';
-import React from 'react';
-import Image from 'next/image';
+
+import Icon from '@/components/Icon';
 import Portal from '@/components/portal/Portal';
 import { css } from '@/styled-system/css';
 
@@ -8,13 +8,19 @@ function Loading() {
   return (
     <Portal>
       <article className={containerCss}>
-        <Image src="/assets/spinner.svg" width={36} height={36} alt="loading" />
+        <div className={loadingWrapperCss}>
+          <Icon name="spinner" />
+        </div>
       </article>
     </Portal>
   );
 }
 
 export default Loading;
+
+const loadingWrapperCss = css({
+  animation: 'circleRotate 1s linear infinite',
+});
 
 const containerCss = css({
   position: 'fixed',

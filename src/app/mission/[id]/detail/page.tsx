@@ -3,6 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import MISSION_APIS, { useDeleteMissionMutation } from '@/apis/mission';
 import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
+import useCheckCompleteMission from '@/app/mission/[id]/detail/useCheckCompleteMission';
 import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
@@ -17,6 +18,8 @@ export default function MissionDetailPage() {
 
   const { triggerSnackBar } = useSnackBar();
   const { id } = useParams();
+  const { isCompeteMission } = useCheckCompleteMission(id as string);
+
   const { mutate: missionDeleteMutate } = useDeleteMissionMutation(id as string, {
     onSuccess: () => {
       router.replace(ROUTER.HOME);
@@ -52,9 +55,10 @@ export default function MissionDetailPage() {
         iconName={'menu'}
         menus={DETAIL_MENUS}
         onMenuClick={handleMenuClick}
+        onBackAction={() => router.replace(ROUTER.HOME)}
       />
       <Tab tabs={tabs} activeTab={'mission-history'} />
-      <MissionHistoryTab />
+      <MissionHistoryTab isButtonDisabled={isCompeteMission} />
       <Dialog
         variant={'default'}
         isOpen={isOpen}

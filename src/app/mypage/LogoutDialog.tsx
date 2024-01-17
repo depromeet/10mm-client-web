@@ -9,7 +9,7 @@ function LogoutDialog(props: ModalProps) {
   // TODO : logout 동작
   const onLogout = async () => {
     await removeTokens();
-    router.push(ROUTER.AUTH.LOGIN);
+    router.replace(ROUTER.AUTH.LOGIN);
   };
 
   return (

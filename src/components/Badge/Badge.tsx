@@ -3,7 +3,8 @@ import { styled } from '@/styled-system/jsx';
 
 const badgeStyle = cva({
   base: {
-    width: '54px',
+    // width: '54px',
+    width: 'fit-content',
     height: '23px',
     padding: '3px 10px 3px 10px',
     borderRadius: '15px',
@@ -34,7 +35,7 @@ const badgeStyle = cva({
     variant: {
       solid: {},
       line: {
-        border: '0.5px solid',
+        border: '1px solid', // TODO : 0.5 가능?
       },
     },
   },

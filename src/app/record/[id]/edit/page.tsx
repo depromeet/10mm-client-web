@@ -17,7 +17,7 @@ function MissionRecordEditPage({ params }: { params: { id: string } }) {
     onSuccess: () => {
       triggerSnackBar({ message: '저장되었습니다.' });
 
-      router.push(ROUTER.RECORD.DETAIL.HOME(params.id));
+      router.replace(ROUTER.RECORD.DETAIL.HOME(params.id));
     },
     onError: () => {
       triggerSnackBar({ message: '저장에 실패했습니다. 다시 시도해주세요.' });

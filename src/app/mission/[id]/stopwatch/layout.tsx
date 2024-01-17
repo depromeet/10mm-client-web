@@ -7,5 +7,5 @@ export default function Layout({ children }: PropsWithChildren) {
 
 const containerCss = css({
   minHeight: '100vh',
-  backgroundColor: 'bg.surface1',
+  backgroundColor: 'bg.surface2',
 });

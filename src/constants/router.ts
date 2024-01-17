@@ -34,6 +34,8 @@ export const ROUTER = {
     SIGNUP: '/auth/signup',
     SIGNIN: '/auth/signin',
     NICKNAME: '/auth/nickname',
+    TEMP_REGISTER: '/auth/temp-register',
+    REGISTER: '/auth/register',
   },
   GUEST: {
     MISSION: {

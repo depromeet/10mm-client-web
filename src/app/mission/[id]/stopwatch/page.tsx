@@ -1,10 +1,10 @@
 'use client';
 
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetMissionDetail } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
-import { useCustomBack, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
+import { useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
@@ -18,6 +18,7 @@ import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
+import { resetStopwatchStorage } from '@/utils/storage/timer';
 import { formatDate } from '@/utils/time';
 import { css, cx } from '@styled-system/css';
 
@@ -32,6 +33,7 @@ export default function StopwatchPage() {
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);
+  const [isMoveLoading, setIsMoveLoading] = useState(false);
 
   const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
@@ -43,20 +45,13 @@ export default function StopwatchPage() {
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
-  useCustomBack(() => {
-    onNextStep('stop');
-    openMidOutModal();
-  });
+  // useCustomBack(() => {
+  //   onNextStep('stop');
+  //   openMidOutModal();
+  // });
 
   useRecordMidTime(time);
   useUnloadAction(time);
-
-  const resetStopwatchStorage = () => {
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME);
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.TIME_2);
-    localStorage.removeItem(STORAGE_KEY.STOPWATCH.START_TIME);
-  };
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
@@ -65,9 +60,12 @@ export default function StopwatchPage() {
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
 
+      setIsMoveLoading(true);
       resetStopwatchStorage();
     },
-    onError: () => {},
+    onError: () => {
+      setIsMoveLoading(() => false); // 없어도 되는지 확인 필요
+    },
   });
 
   // TODO: 끝내기 후 로직 추가
@@ -108,7 +106,7 @@ export default function StopwatchPage() {
 
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
-    router.push(ROUTER.MISSION.DETAIL(missionId));
+    router.replace(ROUTER.MISSION.DETAIL(missionId));
     resetStopwatchStorage();
   };
 
@@ -170,7 +168,7 @@ export default function StopwatchPage() {
 
   return (
     <>
-      {isSubmitLoading && <Loading />}
+      {isSubmitLoading || (isMoveLoading && <Loading />)}
       <Header rightAction="none" onBackAction={onBackAction} />
       <div className={containerCss}>
         <section key={step} className={opacityAnimation}>

@@ -60,4 +60,5 @@ export enum MissionStatus {
   COMPLETED = 'COMPLETED',
   NONE = 'NONE',
   REQUIRED = 'REQUIRED',
+  PROGRESSING = 'PROGRESSING', // 진행중, 프론트에서만 존재
 }

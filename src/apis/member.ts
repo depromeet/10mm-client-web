@@ -4,9 +4,9 @@ import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schem
 import {
   useMutation,
   type UseMutationOptions,
+  useQuery,
   useQueryClient,
   type UseQueryOptions,
-  useSuspenseQuery,
 } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -91,9 +91,10 @@ export const useUploadProfileImageComplete = (
 };
 
 export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['member', 'me'],
     queryFn: () => MEMBER_API.getMembersMe(),
+
     ...option,
   });
 };

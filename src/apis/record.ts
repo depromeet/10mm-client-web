@@ -73,6 +73,9 @@ const RECORD_API = {
     const { data } = await apiInstance.put(`/records/${recordId}`, request);
     return data;
   },
+  deleteInProgressRecord: async () => {
+    return apiInstance.delete('/records/in-progress');
+  },
 };
 
 export default RECORD_API;
