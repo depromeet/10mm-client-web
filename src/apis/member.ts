@@ -18,6 +18,10 @@ interface CheckUsernameRequest {
   username: string;
 }
 
+interface CheckNicknameRequest {
+  nickname: string;
+}
+
 interface UploadProfileImageCompleteRequest extends Partial<UploadBaseRequest> {
   nickname: string;
 }
@@ -39,6 +43,11 @@ const MEMBER_API = {
     const { data } = await apiInstance.post(`/members/check-username`, request);
     return data;
   },
+
+  checkNickname: async (request: CheckNicknameRequest) => {
+    const { data } = await apiInstance.post(`/members/check-nickname`, request);
+    return data;
+  },
   uploadProfileImage: async (request: UploadBaseRequest): Promise<UploadUrlBaseResponse> => {
     const { data } = await apiInstance.post<UploadUrlBaseResponse>(`/members/me/upload-url`, request);
     return data;
@@ -52,6 +61,13 @@ const MEMBER_API = {
 export const useCheckUsername = (option?: UseMutationOptions<unknown, unknown, CheckUsernameRequest>) => {
   return useMutation({
     mutationFn: MEMBER_API.checkUsername,
+    ...option,
+  });
+};
+
+export const useCheckNickname = (option?: UseMutationOptions<unknown, unknown, CheckNicknameRequest>) => {
+  return useMutation({
+    mutationFn: MEMBER_API.checkNickname,
     ...option,
   });
 };

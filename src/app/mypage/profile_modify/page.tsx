@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, useRef, useState } from 'react';
+import { type ChangeEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
@@ -10,16 +10,21 @@ import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
 import { checkImageType, getUrlImageType, useImage } from '@/hooks/useImage';
+import useNickname from '@/hooks/useNickname';
 import { css } from '@/styled-system/css';
 
 function ProfileModifyPage() {
   const { data } = useGetMembersMe();
 
+  const { nickname, handleNicknameChange, massageState, handleDuplicateCheck } = useNickname(data?.nickname);
+
   const router = useRouter();
 
-  const [nickname, setUserNickname] = useState(data?.nickname || '');
+  //TODO: 완료 버튼 disabled되는 조건 추가 -> 이미지가 바뀌지 않았을경우, 기존 닉네임에서 바뀐게 없을 경우, 중복확인 결과 사용 불가능한 닉네임일 경우
+  const rightButtonDisabled = nickname.length === 0;
 
   const imageRef = useRef<HTMLInputElement>(null);
+  const duplicateCheckButtonDisabled = data?.nickname === nickname;
 
   const { uploadImageChange, imagePreview, imageFile } = useImage(data?.profileImageUrl || '');
   const { triggerSnackBar } = useSnackBar();
@@ -68,7 +73,7 @@ function ProfileModifyPage() {
       <Header
         rightAction="text-button"
         title="프로필 수정"
-        rightButtonProps={{ disabled: nickname.length === 0, onClick: onSubmit }}
+        rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
       />
 
       <main className={mainCss}>
@@ -89,7 +94,19 @@ function ProfileModifyPage() {
             <Icon name="camera" width={14} height={14} color="icon.secondary" />
           </div>
         </section>
-        <Input value={nickname} onChange={setUserNickname} name="닉네임" maxLength={20} />;
+        <Input
+          variant="normal-button"
+          value={nickname}
+          onChange={handleNicknameChange}
+          name="닉네임"
+          maxLength={20}
+          buttonText="중복확인"
+          buttonDisabeld={duplicateCheckButtonDisabled}
+          errorMsg={massageState.errorMsg}
+          validMsg={massageState.validMsg}
+          onTextButtonClick={handleDuplicateCheck}
+        />
+        ;
       </main>
     </>
   );

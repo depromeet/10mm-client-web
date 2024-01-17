@@ -28,6 +28,7 @@ export interface NormalButtonInputTypes extends InputBaseType, Omit<InputHTMLAtt
   errorMsg?: string;
   validMsg?: string;
   required?: boolean;
+  buttonDisabeld: boolean;
 
   buttonText: string;
   onTextButtonClick: () => void;
