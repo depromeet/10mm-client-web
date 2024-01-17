@@ -37,6 +37,10 @@ export interface MissionItemType {
   sort: number;
 }
 
+export interface MissionItemTypeWithRecordId extends MissionItemType {
+  missionRecordId?: string;
+}
+
 export enum MissionCategory {
   STUDY = 'STUDY',
   EXERCISE = 'EXERCISE',

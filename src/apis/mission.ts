@@ -1,5 +1,5 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
-import { type MissionCategory, type MissionItemType, type MissionVisibility } from '@/apis/schema/mission';
+import { type MissionCategory, type MissionItemTypeWithRecordId, type MissionVisibility } from '@/apis/schema/mission';
 import {
   useMutation,
   type UseMutationOptions,
@@ -67,7 +67,7 @@ export interface MissionContentType {
   sort: number;
 }
 
-type GetMissionsResponse = MissionItemType[];
+type GetMissionsResponse = MissionItemTypeWithRecordId[];
 
 interface ModifyMissionResponse {
   missionId: string;

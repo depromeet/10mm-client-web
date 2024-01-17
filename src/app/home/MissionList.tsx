@@ -53,7 +53,11 @@ function MissionListInner() {
         const status = isProgressingMission ? MissionStatus.PROGRESSING : item.missionStatus;
 
         const missionId = item.missionId.toString();
-        const moveHref = isProgressingMission ? ROUTER.MISSION.STOP_WATCH(missionId) : ROUTER.MISSION.DETAIL(missionId);
+        const moveHref = isProgressingMission
+          ? ROUTER.MISSION.STOP_WATCH(missionId)
+          : item.missionRecordId && status === MissionStatus.REQUIRED
+            ? ROUTER.RECORD.CREATE(item.missionRecordId.toString())
+            : ROUTER.MISSION.DETAIL(missionId);
         return (
           <Link href={moveHref} key={item.missionId}>
             <TwoLineListItem
