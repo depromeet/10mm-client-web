@@ -18,7 +18,9 @@ function ProfileModifyPage() {
   const router = useRouter();
 
   const [nickname, setNickname] = useState(data?.nickname || '');
+  const [validNickname, setValidNickname] = useState(true);
 
+  //TODO: 완료 버튼 disabled되는 조건 추가 -> 이미지가 바뀌지 않았을경우, 기존 닉네임에서 바뀐게 없을 경우, 중복확인 결과 사용 불가능한 닉네임일 경우
   const rightButtonDisabled = nickname.length === 0;
 
   const validateNickname = (value: string) => {
@@ -53,6 +55,12 @@ function ProfileModifyPage() {
 
   const handleImageClick = () => {
     imageRef.current?.click();
+  };
+
+  const handleDuplicateCheck = () => {
+    //TODO: 중복체크 확인 API 나오면 작업 예정
+    setValidNickname((prev) => !prev);
+    console.log(validNickname);
   };
 
   const onSubmit = async () => {
@@ -110,6 +118,7 @@ function ProfileModifyPage() {
           buttonText="중복확인"
           buttonDisabeld={duplicateCheckButtonDisabled}
           errorMsg={errorMsg}
+          onTextButtonClick={handleDuplicateCheck}
         />
         ;
       </main>
