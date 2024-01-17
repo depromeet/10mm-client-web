@@ -95,7 +95,18 @@ export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<
   return useSuspenseQuery<MissionContentType>({
     queryKey: getMissionDetailQueryKey({ missionId }),
     queryFn: () => MISSION_APIS.getMissionDetail(missionId),
+    ...option,
+  });
+};
 
+export const useGetMissionDetailNoSuspense = (
+  missionId: string,
+  option?: Omit<UseQueryOptions<MissionContentType>, 'enabled'>, // TODO 수정 필요, 임시 방편
+) => {
+  return useQuery<MissionContentType>({
+    queryKey: getMissionDetailQueryKey({ missionId }),
+    queryFn: () => MISSION_APIS.getMissionDetail(missionId),
+    enabled: Boolean(missionId),
     ...option,
   });
 };

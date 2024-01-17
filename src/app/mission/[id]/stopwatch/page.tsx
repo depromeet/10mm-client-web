@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useGetMissionDetail } from '@/apis/mission';
+import { useGetMissionDetailNoSuspense } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
 import { useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
@@ -28,8 +28,8 @@ export default function StopwatchPage() {
 
   const router = useRouter();
 
-  const { data: missionData } = useGetMissionDetail(missionId);
-  const category = MISSION_CATEGORY_LABEL[missionData?.category].label;
+  const { data: missionData } = useGetMissionDetailNoSuspense(missionId);
+  const category = missionData?.category ? MISSION_CATEGORY_LABEL[missionData?.category].label : '';
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);

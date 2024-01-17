@@ -246,6 +246,7 @@ const imageUploadInputAreaCss = css({
   alignItems: 'center',
   flexDirection: 'column',
   gap: '8px',
+  objectFit: 'contain',
 });
 
 const imageWrapperCss = css({
