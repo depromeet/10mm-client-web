@@ -20,7 +20,7 @@ export default function SignupPage() {
     onError: (error) => {
       if (isSeverError(error)) {
         triggerSnackBar({
-          message: error.data.message,
+          message: error.response.data.message,
         });
         return;
       }

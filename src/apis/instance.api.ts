@@ -27,7 +27,7 @@ const setInterceptors = (instance: AxiosInstance) => {
       return response?.data;
     },
     (error) => {
-      return Promise.reject(error && (error?.response?.data as ErrorResponse));
+      return Promise.reject(error);
     },
   );
 
@@ -45,17 +45,20 @@ export default axiosInstance;
 
 //TODO : error response type 정의
 interface ErrorResponse {
-  data: {
-    errorClassName: string;
-    message: string;
+  response: {
+    data: {
+      errorClassName: string;
+      message: string;
+    };
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isSeverError = (e: any): e is ErrorResponse => {
   if (!e) return false;
-  if ('data' in e) {
-    return 'errorClassName' in e.data;
+  if ('response' in e) {
+    return 'data' in e.response && 'errorClassName' in e.response.data;
   }
+
   return false;
 };
