@@ -78,7 +78,7 @@ const mainWrapperCss = css({
   height: '100vh',
 
   color: 'text.primary',
-  gap: '32px',
+  gap: '24px',
 
   '& section': {
     width: '100%',
