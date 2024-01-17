@@ -67,10 +67,7 @@ export default function StopwatchPage() {
 
       resetStopwatchStorage();
     },
-    onError: (error) => {
-      // TODO
-      console.log('error: ', error);
-    },
+    onError: () => {},
   });
 
   // TODO: 끝내기 후 로직 추가
@@ -168,6 +165,7 @@ export default function StopwatchPage() {
     if (isFinished) {
       onAutoFinish();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinished]);
 
   return (

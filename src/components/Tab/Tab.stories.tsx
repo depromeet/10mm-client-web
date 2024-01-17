@@ -36,7 +36,7 @@ export const Default: Story = {
     ],
     activeTab: 'Tab1',
     onTabClick: (id: string) => {
-      console.log(id);
+      console.info(id);
     },
   },
 };

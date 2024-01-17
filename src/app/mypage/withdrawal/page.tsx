@@ -1,18 +1,40 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useGetMembersMe, useWithdrawalMember } from '@/apis/member';
 import Button from '@/components/Button/Button';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
+import { ROUTER } from '@/constants/router';
+import { removeTokens } from '@/services/auth/actions';
 import { css } from '@/styled-system/css';
 import { grid } from '@/styled-system/patterns';
 
 function WithdrawalPage() {
   const router = useRouter();
+  const { data } = useGetMembersMe();
+  const { triggerSnackBar } = useSnackBar();
+  const { mutate } = useWithdrawalMember({
+    onSuccess: () => {
+      removeTokens();
+      triggerSnackBar({
+        message: '회원탈퇴 했습니다.',
+      });
+      router.push(ROUTER.AUTH.LOGIN);
+    },
+    onError: () => {
+      triggerSnackBar({
+        message: '회원탈퇴에 실패했습니다.',
+      });
+    },
+  });
 
   const onCancel = () => {
     router.back();
   };
 
-  const onWithdrawal = () => {};
+  const onWithdrawal = () => {
+    mutate({ username: data.username });
+  };
 
   return (
     <>

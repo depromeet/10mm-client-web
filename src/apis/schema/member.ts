@@ -6,8 +6,12 @@
  * @param profileUrl - 프로필 이미지 URL
  */
 export interface MemberType {
-  memberId: string;
+  memberId: number;
   name: string;
   nickname: string;
-  profileUrl: string;
+  profileImageUrl?: string;
+  memberStatus: string;
+  memberRole: string;
+  memberVisibility: string;
+  username: string;
 }

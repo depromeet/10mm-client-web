@@ -2,25 +2,26 @@
 
 import { type ChangeEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
+import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
-import { checkImageType, useImage } from '@/hooks/useImage';
+import { checkImageType, getUrlImageType, useImage } from '@/hooks/useImage';
 import { css } from '@/styled-system/css';
 
-const PREVIOUS_NICKNAME = '수미칩';
-
 function ProfileModifyPage() {
+  const { data } = useGetMembersMe();
+
   const router = useRouter();
 
-  const [nickname, setNickname] = useState(PREVIOUS_NICKNAME);
+  const [nickname, setUserNickname] = useState(data.nickname);
+
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const { uploadImageChange, imagePreview, imageFile } = useImage();
+  const { uploadImageChange, imagePreview, imageFile } = useImage(data.profileImageUrl);
   const { triggerSnackBar } = useSnackBar();
   const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
   const { mutateAsync: uploadProfileCompleteMutate } = useUploadProfileImageComplete({
@@ -31,6 +32,7 @@ function ProfileModifyPage() {
       router.push(ROUTER.MYPAGE.HOME);
     },
   });
+
   const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
     if (!files) return;
 
@@ -41,18 +43,17 @@ function ProfileModifyPage() {
     imageRef.current?.click();
   };
 
-  const isSubmitButtonDisabled = nickname === PREVIOUS_NICKNAME || nickname.length === 0;
-
   const onSubmit = async () => {
-    const imageFileExtension = checkImageType(imageFile?.type);
+    const imageType = imageFile?.type || getUrlImageType(data.profileImageUrl);
+    const imageFileExtension = checkImageType(imageType);
 
-    if (!imageFileExtension) return;
     try {
-      await uploadProfileMutate({
-        imageFileExtension,
-      });
+      imageFileExtension &&
+        (await uploadProfileMutate({
+          imageFileExtension,
+        }));
       await uploadProfileCompleteMutate({
-        imageFileExtension,
+        imageFileExtension: imageFileExtension ? imageFileExtension : undefined,
         nickname: nickname,
       });
     } catch (e) {
@@ -67,7 +68,7 @@ function ProfileModifyPage() {
       <Header
         rightAction="text-button"
         title="프로필 수정"
-        rightButtonProps={{ disabled: isSubmitButtonDisabled, onClick: onSubmit }}
+        rightButtonProps={{ disabled: nickname.length === 0, onClick: onSubmit }}
       />
 
       <main className={mainCss}>
@@ -88,7 +89,7 @@ function ProfileModifyPage() {
             <Icon name="camera" width={14} height={14} color="icon.secondary" />
           </div>
         </section>
-        <Input value={nickname} onChange={setNickname} name="닉네임" maxLength={20} />;
+        <Input value={nickname} onChange={setUserNickname} name="닉네임" maxLength={20} />;
       </main>
     </>
   );

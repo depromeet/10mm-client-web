@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import MISSION_APIS from '@/apis/mission';
+import { MissionStatus } from '@/apis/schema/mission';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
@@ -13,8 +15,13 @@ function MissionHistoryTab() {
   const missionId = id as string | undefined;
   const currentDate = new Date();
 
-  const handleMissionStart = () => {
+  const handleMissionStart = async () => {
     if (!missionId) return;
+    const flag = await checkMissionProgressing();
+    if (flag) {
+      // TODO : 진행중
+      return;
+    }
     router.push(ROUTER.MISSION.STOP_WATCH(missionId));
   };
 
@@ -38,6 +45,12 @@ function MissionHistoryTab() {
 }
 
 export default MissionHistoryTab;
+
+const checkMissionProgressing = async () => {
+  const missionList = await MISSION_APIS.getMissions();
+  const requiredMission = missionList.find((mission) => mission.missionStatus === MissionStatus.REQUIRED);
+  return Boolean(requiredMission);
+};
 
 const scrollAreaCss = css({
   overflowY: 'scroll',

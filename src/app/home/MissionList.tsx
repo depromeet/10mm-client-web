@@ -18,37 +18,38 @@ function MissionList() {
 
   // TODO: 스켈레톤 또는 로딩 추가
   if (isLoading) {
-    return <>loading...</>;
+    return (
+      <div className={containerCss}>
+        <Header />
+      </div>
+    );
   }
-
-  const isMissionEmpty = missionList.length === 0;
+  if (missionList.length === 0) {
+    return (
+      <div className={containerCss}>
+        <Header />
+        <MissionEmptyList />
+      </div>
+    );
+  }
 
   return (
     <div className={containerCss}>
-      <h2 className={headingCss}>
-        <span>내 미션 목록</span>
-        <Link href={ROUTER.MISSION.NEW}>
-          <Icon name="plus" size={20} />
-        </Link>
-      </h2>
+      <Header />
       <ul className={listCss}>
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
 
-        {isMissionEmpty ? (
-          <MissionEmptyList />
-        ) : (
-          missionList.map((item) => (
-            <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
-              <TwoLineListItem
-                badgeElement={<MissionBadge status={item.missionStatus} />}
-                name={item.content}
-                subName={MISSION_CATEGORY_LABEL[item.category].label}
-                imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-              />
-            </Link>
-          ))
-        )}
+        {missionList.map((item) => (
+          <Link href={ROUTER.MISSION.DETAIL(item.missionId.toString())} key={item.missionId}>
+            <TwoLineListItem
+              badgeElement={<MissionBadge status={item.missionStatus} />}
+              name={item.content}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+            />
+          </Link>
+        ))}
       </ul>
     </div>
   );
@@ -56,10 +57,23 @@ function MissionList() {
 
 export default MissionList;
 
+function Header() {
+  return (
+    <h2 className={headingCss}>
+      <span>내 미션 목록</span>
+      <Link href={ROUTER.MISSION.NEW}>
+        <Icon name="plus" size={20} />
+      </Link>
+    </h2>
+  );
+}
+
 const containerCss = flex({
   flexDirection: 'column',
-  flex: 1,
   padding: '0 16px 30px',
+  flex: 1,
+  minWidth: '0',
+  display: 'flex',
 });
 
 const headingCss = flex({
@@ -75,6 +89,7 @@ const listCss = flex({
   flex: 1,
 
   gap: '8px',
+  height: '100%',
 });
 
 function MissionBadge({ status }: { status: MissionStatusType }) {
