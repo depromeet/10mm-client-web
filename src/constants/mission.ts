@@ -8,20 +8,21 @@ export const MISSION_CATEGORY_LABEL: Record<
     value: MissionCategory;
   }
 > = {
+  EXERCISE: {
+    imgUrl: '/images/category/exercise.png',
+    label: '운동',
+    value: MissionCategory.EXERCISE,
+  },
+
   STUDY: {
     label: '공부',
     value: MissionCategory.STUDY,
     imgUrl: '/images/category/study.png',
   },
-  ETC: {
-    label: '기타',
-    value: MissionCategory.ETC,
-    imgUrl: '/images/category/etc.png',
-  },
-  EXERCISE: {
-    imgUrl: '/images/category/exercise.png',
-    label: '운동',
-    value: MissionCategory.EXERCISE,
+  READING: {
+    label: '글 읽기',
+    value: MissionCategory.READING,
+    imgUrl: '/images/category/reading.png',
   },
   WRITING: {
     label: '글 쓰기',
@@ -38,10 +39,10 @@ export const MISSION_CATEGORY_LABEL: Record<
     value: MissionCategory.WATCHING,
     imgUrl: '/images/category/play-button.png',
   },
-  READING: {
-    label: '글 읽기',
-    value: MissionCategory.READING,
-    imgUrl: '/images/category/reading.png',
+  ETC: {
+    label: '기타',
+    value: MissionCategory.ETC,
+    imgUrl: '/images/category/etc.png',
   },
 } as const;
 
