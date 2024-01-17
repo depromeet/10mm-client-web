@@ -37,6 +37,7 @@ export const ROUTER = {
     TEMP_REGISTER: '/auth/temp-register',
     REGISTER: '/auth/register',
   },
+  PRIVACY: '/privacy',
   GUEST: {
     MISSION: {
       NEW: '/guest/mission/new',
