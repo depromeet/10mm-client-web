@@ -19,9 +19,12 @@ function ProfileModifyPage() {
 
   const [nickname, setNickname] = useState(data?.nickname || '');
 
+  const rightButtonDisabled = nickname.length === 0;
+
   const validateNickname = (value: string) => {
     const regex = /^[가-힣a-zA-Z0-9]{2,20}$/;
-    return regex.test(value);
+    const hasInvalidCharacter = /^[\wㄱ-ㅎㅏ-ㅣ가-힣]*$/.test(value);
+    return regex.test(value) && hasInvalidCharacter;
   };
   const isValid = validateNickname(nickname);
 
@@ -77,7 +80,7 @@ function ProfileModifyPage() {
       <Header
         rightAction="text-button"
         title="프로필 수정"
-        rightButtonProps={{ disabled: nickname.length === 0, onClick: onSubmit }}
+        rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
       />
 
       <main className={mainCss}>
