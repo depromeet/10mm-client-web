@@ -1,8 +1,8 @@
 'use client';
 
-import { type ChangeEvent, useRef, useState } from 'react';
+import { type ChangeEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCheckNickname, useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
+import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
@@ -10,51 +10,21 @@ import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
 import { checkImageType, getUrlImageType, useImage } from '@/hooks/useImage';
+import useNickname from '@/hooks/useNickname';
 import { css } from '@/styled-system/css';
 
 function ProfileModifyPage() {
   const { data } = useGetMembersMe();
 
-  const [nickname, setNickname] = useState(data?.nickname || '');
-
-  const { mutate } = useCheckNickname();
-  const [validNickname, setValidNickname] = useState(true);
-  const handleDuplicateCheck = () => {
-    mutate(
-      { nickname },
-      {
-        onSuccess: () => {
-          console.log('뮤테이션 성공');
-          setValidNickname(true);
-        },
-        onError: () => {
-          console.log('뮤테이션 에러');
-          setValidNickname(false);
-        },
-      },
-    );
-  };
+  const { nickname, handleNicknameChange, massageState, handleDuplicateCheck } = useNickname(data?.nickname);
 
   const router = useRouter();
 
   //TODO: 완료 버튼 disabled되는 조건 추가 -> 이미지가 바뀌지 않았을경우, 기존 닉네임에서 바뀐게 없을 경우, 중복확인 결과 사용 불가능한 닉네임일 경우
   const rightButtonDisabled = nickname.length === 0;
 
-  const validateNickname = (value: string) => {
-    const regex = /^[가-힣a-zA-Z0-9]{2,20}$/;
-    const hasInvalidCharacter = /^[\wㄱ-ㅎㅏ-ㅣ가-힣]*$/.test(value);
-    return regex.test(value) && hasInvalidCharacter;
-  };
-  const isValid = validateNickname(nickname);
-
-  const errorMsg = isValid ? '' : '2~20자 이내의 한글, 영문, 숫자로만 입력해 주세요.';
-
-  const description = validNickname
-    ? '사용 가능한 닉네임입니다.'
-    : '중복된 닉네임입니다. 다른 닉네임으로 변경해주세요.';
-
   const imageRef = useRef<HTMLInputElement>(null);
-  const duplicateCheckButtonDisabled = data?.nickname === nickname || !isValid;
+  const duplicateCheckButtonDisabled = data?.nickname === nickname;
 
   const { uploadImageChange, imagePreview, imageFile } = useImage(data?.profileImageUrl || '');
   const { triggerSnackBar } = useSnackBar();
@@ -127,13 +97,13 @@ function ProfileModifyPage() {
         <Input
           variant="normal-button"
           value={nickname}
-          onChange={setNickname}
+          onChange={handleNicknameChange}
           name="닉네임"
           maxLength={20}
           buttonText="중복확인"
           buttonDisabeld={duplicateCheckButtonDisabled}
-          errorMsg={errorMsg}
-          description={description}
+          errorMsg={massageState.errorMsg}
+          validMsg={massageState.validMsg}
           onTextButtonClick={handleDuplicateCheck}
         />
         ;
