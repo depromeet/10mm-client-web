@@ -71,14 +71,18 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
         </span>
 
         <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
-          <strong
-            className={css({
-              color: errorMsg ? 'red.red500' : 'text.tertiary',
-            })}
-          >
-            {value?.length}
-          </strong>
-          /{props.maxLength}
+          {props.maxLength && (
+            <>
+              <strong
+                className={css({
+                  color: errorMsg ? 'red.red500' : 'text.tertiary',
+                })}
+              >
+                {value?.length ?? 0}
+              </strong>
+              /{props.maxLength}
+            </>
+          )}
         </span>
       </div>
     </section>
@@ -128,6 +132,7 @@ const inputCss = css({
 const inputLengthWrapperCss = css({
   textStyle: 'body6',
   color: 'text.tertiary',
+  minHeight: '17px',
 });
 
 const descriptionTextCss = css({
