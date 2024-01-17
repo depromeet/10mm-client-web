@@ -12,6 +12,7 @@ export default function NormalButtonInput({
   errorMsg,
   validMsg,
   required = false,
+  buttonDisabeld,
   ...props
 }: NormalButtonInputTypes) {
   const [isFocused, setIsFocused] = useState(false);
@@ -56,7 +57,14 @@ export default function NormalButtonInput({
           {...(required && { required: true })}
           {...props}
         />
-        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onTextButtonClick}>
+        <Button
+          size="small"
+          variant="secondary"
+          type="button"
+          className={buttonCss}
+          onClick={onTextButtonClick}
+          disabled={buttonDisabeld}
+        >
           {props.buttonText}
         </Button>
       </div>
