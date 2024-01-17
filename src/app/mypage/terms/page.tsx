@@ -1,16 +1,24 @@
 import React from 'react';
+import { TERMS } from '@/app/mypage/terms/terms.constants';
 import { flex } from '@/styled-system/patterns';
 
 function TermPage() {
-  return <div className={containerCss}>추후 추가될예정</div>;
+  return (
+    <div className={containerCss}>
+      {TERMS.split('\n').map((line, index) => (
+        <p key={index}>{line}</p>
+      ))}
+    </div>
+  );
 }
 
 export default TermPage;
 
 const containerCss = flex({
-  justifyContent: 'center',
-  alignItems: 'center',
+  flexDirection: 'column',
+  gap: '8px',
   color: 'text.primary',
-  fontSize: '30px',
-  marginTop: '50px',
+  padding: '30px 20px',
+
+  textStyle: 'body1',
 });
