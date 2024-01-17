@@ -28,9 +28,7 @@ export default function NormalButtonInput({
 
     onChange?.(inputValue);
   };
-
   const isMaxLengthTextVisible = value && props.maxLength;
-
   return (
     <section className={sectionCss}>
       <label className={subTitleCss} htmlFor={props.id}>
@@ -72,10 +70,10 @@ export default function NormalButtonInput({
       <div className={descriptionCss}>
         <span
           className={css(descriptionTextCss, {
-            color: statusColor,
+            color: props.description ? '' : validMsg ? 'blue.blue500' : 'red.red500',
           })}
         >
-          {errorMsg || props.description}
+          {errorMsg || validMsg || props.description}
         </span>
 
         {isMaxLengthTextVisible && (
