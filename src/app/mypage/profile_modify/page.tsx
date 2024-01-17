@@ -2,7 +2,7 @@
 
 import { type ChangeEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
+import { useCheckNickname, useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
@@ -15,10 +15,27 @@ import { css } from '@/styled-system/css';
 function ProfileModifyPage() {
   const { data } = useGetMembersMe();
 
-  const router = useRouter();
-
   const [nickname, setNickname] = useState(data?.nickname || '');
+
+  const { mutate } = useCheckNickname();
   const [validNickname, setValidNickname] = useState(true);
+  const handleDuplicateCheck = () => {
+    mutate(
+      { nickname },
+      {
+        onSuccess: () => {
+          console.log('뮤테이션 성공');
+          setValidNickname(true);
+        },
+        onError: () => {
+          console.log('뮤테이션 에러');
+          setValidNickname(false);
+        },
+      },
+    );
+  };
+
+  const router = useRouter();
 
   //TODO: 완료 버튼 disabled되는 조건 추가 -> 이미지가 바뀌지 않았을경우, 기존 닉네임에서 바뀐게 없을 경우, 중복확인 결과 사용 불가능한 닉네임일 경우
   const rightButtonDisabled = nickname.length === 0;
@@ -31,6 +48,10 @@ function ProfileModifyPage() {
   const isValid = validateNickname(nickname);
 
   const errorMsg = isValid ? '' : '2~20자 이내의 한글, 영문, 숫자로만 입력해 주세요.';
+
+  const description = validNickname
+    ? '사용 가능한 닉네임입니다.'
+    : '중복된 닉네임입니다. 다른 닉네임으로 변경해주세요.';
 
   const imageRef = useRef<HTMLInputElement>(null);
   const duplicateCheckButtonDisabled = data?.nickname === nickname || !isValid;
@@ -55,12 +76,6 @@ function ProfileModifyPage() {
 
   const handleImageClick = () => {
     imageRef.current?.click();
-  };
-
-  const handleDuplicateCheck = () => {
-    //TODO: 중복체크 확인 API 나오면 작업 예정
-    setValidNickname((prev) => !prev);
-    console.log(validNickname);
   };
 
   const onSubmit = async () => {
@@ -118,6 +133,7 @@ function ProfileModifyPage() {
           buttonText="중복확인"
           buttonDisabeld={duplicateCheckButtonDisabled}
           errorMsg={errorMsg}
+          description={description}
           onTextButtonClick={handleDuplicateCheck}
         />
         ;
