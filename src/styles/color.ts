@@ -72,6 +72,11 @@ export const colorList = defineTokens({
         value: '#2E2020',
       },
     },
+    blue: {
+      blue500: {
+        value: '#507BE9',
+      },
+    },
     gradients: {
       primary: {
         value: 'linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)',

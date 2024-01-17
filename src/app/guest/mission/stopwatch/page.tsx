@@ -5,6 +5,7 @@ import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
@@ -23,22 +24,22 @@ export default function GuestMissionStopwatchPage() {
   const { isOpen, openModal, closeModal } = useModal();
 
   const onFinishButtonClick = () => {
-    eventLogger.logEvent('click/finishButton', 'stopwatch', { category });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     openModal();
     onNextStep('stop');
   };
 
   const onFinish = () => {
-    eventLogger.logEvent('click/finish', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
     });
-    router.push(ROUTER.GUEST.MISSION.SUCCESS);
+    router.replace(ROUTER.GUEST.MISSION.SUCCESS);
   };
 
   const onCancel = () => {
-    eventLogger.logEvent('click/cancel', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_CANCEL, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       finishTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
@@ -47,7 +48,7 @@ export default function GuestMissionStopwatchPage() {
   };
 
   const onStop = () => {
-    eventLogger.logEvent('click/stop', 'stopwatch', {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
       category,
       stopTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
@@ -56,7 +57,10 @@ export default function GuestMissionStopwatchPage() {
   };
 
   const onStart = () => {
-    eventLogger.logEvent('click/start', 'stopwatch', { category, isGuest: true });
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, {
+      category,
+      isGuest: true,
+    });
     onNextStep('progress');
   };
 
@@ -140,7 +144,7 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body3', marginTop: '4px', marginBottom: '96px' });
+const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
 
 const stopwatchCss = css({
   width: 'fit-content',

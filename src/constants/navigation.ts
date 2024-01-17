@@ -10,17 +10,23 @@ export interface NavigationItemType {
 
 export const NAVIGATION: NavigationItemType[] = [
   {
-    icon: 'navigation-home',
-    key: 'home',
-    name: 'Home',
+    icon: 'navigation-mission',
+    key: 'mission',
+    name: 'Mission',
     path: ROUTER.HOME,
   },
-  {
-    icon: 'navigation-result',
-    key: 'result',
-    name: 'Result',
-    path: ROUTER.RESULT.HOME,
-  },
+  // {
+  //   icon: 'navigation-feed',
+  //   key: 'feed',
+  //   name: 'Feed',
+  //   path: ROUTER.RESULT.HOME,
+  // },
+  // {
+  //   icon: 'navigation-result',
+  //   key: 'result',
+  //   name: 'Result',
+  //   path: ROUTER.RESULT.HOME,
+  // },
   {
     icon: 'navigation-mypage',
     key: 'mypage',

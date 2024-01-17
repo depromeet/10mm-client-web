@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 import Icon from '@/components/Icon';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 /**
@@ -8,16 +8,17 @@ import { flex } from '@/styled-system/patterns';
  * @param title header title text
  * @param rightElement header 오른쪽에 들어가는 element
  * @param onBackAction back icon click action
+ * @param headerBgColor
  */
-function HeaderBase(props: { title?: string; onBackAction?: () => void; rightElement: ReactNode }) {
+function HeaderBase(props: {
+  title?: string;
+  onBackAction?: () => void;
+  rightElement: ReactNode;
+  headerBgColor?: string;
+}) {
   return (
     <>
-      <header
-        className={wrapperCss}
-        style={{
-          backgroundColor: 'colors.bg.surface1',
-        }}
-      >
+      <header className={cx(wrapperCss, css({ backgroundColor: props.headerBgColor ?? 'bg.surface2' }))}>
         <section className={leftSectionCss}>
           {props.onBackAction && (
             <button className={`${backButtonCss} back-button`} type="button" onClick={props.onBackAction}>
@@ -43,8 +44,8 @@ const positionCss = {
 
 const wrapperCss = flex({
   ...positionCss,
-  padding: '12px',
-  background: 'bg.surface1',
+  padding: '12px 0 12px 12px',
+  background: 'bg.surface2',
   margin: '0 auto',
   left: 0,
   right: 0,

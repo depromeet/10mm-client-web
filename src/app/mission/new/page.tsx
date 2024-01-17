@@ -1,7 +1,6 @@
+import MissionRegistration from '@/app/mission/new/MissionRegistration';
 import Header from '@/components/Header/Header';
 import { css } from '@styled-system/css';
-
-import MissionRegistration from './MissionRegistration';
 
 export default function MissionNewPage() {
   return (

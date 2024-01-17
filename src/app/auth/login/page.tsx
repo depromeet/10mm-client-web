@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
-import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
@@ -12,11 +11,18 @@ export default function LoginPage() {
     router.push(ROUTER.GUEST.MISSION.NEW);
   };
 
+  const onClickLoginButton = () => {
+    router.push(ROUTER.AUTH.SIGNIN);
+  };
+
   return (
     <main className={MainWrapperCss}>
       <div className={LoginButtonListWrapperCss}>
-        <ButtonSocialLogin type="kakao" />
-        <ButtonSocialLogin type="apple" />
+        <Button variant="primary" size="large" onClick={onClickLoginButton}>
+          아이디로 로그인
+        </Button>
+        {/*<ButtonSocialLogin type="kakao" />*/}
+        {/*<ButtonSocialLogin type="apple" />*/}
         <Button size="large" variant="ghost" onClick={onClickGuest}>
           둘러보기
         </Button>
@@ -42,6 +48,7 @@ const MainWrapperCss = css({
 });
 
 const LoginButtonListWrapperCss = css({
+  maxWidth: '320px',
   display: 'flex',
   gap: '8px',
   flexDirection: 'column',

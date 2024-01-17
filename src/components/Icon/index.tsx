@@ -9,8 +9,11 @@ import CheckCircleIcon from '@/components/Icon/CheckCircleIcon';
 import CloseCircleIcon from '@/components/Icon/CloseCircleIcon';
 import CloseIcon from '@/components/Icon/CloseIcon';
 import CopyLinkIcon from '@/components/Icon/CopyLinkIcon';
+import LoginInInformationIcon from '@/components/Icon/LoginInInformationIcon';
+import LogOutIcon from '@/components/Icon/LogOutIcon';
 import MenuIcon from '@/components/Icon/MenuIcon';
-import NavigationHomeIcon from '@/components/Icon/NavigationHomeIcon';
+import NavigationFeedIcon from '@/components/Icon/NavigationFeedIcon';
+import NavigationMissionIcon from '@/components/Icon/NavigationMissionIcon';
 import NavigationMypageIcon from '@/components/Icon/NavigationMypageIcon';
 import NavigationResultIcon from '@/components/Icon/NavigationResultIcon';
 import NavigationUsersearchIcon from '@/components/Icon/NavigationUsersearchIcon';
@@ -18,7 +21,10 @@ import PlusCircleIcon from '@/components/Icon/PlusCircleIcon';
 import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
+import SpinnerIcon from '@/components/Icon/SpinnerIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
+import TermsIcon from '@/components/Icon/TermsIcon';
+import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
 import AppleLoginIcon from './AppleLoginIcon';
@@ -41,10 +47,11 @@ export const IconComponentMap = {
   'copy-link': CopyLinkIcon,
   'arrow-diagonal': ArrowDiagonalIcon,
   'close-circle': CloseCircleIcon,
-  'navigation-home': NavigationHomeIcon,
   'navigation-result': NavigationResultIcon,
   'navigation-mypage': NavigationMypageIcon,
   'navigation-usersearch': NavigationUsersearchIcon,
+  'navigation-mission': NavigationMissionIcon,
+  'navigation-feed': NavigationFeedIcon,
   camera: CameraIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
@@ -57,6 +64,11 @@ export const IconComponentMap = {
   '10mm-symbol': TENMMSymbolIcon,
   'apple-login': AppleLoginIcon,
   'kakao-login': KakaoLoginIcon,
+  terms: TermsIcon,
+  'log-in-information': LoginInInformationIcon,
+  'log-out': LogOutIcon,
+  withdrawal: WithdrawalIcon,
+  spinner: SpinnerIcon,
 } as const;
 
 interface Props extends IconComponentProps {

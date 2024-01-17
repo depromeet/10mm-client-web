@@ -2,20 +2,20 @@ import Image from 'next/image';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { cva } from '@/styled-system/css';
 
-// NOTE: variant = null을 변수로 받아야할까?
 function Thumbnail({ variant, url, ...props }: ThumbnailProps) {
   switch (variant) {
-    case 'null':
-      return (
-        <div className={thumbnailStyle(props)}>
-          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
-        </div>
-      );
     case 'filled':
     case 'dimed':
       return (
         <div className={thumbnailStyle(props)}>
           <Image src={url} fill alt="thumbnail" />
+        </div>
+      );
+    case 'null':
+    default:
+      return (
+        <div className={thumbnailStyle(props)}>
+          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
         </div>
       );
   }
@@ -31,15 +31,25 @@ const thumbnailStyle = cva({
   },
   variants: {
     size: {
+      h80: {
+        width: '80px',
+        height: '80px',
+        borderRadius: '31px',
+      },
       h52: {
         width: '52px',
         height: '52px',
-        borderRadius: '20px', //TODO : 수정 필요
+        borderRadius: '20px',
       },
-      h32: {
-        width: '32px',
-        height: '32px',
-        borderRadius: '14px', //TODO : 수정 필요
+      h36: {
+        width: '36px',
+        height: '36px',
+        borderRadius: '14px',
+      },
+      h24: {
+        width: '24px',
+        height: '24px',
+        borderRadius: '10px',
       },
     },
     variant: {
@@ -57,7 +67,7 @@ const thumbnailStyle = cva({
     },
     selected: {
       true: {
-        border: '1.5px solid transparent',
+        border: '1px solid transparent',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundOrigin: 'border-box',

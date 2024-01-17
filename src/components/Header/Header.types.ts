@@ -1,11 +1,15 @@
+import { type ComponentProps } from 'react';
+import type Button from '@/components/Button/Button';
 import { type IconComponentMap } from '@/components/Icon';
+import { type MenuBaseItem } from '@/components/Menu';
 
 interface HeaderBaseType {
-  rightAction: 'icon' | 'none' | 'text-button';
+  rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu';
 
   title?: string;
   onBackAction?: () => void;
   isBackIcon?: boolean;
+  headerBgColor?: string;
 }
 
 export interface IconHeaderType extends HeaderBaseType {
@@ -21,7 +25,14 @@ export interface NoneHeaderType extends HeaderBaseType {
 export interface TextButtonHeaderType extends HeaderBaseType {
   rightAction: 'text-button';
   rightButtonText?: string;
-  onButtonClick?: () => void;
+  rightButtonProps?: Omit<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'>;
 }
 
-export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType;
+export interface IconMenuHeaderType extends HeaderBaseType {
+  rightAction: 'icon-menu';
+  iconName?: keyof typeof IconComponentMap;
+  menus: MenuBaseItem[];
+  onMenuClick: (id: string) => void;
+}
+
+export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType | IconMenuHeaderType;
