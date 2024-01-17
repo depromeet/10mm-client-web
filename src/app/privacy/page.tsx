@@ -1,18 +1,18 @@
 import React from 'react';
-import { TERMS } from '@/app/mypage/terms/terms.constants';
+import { PRIVACY } from '@/app/privacy/privacy.contants';
 import { flex } from '@/styled-system/patterns';
 
-function TermPage() {
+function PrivacyPage() {
   return (
     <div className={containerCss}>
-      {TERMS.split('\n').map((line, index) => (
+      {PRIVACY.split('\n').map((line, index) => (
         <p key={index}>{line}</p>
       ))}
     </div>
   );
 }
 
-export default TermPage;
+export default PrivacyPage;
 
 const containerCss = flex({
   flexDirection: 'column',
