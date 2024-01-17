@@ -4,12 +4,9 @@ import MissionList from '@/app/home/MissionList';
 import ProfileList from '@/app/home/ProfileList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
-import { useAuth } from '@/hooks/useAuth';
 import { css } from '@styled-system/css';
 
 export default function Home() {
-  useAuth();
-
   return (
     <main className={mainCss}>
       <AppBar />
