@@ -17,11 +17,11 @@ function ProfileModifyPage() {
 
   const router = useRouter();
 
-  const [nickname, setUserNickname] = useState(data.nickname);
+  const [nickname, setUserNickname] = useState(data?.nickname || '');
 
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const { uploadImageChange, imagePreview, imageFile } = useImage(data.profileImageUrl);
+  const { uploadImageChange, imagePreview, imageFile } = useImage(data?.profileImageUrl || '');
   const { triggerSnackBar } = useSnackBar();
   const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
   const { mutateAsync: uploadProfileCompleteMutate } = useUploadProfileImageComplete({
@@ -44,7 +44,7 @@ function ProfileModifyPage() {
   };
 
   const onSubmit = async () => {
-    const imageType = imageFile?.type || getUrlImageType(data.profileImageUrl);
+    const imageType = imageFile?.type || getUrlImageType(data?.profileImageUrl || '');
     const imageFileExtension = checkImageType(imageType);
 
     try {

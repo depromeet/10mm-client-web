@@ -33,6 +33,7 @@ function WithdrawalPage() {
   };
 
   const onWithdrawal = () => {
+    if (!data?.username) return;
     mutate({ username: data.username });
   };
 
