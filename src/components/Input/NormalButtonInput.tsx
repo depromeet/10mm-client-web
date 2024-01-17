@@ -80,14 +80,7 @@ export default function NormalButtonInput({
 
         {isMaxLengthTextVisible && (
           <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
-            <strong
-              className={css({
-                color: errorMsg ? 'red.red500' : 'text.tertiary',
-              })}
-            >
-              {value.length}
-            </strong>
-            /{props.maxLength}
+            <strong>{value.length}</strong>/{props.maxLength}
           </span>
         )}
       </div>
