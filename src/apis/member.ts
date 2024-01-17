@@ -1,7 +1,13 @@
 import apiInstance from '@/apis/instance.api';
 import { type MemberType } from '@/apis/schema/member';
 import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schema/upload';
-import { useMutation, type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import {
+  useMutation,
+  type UseMutationOptions,
+  useQuery,
+  useQueryClient,
+  type UseQueryOptions,
+} from '@tanstack/react-query';
 import axios from 'axios';
 
 interface WithdrawalMemberRequest {
@@ -12,7 +18,7 @@ interface CheckUsernameRequest {
   username: string;
 }
 
-interface UploadProfileImageCompleteRequest extends UploadBaseRequest {
+interface UploadProfileImageCompleteRequest extends Partial<UploadBaseRequest> {
   nickname: string;
 }
 
@@ -61,7 +67,9 @@ export const useUploadProfileImage = (
   return useMutation({
     mutationFn: MEMBER_API.uploadProfileImage,
     onSuccess: async (data) => {
-      data && imageFile && (await uploadS3(data.presignedUrl, imageFile));
+      if (data && imageFile) {
+        return await uploadS3(data.presignedUrl, imageFile);
+      }
     },
     ...option,
   });
@@ -70,9 +78,15 @@ export const useUploadProfileImage = (
 export const useUploadProfileImageComplete = (
   option?: UseMutationOptions<unknown, unknown, UploadProfileImageCompleteRequest>,
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: MEMBER_API.uploadProfileImageComplete,
+
     ...option,
+    onSuccess: (...res) => {
+      option?.onSuccess && option.onSuccess(...res);
+      return queryClient.invalidateQueries({ queryKey: ['member', 'me'] });
+    },
   });
 };
 
@@ -81,6 +95,13 @@ export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
     queryKey: ['member', 'me'],
     queryFn: () => MEMBER_API.getMembersMe(),
 
+    ...option,
+  });
+};
+
+export const useWithdrawalMember = (option?: UseMutationOptions<unknown, unknown, WithdrawalMemberRequest>) => {
+  return useMutation({
+    mutationFn: MEMBER_API.withdrawalMember,
     ...option,
   });
 };
