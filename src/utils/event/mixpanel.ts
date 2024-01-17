@@ -21,4 +21,4 @@ export class MixpanelEventLogger implements EventLogger {
   }
 }
 
-export const mixpanelLogger = new MixpanelEventLogger(MIXPANEL_ID ?? '');
+export const mixpanelLogger = MIXPANEL_ID ? new MixpanelEventLogger(MIXPANEL_ID) : null;

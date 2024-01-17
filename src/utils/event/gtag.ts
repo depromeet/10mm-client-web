@@ -31,4 +31,4 @@ class GtagEventLogger implements EventLogger {
   }
 }
 
-export const gtagLogger = new GtagEventLogger(GA_TRACKING_ID ?? '');
+export const gtagLogger = GA_TRACKING_ID ? new GtagEventLogger(GA_TRACKING_ID) : null;
