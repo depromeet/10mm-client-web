@@ -1,13 +1,13 @@
-import Link from 'next/link';
 import { cva } from '@/styled-system/css';
 import { styled } from '@/styled-system/jsx';
 
-const buttonStyle = cva({
+export const buttonStyle = cva({
   base: {
     textStyle: 'subtitle4',
     flexShrink: 0,
     display: 'block',
     textAlign: 'center',
+    userSelect: 'none',
   },
   variants: {
     size: {
@@ -135,7 +135,5 @@ const buttonStyle = cva({
 });
 
 const Button = styled('button', buttonStyle);
-
-export const LinkButton = styled(Link, buttonStyle);
 
 export default Button;

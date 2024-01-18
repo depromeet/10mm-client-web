@@ -1,4 +1,4 @@
-import { LinkButton } from '@/components/Button/Button';
+import LinkButton from '@/components/Button/LinkButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -63,7 +63,7 @@ export const GhostButton: Story = {
 export const DisabledButton: Story = {
   args: {
     href: '#',
-    // disabled: true,
+    disabled: true,
     size: 'large',
     variant: 'cta',
     children: 'Disabled LinkButton',
