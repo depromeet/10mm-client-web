@@ -1,3 +1,4 @@
+import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
 import Button from '@/components/Button/Button';
 import Tab from '@/components/Tab/Tab';
@@ -34,6 +35,7 @@ function ResultPage() {
         <Banner type="card" description="전체 누적 시간" iconName="alarm" title={DUMMY_TIME} />
         <Banner type="card" description="총 미션 달성률" iconName="alarm" title={DUMMY_PERCENT} />
       </section>
+      <AppBarBottom />
     </div>
   );
 }
