@@ -13,8 +13,10 @@ function LevelProgressBar({ current, isLabel, isFinal, min = 0, max = 100 }: Pro
   const percent = isFinal ? 100 : (100 / (max - min)) * (current - min);
 
   return (
-    <div className={progressContainerCss}>
-      <div className={progressInnerContainerCss} style={{ width: `${percent}%` }} />
+    <div className={containerCss}>
+      <div className={progressContainerCss}>
+        <div className={progressInnerContainerCss} style={{ width: `${percent}%` }} />
+      </div>
       {isLabel && (
         <div className={labelContainerCss}>
           <span>{min}</span>
@@ -24,6 +26,10 @@ function LevelProgressBar({ current, isLabel, isFinal, min = 0, max = 100 }: Pro
     </div>
   );
 }
+
+const containerCss = css({
+  width: '100%',
+});
 
 const progressContainerCss = css({
   borderRadius: '10px',
@@ -43,14 +49,10 @@ const progressInnerContainerCss = css({
 });
 
 const labelContainerCss = flex({
-  position: 'absolute',
   textStyle: 'body4',
   color: 'text.quaternary',
   marginTop: '5px',
-  left: 0,
-  right: 0,
   width: '100%',
-  top: '100%',
   justifyContent: 'space-between',
 });
 
