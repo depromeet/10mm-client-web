@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
 import Button from '@/components/Button/Button';
@@ -30,6 +31,9 @@ function ResultPage() {
           레벨 안내
         </Button>
       </section>
+      <section className={imageSectionCss}>
+        <Image src={currentLevel.imageUrl} alt="10mm character" fill />
+      </section>
       <LevelStatus current={DUMMY_SYMBOL_STACK} level={currentLevel} />
       <section className={bannerSectionCss}>
         <Banner type="card" description="전체 누적 시간" iconName="alarm" title={DUMMY_TIME} />
@@ -53,4 +57,15 @@ const bannerSectionCss = grid({
   gap: '10px',
   maxWidth: '376px',
   margin: '0 auto',
+});
+
+const imageSectionCss = css({
+  margin: '43px auto 12px',
+  position: 'relative',
+  height: '210px',
+
+  '& img': {
+    height: '210px !important',
+    objectFit: 'contain',
+  },
 });
