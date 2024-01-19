@@ -1,10 +1,13 @@
 import { cva } from '@/styled-system/css';
 import { styled } from '@/styled-system/jsx';
 
-const buttonStyle = cva({
+export const buttonStyle = cva({
   base: {
     textStyle: 'subtitle4',
     flexShrink: 0,
+    display: 'block',
+    textAlign: 'center',
+    userSelect: 'none',
   },
   variants: {
     size: {
@@ -12,20 +15,23 @@ const buttonStyle = cva({
         width: 'fit-content',
         height: '34px',
         textStyle: 'subtitle5',
-        padding: '8px 12px',
+        padding: '0 12px',
         borderRadius: '12px',
+        lineHeight: '34px',
       },
       medium: {
         width: 'fit-content',
         height: '44px',
         padding: '0 20px',
         borderRadius: '16px',
+        lineHeight: '44px',
       },
       large: {
         width: '100%',
         height: '44px',
         padding: '0 24px',
         borderRadius: '16px',
+        lineHeight: '44px',
       },
     },
     variant: {
