@@ -7,7 +7,7 @@ export interface DefaultEmptyProps {
 export interface SuggestEmptyProps extends DefaultEmptyProps {
   type: 'suggest';
   buttonText: string;
-  buttonAction: () => void;
+  link: string;
 }
 
 export interface NoticesEmptyProps extends DefaultEmptyProps {
