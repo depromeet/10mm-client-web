@@ -13,6 +13,7 @@ function LinkButton({ disabled, ...props }: Props) {
       style={{
         pointerEvents: disabled ? 'none' : 'auto',
         filter: disabled ? 'brightness(0.4)' : '',
+        margin: '0 auto',
       }}
       {...props}
     />
