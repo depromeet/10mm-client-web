@@ -24,7 +24,7 @@ function ResultPage() {
         </Button>
       </section>
       <section>
-        <LevelStatus percent={50} />
+        <LevelStatus current={50} />
       </section>
     </div>
   );
