@@ -5,6 +5,8 @@ import Tab from '@/components/Tab/Tab';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
+import LevelStatus from './LevelStatus/LevelStatus';
+
 const TAB = [
   {
     id: 'result',
@@ -20,6 +22,9 @@ function ResultPage() {
         <Button size="small" variant="secondary" className={buttonCss}>
           레벨 안내
         </Button>
+      </section>
+      <section>
+        <LevelStatus percent={50} />
       </section>
     </div>
   );
