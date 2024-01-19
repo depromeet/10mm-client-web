@@ -1,9 +1,8 @@
-// 'use client';
-
 import Button from '@/components/Button/Button';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+import { getLevel } from '@/utils/result';
 
 import LevelStatus from './LevelStatus/LevelStatus';
 
@@ -14,7 +13,11 @@ const TAB = [
   },
 ];
 
+const DUMMY_SYMBOL_STACK = 90;
+
 function ResultPage() {
+  const currentLevel = getLevel(DUMMY_SYMBOL_STACK);
+
   return (
     <div>
       <section className={topWrapperCss}>
@@ -24,7 +27,7 @@ function ResultPage() {
         </Button>
       </section>
       <section>
-        <LevelStatus current={50} />
+        <LevelStatus current={DUMMY_SYMBOL_STACK} level={currentLevel} />
       </section>
     </div>
   );

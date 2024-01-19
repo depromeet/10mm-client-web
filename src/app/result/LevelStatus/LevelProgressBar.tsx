@@ -6,10 +6,11 @@ interface Props {
   min?: number;
   max?: number;
   isLabel?: boolean;
+  isFinal?: boolean;
 }
 
-function LevelProgressBar({ current, isLabel, min = 0, max = 100 }: Props) {
-  const percent = (100 / (max - min)) * (current - min);
+function LevelProgressBar({ current, isLabel, isFinal, min = 0, max = 100 }: Props) {
+  const percent = isFinal ? 100 : (100 / (max - min)) * (current - min);
 
   return (
     <div className={progressContainerCss}>

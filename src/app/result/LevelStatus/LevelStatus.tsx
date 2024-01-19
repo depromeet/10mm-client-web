@@ -1,14 +1,17 @@
 'use client';
 
 import LevelProgressBar from '@/app/result/LevelStatus/LevelProgressBar';
+import { type LevelSystemType } from '@/constants/level';
 import { gradientTextCss } from '@/constants/style';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 interface Props {
   current: number;
+  level: LevelSystemType;
 }
-function LevelStatus(props: Props) {
+
+function LevelStatus({ level, ...props }: Props) {
   return (
     <section className={containerCss}>
       <div className={levelWrapperCss}>
@@ -16,12 +19,10 @@ function LevelStatus(props: Props) {
           <TenMMSymbol />
         </div>
         {/* <Image src="/assets/icons/10mm-symbol-fill.svg" alt="10mm symbol fill" width={16} height={16} /> */}
-        <span className={cx(levelLabelCss, gradientTextCss)}>6</span>
+        <span className={cx(levelLabelCss, gradientTextCss)}>{props.current}</span>
       </div>
-      <p className={levelTextWrapperCss}>
-        LV. <span>보스 단계</span>
-      </p>
-      <LevelProgressBar current={props.current} isLabel />
+      <p className={levelTextWrapperCss}>{level.label}</p>
+      <LevelProgressBar current={props.current} isLabel={!level.isFinal} {...level} />
     </section>
   );
 }
