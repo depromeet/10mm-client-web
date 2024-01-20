@@ -19,7 +19,6 @@ export default function MissionModify() {
     setMissionContentInput(value);
   };
 
-  // TODO: 미션 단건조회 GET, 미션 단건 수정PUT추가
   return (
     <section>
       <Input

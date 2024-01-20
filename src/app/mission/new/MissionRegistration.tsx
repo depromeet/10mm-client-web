@@ -88,13 +88,13 @@ export default function MissionRegistration() {
       />
 
       {/* 공개설정 */}
-      {/* <Input
+      <Input
         variant="drop-down"
         title="공개설정"
         list={PUBLIC_SETTING_LIST}
         selected={missionPublicSetting}
         onSelect={(item) => setMissionPublicSetting(item)}
-      /> */}
+      />
 
       <div className={buttonContainerCss}>
         <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
