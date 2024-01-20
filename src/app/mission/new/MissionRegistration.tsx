@@ -21,7 +21,7 @@ export default function MissionRegistration() {
     PUBLIC_SETTING_LIST[1],
   );
 
-  const isSubmitButtonDisabled = !missionTitleInput || !missionCategory || !missionContentInput;
+  const isSubmitButtonDisabled = !missionTitleInput || !missionCategory;
 
   const { mutate } = useCreateMissionMutation();
   // 미션 명
@@ -36,13 +36,7 @@ export default function MissionRegistration() {
   const handleSubmit = () => {
     if (!missionCategory) {
       triggerSnackBar({
-        message: '미션 제목을 입력해주세요. ',
-      });
-      return;
-    }
-    if (!missionContentInput) {
-      triggerSnackBar({
-        message: '미션 내용을 입력해주세요. ',
+        message: '미션 제목을 입력해주세요.',
       });
       return;
     }
@@ -69,7 +63,6 @@ export default function MissionRegistration() {
       <Input
         type="text"
         placeholder="미션 내용을 입력"
-        required
         name="미션내용"
         maxLength={30}
         value={missionContentInput}
