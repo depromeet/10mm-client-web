@@ -87,6 +87,12 @@ export const colorList = defineTokens({
       button2: {
         value: 'linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
       },
+      strong: {
+        value: 'linear-gradient(91deg, #FF8585 0%, #C792F1 45.83%, #759CFF 100%)',
+      },
+      medium: {
+        value: 'linear-gradient(91deg, #FF9F9F 0%, #D3A5F8 36.46%, #8FADFA 100%)',
+      },
     },
   },
 });

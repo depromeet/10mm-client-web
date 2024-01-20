@@ -1811,6 +1811,14 @@ const tokens = {
     "value": "linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)",
     "variable": "var(--colors-gradients-button2)"
   },
+  "colors.gradients.strong": {
+    "value": "linear-gradient(91deg, #FF8585 0%, #C792F1 45.83%, #759CFF 100%)",
+    "variable": "var(--colors-gradients-strong)"
+  },
+  "colors.gradients.medium": {
+    "value": "linear-gradient(91deg, #FF9F9F 0%, #D3A5F8 36.46%, #8FADFA 100%)",
+    "variable": "var(--colors-gradients-medium)"
+  },
   "breakpoints.sm": {
     "value": "640px",
     "variable": "var(--breakpoints-sm)"
@@ -2214,6 +2222,14 @@ const tokens = {
   "colors.colorPalette.button2": {
     "value": "var(--colors-color-palette-button2)",
     "variable": "var(--colors-color-palette-button2)"
+  },
+  "colors.colorPalette.strong": {
+    "value": "var(--colors-color-palette-strong)",
+    "variable": "var(--colors-color-palette-strong)"
+  },
+  "colors.colorPalette.medium": {
+    "value": "var(--colors-color-palette-medium)",
+    "variable": "var(--colors-color-palette-medium)"
   },
   "colors.colorPalette.surface1": {
     "value": "var(--colors-color-palette-surface1)",
