@@ -453,6 +453,8 @@
   --colors-gradients-primary: linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%);
   --colors-gradients-button1: linear-gradient(91deg, #FFE5EE 0%, #E9CEFF 18.75%, #B9CDFF 100%);
   --colors-gradients-button2: linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%);
+  --colors-gradients-strong: linear-gradient(91deg, #FF8585 0%, #C792F1 45.83%, #759CFF 100%);
+  --colors-gradients-medium: linear-gradient(91deg, #FF9F9F 0%, #D3A5F8 36.46%, #8FADFA 100%);
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
   --breakpoints-lg: 1024px;
