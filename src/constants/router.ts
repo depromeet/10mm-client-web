@@ -36,6 +36,8 @@ export const ROUTER = {
     NICKNAME: '/auth/nickname',
     TEMP_REGISTER: '/auth/temp-register',
     REGISTER: '/auth/register',
+    KAKAO_CALLBACK: '/auth/kakaoCallback',
+    APPLE_CALLBACK: '/auth/appleCallback',
   },
   PRIVACY: '/privacy',
   GUEST: {
