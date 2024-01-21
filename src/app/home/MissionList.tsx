@@ -104,10 +104,6 @@ function Header() {
 
 const containerCss = flex({
   flexDirection: 'column',
-  padding: '0 16px 30px',
-  flex: 1,
-  minWidth: '0',
-  display: 'flex',
 });
 
 const headingCss = flex({
