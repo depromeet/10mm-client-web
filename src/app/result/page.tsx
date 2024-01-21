@@ -9,7 +9,6 @@ import Tab from '@/components/Tab/Tab';
 import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
 import { getLevel } from '@/utils/result';
-import { relative } from 'path';
 
 import LevelStatus from './LevelStatus/LevelStatus';
 
