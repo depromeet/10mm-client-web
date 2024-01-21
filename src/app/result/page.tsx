@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useGetMissionSummary } from '@/apis/mission';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
 import Button from '@/components/Button/Button';
@@ -6,6 +9,7 @@ import Tab from '@/components/Tab/Tab';
 import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
 import { getLevel } from '@/utils/result';
+import { relative } from 'path';
 
 import LevelStatus from './LevelStatus/LevelStatus';
 
@@ -16,12 +20,13 @@ const TAB = [
   },
 ];
 
-const DUMMY_SYMBOL_STACK = 90;
-const DUMMY_TIME = '102h 53m';
-const DUMMY_PERCENT = '72.5%';
-
 function ResultPage() {
-  const currentLevel = getLevel(DUMMY_SYMBOL_STACK);
+  const { data } = useGetMissionSummary();
+
+  const symbolStack = data?.symbolStack ?? 0;
+  const currentLevel = getLevel(symbolStack);
+  const totalTime = `${data?.totalMissionHour ?? 0}h ${data?.totalMissionMinute ?? 0}m`;
+  const totalMissionAttainRate = `${data?.totalMissionAttainRate ?? 0}%`;
 
   return (
     <div>
@@ -32,12 +37,15 @@ function ResultPage() {
         </Button>
       </section>
       <section className={imageSectionCss}>
-        <Image src={currentLevel.imageUrl} alt="10mm character" fill />
+        <Image className={'character'} src={currentLevel.imageUrl} alt="10mm character" fill />
+        <div className={bgImgWrapper}>
+          <Image src="/assets/result/character-bg-gradient.svg" alt="10mm character bg" fill />
+        </div>
       </section>
-      <LevelStatus current={DUMMY_SYMBOL_STACK} level={currentLevel} />
+      <LevelStatus current={symbolStack} level={currentLevel} />
       <section className={bannerSectionCss}>
-        <Banner type="card" description="전체 누적 시간" iconName="alarm" title={DUMMY_TIME} />
-        <Banner type="card" description="총 미션 달성률" iconName="alarm" title={DUMMY_PERCENT} />
+        <Banner type="card" description="전체 누적 시간" iconName="alarm" title={totalTime} />
+        <Banner type="card" description="총 미션 달성률" iconName="alarm" title={totalMissionAttainRate} />
       </section>
       <AppBarBottom />
     </div>
@@ -64,8 +72,25 @@ const imageSectionCss = css({
   position: 'relative',
   height: '210px',
 
-  '& img': {
+  '& img.character': {
     height: '210px !important',
+    objectFit: 'contain',
+  },
+
+  '& img.bg': {
+    position: 'absolute',
+    transform: 'translateY(-20%);',
+    width: '100vw !important',
+    height: '382px !important',
+    objectFit: 'contain',
+  },
+});
+
+const bgImgWrapper = css({
+  transform: 'translateY(-25%);',
+  height: '382px',
+
+  '& img': {
     objectFit: 'contain',
   },
 });
