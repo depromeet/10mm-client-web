@@ -1,3 +1,4 @@
+import FollowMissionList from '@/app/home/FollowMissionList';
 import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
@@ -15,7 +16,7 @@ function ProfileContent() {
   return (
     <div className={containerCss}>
       <FollowSummary />
-      <MissionList />
+      <FollowMissionList />
     </div>
   );
 }
