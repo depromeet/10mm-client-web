@@ -1,10 +1,11 @@
+import React from 'react';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cx } from '@styled-system/css';
 
 function ProfileItem(props: {
-  id: number;
+  id: number | null;
   name: string;
-  onClick: (id: number) => void;
+  onClick: (id: number | null) => void;
   selected?: boolean;
   url?: string;
 }) {
@@ -28,7 +29,7 @@ function ProfileItem(props: {
   );
 }
 
-export default ProfileItem;
+export default React.memo(ProfileItem);
 
 const itemCss = css({
   cursor: 'pointer',

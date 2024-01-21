@@ -1,3 +1,4 @@
+import { useProfileId } from '@/app/home/ProfileIdProvider';
 import UserProfile from '@/app/home/UserProfile';
 import { flex } from '@/styled-system/patterns';
 
@@ -34,23 +35,19 @@ const uerProfiles = [
   },
 ];
 
-function ProfileList({
-  selectedProfile,
-  onClickProfile,
-}: {
-  selectedProfile: number;
-  onClickProfile: (id: number) => void;
-}) {
+function ProfileList() {
+  const { profileId, setProfileId } = useProfileId();
+
   return (
     <section className={containerCss}>
-      <UserProfile onClick={onClickProfile} selected={selectedProfile === -1} />
+      <UserProfile />
       {uerProfiles.map((profile) => (
         <ProfileItem
           key={profile.id}
-          onClick={onClickProfile}
+          onClick={setProfileId}
           id={profile.id}
           name={profile.name}
-          selected={selectedProfile === profile.id}
+          selected={profileId === profile.id}
         />
       ))}
     </section>
