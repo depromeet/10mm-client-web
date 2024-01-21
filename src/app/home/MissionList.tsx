@@ -31,7 +31,7 @@ function MissionList() {
 
 export default MissionList;
 
-function MissionListInner() {
+export function MissionListInner() {
   const { missionList, isLoading, progressMissionId } = useMissions();
 
   if (isLoading) {
@@ -102,8 +102,8 @@ function Header() {
   );
 }
 
-const containerCss = flex({
-  flexDirection: 'column',
+const containerCss = css({
+  height: '100%',
 });
 
 const headingCss = flex({
