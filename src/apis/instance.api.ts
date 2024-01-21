@@ -1,5 +1,5 @@
 import { getTokens } from '@/services/auth/actions';
-import axios, { type AxiosInstance } from 'axios';
+import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
 const BASE_TIMEOUT = 10000;
@@ -8,7 +8,6 @@ const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     async (config) => {
       const { accessToken, refreshToken } = await getTokens();
-
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
@@ -27,6 +26,12 @@ const setInterceptors = (instance: AxiosInstance) => {
       return response?.data;
     },
     (error) => {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          //TODO : refresh token
+          console.log('refresh token');
+        }
+      }
       return Promise.reject(error);
     },
   );
@@ -41,25 +46,32 @@ const axiosInstance = setInterceptors(
   }),
 );
 
+interface ErrorType {
+  errorClassName: string;
+  message: string;
+}
+
 export default axiosInstance;
 
-//TODO : error response type 정의
 interface ErrorResponse {
-  response: {
-    data: {
-      data: {
-        errorClassName: string;
-        message: string;
-      };
-    };
-  };
+  data: ErrorType;
+  status: number;
+  success: boolean;
+}
+
+interface SeverError extends Omit<AxiosError<ErrorResponse>, 'response'> {
+  response: AxiosResponse<ErrorResponse>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isSeverError = (e: any): e is ErrorResponse => {
+export const isSeverError = (e: any): e is SeverError => {
   if (!e) return false;
-  if ('response' in e) {
-    return 'data' in e.response && 'data' in e.response.data && 'errorClassName' in e.response.data.data;
+
+  if (axios.isAxiosError(e)) {
+    if (!e.response) return false;
+    return (
+      'data' in e.response && 'data' in e.response.data && 'status' in e.response.data && 'success' in e.response.data
+    );
   }
 
   return false;
