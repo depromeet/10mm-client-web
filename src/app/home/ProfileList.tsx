@@ -1,11 +1,58 @@
-import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { css } from '@/styled-system/css';
+import UserProfile from '@/app/home/UserProfile';
 import { flex } from '@/styled-system/patterns';
 
-function ProfileList() {
+import ProfileItem from './ProfileItem';
+
+const uerProfiles = [
+  {
+    name: '변수미칩',
+    id: 1,
+  },
+  {
+    name: '도모',
+    id: 2,
+  },
+  {
+    name: '당근조이',
+    id: 3,
+  },
+  {
+    name: '당근조이1',
+    id: 4,
+  },
+  {
+    name: '당근조이2',
+    id: 5,
+  },
+  {
+    name: '당근조이3',
+    id: 6,
+  },
+  {
+    name: '당근조이4',
+    id: 7,
+  },
+];
+
+function ProfileList({
+  selectedProfile,
+  onClickProfile,
+}: {
+  selectedProfile: number;
+  onClickProfile: (id: number) => void;
+}) {
   return (
     <section className={containerCss}>
-      <ProfileItem name="나" />
+      <UserProfile onClick={onClickProfile} selected={selectedProfile === -1} />
+      {uerProfiles.map((profile) => (
+        <ProfileItem
+          key={profile.id}
+          onClick={onClickProfile}
+          id={profile.id}
+          name={profile.name}
+          selected={selectedProfile === profile.id}
+        />
+      ))}
     </section>
   );
 }
@@ -13,33 +60,13 @@ function ProfileList() {
 export default ProfileList;
 
 const containerCss = flex({
-  padding: '16px',
+  overflowY: 'auto',
+  padding: '16px 0',
   paddingBottom: '20px',
   gap: '12px',
   alignItems: 'stretch',
-});
-
-function ProfileItem(props: { name: string; url?: string }) {
-  return (
-    <div className={itemCss}>
-      <Thumbnail size="h52" />
-      <span className={nameCss}>{props.name}</span>
-    </div>
-  );
-}
-
-const itemCss = css({
-  cursor: 'pointer',
-});
-
-const nameCss = css({
-  textAlign: 'center',
-  overflow: 'hidden',
-  maxWidth: '100%',
-  width: '100%',
-  display: 'block',
-  textOverflow: 'ellipsis',
-  marginTop: '6px',
-  textStyle: 'body6',
-  color: 'text.primary',
+  margin: '0 16px',
+  _scrollbar: {
+    display: 'none',
+  },
 });

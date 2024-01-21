@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import AppBar from '@/app/home/AppBar';
 import MissionList from '@/app/home/MissionList';
 import ProfileList from '@/app/home/ProfileList';
@@ -7,10 +8,11 @@ import BottomDim from '@/components/BottomDim/BottomDim';
 import { css } from '@styled-system/css';
 
 export default function Home() {
+  const [selectedProfile, setSelectedProfile] = useState(-1);
   return (
     <main className={mainCss}>
       <AppBar />
-      <ProfileList />
+      <ProfileList selectedProfile={selectedProfile} onClickProfile={setSelectedProfile} />
       <MissionList />
       <AppBarBottom />
       <BottomDim />

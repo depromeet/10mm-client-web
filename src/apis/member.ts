@@ -110,7 +110,6 @@ export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
   return useQuery({
     queryKey: ['member', 'me'],
     queryFn: () => MEMBER_API.getMembersMe(),
-
     ...option,
   });
 };
