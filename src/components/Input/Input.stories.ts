@@ -99,6 +99,7 @@ export const NormalButtonInput: Story = {
     required: false,
     maxLength: 20,
     errorMsg: '',
+    buttonDisabeld: true,
   },
   argTypes: {
     title: { table: { disable: true } },

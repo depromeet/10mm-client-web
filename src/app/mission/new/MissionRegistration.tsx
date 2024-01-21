@@ -6,18 +6,23 @@ import useCreateMissionMutation from '@/app/mission/new/useCreateMissionMutation
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
 import { css } from '@/styled-system/css';
 
 export default function MissionRegistration() {
+  const { triggerSnackBar } = useSnackBar();
+
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
   const [missionCategory, setMissionCategory] = useState<DropdownValueType<MissionCategory> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
-    PUBLIC_SETTING_LIST[0],
+    PUBLIC_SETTING_LIST[1],
   );
 
   const isSubmitButtonDisabled = !missionTitleInput || !missionCategory;
+
   const { mutate } = useCreateMissionMutation();
   // 미션 명
   const handleMissionTitleInput = (value: string) => {
@@ -29,7 +34,13 @@ export default function MissionRegistration() {
   };
 
   const handleSubmit = () => {
-    if (!missionCategory) return;
+    if (!missionCategory) {
+      triggerSnackBar({
+        message: '미션 제목을 입력해주세요.',
+      });
+      return;
+    }
+
     mutate({
       name: missionTitleInput,
       content: missionContentInput,
@@ -48,7 +59,6 @@ export default function MissionRegistration() {
         maxLength={20}
         value={missionTitleInput}
         onChange={handleMissionTitleInput}
-        description="디스크립션 영역입니다"
       />
       <Input
         type="text"
@@ -57,7 +67,6 @@ export default function MissionRegistration() {
         maxLength={30}
         value={missionContentInput}
         onChange={handleMissionContentInput}
-        description="디스크립션 영역입니다"
       />
 
       {/* 카테고리 */}

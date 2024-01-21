@@ -13,7 +13,7 @@ function MissionHistoryBanner({
 }) {
   return (
     <div className={missionHistoryBannerCss}>
-      <Image width={30} height={30} alt={title} src={imageUrl} />
+      <Image width={36} height={36} alt={title} src={imageUrl} />
       <div>
         <p className={bannerTitleCss}>{title}</p>
         <p className={bannerDescriptionCss}>{description}</p>
@@ -33,6 +33,11 @@ export const missionHistoryBannerCss = css({
   background: 'linear-gradient(93deg, rgba(25, 23, 27, 0.80) 0.82%, rgba(24, 25, 33, 0.80) 99.97%)',
   boxShadow: '0px 5px 50px 4px rgba(92, 78, 122, 0.50) inset, 0px 4px 20px 0px rgba(16, 15, 23, 0.20)',
   backdropFilter: 'blur(20px)',
+
+  '& img': {
+    width: '36px',
+    height: '36px',
+  },
 });
 
 const bannerTitleCss = css({

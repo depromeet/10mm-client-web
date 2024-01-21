@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { APP_USER_AGENT } from '@/constants/common';
+import { useAuth } from '@/hooks/useAuth';
 import { motion } from 'framer-motion';
 
 const variants = {
@@ -16,9 +17,9 @@ const getUserAgent = () => {
 };
 
 export default function Template({ children }: { children: React.ReactNode }) {
+  useAuth();
   const [customMotion, setCustomMotion] = useState(true);
   const isApp = RegExp(APP_USER_AGENT).test(getUserAgent());
-
   useEffect(() => {
     const popStateEventHandler = (_event: PopStateEvent) => {
       setCustomMotion(false);

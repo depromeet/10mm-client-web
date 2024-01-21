@@ -31,8 +31,14 @@ export interface MissionItemType {
   content: string;
   category: MissionCategory;
   visibility: MissionVisibility;
-  status: MissionStatus;
+  missionStatus: MissionStatus;
+  archiveStatus: ArchiveStatus;
+  ttlFinishedAt: string;
   sort: number;
+}
+
+export interface MissionItemTypeWithRecordId extends MissionItemType {
+  missionRecordId?: string;
 }
 
 export enum MissionCategory {
@@ -49,9 +55,14 @@ export enum MissionVisibility {
   FOLLOWER = 'FOLLOWER',
   NONE = 'NONE',
 }
+export enum ArchiveStatus {
+  NONE = 'NONE',
+  ARCHIVED = 'ARCHIVED',
+}
 
 export enum MissionStatus {
-  ARCHIVED = 'ARCHIVED',
+  COMPLETED = 'COMPLETED',
   NONE = 'NONE',
   REQUIRED = 'REQUIRED',
+  PROGRESSING = 'PROGRESSING', // 진행중, 프론트에서만 존재
 }

@@ -9,6 +9,7 @@ interface HeaderBaseType {
   title?: string;
   onBackAction?: () => void;
   isBackIcon?: boolean;
+  headerBgColor?: string;
 }
 
 export interface IconHeaderType extends HeaderBaseType {

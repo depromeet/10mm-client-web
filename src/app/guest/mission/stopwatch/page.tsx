@@ -35,7 +35,7 @@ export default function GuestMissionStopwatchPage() {
       finishTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
     });
-    router.push(ROUTER.GUEST.MISSION.SUCCESS);
+    router.replace(ROUTER.GUEST.MISSION.SUCCESS);
   };
 
   const onCancel = () => {

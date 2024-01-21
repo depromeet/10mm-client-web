@@ -26,4 +26,4 @@ export class HotjarEventLogger implements EventLogger {
   }
 }
 
-export const hotjarLogger = new HotjarEventLogger(HOTJAR_ID ?? '', HOTJAR_SV ?? '');
+export const hotjarLogger = HOTJAR_ID && HOTJAR_SV ? new HotjarEventLogger(HOTJAR_ID, HOTJAR_SV) : null;

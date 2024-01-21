@@ -2,24 +2,35 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useModifyMissionMutation } from '@/apis/mission';
+import MISSION_APIS, { useGetMissionDetail, useModifyMissionMutation } from '@/apis/mission';
 import { type MissionVisibility } from '@/apis/schema/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
-import { PUBLIC_SETTING_LIST } from '@/constants/mission';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
+import { PUBLIC_SETTING_LABEL, PUBLIC_SETTING_LIST } from '@/constants/mission';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
-export default function MissionModifyPage() {
-  const { mutate } = useModifyMissionMutation(1);
+export default function MissionModifyPage({ params }: { params: { id: string } }) {
+  const { triggerSnackBar } = useSnackBar();
   const router = useRouter();
 
-  //TODO: 미션 내역 단건 조회 get api 호출
-  const PREVIOUS_MISSIONTITLE = '스쿼트해서 튼튼해지자!';
-  const PREVIOUS_MISSIONCONTENT = '스쿼트 100개하기';
-  const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LIST[0];
+  const { mutate } = useModifyMissionMutation(params.id, {
+    onSuccess: () => {
+      router.replace(ROUTER.MISSION.DETAIL(params.id));
+    },
+    onError: () => {
+      triggerSnackBar({ message: '저장에 실패했습니다. 다시 시도해주세요.' });
+    },
+  });
 
-  //이전 상태
+  const { data } = useGetMissionDetail(params.id);
+
+  const PREVIOUS_MISSIONTITLE = data.name;
+  const PREVIOUS_MISSIONCONTENT = data.content;
+  const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LABEL[data.visibility];
+
   const [missionTitleInput, setMissionTitleInput] = useState(PREVIOUS_MISSIONTITLE);
   const [missionContentInput, setMissionContentInput] = useState(PREVIOUS_MISSIONCONTENT);
   const [missionPublicSetting, setMissionPublicSetting] =
@@ -38,21 +49,17 @@ export default function MissionModifyPage() {
     missionPublicSetting === PREVIOUS_PUBLIC_SETTING;
 
   const modifyTest = () => {
-    //mutate 오류 해결 중
     mutate({
-      data: {
-        missionId: 1,
-        name: missionTitleInput,
-        content: missionContentInput,
-        visibility: missionPublicSetting.value,
-      },
+      missionId: 1,
+      name: missionTitleInput,
+      content: missionContentInput,
+      visibility: missionPublicSetting.value,
     });
     router.replace('/mission/id/detail');
   };
 
   return (
     <main className={mainWrapperCss}>
-      {/* 단건 미션 수정 api 호출 */}
       <Header
         rightAction="text-button"
         title={'미션 수정'}

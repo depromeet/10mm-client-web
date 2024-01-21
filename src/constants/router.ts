@@ -12,9 +12,9 @@ export const ROUTER = {
     CREATE: (id: string) => `/record/${id}`,
     SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
     DETAIL: {
-      HOME: (id: string) => `/record/detail/${id}`,
-      EMPTY: `/record/detail/empty`,
-      EDIT: (id: string) => `/record/detail/${id}/edit`,
+      HOME: (id: string) => `/record/${id}/detail`,
+      EMPTY: `/record/empty`,
+      EDIT: (id: string) => `/record/${id}/edit`,
     },
   },
   MYPAGE: {
@@ -31,7 +31,13 @@ export const ROUTER = {
   },
   AUTH: {
     LOGIN: '/auth/login',
+    SIGNUP: '/auth/signup',
+    SIGNIN: '/auth/signin',
+    NICKNAME: '/auth/nickname',
+    TEMP_REGISTER: '/auth/temp-register',
+    REGISTER: '/auth/register',
   },
+  PRIVACY: '/privacy',
   GUEST: {
     MISSION: {
       NEW: '/guest/mission/new',

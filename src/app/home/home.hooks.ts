@@ -1,38 +1,76 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useGetMissions } from '@/apis/mission';
-import { type MissionItemType, MissionStatus } from '@/apis/schema/mission';
+import { type MissionItemTypeWithRecordId, MissionStatus } from '@/apis/schema/mission';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
-
-const INIT_SIZE = 10;
+import { ROUTER } from '@/constants/router';
+import { STORAGE_KEY } from '@/constants/storage';
 
 export const useMissions = () => {
-  const { data, isLoading } = useGetMissions({ size: INIT_SIZE });
-  const missionList = data?.content ?? [];
+  const { data, isLoading } = useGetMissions();
+  const missionList = data ?? [];
 
-  useRequireMission(data?.content);
+  const { progressMissionId } = useLeaveMissionCheck();
+  useRequireMission(data);
 
-  return { missionList, isLoading };
+  return { missionList, isLoading, progressMissionId };
 };
 
-const useRequireMission = (missionList?: MissionItemType[]) => {
+// 스톱워치 부분에서 예기치 못하게 종료된 미션 기록 확인
+const useLeaveMissionCheck = () => {
+  const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
 
-  const triggerRequireSnackBar = () => {
+  const [progressMissionId, setProgressMissionId] = useState<string | null>(null);
+
+  const checkLeaveMission = () => {
+    const startedMissionId = localStorage.getItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
+    if (startedMissionId) {
+      setProgressMissionId(startedMissionId);
+      triggerSnackBar({
+        variant: 'text-button',
+        message: '인증을 완료해 주세요!',
+        buttonText: '바로가기',
+        offset: 'appBar',
+        onButtonClick: () => {
+          router.push(ROUTER.MISSION.STOP_WATCH(startedMissionId));
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    checkLeaveMission();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { progressMissionId };
+};
+
+// 미션 임시 인증만 진행, 미션 인증을 진행하지 않은 경우
+const useRequireMission = (missionList?: MissionItemTypeWithRecordId[]) => {
+  const router = useRouter();
+  const { triggerSnackBar } = useSnackBar();
+
+  const triggerRequireSnackBar = (missionRecordId: string) => {
     triggerSnackBar({
       variant: 'text-button',
       message: '인증을 완료해 주세요!',
       buttonText: '바로가기',
+      offset: 'appBar',
       // timerSecond: 0, // TODO : 서버에서 주는 데이터로 추가 필요
-      onButtonClick: () => {},
+      onButtonClick: () => {
+        router.push(ROUTER.RECORD.CREATE(missionRecordId));
+      },
     });
   };
 
   const checkRequireRecordMission = () => {
     if (!missionList) return;
-    const requireMission = missionList.find((mission) => mission.status === MissionStatus.REQUIRED);
+    const requireMission = missionList.find((mission) => mission.missionStatus === MissionStatus.REQUIRED);
 
-    if (!requireMission) return false;
-    triggerRequireSnackBar();
+    if (!requireMission || !requireMission.missionRecordId) return false;
+    triggerRequireSnackBar(String(requireMission.missionRecordId));
   };
 
   // TODO : 인증이 필요한 미션 정보 API 연결 (남아있는 시간 등)
@@ -42,14 +80,3 @@ const useRequireMission = (missionList?: MissionItemType[]) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [missionList]);
 };
-
-// Test Data, 나중에 삭제
-const MOCK_MISSION: MissionItemType = {
-  missionId: 7,
-  name: 'default name REQUIRED',
-  content: 'default content REQUIRED',
-  category: 'STUDY',
-  visibility: 'ALL',
-  status: 'REQUIRED',
-  sort: 1,
-} as MissionItemType;

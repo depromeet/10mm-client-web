@@ -26,7 +26,7 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
   };
 
   const isDeleteButtonVisible = value && value.length > 0;
-  const isMaxLengthTextVisible = value && props.maxLength;
+  // const isMaxLengthTextVisible = value && props.maxLength;
 
   return (
     <section className={sectionCss}>
@@ -70,18 +70,20 @@ export default function NormalInput({ value, onChange, errorMsg, ...props }: Nor
           {errorMsg || props.description}
         </span>
 
-        {isMaxLengthTextVisible && (
-          <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
-            <strong
-              className={css({
-                color: errorMsg ? 'red.red500' : 'text.tertiary',
-              })}
-            >
-              {value.length}
-            </strong>
-            /{props.maxLength}
-          </span>
-        )}
+        <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
+          {props.maxLength && (
+            <>
+              <strong
+                className={css({
+                  color: errorMsg ? 'red.red500' : 'text.tertiary',
+                })}
+              >
+                {value?.length ?? 0}
+              </strong>
+              /{props.maxLength}
+            </>
+          )}
+        </span>
       </div>
     </section>
   );
@@ -130,6 +132,7 @@ const inputCss = css({
 const inputLengthWrapperCss = css({
   textStyle: 'body6',
   color: 'text.tertiary',
+  minHeight: '17px',
 });
 
 const descriptionTextCss = css({

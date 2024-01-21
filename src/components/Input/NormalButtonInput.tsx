@@ -12,6 +12,7 @@ export default function NormalButtonInput({
   errorMsg,
   validMsg,
   required = false,
+  buttonDisabeld,
   ...props
 }: NormalButtonInputTypes) {
   const [isFocused, setIsFocused] = useState(false);
@@ -27,9 +28,7 @@ export default function NormalButtonInput({
 
     onChange?.(inputValue);
   };
-
   const isMaxLengthTextVisible = value && props.maxLength;
-
   return (
     <section className={sectionCss}>
       <label className={subTitleCss} htmlFor={props.id}>
@@ -56,7 +55,14 @@ export default function NormalButtonInput({
           {...(required && { required: true })}
           {...props}
         />
-        <Button size="small" variant="secondary" type="button" className={buttonCss} onClick={onTextButtonClick}>
+        <Button
+          size="small"
+          variant="secondary"
+          type="button"
+          className={buttonCss}
+          onClick={onTextButtonClick}
+          disabled={buttonDisabeld}
+        >
           {props.buttonText}
         </Button>
       </div>
@@ -64,22 +70,15 @@ export default function NormalButtonInput({
       <div className={descriptionCss}>
         <span
           className={css(descriptionTextCss, {
-            color: statusColor,
+            color: props.description ? '' : validMsg ? 'blue.blue500' : 'red.red500',
           })}
         >
-          {errorMsg || props.description}
+          {errorMsg || validMsg || props.description}
         </span>
 
         {isMaxLengthTextVisible && (
           <span className={cx(inputLengthWrapperCss, css({ color: statusColor }))}>
-            <strong
-              className={css({
-                color: errorMsg ? 'red.red500' : 'text.tertiary',
-              })}
-            >
-              {value.length}
-            </strong>
-            /{props.maxLength}
+            <strong>{value.length}</strong>/{props.maxLength}
           </span>
         )}
       </div>
@@ -124,6 +123,7 @@ const inputCss = css({
   textStyle: 'subtitle3',
   color: 'text.secondary',
   backgroundColor: 'bg.surface2',
+
   _focus: { outline: 'none' },
   _placeholder: { color: 'gray.gray300' },
 });

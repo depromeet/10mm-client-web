@@ -1,5 +1,6 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
-import { type ImageFileExtensionType, type RecordType } from '@/apis/schema/record';
+import { type RecordType } from '@/apis/schema/record';
+import { type UploadBaseRequest } from '@/apis/schema/upload';
 import { useMutation, type UseMutationOptions, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
@@ -16,9 +17,8 @@ interface RecordTimeResponse {
   missionId: string;
 }
 
-interface UploadUrlRequest {
+interface UploadUrlRequest extends UploadBaseRequest {
   missionRecordId: string;
-  imageFileExtension: ImageFileExtensionType;
 }
 
 interface UploadUrlResponse {
@@ -68,6 +68,14 @@ const RECORD_API = {
   uploadComplete: (request: UploadCompleteRequest): Promise<UploadCompleteResponse> => {
     return apiInstance.post('/records/upload-complete', request);
   },
+
+  updateRemark: (recordId: string) => async (request: { remark: string }) => {
+    const { data } = await apiInstance.put(`/records/${recordId}`, request);
+    return data;
+  },
+  deleteInProgressRecord: async () => {
+    return apiInstance.delete('/records/in-progress');
+  },
 };
 
 export default RECORD_API;
@@ -93,3 +101,19 @@ export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<Ge
 
 export const useRecordTime = (options?: UseMutationOptions<RecordTimeResponse, unknown, RecordTimeRequest>) =>
   useMutation({ mutationFn: RECORD_API.recordTime, ...options });
+
+export const useUpdateRemarkMutation = (
+  recordId: string,
+  options?: UseMutationOptions<
+    { recordId: number },
+    unknown,
+    {
+      remark: string;
+    }
+  >,
+) => {
+  return useMutation({
+    mutationFn: RECORD_API.updateRemark(recordId),
+    ...options,
+  });
+};

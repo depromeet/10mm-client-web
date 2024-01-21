@@ -1,38 +1,39 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useGetMissionDetailNoSuspense } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
-import {
-  useCustomBack,
-  useGetCategory,
-  useRecordMidTime,
-  useUnloadAction,
-} from '@/app/mission/[id]/stopwatch/index.hooks';
+import { useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Loading from '@/components/Loading';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
+import { resetStopwatchStorage } from '@/utils/storage/timer';
 import { formatDate } from '@/utils/time';
-import { css } from '@styled-system/css';
+import { css, cx } from '@styled-system/css';
 
 export default function StopwatchPage() {
   const params = useParams();
   const missionId = params.id as string;
 
   const router = useRouter();
-  const category = useGetCategory();
+
+  const { data: missionData } = useGetMissionDetailNoSuspense(missionId);
+  const category = missionData?.category ? MISSION_CATEGORY_LABEL[missionData?.category].label : '';
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper, isFinished } = useStopwatch(step);
+  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);
+  const [isMoveLoading, setIsMoveLoading] = useState(false);
 
   const time = Number(minutes) * 60 + Number(seconds);
   const logData = {
@@ -44,10 +45,13 @@ export default function StopwatchPage() {
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
 
-  useCustomBack(openMidOutModal);
+  // useCustomBack(() => {
+  //   onNextStep('stop');
+  //   openMidOutModal();
+  // });
 
-  useUnloadAction(time);
   useRecordMidTime(time);
+  useUnloadAction(time);
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
@@ -55,10 +59,12 @@ export default function StopwatchPage() {
       const missionRecordId = String(response.missionId);
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+
+      setIsMoveLoading(true);
+      resetStopwatchStorage();
     },
-    onError: (error) => {
-      // TODO
-      console.log('error: ', error);
+    onError: () => {
+      setIsMoveLoading(() => false); // 없어도 되는지 확인 필요
     },
   });
 
@@ -100,7 +106,8 @@ export default function StopwatchPage() {
 
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
-    router.push(ROUTER.MISSION.DETAIL(missionId));
+    router.replace(ROUTER.MISSION.DETAIL(missionId));
+    resetStopwatchStorage();
   };
 
   const onFinish = () => {
@@ -134,27 +141,48 @@ export default function StopwatchPage() {
   };
 
   const onStart = () => {
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     onNextStep('progress');
+    // 중도 재시작
+    if (time > 0) {
+      eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
+      return;
+    }
+    // 초기시작
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
     const startTime = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY.STOPWATCH.MISSION_ID, missionId);
     localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
+  };
+
+  const onBackAction = () => {
+    onNextStep('stop');
+    openBackModal();
   };
 
   useEffect(() => {
     if (isFinished) {
       onAutoFinish();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinished]);
 
   return (
     <>
-      {isSubmitLoading && <Loading />}
-      <Header rightAction="none" onBackAction={openBackModal} />
+      {isSubmitLoading || (isMoveLoading && <Loading />)}
+      <Header rightAction="none" onBackAction={onBackAction} />
       <div className={containerCss}>
-        <h1 className={titleCss}>{stepLabel.title}</h1>
-        <p className={descCss}>{stepLabel.desc}</p>
-
-        <section className={stopwatchCss}>
+        <section key={step} className={opacityAnimation}>
+          <h1 className={cx(titleCss)}>{stepLabel.title}</h1>
+          <p className={cx(descCss)}>
+            {stepLabel.desc.split('\n').map((text) => (
+              <Fragment key={text}>
+                {text}
+                <br />
+              </Fragment>
+            ))}
+          </p>
+        </section>
+        <section className={cx(stopwatchCss, opacityAnimation)}>
           <Stopwatch
             minutes={minutes}
             seconds={seconds}
@@ -164,9 +192,9 @@ export default function StopwatchPage() {
             isDisabled={step === 'stop'}
           />
         </section>
-        <section className={buttonContainerCss}>
+        <section className={cx(buttonContainerCss, opacityAnimation)}>
           {step === 'ready' && (
-            <Button variant="cta" size="large" type="button" onClick={onStart}>
+            <Button variant="cta" size="large" type="button" onClick={onStart} disabled={isStopwatchPending}>
               시작
             </Button>
           )}
@@ -222,7 +250,13 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
+const descCss = css({
+  color: 'text.secondary',
+  textStyle: 'body4',
+  marginTop: '8px',
+  marginBottom: '76px',
+  minHeight: '40px',
+});
 
 const stopwatchCss = css({
   width: 'fit-content',
@@ -237,4 +271,8 @@ const buttonContainerCss = css({
   display: 'flex',
   justifyContent: 'center',
   gap: '12px',
+});
+
+const opacityAnimation = css({
+  animation: 'fadeIn .7s',
 });

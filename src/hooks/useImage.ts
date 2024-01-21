@@ -1,10 +1,17 @@
 import { useRef, useState } from 'react';
 import RECORD_API from '@/apis/record';
-import { IMAGE_File_Extension, type ImageFileExtensionType } from '@/apis/schema/record';
+import { IMAGE_File_Extension, type ImageFileExtensionType } from '@/apis/schema/upload';
 import axios from 'axios';
 
-export const useImage = () => {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+export const getUrlImageType = (url?: string) => {
+  if (!url) return '';
+  const imageType = url.split('/').pop();
+  if (!imageType) return '';
+  return imageType.replace('.', '/');
+};
+
+export const useImage = (initialImagePreviewUrl?: string) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(initialImagePreviewUrl ?? null);
   const imageFile = useRef<File>();
 
   const uploadImageChange = (files: FileList) => {
@@ -46,7 +53,7 @@ export const uploadImageToServer = async (missionRecordId: string, imageFile: Fi
   }
 };
 
-const checkImageType = (type?: string): ImageFileExtensionType | false => {
+export const checkImageType = (type?: string): ImageFileExtensionType | false => {
   if (!type) return false;
   if (type in IMAGE_File_Extension) return IMAGE_File_Extension[type];
   return false;
