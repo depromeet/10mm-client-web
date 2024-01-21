@@ -125,7 +125,28 @@ export const buttonStyle = cva({
       size: 'medium',
       variant: 'cta',
       css: {
+        background: 'gradients.button3',
         position: 'inherit',
+        _active: {
+          background: 'gradients.button4',
+        },
+        _hover: {
+          background: 'gradients.button4',
+        },
+      },
+    },
+    {
+      size: 'small',
+      variant: 'cta',
+      css: {
+        background: 'gradients.button3',
+        position: 'inherit',
+        _active: {
+          background: 'gradients.button4',
+        },
+        _hover: {
+          background: 'gradients.button4',
+        },
       },
     },
   ],

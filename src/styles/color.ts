@@ -27,34 +27,34 @@ export const colorList = defineTokens({
 
     purple: {
       purple900: {
-        value: '#D9D9FF',
+        value: '#D7E3FF',
       },
       purple800: {
-        value: '#C5C4FC',
+        value: '#C4D4FC',
       },
       purple700: {
-        value: '#B6B5F7',
+        value: '#B3C3FD',
       },
       purple600: {
-        value: '#AAA9F7',
+        value: '#9EB1F2',
       },
       purple500: {
-        value: '#8483D9',
-      },
-      purple300: {
-        value: '#4F4F7B',
+        value: '#849BEB',
       },
       purple400: {
-        value: '#7676AC',
+        value: '#767FAC',
+      },
+      purple300: {
+        value: '#4F5780',
       },
       purple100: {
-        value: '#464155',
+        value: '#414259',
       },
       purple050: {
-        value: '#312D3E',
+        value: '#2D2D3E',
       },
       purple000: {
-        value: '#23202E',
+        value: '#20212E',
       },
     },
 
@@ -79,19 +79,25 @@ export const colorList = defineTokens({
     },
     gradients: {
       primary: {
-        value: 'linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)',
+        value: 'linear-gradient(91deg, #FAD0DE 0%, #CCCBFF 46.87%, #ABD2FF 100%)',
       },
       button1: {
-        value: 'linear-gradient(91deg, #FFE5EE 0%, #E9CEFF 18.75%, #B9CDFF 100%)',
+        value: 'linear-gradient(91deg, #FFD8E6 0%, #F0D4F3 14%, #C3D2FF 71%, #B5D3F7 100%)',
       },
       button2: {
-        value: 'linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)',
+        value: 'linear-gradient(103deg, #F2C8D7 6.96%, #E7CAEA 18.8%, #AFC4F9 54.3%, #9BCFEC 94.63%)',
+      },
+      button3: {
+        value: 'linear-gradient(91deg, #F6E8FF 0%, #B5CAF3 100%)',
+      },
+      button4: {
+        value: 'linear-gradient(91deg, #F9D8F0 0%, #B4D5FB 100%)',
       },
       strong: {
-        value: 'linear-gradient(91deg, #FF8585 0%, #C792F1 45.83%, #759CFF 100%)',
+        value: 'linear-gradient(91deg, #FD8EB6 0%, #E79FCA 24.5%, #B6ADEB 57%, #75C5FF 100%)',
       },
       medium: {
-        value: 'linear-gradient(91deg, #FF9F9F 0%, #D3A5F8 36.46%, #8FADFA 100%)',
+        value: 'linear-gradient(91deg, #F7C1D8 0%, #DDD5FA 48%, #97CDF4 100%)',
       },
     },
   },
