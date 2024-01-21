@@ -7,18 +7,18 @@ interface ThumbnailBaseProps {
 }
 
 export interface FilledThumbnailProps extends ThumbnailBaseProps {
-  url: string;
+  url?: string;
   variant: 'filled';
 }
 
 export interface DimmedThumbnailProps extends ThumbnailBaseProps {
-  url: string;
+  url?: string;
   variant: 'dimed';
 }
 
 export interface NullThumbnailProps extends ThumbnailBaseProps {
   variant?: 'null';
-  url?: null;
+  url?: string;
 }
 
 export type ThumbnailProps = FilledThumbnailProps | DimmedThumbnailProps | NullThumbnailProps;

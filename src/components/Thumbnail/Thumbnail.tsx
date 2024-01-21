@@ -2,8 +2,10 @@ import Image from 'next/image';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { cva } from '@/styled-system/css';
 
-function Thumbnail({ variant, url, ...props }: ThumbnailProps) {
-  switch (variant) {
+const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
+
+function Thumbnail({ url = DEFAULT_THUMBNAIL_URL, ...props }: ThumbnailProps) {
+  switch (props.variant) {
     case 'filled':
     case 'dimed':
       return (
