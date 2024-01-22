@@ -24,7 +24,7 @@ const headerCss = flex({
   padding: '0 8px',
   justifyContent: 'space-between',
   backgroundColor: 'bg.surface2',
-
+  zIndex: 'appBar',
   position: 'fixed',
   top: 0,
   left: 0,

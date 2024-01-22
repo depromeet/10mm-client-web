@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
 import Image from 'next/image';
-import Button from '@/components/Button/Button';
+import LinkButton from '@/components/Button/LinkButton';
 import {
   type DefaultEmptyProps,
   type EmptyProps,
@@ -25,13 +25,13 @@ function DefaultEmptyView({ children, ...props }: PropsWithChildren<DefaultEmpty
   );
 }
 
-function SuggestEmpty({ buttonText, buttonAction, ...props }: SuggestEmptyProps) {
+function SuggestEmpty({ buttonText, link, ...props }: SuggestEmptyProps) {
   return (
     <DefaultEmptyView {...props}>
       <div className={buttonWrapperCss}>
-        <Button size="small" variant="secondary" onClick={buttonAction}>
+        <LinkButton size="small" variant="secondary" href={link}>
           {buttonText}
-        </Button>
+        </LinkButton>
       </div>
     </DefaultEmptyView>
   );

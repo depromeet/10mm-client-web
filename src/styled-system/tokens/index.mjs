@@ -1652,43 +1652,43 @@ const tokens = {
     "variable": "var(--colors-purple-950)"
   },
   "colors.purple.purple900": {
-    "value": "#D9D9FF",
+    "value": "#D7E3FF",
     "variable": "var(--colors-purple-purple900)"
   },
   "colors.purple.purple800": {
-    "value": "#C5C4FC",
+    "value": "#C4D4FC",
     "variable": "var(--colors-purple-purple800)"
   },
   "colors.purple.purple700": {
-    "value": "#B6B5F7",
+    "value": "#B3C3FD",
     "variable": "var(--colors-purple-purple700)"
   },
   "colors.purple.purple600": {
-    "value": "#AAA9F7",
+    "value": "#9EB1F2",
     "variable": "var(--colors-purple-purple600)"
   },
   "colors.purple.purple500": {
-    "value": "#8483D9",
+    "value": "#849BEB",
     "variable": "var(--colors-purple-purple500)"
   },
-  "colors.purple.purple300": {
-    "value": "#4F4F7B",
-    "variable": "var(--colors-purple-purple300)"
-  },
   "colors.purple.purple400": {
-    "value": "#7676AC",
+    "value": "#767FAC",
     "variable": "var(--colors-purple-purple400)"
   },
+  "colors.purple.purple300": {
+    "value": "#4F5780",
+    "variable": "var(--colors-purple-purple300)"
+  },
   "colors.purple.purple100": {
-    "value": "#464155",
+    "value": "#414259",
     "variable": "var(--colors-purple-purple100)"
   },
   "colors.purple.purple050": {
-    "value": "#312D3E",
+    "value": "#2D2D3E",
     "variable": "var(--colors-purple-purple050)"
   },
   "colors.purple.purple000": {
-    "value": "#23202E",
+    "value": "#20212E",
     "variable": "var(--colors-purple-purple000)"
   },
   "colors.red.50": {
@@ -1800,16 +1800,32 @@ const tokens = {
     "variable": "var(--colors-blue-blue500)"
   },
   "colors.gradients.primary": {
-    "value": "linear-gradient(91deg, #FAD0DE 0%, #E8CBFF 46.87%, #BCCFFF 100%)",
+    "value": "linear-gradient(91deg, #FAD0DE 0%, #CCCBFF 46.87%, #ABD2FF 100%)",
     "variable": "var(--colors-gradients-primary)"
   },
   "colors.gradients.button1": {
-    "value": "linear-gradient(91deg, #FFE5EE 0%, #E9CEFF 18.75%, #B9CDFF 100%)",
+    "value": "linear-gradient(91deg, #FFD8E6 0%, #F0D4F3 14%, #C3D2FF 71%, #B5D3F7 100%)",
     "variable": "var(--colors-gradients-button1)"
   },
   "colors.gradients.button2": {
-    "value": "linear-gradient(103deg, #F3D2EA 6.96%, #D8B8F1 38.47%, #ABBEF0 94.63%)",
+    "value": "linear-gradient(103deg, #F2C8D7 6.96%, #E7CAEA 18.8%, #AFC4F9 54.3%, #9BCFEC 94.63%)",
     "variable": "var(--colors-gradients-button2)"
+  },
+  "colors.gradients.button3": {
+    "value": "linear-gradient(91deg, #F6E8FF 0%, #B5CAF3 100%)",
+    "variable": "var(--colors-gradients-button3)"
+  },
+  "colors.gradients.button4": {
+    "value": "linear-gradient(91deg, #F9D8F0 0%, #B4D5FB 100%)",
+    "variable": "var(--colors-gradients-button4)"
+  },
+  "colors.gradients.strong": {
+    "value": "linear-gradient(91deg, #FD8EB6 0%, #E79FCA 24.5%, #B6ADEB 57%, #75C5FF 100%)",
+    "variable": "var(--colors-gradients-strong)"
+  },
+  "colors.gradients.medium": {
+    "value": "linear-gradient(91deg, #F7C1D8 0%, #DDD5FA 48%, #97CDF4 100%)",
+    "variable": "var(--colors-gradients-medium)"
   },
   "breakpoints.sm": {
     "value": "640px",
@@ -2163,13 +2179,13 @@ const tokens = {
     "value": "var(--colors-color-palette-purple500)",
     "variable": "var(--colors-color-palette-purple500)"
   },
-  "colors.colorPalette.purple300": {
-    "value": "var(--colors-color-palette-purple300)",
-    "variable": "var(--colors-color-palette-purple300)"
-  },
   "colors.colorPalette.purple400": {
     "value": "var(--colors-color-palette-purple400)",
     "variable": "var(--colors-color-palette-purple400)"
+  },
+  "colors.colorPalette.purple300": {
+    "value": "var(--colors-color-palette-purple300)",
+    "variable": "var(--colors-color-palette-purple300)"
   },
   "colors.colorPalette.purple100": {
     "value": "var(--colors-color-palette-purple100)",
@@ -2214,6 +2230,22 @@ const tokens = {
   "colors.colorPalette.button2": {
     "value": "var(--colors-color-palette-button2)",
     "variable": "var(--colors-color-palette-button2)"
+  },
+  "colors.colorPalette.button3": {
+    "value": "var(--colors-color-palette-button3)",
+    "variable": "var(--colors-color-palette-button3)"
+  },
+  "colors.colorPalette.button4": {
+    "value": "var(--colors-color-palette-button4)",
+    "variable": "var(--colors-color-palette-button4)"
+  },
+  "colors.colorPalette.strong": {
+    "value": "var(--colors-color-palette-strong)",
+    "variable": "var(--colors-color-palette-strong)"
+  },
+  "colors.colorPalette.medium": {
+    "value": "var(--colors-color-palette-medium)",
+    "variable": "var(--colors-color-palette-medium)"
   },
   "colors.colorPalette.surface1": {
     "value": "var(--colors-color-palette-surface1)",
