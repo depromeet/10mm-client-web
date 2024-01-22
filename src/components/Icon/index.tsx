@@ -39,6 +39,7 @@ import NormalLink from './NormalLinkIcon';
 import NormalSetting from './NormalSettingIcon';
 import NormalTerms from './NormalTermsIcon';
 import PlusCircleLarge from './PlusCircleLargeIcon';
+import TENMMSymbolCircleIcon from './TENMMSymbolCircleIcon';
 
 export const IconComponentMap = {
   'arrow-down': ArrowDownIcon,
