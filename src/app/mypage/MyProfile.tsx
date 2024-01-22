@@ -36,7 +36,7 @@ export default function MyProfile() {
     imageRef.current?.click();
   };
   return (
-    <div>
+    <div className={containerCss}>
       <section className={myTabContainerCss}>
         <section className={thumbnailWrapperCss} onClick={handleImageClick}>
           <input
@@ -70,14 +70,19 @@ export default function MyProfile() {
   );
 }
 
+const containerCss = css({
+  paddingTop: '184px',
+  flex: 1,
+});
+
 const myTabContainerCss = css({
+  position: 'relative',
   width: '100%',
-  marginTop: '184px',
-  height: '100vh',
+  height: '100%',
   backgroundColor: 'bg.surface2',
   borderTopRightRadius: '28px',
   borderTopLeftRadius: '28px',
-  padding: '0px 24px',
+  padding: '52px 24px 0',
 });
 const userNameCss = css({
   color: 'text.primary',
@@ -99,7 +104,8 @@ const hiddenInputCss = css({
 });
 
 const thumbnailWrapperCss = css({
-  margin: '24px auto',
-  width: 'fit-content',
-  position: 'relative',
+  position: 'absolute',
+  top: '-40px',
+  left: '50%',
+  transform: 'translateX(-50%)',
 });

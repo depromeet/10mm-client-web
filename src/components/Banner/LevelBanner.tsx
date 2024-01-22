@@ -22,7 +22,7 @@ export default function LevelBanner(props: LevelBannerType) {
 const levelBannerCss = css({
   display: 'flex',
   flexDirection: 'row',
-  padding: '16px',
+  padding: '12px 16px',
   alignItems: 'center',
   marginTop: '20px',
   gap: '8px',
@@ -33,8 +33,9 @@ const levelBannerCss = css({
 });
 const imageCss = css({
   flexShrink: '0',
-  width: '30px',
-  height: '30px',
+  width: '36px',
+  height: '36px',
+  objectFit: 'contain',
 });
 const levelCss = css({
   textStyle: 'body1',
