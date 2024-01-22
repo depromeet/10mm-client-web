@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Layout from '@/components/Layout';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
 import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
 import { MSWInitComponent } from '@/msw';
@@ -34,7 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MSWInitComponent />
         <QueryProvider>
           <SnackBarProvider>
-            <div className={css(containerCss)}>{children}</div>
+            <Layout>
+              <div className={css(containerCss)}>{children}</div>
+            </Layout>
           </SnackBarProvider>
         </QueryProvider>
       </body>
