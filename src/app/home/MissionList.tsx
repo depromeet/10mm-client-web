@@ -31,7 +31,7 @@ function MissionList() {
 
 export default MissionList;
 
-function MissionListInner() {
+export function MissionListInner() {
   const { missionList, isLoading, progressMissionId } = useMissions();
 
   if (isLoading) {
@@ -62,7 +62,7 @@ function MissionListInner() {
           <Link href={moveHref} key={item.missionId}>
             <TwoLineListItem
               badgeElement={<MissionBadge status={status} />}
-              name={item.content}
+              name={item.name}
               subName={MISSION_CATEGORY_LABEL[item.category].label}
               imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
             />
@@ -102,12 +102,8 @@ function Header() {
   );
 }
 
-const containerCss = flex({
-  flexDirection: 'column',
-  padding: '0 16px 30px',
-  flex: 1,
-  minWidth: '0',
-  display: 'flex',
+const containerCss = css({
+  height: '100%',
 });
 
 const headingCss = flex({

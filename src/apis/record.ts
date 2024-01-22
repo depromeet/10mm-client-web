@@ -1,7 +1,13 @@
 import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
 import { type RecordType } from '@/apis/schema/record';
 import { type UploadBaseRequest } from '@/apis/schema/upload';
-import { useMutation, type UseMutationOptions, type UseQueryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  type UseMutationOptions,
+  useQuery,
+  type UseQueryOptions,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
 import apiInstance from './instance.api';
 
@@ -83,7 +89,7 @@ export default RECORD_API;
 const getRecordQueryKey = createQueryKeyFactory<GetRecordsParams>('record');
 
 export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse>) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: getRecordQueryKey(params),
     queryFn: () => RECORD_API.getRecords(params),
     ...option,

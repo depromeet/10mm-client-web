@@ -41,7 +41,7 @@ function MissionCalendar({ currentDate, missionId }: { currentDate: Date; missio
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
                     <MissionCalendarItem
                       date={day.date}
-                      {...getMissionCalendarItemProps(day.date, data)}
+                      {...getMissionCalendarItemProps(day.date, data || [])}
                       isActive={day.date === selectedDate}
                     />
                   </td>
