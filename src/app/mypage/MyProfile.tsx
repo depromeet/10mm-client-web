@@ -17,7 +17,7 @@ const DUMMY_SYMBOL_STACK = 90;
 const currentLevel = getLevel(DUMMY_SYMBOL_STACK);
 export default function MyProfile() {
   return (
-    <div className={containerCss}>
+    <div>
       <section className={myTabContainerCss}>
         <div className={myTabCss}>
           <div>
@@ -36,12 +36,9 @@ export default function MyProfile() {
     </div>
   );
 }
-const containerCss = css({});
 
 const myTabContainerCss = css({
   width: '100%',
-  // position: 'absolute',
-  // top: '184px',
   marginTop: '184px',
   height: '100vh',
   backgroundColor: 'bg.surface2',
@@ -61,6 +58,6 @@ const followerTabCss = css({
 
 const myTabCss = css({
   display: 'flex',
-  justifyContent: 'space-around',
+  justifyContent: 'space-between',
   alignItems: 'center',
 });

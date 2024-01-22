@@ -2,12 +2,13 @@
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
+import { css } from '@/styled-system/css';
 
 import MyProfile from './MyProfile';
 
 function Mypage() {
   return (
-    <main>
+    <main className={backgroundCss}>
       <Header isBackIcon={false} title={'마이페이지'} rightAction="icon" iconName={'menu'} />
 
       <MyProfile />
@@ -16,5 +17,8 @@ function Mypage() {
     </main>
   );
 }
+const backgroundCss = css({
+  background: 'gradients.primary',
+});
 
 export default Mypage;
