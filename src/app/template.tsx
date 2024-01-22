@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { APP_USER_AGENT } from '@/constants/common';
 import { useAuth } from '@/hooks/useAuth';
+import { isApp } from '@/utils/window';
 import { motion } from 'framer-motion';
 
 const variants = {
@@ -9,17 +10,9 @@ const variants = {
   exit: (test: boolean) => ({ zIndex: 0, opacity: 0, x: test ? -300 : 300 }),
 };
 
-const getUserAgent = () => {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-  return window.navigator.userAgent;
-};
-
 export default function Template({ children }: { children: React.ReactNode }) {
   useAuth();
   const [customMotion, setCustomMotion] = useState(true);
-  const isApp = RegExp(APP_USER_AGENT).test(getUserAgent());
   useEffect(() => {
     const popStateEventHandler = (_event: PopStateEvent) => {
       setCustomMotion(false);
@@ -31,7 +24,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  if (!isApp) {
+  if (!isApp()) {
     return <main>{children}</main>;
   }
 

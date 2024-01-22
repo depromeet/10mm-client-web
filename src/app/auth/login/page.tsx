@@ -6,6 +6,7 @@ import Script from 'next/script';
 import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { ROUTER } from '@/constants/router';
+import { isIOS } from '@/utils/window';
 import { css } from '@styled-system/css';
 
 function kakaoInit() {
@@ -13,7 +14,7 @@ function kakaoInit() {
   window.Kakao.init('1e1defc726eab3bbd6c8d999cb541bf7');
 }
 
-function AppleInit() {
+function appleInit() {
   window.AppleID.auth.init({
     clientId: '10mm.today.app',
     scope: 'email',
@@ -69,12 +70,12 @@ export default function LoginPage() {
         <Script
           src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
           type="text/javascript"
-          onLoad={AppleInit}
+          onLoad={appleInit}
         />
       </head>
       <div className={MainWrapperCss}>
         <div className={LoginButtonListWrapperCss}>
-          <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />
+          {isIOS() && <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />}
           <ButtonSocialLogin type="kakao" onClick={onClickKakaoLogin} />
           <Button size="large" variant="ghost" onClick={onClickGuest}>
             둘러보기
