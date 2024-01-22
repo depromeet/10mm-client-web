@@ -1,18 +1,18 @@
 'use client';
-import MenuList from '@/app/mypage/MenuList';
-import Profile from '@/app/mypage/Profile';
-import VersionInfo from '@/app/mypage/VersionInfo';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
+import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
+
+import MyProfile from './MyProfile';
 
 function Mypage() {
   return (
     <main>
-      <Header isBackIcon={false} title="마이페이지" rightAction="none" />
-      <Profile />
-      <MenuList />
-      <VersionInfo />
+      <Header isBackIcon={false} title={'마이페이지'} rightAction="icon" iconName={'menu'} />
+
+      <MyProfile />
       <AppBarBottom />
+      <BottomDim />
     </main>
   );
 }
