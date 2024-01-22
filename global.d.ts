@@ -14,8 +14,8 @@ declare global {
           scope: string,
           redirectURI: string,
           state: string,
-          nonce: string,
           usePopup: boolean,
+          nonce: string,
         }) => void;
         signIn: () => void;
       };
