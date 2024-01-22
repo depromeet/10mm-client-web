@@ -11,7 +11,7 @@ import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
 import { getLevel } from '@/utils/result';
 
-import LevelStatus from './LevelStatus/LevelStatus';
+import LevelStatus from '../../components/LevelStatus/LevelStatus';
 
 const TAB = [
   {
@@ -32,7 +32,7 @@ function ResultPage() {
     <div>
       <section className={topWrapperCss}>
         <Tab tabs={TAB} activeTab="result" />
-        <LinkButton size="small" variant="secondary" className={buttonCss} href={ROUTER.RESULT.GUIDE}>
+        <LinkButton size="small" variant="secondary" className={buttonCss} href={ROUTER.LEVEL.GUIDE}>
           레벨 안내
         </LinkButton>
       </section>

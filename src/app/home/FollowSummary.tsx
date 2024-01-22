@@ -1,6 +1,6 @@
-import LevelProgressBar from '@/app/result/LevelStatus/LevelProgressBar';
 import Banner from '@/components/Banner/Banner';
 import Icon from '@/components/Icon';
+import LevelProgressBar from '@/components/LevelStatus/LevelProgressBar';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { gradientTextCss } from '@/constants/style';
 import { css, cx } from '@styled-system/css';
