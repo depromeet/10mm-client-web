@@ -61,7 +61,7 @@ export default function SignupPage() {
       <Input id={'password'} name={'비밀번호'} variant={'normal'} type={'password'} />
       <Input id={'password-confirm'} name={'비밀번호 확인'} variant={'normal'} type={'password'} />
 
-      <Button variant="primary" size="large">
+      <Button variant="primary" size="large" type="submit">
         회원가입
       </Button>
     </form>
