@@ -29,7 +29,9 @@ export default function MyProfile() {
           <Badge color="gray">프로필 수정</Badge>
         </div>
         <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
-        <Tab tabs={tabs} activeTab={'mission-list'} />;{/* <MissionList /> */}
+        <Tab tabs={tabs} activeTab={'mission-list'} />
+        {/* TODO: 미션 리스트 추가 */}
+        {/* <MissionList /> */}
       </section>
     </div>
   );
