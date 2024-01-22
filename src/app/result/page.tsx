@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
-// import Button from '@/components/Button/Button';
+import LinkButton from '@/components/Button/LinkButton';
 import Tab from '@/components/Tab/Tab';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
 import { getLevel } from '@/utils/result';
@@ -31,9 +32,9 @@ function ResultPage() {
     <div>
       <section className={topWrapperCss}>
         <Tab tabs={TAB} activeTab="result" />
-        {/* <Button size="small" variant="secondary" className={buttonCss}>
+        <LinkButton size="small" variant="secondary" className={buttonCss} href={ROUTER.RESULT.GUIDE}>
           레벨 안내
-        </Button> */}
+        </LinkButton>
       </section>
       <section className={imageSectionCss}>
         <Image className={'character'} src={currentLevel.imageUrl} alt="10mm character" fill />
@@ -53,11 +54,14 @@ function ResultPage() {
 
 export default ResultPage;
 
-const topWrapperCss = flex({});
+const topWrapperCss = flex({
+  zIndex: 1,
+  position: 'relative',
+});
 
-// const buttonCss = css({
-//   margin: '11px 16px 4px 0 ',
-// });
+const buttonCss = css({
+  margin: '11px 16px 4px 0 !',
+});
 
 const bannerSectionCss = grid({
   gridTemplateColumns: '1fr 1fr',

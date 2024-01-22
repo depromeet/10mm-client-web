@@ -28,6 +28,7 @@ export const ROUTER = {
   },
   RESULT: {
     HOME: '/result',
+    GUIDE: '/result/guide',
   },
   AUTH: {
     LOGIN: '/auth/login',
