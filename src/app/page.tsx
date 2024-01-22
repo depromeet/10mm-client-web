@@ -1,6 +1,7 @@
 'use client';
 import AppBar from '@/app/home/AppBar';
-import MissionList from '@/app/home/MissionList';
+import ProfileContent from '@/app/home/ProfileContent';
+import ProfileIdProvider from '@/app/home/ProfileIdProvider';
 import ProfileList from '@/app/home/ProfileList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
@@ -10,8 +11,10 @@ export default function Home() {
   return (
     <main className={mainCss}>
       <AppBar />
-      <ProfileList />
-      <MissionList />
+      <ProfileIdProvider>
+        <ProfileList />
+        <ProfileContent />
+      </ProfileIdProvider>
       <AppBarBottom />
       <BottomDim />
     </main>

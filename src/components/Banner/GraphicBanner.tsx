@@ -18,7 +18,7 @@ const containerCss = css({
   background: 'linear-gradient(136deg, rgba(168, 227, 240, 0.02) 15.95%, rgba(143, 169, 255, 0.02) 85.07%)',
   boxShadow: '-10px 0px 100px 4px rgba(90, 78, 122, 0.20) inset',
   position: 'relative',
-  width: '235px',
+  width: '100%',
   height: '120px',
   display: 'flex',
 
