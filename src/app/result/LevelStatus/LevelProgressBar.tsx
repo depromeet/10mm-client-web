@@ -1,21 +1,38 @@
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+import { type ColorToken } from '@styled-system/tokens';
 
 interface Props {
   current: number;
+  backgroundColor?: ColorToken;
   min?: number;
   max?: number;
   isLabel?: boolean;
   isFinal?: boolean;
 }
-
-function LevelProgressBar({ current, isLabel, isFinal, min = 0, max = 100 }: Props) {
+// TODO : 공통컴포넌트
+function LevelProgressBar({
+  current,
+  isLabel,
+  isFinal,
+  min = 0,
+  max = 100,
+  backgroundColor = 'gradients.primary',
+}: Props) {
   const percent = isFinal ? 100 : (100 / (max - min)) * (current - min);
 
   return (
     <div className={containerCss}>
       <div className={progressContainerCss}>
-        <div className={progressInnerContainerCss} style={{ width: `${percent}%` }} />
+        <div
+          className={cx(
+            progressInnerContainerCss,
+            css({
+              background: backgroundColor,
+            }),
+          )}
+          style={{ width: `${percent}%` }}
+        />
       </div>
       {isLabel && (
         <div className={labelContainerCss}>
@@ -43,7 +60,6 @@ const progressContainerCss = css({
 const progressInnerContainerCss = css({
   position: 'absolute',
   borderRadius: '10px',
-  background: 'gradients.primary',
   height: '100%',
   transition: 'width .7s ease-in-out',
 });
