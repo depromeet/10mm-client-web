@@ -38,6 +38,7 @@ import NormalLink from './NormalLinkIcon';
 import NormalSetting from './NormalSettingIcon';
 import NormalTerms from './NormalTermsIcon';
 import PlusCircleLarge from './PlusCircleLargeIcon';
+import TENMMSymbolCircleIcon from './TENMMSymbolCircleIcon';
 
 export const IconComponentMap = {
   'arrow-down': ArrowDownIcon,
@@ -66,6 +67,7 @@ export const IconComponentMap = {
   refresh: RefreshIcon,
   'plus-circle-large': PlusCircleLarge,
   '10mm-symbol': TENMMSymbolIcon,
+  '10mm-symbol-circle': TENMMSymbolCircleIcon,
   'apple-login': AppleLoginIcon,
   'kakao-login': KakaoLoginIcon,
   terms: TermsIcon,
