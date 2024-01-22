@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
+import GrowthLevel from '@/app/level/guide/GrowthLevel';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
@@ -22,6 +23,9 @@ function LevelGuidePage() {
         <Image src={currentLevel.imageUrl} alt={'character image'} width={240} height={180} />
       </section>
       <LevelStatus current={symbolStack} level={currentLevel} />
+      <section className={growthSectionCss}>
+        <GrowthLevel />
+      </section>
     </div>
   );
 }
@@ -37,7 +41,7 @@ const levelTextWrapperCss = css({
 const levelLabelCss = css({
   textStyle: 'body5',
   color: 'purple.purple700',
-  marginBottom: '6px',
+  marginBottom: '8px',
 });
 
 const badgeCss = css({
@@ -64,4 +68,8 @@ const characterImageSectionCss = css({
     right: 0,
     margin: 'auto',
   },
+});
+
+const growthSectionCss = css({
+  marginLeft: '16px',
 });
