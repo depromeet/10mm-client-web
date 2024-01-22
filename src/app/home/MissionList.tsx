@@ -62,7 +62,7 @@ function MissionListInner() {
           <Link href={moveHref} key={item.missionId}>
             <TwoLineListItem
               badgeElement={<MissionBadge status={status} />}
-              name={item.content}
+              name={item.name}
               subName={MISSION_CATEGORY_LABEL[item.category].label}
               imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
             />
@@ -126,7 +126,7 @@ const listCss = flex({
   height: '100%',
 });
 
-function MissionBadge({ status }: { status: MissionStatus }) {
+export function MissionBadge({ status }: { status: MissionStatus }) {
   switch (status) {
     case 'COMPLETED':
       return <Badge color="purple">완료</Badge>;

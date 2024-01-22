@@ -17,7 +17,8 @@ export default CardBanner;
 
 const containerCss = css({
   padding: '20px 16px 16px',
-  width: 'fit-content',
+  minWidth: 'fit-content',
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
