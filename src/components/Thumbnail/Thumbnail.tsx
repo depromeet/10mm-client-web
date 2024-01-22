@@ -4,20 +4,23 @@ import { cva } from '@/styled-system/css';
 
 const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
 
-function Thumbnail({ url = DEFAULT_THUMBNAIL_URL, ...props }: ThumbnailProps) {
+function Thumbnail({ url, ...props }: ThumbnailProps) {
+  const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
+
   switch (props.variant) {
     case 'filled':
     case 'dimed':
       return (
         <div className={thumbnailStyle(props)}>
-          <Image src={url} fill alt="thumbnail" />
+          <Image src={imageUrl} fill alt="thumbnail" />
         </div>
       );
+    // TODO : null variant 삭제하기
     case 'null':
     default:
       return (
         <div className={thumbnailStyle(props)}>
-          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
+          <Image src={DEFAULT_THUMBNAIL_URL} fill alt="thumbnail" />
         </div>
       );
   }
