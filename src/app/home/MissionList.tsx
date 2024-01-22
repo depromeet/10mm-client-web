@@ -126,7 +126,7 @@ const listCss = flex({
   height: '100%',
 });
 
-function MissionBadge({ status }: { status: MissionStatus }) {
+export function MissionBadge({ status }: { status: MissionStatus }) {
   switch (status) {
     case 'COMPLETED':
       return <Badge color="purple">완료</Badge>;
