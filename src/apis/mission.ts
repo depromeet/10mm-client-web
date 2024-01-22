@@ -53,6 +53,10 @@ const MISSION_APIS = {
   deleteMission: (missionId: string) => {
     return apiInstance.delete(`/missions/${missionId}`);
   },
+  getMissionSummery: async (): Promise<GetMissionSummeryResponse> => {
+    const { data } = await apiInstance.get(`/missions/summary`);
+    return data;
+  },
 };
 
 export default MISSION_APIS;
@@ -129,6 +133,23 @@ export const useDeleteMissionMutation = (missionId: string, option?: UseMutation
       await queryClient.invalidateQueries({ queryKey: missionsQueryKey });
       option?.onSuccess?.(...data);
     },
+    ...option,
+  });
+};
+
+interface GetMissionSummeryResponse {
+  symbolStack: number;
+  totalMissionHour: number;
+  totalMissionMinute: number;
+  totalMissionAttainRate: number;
+}
+
+const missionsSummeryQueryKey = ['missions-summery'];
+
+export const useGetMissionSummary = (option?: UseQueryOptions<GetMissionSummeryResponse>) => {
+  return useQuery<GetMissionSummeryResponse>({
+    queryKey: missionsSummeryQueryKey,
+    queryFn: MISSION_APIS.getMissionSummery,
     ...option,
   });
 };
