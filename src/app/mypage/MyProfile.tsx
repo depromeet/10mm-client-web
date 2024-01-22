@@ -1,7 +1,10 @@
+import { type ChangeEvent, useRef } from 'react';
+import { useGetMembersMe } from '@/apis/member';
 import Badge from '@/components/Badge/Badge';
 import Banner from '@/components/Banner/Banner';
 import Tab from '@/components/Tab/Tab';
-import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
+import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { useImage } from '@/hooks/useImage';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
 
@@ -15,10 +18,40 @@ const tabs = [
 ];
 const DUMMY_SYMBOL_STACK = 90;
 const currentLevel = getLevel(DUMMY_SYMBOL_STACK);
+
 export default function MyProfile() {
+  const { data } = useGetMembersMe();
+
+  const imageRef = useRef<HTMLInputElement>(null);
+
+  const { uploadImageChange, imagePreview } = useImage(data?.profileImageUrl || '');
+
+  const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
+    if (!files) return;
+
+    uploadImageChange(files);
+  };
+
+  const handleImageClick = () => {
+    imageRef.current?.click();
+  };
   return (
     <div>
       <section className={myTabContainerCss}>
+        <section className={thumbnailWrapperCss} onClick={handleImageClick}>
+          <input
+            accept="image/x-png,image/jpeg,image/gif"
+            onChange={handleUploadChange}
+            className={hiddenInputCss}
+            ref={imageRef}
+            type="file"
+          />
+          {imagePreview ? (
+            <Thumbnail size="h80" url={imagePreview} variant={'filled'} />
+          ) : (
+            <Thumbnail size="h80" variant={'null'} />
+          )}
+        </section>
         <div className={myTabCss}>
           <div>
             <p className={userNameCss}>당근조이</p>
@@ -60,4 +93,13 @@ const myTabCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+});
+const hiddenInputCss = css({
+  display: 'none',
+});
+
+const thumbnailWrapperCss = css({
+  margin: '24px auto',
+  width: 'fit-content',
+  position: 'relative',
 });
