@@ -22,6 +22,7 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import SpinnerIcon from '@/components/Icon/SpinnerIcon';
+import TENMMSymbolCircleIcon from '@/components/Icon/TENMMSymbolCircleIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
 import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
@@ -32,7 +33,11 @@ import EllipseCameraIcon from './EllipseCameraIcon';
 import InputArrowDownIcon from './InputArrowDownIcon';
 import InputCloseCircleIcon from './InputCloseCircleIcon';
 import KakaoLoginIcon from './KakaoLoginIcon';
+import NormalCalender from './NormalCalenderIcon';
 import NormalClose from './NormalClose';
+import NormalLink from './NormalLinkIcon';
+import NormalSetting from './NormalSettingIcon';
+import NormalTerms from './NormalTermsIcon';
 import PlusCircleLarge from './PlusCircleLargeIcon';
 
 export const IconComponentMap = {
@@ -62,6 +67,7 @@ export const IconComponentMap = {
   refresh: RefreshIcon,
   'plus-circle-large': PlusCircleLarge,
   '10mm-symbol': TENMMSymbolIcon,
+  '10mm-symbol-circle': TENMMSymbolCircleIcon,
   'apple-login': AppleLoginIcon,
   'kakao-login': KakaoLoginIcon,
   terms: TermsIcon,
@@ -69,6 +75,10 @@ export const IconComponentMap = {
   'log-out': LogOutIcon,
   withdrawal: WithdrawalIcon,
   spinner: SpinnerIcon,
+  'normal-calender': NormalCalender,
+  'normal-setting': NormalSetting,
+  'normal-terms': NormalTerms,
+  'normal-link': NormalLink,
 } as const;
 
 interface Props extends IconComponentProps {

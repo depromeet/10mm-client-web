@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useLogin } from '@/apis/auth';
 import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';
+import LinkButton from '@/components/Button/LinkButton';
 import Input from '@/components/Input/Input';
 import Loading from '@/components/Loading';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
@@ -12,9 +13,8 @@ import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
 export default function SigninPage() {
-  const { triggerSnackBar } = useSnackBar();
-
   const router = useRouter();
+  const { triggerSnackBar } = useSnackBar();
 
   const { mutate, isPending } = useLogin({
     onSuccess: () => {
@@ -29,10 +29,6 @@ export default function SigninPage() {
       }
     },
   });
-
-  const onClick = () => {
-    router.push(ROUTER.AUTH.SIGNUP);
-  };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,12 +56,12 @@ export default function SigninPage() {
       <form className={mainWrapperCss} onSubmit={onSubmit}>
         <Input id={'userId'} name={'아이디'} variant={'normal'} />
         <Input id={'password'} name={'비밀번호'} variant={'normal'} type={'password'} />
-        <Button variant="primary" size="large">
+        <Button variant="primary" size="large" type="submit">
           로그인
         </Button>
-        <Button variant="ghost" size="large" type={'button'} onClick={onClick}>
+        <LinkButton href={ROUTER.AUTH.SIGNUP} variant="ghost" size="large" type={'button'}>
           회원가입
-        </Button>
+        </LinkButton>
       </form>
     </>
   );

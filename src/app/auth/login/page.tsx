@@ -1,31 +1,19 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import Button from '@/components/Button/Button';
+import LinkButton from '@/components/Button/LinkButton';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
 export default function LoginPage() {
-  const router = useRouter();
-  const onClickGuest = () => {
-    router.push(ROUTER.GUEST.MISSION.NEW);
-  };
-
-  const onClickLoginButton = () => {
-    router.push(ROUTER.AUTH.SIGNIN);
-  };
-
   return (
     <main className={MainWrapperCss}>
       <div className={LoginButtonListWrapperCss}>
-        <Button variant="primary" size="large" onClick={onClickLoginButton}>
+        <LinkButton href={ROUTER.AUTH.SIGNIN} variant="primary" size="large">
           아이디로 로그인
-        </Button>
+        </LinkButton>
         {/*<ButtonSocialLogin type="kakao" />*/}
         {/*<ButtonSocialLogin type="apple" />*/}
-        <Button size="large" variant="ghost" onClick={onClickGuest}>
+        <LinkButton href={ROUTER.GUEST.MISSION.NEW} size="large" variant="ghost">
           둘러보기
-        </Button>
+        </LinkButton>
       </div>
     </main>
   );

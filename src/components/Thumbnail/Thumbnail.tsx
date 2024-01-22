@@ -2,20 +2,25 @@ import Image from 'next/image';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { cva } from '@/styled-system/css';
 
-function Thumbnail({ variant, url, ...props }: ThumbnailProps) {
-  switch (variant) {
+const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
+
+function Thumbnail({ url, ...props }: ThumbnailProps) {
+  const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
+
+  switch (props.variant) {
     case 'filled':
     case 'dimed':
       return (
         <div className={thumbnailStyle(props)}>
-          <Image src={url} fill alt="thumbnail" />
+          <Image src={imageUrl} fill alt="thumbnail" />
         </div>
       );
+    // TODO : null variant 삭제하기
     case 'null':
     default:
       return (
         <div className={thumbnailStyle(props)}>
-          <Image src={'/images/thumbnail-null.png'} fill alt="thumbnail" />
+          <Image src={DEFAULT_THUMBNAIL_URL} fill alt="thumbnail" />
         </div>
       );
   }

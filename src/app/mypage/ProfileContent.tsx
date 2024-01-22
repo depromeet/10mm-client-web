@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
-import NullableThumbnail from '@/components/Thumbnail/NullableThumnail';
+import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
@@ -10,7 +10,7 @@ function ProfileContent({ nickname, profileUrl }: { nickname: string; profileUrl
     <section className={containerCss}>
       <Link href={ROUTER.MYPAGE.PROFILE_MODIFY}>
         <div className={profileWrapperCss}>
-          <NullableThumbnail size="h52" url={addDummyQuery(profileUrl) || null} />
+          <Thumbnail size={'h52'} variant={'filled'} url={addDummyQuery(profileUrl)} />
           <p className={nicknameCss}>{nickname}</p>
           <Icon name="arrow-forward" width={16} height={16} color="icon.secondary" />
         </div>

@@ -41,6 +41,12 @@
   --pretendard: 'Pretendard', sans-serif;
 }
 
+html {
+  @media screen and (max-width: 475px) {
+    background-color: #18181d;
+  }
+}
+
 .sb-show-main,
 .docs-story {
   background-color: #18181d;

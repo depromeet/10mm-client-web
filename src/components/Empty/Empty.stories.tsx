@@ -8,7 +8,7 @@ function EmptyStory(props: any) {
     <div className={flex({ gap: '8px' })}>
       <div className={stack({ alignItems: 'center', color: 'white' })}>
         <span>suggest</span>
-        <Empty type="suggest" buttonAction={() => alert('button click')} buttonText="button" {...props} />
+        <Empty type="suggest" link="#" buttonText="button" {...props} />
       </div>
       <div className={stack({ alignItems: 'center', color: 'white' })}>
         <span>notice</span>
