@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
-import Button from '@/components/Button/Button';
+// import Button from '@/components/Button/Button';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
@@ -31,9 +31,9 @@ function ResultPage() {
     <div>
       <section className={topWrapperCss}>
         <Tab tabs={TAB} activeTab="result" />
-        <Button size="small" variant="secondary" className={buttonCss}>
+        {/* <Button size="small" variant="secondary" className={buttonCss}>
           레벨 안내
-        </Button>
+        </Button> */}
       </section>
       <section className={imageSectionCss}>
         <Image className={'character'} src={currentLevel.imageUrl} alt="10mm character" fill />
@@ -54,9 +54,10 @@ function ResultPage() {
 export default ResultPage;
 
 const topWrapperCss = flex({});
-const buttonCss = css({
-  margin: '11px 16px 4px 0 ',
-});
+
+// const buttonCss = css({
+//   margin: '11px 16px 4px 0 ',
+// });
 
 const bannerSectionCss = grid({
   gridTemplateColumns: '1fr 1fr',
