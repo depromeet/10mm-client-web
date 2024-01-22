@@ -8,6 +8,8 @@ import { useImage } from '@/hooks/useImage';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
 
+import MissionList from './MissionList';
+
 const FOLLOWING = '132';
 const FOLLOWER = '181';
 const tabs = [
@@ -63,8 +65,8 @@ export default function MyProfile() {
         </div>
         <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
         <Tab tabs={tabs} activeTab={'mission-list'} />
-        {/* TODO: 미션 리스트 추가 */}
-        {/* <MissionList /> */}
+
+        <MissionList />
       </section>
     </div>
   );
