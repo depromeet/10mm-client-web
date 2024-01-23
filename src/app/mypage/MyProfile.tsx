@@ -69,7 +69,7 @@ export default function MyProfile() {
         <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
         <div className={betweenCss}></div>
         <Tab tabs={tabs} activeTab={'mission-list'} />
-
+        <div className={tabBottomCss}></div>
         <MissionList />
       </section>
     </div>
@@ -77,6 +77,9 @@ export default function MyProfile() {
 }
 const betweenCss = css({
   marginTop: '20px',
+});
+const tabBottomCss = css({
+  marginBottom: '20px',
 });
 
 const containerCss = css({

@@ -15,7 +15,7 @@ function Header() {
       <Link href={ROUTER.MISSION.NEW}>
         <Icon name="normal-link" size={20} color="icon.primary" />
       </Link>
-      <Link href={ROUTER.MISSION.NEW}>
+      <Link href={ROUTER.MYPAGE.SETTING}>
         <Icon name="normal-setting" size={20} color="icon.primary" />
       </Link>
     </h2>
@@ -25,7 +25,6 @@ function Header() {
 function Mypage() {
   return (
     <main className={backgroundCss}>
-      {/* <Header isBackIcon={false} rightAction="icon" iconName={'menu'} /> */}
       <Header />
 
       <MyProfile />
