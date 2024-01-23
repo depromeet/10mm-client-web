@@ -1,4 +1,5 @@
 import { type ChangeEvent, useRef } from 'react';
+import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
 import Badge from '@/components/Badge/Badge';
 import Banner from '@/components/Banner/Banner';
@@ -61,7 +62,9 @@ export default function MyProfile() {
               팔로잉 {FOLLOWING} &nbsp; 팔로워 {FOLLOWER}
             </span>
           </div>
-          <Badge color="gray">프로필 수정</Badge>
+          <Link href={'mypage/profile_modify'}>
+            <Badge color="gray">프로필 수정</Badge>
+          </Link>
         </div>
         <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
         <Tab tabs={tabs} activeTab={'mission-list'} />

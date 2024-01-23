@@ -77,35 +77,37 @@ function ProfileModifyPage() {
       />
 
       <main className={mainCss}>
-        <section className={thumbnailWrapperCss} onClick={handleImageClick}>
-          <input
-            accept="image/x-png,image/jpeg,image/gif"
-            onChange={handleUploadChange}
-            className={hiddenInputCss}
-            ref={imageRef}
-            type="file"
+        <section className={myTabContainerCss}>
+          <section className={thumbnailWrapperCss} onClick={handleImageClick}>
+            <input
+              accept="image/x-png,image/jpeg,image/gif"
+              onChange={handleUploadChange}
+              className={hiddenInputCss}
+              ref={imageRef}
+              type="file"
+            />
+            {imagePreview ? (
+              <Thumbnail size="h80" url={imagePreview} variant={'filled'} />
+            ) : (
+              <Thumbnail size="h80" variant={'null'} />
+            )}
+            <div className={cameraIconWrapperCss}>
+              <Icon name="camera" width={14} height={14} color="icon.secondary" />
+            </div>
+          </section>
+          <Input
+            variant="normal-button"
+            value={nickname}
+            onChange={handleNicknameChange}
+            name="닉네임"
+            maxLength={20}
+            buttonText="중복확인"
+            buttonDisabeld={duplicateCheckButtonDisabled}
+            errorMsg={massageState.errorMsg}
+            validMsg={massageState.validMsg}
+            onTextButtonClick={handleDuplicateCheck}
           />
-          {imagePreview ? (
-            <Thumbnail size="h80" url={imagePreview} variant={'filled'} />
-          ) : (
-            <Thumbnail size="h80" variant={'null'} />
-          )}
-          <div className={cameraIconWrapperCss}>
-            <Icon name="camera" width={14} height={14} color="icon.secondary" />
-          </div>
         </section>
-        <Input
-          variant="normal-button"
-          value={nickname}
-          onChange={handleNicknameChange}
-          name="닉네임"
-          maxLength={20}
-          buttonText="중복확인"
-          buttonDisabeld={duplicateCheckButtonDisabled}
-          errorMsg={massageState.errorMsg}
-          validMsg={massageState.validMsg}
-          onTextButtonClick={handleDuplicateCheck}
-        />
       </main>
     </>
   );
@@ -113,12 +115,24 @@ function ProfileModifyPage() {
 
 export default ProfileModifyPage;
 
+const myTabContainerCss = css({
+  position: 'relative',
+  width: '100%',
+  height: '100vh',
+  backgroundColor: 'bg.surface2',
+  borderTopRightRadius: '28px',
+  borderTopLeftRadius: '28px',
+  padding: '52px 24px 0',
+});
+
 const hiddenInputCss = css({
   display: 'none',
 });
 
 const mainCss = css({
-  padding: '0 16px',
+  paddingTop: '184px',
+  height: '100vh',
+  flex: 1,
 });
 
 const thumbnailWrapperCss = css({
