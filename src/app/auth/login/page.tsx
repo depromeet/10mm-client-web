@@ -3,58 +3,110 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
+import { useSocialLogin } from '@/apis/auth';
 import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
+import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
+import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { ROUTER } from '@/constants/router';
-import { isIOS } from '@/utils/window';
+import { isIOS, isWebView } from '@/utils/appEnv';
 import { css } from '@styled-system/css';
 
 function kakaoInit() {
-  const KAKAO_JAVASCRIPT_SDK_KEY = process.env.KAKAO_JAVASCRIPT_SDK_KEY ?? '';
-  window.Kakao.init('1e1defc726eab3bbd6c8d999cb541bf7');
+  const KAKAO_JAVASCRIPT_SDK_KEY = process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_SDK_KEY ?? '';
+  window.Kakao.init(KAKAO_JAVASCRIPT_SDK_KEY);
 }
 
 function appleInit() {
   window.AppleID.auth.init({
-    clientId: '10mm.today.app',
     scope: 'email',
-    redirectURI: process.env.APPLE_LOGIN_REDIRECT_URI ?? '',
     state: 'state',
-    nonce: 'nonce',
+    clientId: process.env.NEXT_PUBLIC_APPLE_LOGIN_CLIENT_ID ?? '',
+    redirectURI: process.env.NEXT_PUBLIC_APPLE_LOGIN_REDIRECT_URI ?? '',
+    nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE ?? '',
     usePopup: true,
   });
 }
 
 export default function LoginPage() {
   const router = useRouter();
+  const { mutateAsync } = useSocialLogin();
+
   const onClickGuest = () => {
     router.push(ROUTER.GUEST.MISSION.NEW);
   };
 
   const onClickAppleLogin = () => {
+    if (isWebView()) {
+      window.ReactNativeWebView?.postMessage(
+        JSON.stringify({
+          type: NATIVE_CUSTOM_EVENTS.APPLE_LOGIN,
+        }),
+      );
+      return;
+    }
     window.AppleID.auth.signIn();
   };
 
   const onClickKakaoLogin = () => {
+    if (isWebView()) {
+      window.ReactNativeWebView?.postMessage(
+        JSON.stringify({
+          type: NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN,
+        }),
+      );
+      return;
+    }
+
     window.Kakao.Auth.authorize({
-      redirectUri: 'https://db4c-220-72-197-144.ngrok-free.app/auth/kakaoCallback',
+      redirectUri: process.env.NEXT_PUBLIC_KAKAO_LOGIN_REDIRECT_URI,
+      nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE,
     });
   };
 
   useEffect(() => {
-    const appleIdSignInOnSuccessHandler = (event: Event) => {
-      console.log('success', event);
+    const appleIdSignInOnSuccessHandler = (event: CustomEvent) => {
+      mutateAsync(
+        {
+          provider: AUTH_PROVIDER.APPLE,
+          idToken: event.detail.authorization.id_token,
+        },
+        {
+          onSuccess: () => {
+            router.push(ROUTER.HOME);
+          },
+        },
+      );
     };
-    document.addEventListener('AppleIDSignInOnSuccess', appleIdSignInOnSuccessHandler);
 
-    const appleIdSignInOnFailureHandler = (event: Event) => {
-      console.log('fail', event);
+    const handleEvent = (event: CustomEvent) => {
+      mutateAsync(
+        {
+          provider: event.detail.data.provider,
+          idToken: event.detail.data.data,
+        },
+        {
+          onSuccess: () => {
+            router.push(ROUTER.HOME);
+          },
+        },
+      );
     };
-    document.addEventListener('AppleIDSignInOnFailure', appleIdSignInOnFailureHandler);
+
+    document.addEventListener(
+      WINDOW_CUSTOM_EVENT.APPLE_ID_SIGN_IN_ON_SUCCESS,
+      appleIdSignInOnSuccessHandler as EventListener,
+    );
+    document.addEventListener(NATIVE_CUSTOM_EVENTS.APPLE_LOGIN_CALLBACK, handleEvent as EventListener);
+    document.addEventListener(NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN_CALLBACK, handleEvent as EventListener);
 
     return () => {
-      document.removeEventListener('AppleIDSignInOnSuccess', appleIdSignInOnSuccessHandler);
-      document.removeEventListener('AppleIDSignInOnFailure', appleIdSignInOnFailureHandler);
+      document.removeEventListener(
+        WINDOW_CUSTOM_EVENT.APPLE_ID_SIGN_IN_ON_SUCCESS,
+        appleIdSignInOnSuccessHandler as EventListener,
+      );
+      document.removeEventListener(NATIVE_CUSTOM_EVENTS.APPLE_LOGIN_CALLBACK, handleEvent as EventListener);
+      document.removeEventListener(NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN_CALLBACK, handleEvent as EventListener);
     };
   }, []);
 

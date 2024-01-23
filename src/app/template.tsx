@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { APP_USER_AGENT } from '@/constants/common';
 import { useAuth } from '@/hooks/useAuth';
-import { isApp } from '@/utils/window';
+import { isWebView } from '@/utils/appEnv';
 import { motion } from 'framer-motion';
 
 const variants = {
@@ -24,22 +23,22 @@ export default function Template({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  if (!isApp()) {
-    return <main>{children}</main>;
+  if (isWebView()) {
+    return (
+      <motion.main
+        custom={customMotion}
+        variants={variants}
+        exit="exit"
+        animate="enter"
+        transition={{
+          type: 'linear',
+          duration: 0.3,
+        }}
+      >
+        {children}
+      </motion.main>
+    );
   }
 
-  return (
-    <motion.main
-      custom={customMotion}
-      variants={variants}
-      exit="exit"
-      animate="enter"
-      transition={{
-        type: 'linear',
-        duration: 0.3,
-      }}
-    >
-      {children}
-    </motion.main>
-  );
+  return <main>{children}</main>;
 }

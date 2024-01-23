@@ -3,12 +3,12 @@ import { type Metadata } from 'next';
 
 export const metadata: Metadata = {
   other: {
-    'appleid-signin-client-id': '10mm.today.app',
     'appleid-signin-scope': 'email',
-    'appleid-signin-redirect-uri': 'https://ad91-121-167-139-58.ngrok-free.app/auth/appleCallback',
     'appleid-signin-state': 'state',
-    'appleid-signin-nonce': 'nonce',
     'appleid-signin-use-popup': 'true',
+    'appleid-signin-client-id': process.env.NEXT_PUBLIC_APPLE_LOGIN_CLIENT_ID ?? '',
+    'appleid-signin-nonce': process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE ?? '',
+    'appleid-signin-redirect-uri': process.env.NEXT_PUBLIC_APPLE_LOGIN_REDIRECT_URI ?? '',
   },
 };
 
