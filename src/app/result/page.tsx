@@ -32,7 +32,7 @@ function ResultPage() {
     <div>
       <section className={topWrapperCss}>
         <Tab tabs={TAB} activeTab="result" />
-        <LinkButton size="small" variant="secondary" className={buttonCss} href={ROUTER.LEVEL.GUIDE}>
+        <LinkButton size="small" variant="secondary" href={ROUTER.LEVEL.GUIDE}>
           레벨 안내
         </LinkButton>
       </section>
@@ -58,10 +58,7 @@ const topWrapperCss = flex({
   padding: '16px 16px 4px 16px',
   zIndex: 1,
   position: 'relative',
-});
-
-const buttonCss = css({
-  margin: '11px 16px 4px 0 !',
+  // alignItems: 'center',
 });
 
 const bannerSectionCss = grid({
