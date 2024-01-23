@@ -1,3 +1,4 @@
+9;
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -9,6 +10,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'kr.object.ncloudstorage.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.10mm.today',
         port: '',
       },
     ],
