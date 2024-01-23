@@ -1,4 +1,4 @@
-import getQueryKey from '@/apis/getQueryKey';
+import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
 import { type RecordType } from '@/apis/schema/record';
 import { type UploadBaseRequest } from '@/apis/schema/upload';
 import {
@@ -86,9 +86,11 @@ const RECORD_API = {
 
 export default RECORD_API;
 
+const getRecordQueryKey = createQueryKeyFactory<GetRecordsParams>('record');
+
 export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse>) => {
   return useQuery({
-    queryKey:  getQueryKey('record', params),
+    queryKey: getRecordQueryKey(params),
     queryFn: () => RECORD_API.getRecords(params),
     ...option,
   });
@@ -96,7 +98,7 @@ export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<
 
 export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<GetRecordDetailResponse>) => {
   return useSuspenseQuery({
-    queryKey: getQueryKey('recordDetail', { recordId }),
+    queryKey: ['recordDetail', recordId],
     queryFn: () => RECORD_API.getRecordDetail(recordId),
 
     ...option,
