@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { cva } from '@/styled-system/css';
 
-const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
+export const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
 
 function Thumbnail({ url, ...props }: ThumbnailProps) {
   const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
