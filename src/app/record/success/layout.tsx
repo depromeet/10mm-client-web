@@ -1,3 +1,4 @@
+'use client';
 import { type PropsWithChildren } from 'react';
 import { css } from '@styled-system/css';
 import { motion } from 'framer-motion';
