@@ -1,10 +1,13 @@
 declare global {
   interface Window {
+    ReactNativeWebView: {
+      postMessage: (message: string) => void;
+    };
     Kakao: {
       init: (keyValue: string) => void;
       isInitialized: () => boolean;
       Auth: {
-        authorize: ({ redirectUri: string }) => void;
+        authorize: ({ redirectUri: string, nonce: string }) => void;
       };
     };
     AppleID: {

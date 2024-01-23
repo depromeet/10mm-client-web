@@ -30,6 +30,7 @@ export const ROUTER = {
     HOME: '/result',
   },
   AUTH: {
+    SOCIAL_LOGIN: (provider: string) => `/auth/social-login?provider=${provider}`,
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     SIGNIN: '/auth/signin',
