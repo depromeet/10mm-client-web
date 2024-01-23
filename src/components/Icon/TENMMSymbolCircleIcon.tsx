@@ -33,3 +33,27 @@ function TENMMSymbolCircleIcon(props: IconComponentProps) {
 }
 
 export default TENMMSymbolCircleIcon;
+
+export function TENMMSymbolCircleLocked(props: IconComponentProps) {
+  const { color, size = 18, ...restProps } = props;
+  return (
+    <svg
+      // width="17"
+      // height="16"
+      viewBox="0 0 17 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      // viewBox="0 0 20 21"
+      {...restProps}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8.49998 14.6666C12.1819 14.6666 15.1666 11.6818 15.1666 7.99992C15.1666 4.31802 12.1819 1.33325 8.49998 1.33325C4.81808 1.33325 1.83331 4.31802 1.83331 7.99992C1.83331 11.6818 4.81808 14.6666 8.49998 14.6666ZM5.06614 10.2669C5.83019 10.9032 6.95171 10.2195 7.81769 9.43723C7.89075 9.74785 8.05266 10.0211 8.30417 10.219C9.03309 10.7925 10.2386 10.5158 10.9967 9.60097C11.7549 8.68615 12.9979 6.51622 12.0416 5.71988C11.2776 5.08366 10.1561 5.76728 9.29007 6.54959C9.21702 6.23897 9.05511 5.96572 8.8036 5.76783C8.07467 5.19433 6.86917 5.47103 6.11104 6.38585C5.35291 7.30067 4.10982 9.4706 5.06614 10.2669Z"
+        fill="#464856"
+      />
+    </svg>
+  );
+}

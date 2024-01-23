@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
 import GrowthLevel from '@/app/level/guide/GrowthLevel';
@@ -11,6 +12,14 @@ function LevelGuidePage() {
   const { data } = useGetMissionSummary();
   const symbolStack = data?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
+
+  const [selectLevel, setSelectLevel] = useState<number>(0);
+
+  useEffect(() => {
+    if (currentLevel) {
+      setSelectLevel(currentLevel.level);
+    }
+  }, [currentLevel]);
 
   return (
     <div>
@@ -24,7 +33,11 @@ function LevelGuidePage() {
       </section>
       <LevelStatus current={symbolStack} level={currentLevel} />
       <section className={growthSectionCss}>
-        <GrowthLevel />
+        <GrowthLevel
+          selectLevel={selectLevel}
+          onClick={(level) => setSelectLevel(level)}
+          maxLevel={currentLevel.level}
+        />
       </section>
     </div>
   );

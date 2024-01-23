@@ -1,19 +1,35 @@
 import Image from 'next/image';
+import Character from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
 import { LEVEL_SYSTEM, type LevelSystemType } from '@/constants/level';
 import { css, cva } from '@/styled-system/css';
-import { flex } from '@/styled-system/patterns';
+import { center, flex } from '@/styled-system/patterns';
 
-function GrowthLevel() {
-  const currentLevel = LEVEL_SYSTEM[2];
-
+function GrowthLevel({
+  selectLevel,
+  maxLevel,
+  onClick,
+}: {
+  selectLevel: number;
+  onClick: (level: number) => void;
+  maxLevel: number;
+}) {
   return (
     <>
       <h2 className={headingCss}>성장 레벨</h2>
       <div className={containerCss}>
         <ul className={listContainerCss}>
-          {LEVEL_SYSTEM.map((level) => {
-            return <GrowthLevelItem key={level.label} {...level} isSelected={currentLevel.level === level.level} />;
+          {LEVEL_SYSTEM.map((level, idx) => {
+            const isLocked = maxLevel <= idx;
+            return (
+              <GrowthLevelItem
+                key={level.label}
+                {...level}
+                isSelected={selectLevel === level.level}
+                isLocked={isLocked}
+                onClick={() => onClick(level.level)}
+              />
+            );
           })}
         </ul>
       </div>
@@ -40,28 +56,23 @@ const listContainerCss = flex({
 
 interface GrowthLevelItemProps extends Pick<LevelSystemType, 'level' | 'min' | 'max' | 'imageUrl' | 'isFinal'> {
   isSelected: boolean;
+  isLocked: boolean;
+  onClick: () => void;
 }
 
 function GrowthLevelItem(props: GrowthLevelItemProps) {
   return (
-    <li className={itemContainerRecipe({ selected: props.isSelected })}>
+    <li className={itemContainerRecipe({ selected: props.isSelected })} onClick={props.onClick}>
       <p className={levelLabelCss}>{props.level}</p>
-      <div className={itemImageContainerCss()}>
-        <Image src={props.imageUrl} alt="image url" width={76} height={56.8} />
+      <div className={imageWrapperCss}>
+        <Character width={76} height={56.8} level={props.level} isLocked={props.isLocked} />
       </div>
-      <Icon name="10mm-symbol-circle" />
+      <div className={stackTextCss}>
+        <Icon name={props.isLocked ? '10mm-symbol-circle-lock' : '10mm-symbol-circle'} />
+      </div>
     </li>
   );
 }
-
-const itemImageContainerCss = cva({
-  base: {
-    flex: 1,
-    '& img': {
-      objectFit: 'contain',
-    },
-  },
-});
 
 const levelLabelCss = css({
   color: 'text.secondary',
@@ -78,6 +89,7 @@ const itemContainerRecipe = cva({
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
+    cursor: 'pointer',
   },
   variants: {
     selected: {
@@ -92,4 +104,13 @@ const itemContainerRecipe = cva({
       },
     },
   },
+});
+
+const imageWrapperCss = center({
+  flex: 1,
+});
+
+const stackTextCss = flex({
+  width: 'fit-content',
+  gap: '2px',
 });

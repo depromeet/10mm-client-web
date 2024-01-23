@@ -1,6 +1,6 @@
 export interface LevelSystemType {
   label: string;
-  level: string;
+  level: number;
   levelName: string;
   min: number;
   max: number;
@@ -11,7 +11,7 @@ export interface LevelSystemType {
 export const LEVEL_SYSTEM: LevelSystemType[] = [
   {
     label: 'Lv. 1 씨드',
-    level: 'Lv. 1',
+    level: 1,
     levelName: '씨드',
     min: 0,
     max: 10,
@@ -19,7 +19,7 @@ export const LEVEL_SYSTEM: LevelSystemType[] = [
   },
   {
     label: 'Lv. 2 키즈',
-    level: 'Lv. 2',
+    level: 2,
     levelName: '키즈',
     min: 11,
     max: 30,
@@ -27,7 +27,7 @@ export const LEVEL_SYSTEM: LevelSystemType[] = [
   },
   {
     label: 'Lv.3 주니어',
-    level: 'Lv. 3',
+    level: 3,
     levelName: '주니어',
     min: 31,
     max: 90,
@@ -35,7 +35,7 @@ export const LEVEL_SYSTEM: LevelSystemType[] = [
   },
   {
     label: 'Lv.4 시니어',
-    level: 'Lv. 4',
+    level: 4,
     levelName: '시니어',
     min: 91,
     max: 240,
@@ -43,7 +43,7 @@ export const LEVEL_SYSTEM: LevelSystemType[] = [
   },
   {
     label: 'Lv.5 플라이어',
-    level: 'Lv. 5',
+    level: 5,
     levelName: '플라이어',
     min: 241,
     max: 500,
@@ -51,7 +51,7 @@ export const LEVEL_SYSTEM: LevelSystemType[] = [
   },
   {
     label: 'Lv.6 마스터',
-    level: 'Lv. 6',
+    level: 6,
     levelName: '마스터',
     min: 501,
     max: 600,
