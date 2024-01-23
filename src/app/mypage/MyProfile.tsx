@@ -15,6 +15,10 @@ const FOLLOWING = '132';
 const FOLLOWER = '181';
 const tabs = [
   {
+    tabName: '피드',
+    id: 'feed',
+  },
+  {
     tabName: '미션 목록',
     id: 'mission-list',
   },

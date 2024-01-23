@@ -3,6 +3,7 @@
 import { type ChangeEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
+import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
@@ -10,8 +11,17 @@ import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
 import { checkImageType, getUrlImageType, useImage } from '@/hooks/useImage';
+import useModal from '@/hooks/useModal';
 import useNickname from '@/hooks/useNickname';
 import { css } from '@/styled-system/css';
+
+interface DialogProps {
+  isOpen: boolean;
+  onClose: VoidFunction;
+  onConfirm: VoidFunction;
+  onCancel: VoidFunction;
+  logData?: Record<string, string | number>;
+}
 
 function ProfileModifyPage() {
   const { data } = useGetMembersMe();
@@ -68,12 +78,33 @@ function ProfileModifyPage() {
     }
   };
 
+  const { isOpen: isCancleModalOpen, openModal: openCancleModal, closeModal: closeCancleModal } = useModal();
+  const onExit = () => {
+    router.replace(ROUTER.MYPAGE.HOME);
+  };
+  const onCancel = () => {};
+
+  function CancleDialog({ onConfirm, logData, ...props }: DialogProps) {
+    return (
+      <Dialog
+        variant={'default'}
+        title="프로필 수정을 취소하시겠어요?"
+        content="나가게 되면 변경 사항은 저장되지 않아요."
+        confirmText="나가기"
+        cancelText="취소"
+        onConfirm={onConfirm}
+        {...props}
+      />
+    );
+  }
+
   return (
     <>
       <Header
         rightAction="text-button"
         title="프로필 수정"
         rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
+        onBackAction={openCancleModal}
       />
 
       <main className={mainCss}>
@@ -108,6 +139,7 @@ function ProfileModifyPage() {
             onTextButtonClick={handleDuplicateCheck}
           />
         </section>
+        <CancleDialog isOpen={isCancleModalOpen} onClose={closeCancleModal} onCancel={onCancel} onConfirm={onExit} />
       </main>
     </>
   );
