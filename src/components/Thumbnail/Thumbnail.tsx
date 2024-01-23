@@ -5,7 +5,8 @@ import { cva } from '@/styled-system/css';
 const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
 
 function Thumbnail({ url, ...props }: ThumbnailProps) {
-  const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
+  // const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
+  const imageUrl = DEFAULT_THUMBNAIL_URL;
 
   switch (props.variant) {
     case 'filled':
@@ -71,6 +72,7 @@ const thumbnailStyle = cva({
       },
     },
     selected: {
+      // TODO: css recipe로 변경
       true: {
         border: '1px solid transparent',
         backgroundRepeat: 'no-repeat',

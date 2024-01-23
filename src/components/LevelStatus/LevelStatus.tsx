@@ -1,8 +1,8 @@
 'use client';
 
-import LevelProgressBar from '@/app/result/LevelStatus/LevelProgressBar';
+import LevelProgressBar from '@/components/LevelStatus/LevelProgressBar';
 import { type LevelSystemType } from '@/constants/level';
-import { gradientTextCss } from '@/constants/style';
+import { gradientTextCss } from '@/constants/style/text';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
