@@ -29,6 +29,9 @@ export const ROUTER = {
   RESULT: {
     HOME: '/result',
   },
+  LEVEL: {
+    GUIDE: '/level/guide',
+  },
   AUTH: {
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
