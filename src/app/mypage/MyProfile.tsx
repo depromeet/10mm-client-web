@@ -15,10 +15,6 @@ const FOLLOWING = '132';
 const FOLLOWER = '181';
 const tabs = [
   {
-    tabName: '피드',
-    id: 'feed',
-  },
-  {
     tabName: '미션 목록',
     id: 'mission-list',
   },
@@ -71,6 +67,7 @@ export default function MyProfile() {
           </Link>
         </div>
         <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
+        <div className={betweenCss}></div>
         <Tab tabs={tabs} activeTab={'mission-list'} />
 
         <MissionList />
@@ -78,6 +75,9 @@ export default function MyProfile() {
     </div>
   );
 }
+const betweenCss = css({
+  marginTop: '20px',
+});
 
 const containerCss = css({
   paddingTop: '184px',

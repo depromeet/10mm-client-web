@@ -18,7 +18,6 @@ function Header() {
       <Link href={ROUTER.MISSION.NEW}>
         <Icon name="normal-setting" size={20} color="icon.primary" />
       </Link>
-      {/* <Icon name={'input-arrow-down'} color={'icon.secondary'} className={iconCss} /> */}
     </h2>
   );
 }
@@ -30,6 +29,7 @@ function Mypage() {
       <Header />
 
       <MyProfile />
+
       <AppBarBottom />
       <BottomDim />
     </main>
