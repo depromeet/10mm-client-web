@@ -1,4 +1,4 @@
-import { useProfileId } from '@/app/home/ProfileIdProvider';
+import { useFollowNickname } from '@/app/home/FollowNicknameProvider';
 import UserProfile from '@/app/home/UserProfile';
 import { flex } from '@/styled-system/patterns';
 
@@ -7,10 +7,19 @@ import ProfileItem from './ProfileItem';
 const uerProfiles: {
   id: number;
   name: string;
-}[] = [];
+}[] = [
+  {
+    id: 1,
+    name: '김민재',
+  },
+  {
+    id: 2,
+    name: '김민재2',
+  },
+];
 
 function ProfileList() {
-  const { profileId, setProfileId } = useProfileId();
+  const { followNickname, setFollowNickname } = useFollowNickname();
 
   return (
     <section className={containerCss}>
@@ -18,10 +27,9 @@ function ProfileList() {
       {uerProfiles.map((profile) => (
         <ProfileItem
           key={profile.id}
-          onClick={setProfileId}
-          id={profile.id}
+          onClick={setFollowNickname}
           name={profile.name}
-          selected={profileId === profile.id}
+          selected={followNickname === profile.name}
         />
       ))}
     </section>

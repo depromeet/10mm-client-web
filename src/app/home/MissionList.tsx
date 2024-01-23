@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { MissionStatus } from '@/apis/schema/mission';
+import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
-import Badge from '@/components/Badge/Badge';
 import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
@@ -19,11 +19,9 @@ function MissionList() {
       <Header />
       <ul className={listCss}>
         {/* TODO : Suspense로 리팩토링 */}
-        {/* <Suspense fallback={<Skeleton />}> */}
         {/* TODO : 미션 최근 순 정렬 */}
         {/* TODO : 완료된 미션은 하단 정렬 */}
         <MissionListInner />
-        {/* </Suspense> */}
       </ul>
     </div>
   );
@@ -74,7 +72,7 @@ export function MissionListInner() {
 }
 
 // TODO: 공통으로 분리
-function Skeleton() {
+export function Skeleton() {
   return (
     <>
       <div className={missionItemSkeletonCss} />
@@ -121,17 +119,3 @@ const listCss = flex({
   gap: '8px',
   height: '100%',
 });
-
-function MissionBadge({ status }: { status: MissionStatus }) {
-  switch (status) {
-    case 'COMPLETED':
-      return <Badge color="purple">완료</Badge>;
-    case 'REQUIRED':
-      return <Badge color="red">인증 필요</Badge>;
-    case 'PROGRESSING':
-      return <Badge color="gray">진행중</Badge>;
-
-    default:
-      return null;
-  }
-}
