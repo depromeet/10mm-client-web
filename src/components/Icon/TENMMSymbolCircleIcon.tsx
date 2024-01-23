@@ -37,17 +37,7 @@ export default TENMMSymbolCircleIcon;
 export function TENMMSymbolCircleLocked(props: IconComponentProps) {
   const { color, size = 18, ...restProps } = props;
   return (
-    <svg
-      // width="17"
-      // height="16"
-      viewBox="0 0 17 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      // viewBox="0 0 20 21"
-      {...restProps}
-    >
+    <svg viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" width={size} height={size} {...restProps}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
