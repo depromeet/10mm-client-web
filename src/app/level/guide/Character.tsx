@@ -40,14 +40,15 @@ function Character(props: Props) {
         </>
       ) : (
         <>
-          <Image
-            src="/assets/level/level-guide-bg.svg"
-            alt={'guide bg'}
-            width={375}
-            height={382}
-            style={{}}
-            className={cx(imageCss, characterImageBgCss)}
-          />
+          {props.isBackground && (
+            <Image
+              src="/assets/level/level-guide-bg.svg"
+              alt={'guide bg'}
+              width={375}
+              height={382}
+              className={cx(imageCss, characterImageBgCss)}
+            />
+          )}
           <Image
             src={`/assets/character-by-level/default/${props.level}.png`}
             width={props.width}

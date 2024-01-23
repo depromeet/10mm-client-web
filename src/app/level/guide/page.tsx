@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
 import Character from '@/app/level/guide/Character';
 import GrowthLevel from '@/app/level/guide/GrowthLevel';
@@ -48,10 +47,13 @@ function LevelGuidePage() {
               {isLockedLevel ? (
                 <Character width={202} height={151} level={selectLevelInfo.level} isLocked={isLockedLevel} />
               ) : (
-                <>
-                  <Image src="/assets/level/level-guide-bg.svg" alt={'guild bg'} width={375} height={382} />
-                  <Character width={240} height={180} level={selectLevelInfo.level} isLocked={isLockedLevel} />
-                </>
+                <Character
+                  width={240}
+                  height={180}
+                  level={selectLevelInfo.level}
+                  isLocked={isLockedLevel}
+                  isBackground
+                />
               )}
             </section>
             <LevelStatus current={symbolStack} level={currentLevelInfo} />

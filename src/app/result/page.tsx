@@ -37,7 +37,7 @@ function ResultPage() {
         </LinkButton>
       </section>
       <section className={imageSectionCss}>
-        <Character width={280} height={210} level={currentLevel.level} />
+        <Character width={280} height={210} level={currentLevel.level} isBackground />
       </section>
       <LevelStatus current={symbolStack} level={currentLevel} />
       <section className={bannerSectionCss}>
