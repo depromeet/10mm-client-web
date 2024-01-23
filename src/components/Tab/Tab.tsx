@@ -16,7 +16,6 @@ export default function Tab({ tabs, activeTab, onTabClick }: TabProps) {
 }
 
 const tabWrapperCss = css({
-  padding: '16px 16px 4px 16px',
   display: 'flex',
   flexDirection: 'row',
   gap: '16px',

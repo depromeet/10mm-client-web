@@ -53,7 +53,9 @@ function ResultPage() {
 
 export default ResultPage;
 
-const topWrapperCss = flex({});
+const topWrapperCss = flex({
+  padding: '16px 16px 4px 16px',
+});
 
 // const buttonCss = css({
 //   margin: '11px 16px 4px 0 ',
