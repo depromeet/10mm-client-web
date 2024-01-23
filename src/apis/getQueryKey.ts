@@ -1,5 +1,20 @@
 type QueryList = {
-  //
+  missions: undefined;
+  missionDetail: {
+    missionId: string;
+  };
+
+  record: {
+    missionId: number;
+    yearMonth: string;
+  };
+  recordDetail: {
+    recordId: string;
+  };
+
+  member: {
+    me: undefined;
+  };
 };
 
 /**
@@ -15,7 +30,7 @@ type QueryList = {
 const getQueryKey = <T extends keyof QueryList>(
   ...[key, params]: undefined extends QueryList[T] ? [T] : [T, QueryList[T]]
 ) => {
-  return params ? [key, params] : [key];
+  return params ? [key, ...Object.entries(params)] : [key];
 };
 
 export default getQueryKey;
