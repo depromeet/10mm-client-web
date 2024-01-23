@@ -43,7 +43,6 @@ export function useRecordMidTime(time: number) {
 
 export function useCustomBack(customBack: () => void) {
   const browserPreventEvent = (event: () => void) => {
-    history.pushState(null, '', location.href);
     event();
   };
 
