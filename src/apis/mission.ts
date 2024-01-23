@@ -1,4 +1,4 @@
-import getQueryKey from '@/apis/getQueryKey';
+import { createQueryKeyFactory } from '@/apis/createQueryKeyFactory';
 import { type MissionCategory, type MissionItemTypeWithRecordId, type MissionVisibility } from '@/apis/schema/mission';
 import {
   useMutation,
@@ -81,17 +81,23 @@ interface ModifyMissionResponse {
   visibility: string;
 }
 
+const missionsQueryKey = ['missions'];
+
 export const useGetMissions = (option?: UseQueryOptions<GetMissionsResponse>) => {
   return useQuery<GetMissionsResponse>({
-    queryKey: getQueryKey('missions'),
+    queryKey: missionsQueryKey,
     queryFn: MISSION_APIS.getMissions,
     ...option,
   });
 };
 
+const getMissionDetailQueryKey = createQueryKeyFactory<{
+  missionId: string;
+}>('missionDetail');
+
 export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<MissionContentType>) => {
   return useSuspenseQuery<MissionContentType>({
-    queryKey: getQueryKey('missionDetail', { missionId }),
+    queryKey: getMissionDetailQueryKey({ missionId }),
     queryFn: () => MISSION_APIS.getMissionDetail(missionId),
     ...option,
   });
@@ -102,7 +108,7 @@ export const useGetMissionDetailNoSuspense = (
   option?: Omit<UseQueryOptions<MissionContentType>, 'enabled'>, // TODO 수정 필요, 임시 방편
 ) => {
   return useQuery<MissionContentType>({
-    queryKey: getQueryKey('missionDetail', { missionId }),
+    queryKey: getMissionDetailQueryKey({ missionId }),
     queryFn: () => MISSION_APIS.getMissionDetail(missionId),
     enabled: Boolean(missionId),
     ...option,
@@ -124,7 +130,7 @@ export const useDeleteMissionMutation = (missionId: string, option?: UseMutation
   return useMutation({
     mutationFn: () => MISSION_APIS.deleteMission(missionId),
     onSuccess: async (...data) => {
-      await queryClient.invalidateQueries({ queryKey: getQueryKey('missions') });
+      await queryClient.invalidateQueries({ queryKey: missionsQueryKey });
       option?.onSuccess?.(...data);
     },
     ...option,

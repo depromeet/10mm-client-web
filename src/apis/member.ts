@@ -1,4 +1,3 @@
-import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
 import { type MemberType } from '@/apis/schema/member';
 import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schema/upload';
@@ -102,14 +101,14 @@ export const useUploadProfileImageComplete = (
     ...option,
     onSuccess: (...res) => {
       option?.onSuccess && option.onSuccess(...res);
-      return queryClient.invalidateQueries({ queryKey: getQueryKey('member', { me: undefined }) });
+      return queryClient.invalidateQueries({ queryKey: ['member', 'me'] });
     },
   });
 };
 
 export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
   return useQuery({
-    queryKey: getQueryKey('member', { me: undefined }),
+    queryKey: ['member', 'me'],
     queryFn: () => MEMBER_API.getMembersMe(),
     ...option,
   });

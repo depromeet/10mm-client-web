@@ -106,6 +106,7 @@ function ProfileModifyPage() {
           validMsg={massageState.validMsg}
           onTextButtonClick={handleDuplicateCheck}
         />
+        ;
       </main>
     </>
   );
