@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Character from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
 import { LEVEL_SYSTEM, type LevelSystemType } from '@/constants/level';
+import { gradientTextCss } from '@/constants/style';
 import { css, cva } from '@/styled-system/css';
 import { center, flex } from '@/styled-system/patterns';
 
@@ -42,6 +42,7 @@ export default GrowthLevel;
 const headingCss = css({
   color: 'gray.gray800',
   textStyle: 'subtitle2',
+  padding: '0 16px',
 });
 
 const containerCss = css({
@@ -69,6 +70,9 @@ function GrowthLevelItem(props: GrowthLevelItemProps) {
       </div>
       <div className={stackTextCss}>
         <Icon name={props.isLocked ? '10mm-symbol-circle-lock' : '10mm-symbol-circle'} />
+        <p className={gradientTextCss}>
+          {props.min}~{props.max}
+        </p>
       </div>
     </li>
   );
@@ -94,7 +98,7 @@ const itemContainerRecipe = cva({
   variants: {
     selected: {
       true: {
-        border: '1px solid var(--gradient-primary, #FAD0DE)',
+        border: '1px solid var(--gradient-primary, #FAD0DE)', //TODO : 수정
         background: 'linear-gradient(93deg, rgba(25, 23, 27, 0.80) 0.82%, rgba(24, 25, 33, 0.80) 99.97%)',
         boxShadow: '0px 5px 50px 4px rgba(92, 78, 122, 0.50) inset, 0px 4px 20px 0px rgba(16, 15, 23, 0.20)',
         backdropBlur: 'blur(20px)',
@@ -113,4 +117,6 @@ const imageWrapperCss = center({
 const stackTextCss = flex({
   width: 'fit-content',
   gap: '2px',
+  alignItems: 'center',
+  textStyle: 'body1',
 });

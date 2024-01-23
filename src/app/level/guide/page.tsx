@@ -3,40 +3,66 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
+import Character from '@/app/level/guide/Character';
 import GrowthLevel from '@/app/level/guide/GrowthLevel';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
-import { css } from '@/styled-system/css';
+import LoadingSpinner from '@/components/Loading/LoadingSpinner';
+import { LEVEL_SYSTEM } from '@/constants/level';
+import { defaultFadeInMotion } from '@/constants/style';
+import { css, cx } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
+import { motion } from 'framer-motion';
 
 function LevelGuidePage() {
-  const { data } = useGetMissionSummary();
+  const { data, isLoading } = useGetMissionSummary();
   const symbolStack = data?.symbolStack ?? 0;
-  const currentLevel = getLevel(symbolStack);
+  const currentLevelInfo = getLevel(symbolStack);
 
-  const [selectLevel, setSelectLevel] = useState<number>(0);
+  const [selectLevel, setSelectLevel] = useState<number>(1);
+
+  const selectLevelInfo = LEVEL_SYSTEM[selectLevel - 1];
+  const isLockedLevel = currentLevelInfo.level < selectLevelInfo.level;
 
   useEffect(() => {
-    if (currentLevel) {
-      setSelectLevel(currentLevel.level);
+    if (currentLevelInfo) {
+      setSelectLevel(currentLevelInfo.level);
     }
-  }, [currentLevel]);
+  }, [currentLevelInfo]);
 
   return (
     <div>
-      <section className={levelTextWrapperCss}>
-        <p className={levelLabelCss}>현재 레벨</p>
-        <div className={badgeCss}>{currentLevel.label}</div>
-      </section>
-      <section className={characterImageSectionCss}>
-        <Image src="/assets/level/level-guide-bg.png" alt={'guild bg'} width={240} height={180} />
-        <Image src={currentLevel.imageUrl} alt={'character image'} width={240} height={180} />
-      </section>
-      <LevelStatus current={symbolStack} level={currentLevel} />
+      <div className={levelInfoContainerCss}>
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <section className={levelTextWrapperCss}>
+              <p className={levelLabelCss}>현재 레벨</p>
+              <div className={cx(badgeCss)}>
+                <motion.span key={selectLevelInfo.label} {...defaultFadeInMotion}>
+                  {selectLevelInfo.label}
+                </motion.span>
+              </div>
+            </section>
+            <section className={characterImageSectionCss}>
+              {isLockedLevel ? (
+                <Character width={202} height={151} level={selectLevelInfo.level} isLocked={isLockedLevel} />
+              ) : (
+                <>
+                  <Image src="/assets/level/level-guide-bg.svg" alt={'guild bg'} width={375} height={382} />
+                  <Character width={240} height={180} level={selectLevelInfo.level} isLocked={isLockedLevel} />
+                </>
+              )}
+            </section>
+            <LevelStatus current={symbolStack} level={currentLevelInfo} />
+          </>
+        )}
+      </div>
       <section className={growthSectionCss}>
         <GrowthLevel
           selectLevel={selectLevel}
           onClick={(level) => setSelectLevel(level)}
-          maxLevel={currentLevel.level}
+          maxLevel={currentLevelInfo.level}
         />
       </section>
     </div>
@@ -44,6 +70,15 @@ function LevelGuidePage() {
 }
 
 export default LevelGuidePage;
+
+const levelInfoContainerCss = css({
+  minHeight: '407px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingTop: '16px',
+});
 
 const levelTextWrapperCss = css({
   width: 'fit-content',
@@ -85,4 +120,11 @@ const characterImageSectionCss = css({
 
 const growthSectionCss = css({
   marginLeft: '16px',
+  position: 'fixed',
+  maxWidth: '475px',
+  width: '100vw',
+  margin: '0 auto 54px',
+  bottom: '0',
+  left: 0,
+  right: 0,
 });
