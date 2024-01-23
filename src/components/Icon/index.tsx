@@ -22,7 +22,7 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import SpinnerIcon from '@/components/Icon/SpinnerIcon';
-import TENMMSymbolCircleIcon from '@/components/Icon/TENMMSymbolCircleIcon';
+import TENMMSymbolCircleIcon, { TENMMSymbolCircleLocked } from '@/components/Icon/TENMMSymbolCircleIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
 import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
@@ -68,6 +68,7 @@ export const IconComponentMap = {
   'plus-circle-large': PlusCircleLarge,
   '10mm-symbol': TENMMSymbolIcon,
   '10mm-symbol-circle': TENMMSymbolCircleIcon,
+  '10mm-symbol-circle-lock': TENMMSymbolCircleLocked,
   'apple-login': AppleLoginIcon,
   'kakao-login': KakaoLoginIcon,
   terms: TermsIcon,
