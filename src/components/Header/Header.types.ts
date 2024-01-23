@@ -4,7 +4,7 @@ import { type IconComponentMap } from '@/components/Icon';
 import { type MenuBaseItem } from '@/components/Menu';
 
 interface HeaderBaseType {
-  rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu';
+  rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu' | 'component';
 
   title?: string;
   onBackAction?: () => void;
@@ -23,7 +23,7 @@ export interface NoneHeaderType extends HeaderBaseType {
 }
 
 export interface TextButtonHeaderType extends HeaderBaseType {
-  rightAction: 'text-button';
+  rightAction: 'text-button' | 'component';
   rightButtonText?: string;
   rightButtonProps?: Omit<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'>;
 }
