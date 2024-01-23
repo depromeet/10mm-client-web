@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetMissionDetailNoSuspense } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
-import { useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
+import { useCustomBack, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
@@ -44,11 +44,16 @@ export default function StopwatchPage() {
   const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
   const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
+  const {
+    isOpen: isBackMidOutModalOpen,
+    openModal: openBackMidOutModal,
+    closeModal: closeBackMidOutModal,
+  } = useModal();
 
-  // useCustomBack(() => {
-  //   onNextStep('stop');
-  //   openMidOutModal();
-  // });
+  useCustomBack(() => {
+    onNextStep('stop');
+    openBackMidOutModal();
+  });
 
   useRecordMidTime(time);
   useUnloadAction(time);
@@ -159,6 +164,12 @@ export default function StopwatchPage() {
     openBackModal();
   };
 
+  const onBackMidModalClose = () => {
+    closeBackMidOutModal();
+    history.pushState(null, '', location.href);
+    onNextStep(prevStep);
+  };
+
   useEffect(() => {
     if (isFinished) {
       onAutoFinish();
@@ -237,6 +248,13 @@ export default function StopwatchPage() {
           isOpen={isMidOutModalOpen}
           onClose={closeMidOutModal}
           onCancel={onCancel}
+          onConfirm={onExit}
+          logData={logData}
+        />
+        <MidOutDialog
+          isOpen={isBackMidOutModalOpen}
+          onClose={closeBackMidOutModal}
+          onCancel={onBackMidModalClose}
           onConfirm={onExit}
           logData={logData}
         />
