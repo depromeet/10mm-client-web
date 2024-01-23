@@ -2,10 +2,11 @@ import Image from 'next/image';
 import { css, cx } from '@/styled-system/css';
 
 interface Props {
-  isLocked?: boolean;
   width: number;
   height: number;
   level: number;
+  isLocked?: boolean;
+  isBackground?: boolean;
 }
 
 function Character(props: Props) {
@@ -27,16 +28,34 @@ function Character(props: Props) {
             alt="locked"
             width={props.width}
             height={props.height}
+            className={imageCss}
           />
-          <Image src={`/assets/character-by-level/locked/lock.svg`} alt="locked" width={180} height={180} />
+          <Image
+            src={`/assets/character-by-level/locked/lock.svg`}
+            alt="locked"
+            width={180}
+            height={180}
+            className={imageCss}
+          />
         </>
       ) : (
-        <Image
-          src={`/assets/character-by-level/default/${props.level}.png`}
-          width={props.width}
-          height={props.height}
-          alt="10mm character image"
-        />
+        <>
+          <Image
+            src="/assets/level/level-guide-bg.svg"
+            alt={'guide bg'}
+            width={375}
+            height={382}
+            style={{}}
+            className={cx(imageCss, characterImageBgCss)}
+          />
+          <Image
+            src={`/assets/character-by-level/default/${props.level}.png`}
+            width={props.width}
+            height={props.height}
+            alt="10mm character image"
+            className={imageCss}
+          />
+        </>
       )}
     </div>
   );
@@ -49,14 +68,21 @@ const imageWrapperCss = css({
   margin: '0 auto',
   animation: 'fadeIn .7s',
   height: '100%',
+});
 
-  '& img': {
-    animation: 'fadeIn .7s',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    margin: 'auto',
-  },
+const imageCss = css({
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  margin: 'auto',
+  animation: 'fadeIn .7s',
+});
+
+const characterImageBgCss = css({
+  left: '50%',
+  transform: 'translateX(-50%)',
+  minWidth: '375px',
+  minHeight: '382px',
 });

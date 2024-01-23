@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useGetMissionSummary } from '@/apis/mission';
+import Character from '@/app/level/guide/Character';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
 import LinkButton from '@/components/Button/LinkButton';
@@ -37,10 +37,7 @@ function ResultPage() {
         </LinkButton>
       </section>
       <section className={imageSectionCss}>
-        <Image className={'character'} src={currentLevel.imageUrl} alt="10mm character" fill />
-        <div className={bgImgWrapper}>
-          <Image src="/assets/result/character-bg-gradient.svg" alt="10mm character bg" fill />
-        </div>
+        <Character width={280} height={210} level={currentLevel.level} />
       </section>
       <LevelStatus current={symbolStack} level={currentLevel} />
       <section className={bannerSectionCss}>
@@ -55,10 +52,9 @@ function ResultPage() {
 export default ResultPage;
 
 const topWrapperCss = flex({
-  padding: '16px 16px 4px 16px',
   zIndex: 1,
   position: 'relative',
-  // alignItems: 'center',
+  padding: '16px 16px 4px 16px',
 });
 
 const bannerSectionCss = grid({
@@ -74,25 +70,16 @@ const imageSectionCss = css({
   position: 'relative',
   height: '210px',
 
-  '& img.character': {
-    height: '210px !important',
-    objectFit: 'contain',
-  },
+  // '& img.character': {
+  //   height: '210px !important',
+  //   objectFit: 'contain',
+  // },
 
-  '& img.bg': {
-    position: 'absolute',
-    transform: 'translateY(-20%);',
-    width: '100vw !important',
-    height: '382px !important',
-    objectFit: 'contain',
-  },
-});
-
-const bgImgWrapper = css({
-  transform: 'translateY(-25%);',
-  height: '382px',
-
-  '& img': {
-    objectFit: 'contain',
-  },
+  // '& img.bg': {
+  //   position: 'absolute',
+  //   transform: 'translateY(-20%);',
+  //   width: '100vw !important',
+  //   height: '382px !important',
+  //   objectFit: 'contain',
+  // },
 });
