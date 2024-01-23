@@ -57,7 +57,7 @@ export default function MyProfile() {
         </section>
         <div className={myTabCss}>
           <div>
-            <p className={userNameCss}>당근조이</p>
+            <p className={userNameCss}>{data?.name}</p>
             <span className={followerTabCss}>
               팔로잉 {FOLLOWING} &nbsp; 팔로워 {FOLLOWER}
             </span>
