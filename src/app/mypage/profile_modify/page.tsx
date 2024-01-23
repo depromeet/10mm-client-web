@@ -101,7 +101,7 @@ function ProfileModifyPage() {
   return (
     <>
       <Header
-        rightAction="text-button"
+        rightAction="component"
         title="프로필 수정"
         rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
         onBackAction={openCancleModal}
