@@ -1,7 +1,7 @@
 import Character from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
 import { LEVEL_SYSTEM, type LevelSystemType } from '@/constants/level';
-import { gradientTextCss } from '@/constants/style';
+import { gradientTextCss } from '@/constants/style/text';
 import { css, cva } from '@/styled-system/css';
 import { center, flex } from '@/styled-system/patterns';
 
