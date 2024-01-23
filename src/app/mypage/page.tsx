@@ -12,9 +12,6 @@ import MyProfile from './MyProfile';
 function Header() {
   return (
     <h2 className={headingCss}>
-      <Link href={ROUTER.MISSION.NEW}>
-        <Icon name="normal-link" size={20} color="icon.primary" />
-      </Link>
       <Link href={ROUTER.MYPAGE.SETTING}>
         <Icon name="normal-setting" size={20} color="icon.primary" />
       </Link>

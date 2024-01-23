@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { MissionStatus } from '@/apis/schema/mission';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
-import Badge from '@/components/Badge/Badge';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
@@ -11,6 +10,7 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 import { useMissions } from '../home/home.hooks';
+import { MissionBadge } from '../home/MissionList';
 
 function MissionList() {
   return (
@@ -100,17 +100,3 @@ const listCss = flex({
   gap: '8px',
   height: '100%',
 });
-
-export function MissionBadge({ status }: { status: MissionStatus }) {
-  switch (status) {
-    case 'COMPLETED':
-      return <Badge color="purple">완료</Badge>;
-    case 'REQUIRED':
-      return <Badge color="red">인증 필요</Badge>;
-    case 'PROGRESSING':
-      return <Badge color="gray">진행중</Badge>;
-
-    default:
-      return null;
-  }
-}
