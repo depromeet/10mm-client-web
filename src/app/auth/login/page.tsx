@@ -12,12 +12,12 @@ import { ROUTER } from '@/constants/router';
 import { isIOS, isWebView } from '@/utils/appEnv';
 import { css } from '@styled-system/css';
 
-function kakaoInit() {
+const initKakao = () => {
   const KAKAO_JAVASCRIPT_SDK_KEY = process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_SDK_KEY ?? '';
   window.Kakao.init(KAKAO_JAVASCRIPT_SDK_KEY);
-}
+};
 
-function appleInit() {
+const initAppleLogin = () => {
   window.AppleID.auth.init({
     scope: 'email',
     state: 'state',
@@ -26,7 +26,7 @@ function appleInit() {
     nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE ?? '',
     usePopup: true,
   });
-}
+};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -121,12 +121,12 @@ export default function LoginPage() {
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
           integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8"
           crossOrigin="anonymous"
-          onLoad={kakaoInit}
+          onLoad={initKakao}
         />
         <Script
           src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
           type="text/javascript"
-          onLoad={appleInit}
+          onLoad={initAppleLogin}
         />
       </head>
       <div className={MainWrapperCss}>

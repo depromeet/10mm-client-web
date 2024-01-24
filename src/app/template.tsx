@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const variants = {
   enter: { opacity: 1, x: 0, zIndex: 1 },
-  exit: (test: boolean) => ({ zIndex: 0, opacity: 0, x: test ? -300 : 300 }),
+  exit: (isExit: boolean) => ({ zIndex: 0, opacity: 0, x: isExit ? -300 : 300 }),
 };
 
 export default function Template({ children }: { children: React.ReactNode }) {
