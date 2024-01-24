@@ -1,38 +1,30 @@
+import { useFollowMembers } from '@/apis/follow';
 import { useFollowId } from '@/app/home/FollowIdProvider';
 import UserProfile from '@/app/home/UserProfile';
 import { flex } from '@/styled-system/patterns';
 
 import ProfileItem from './ProfileItem';
 
-const uerProfiles: {
-  id: number;
-  name: string;
-}[] = [
-  {
-    id: 1,
-    name: '김민재',
-  },
-  {
-    id: 2,
-    name: '김민재2',
-  },
-];
-
 function ProfileList() {
   const { followId, setFollowId } = useFollowId();
+  const { data } = useFollowMembers();
 
   return (
     <section className={containerCss}>
       <UserProfile />
-      {uerProfiles.map((profile) => (
-        <ProfileItem
-          key={profile.id}
-          id={profile.id}
-          onClick={setFollowId}
-          name={profile.name}
-          selected={followId === profile.id}
-        />
-      ))}
+
+      {data &&
+        data.length !== 0 &&
+        data.map((profile) => (
+          <ProfileItem
+            key={profile.memberId}
+            id={profile.memberId}
+            onClick={setFollowId}
+            url={profile.profileImageUrl}
+            name={profile.nickname}
+            selected={followId === profile.memberId}
+          />
+        ))}
     </section>
   );
 }
