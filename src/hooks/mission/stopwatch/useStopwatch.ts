@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { STORAGE_KEY } from '@/constants/storage';
 import { getProgressMissionTime } from '@/utils/storage/progressMission';
 import { formatMMSS } from '@/utils/time';
 
@@ -9,7 +8,7 @@ const INIT_SECONDS = 0;
 const MAX_SECONDS = 60 * 60; // max 1 hour
 
 const DEFAULT_MS = 1000;
-const TEST_MS = 10;
+const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 
 export default function useStopwatch(status: StepType, missionId: string) {
   const [second, setSecond] = useState(INIT_SECONDS); // 남은 시간 (단위: 초)
@@ -31,7 +30,7 @@ export default function useStopwatch(status: StepType, missionId: string) {
     if (status === 'progress') {
       timer = setInterval(() => {
         setSecond((prev) => (prev >= MAX_SECONDS ? prev : prev + 1));
-      }, TEST_MS);
+      }, timerMs);
     }
 
     return () => clearInterval(timer);
