@@ -77,6 +77,7 @@ export const useLogin = (option?: UseMutationOptions<LoginResponse, AxiosError, 
   });
 };
 
+// TODO onSuccess, onError 역할 및 동작 파악해보고 추후에 제거 혹은 수정
 export const useSocialLogin = (option?: UseMutationOptions<LoginResponse, AxiosError, SocialLoginRequest>) => {
   return useMutation({
     mutationFn: AUTH_APIS.socialLogin,
