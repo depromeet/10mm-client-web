@@ -4,7 +4,7 @@ import { useGetMissions } from '@/apis/mission';
 import { type MissionItemTypeWithRecordId, MissionStatus } from '@/apis/schema/mission';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
-import { STORAGE_KEY } from '@/constants/storage';
+import { getProgressMissionIdToStorage } from '@/utils/storage/progressMission';
 
 export const useMissions = () => {
   const { data, isLoading } = useGetMissions();
@@ -24,16 +24,16 @@ const useLeaveMissionCheck = () => {
   const [progressMissionId, setProgressMissionId] = useState<string | null>(null);
 
   const checkLeaveMission = () => {
-    const startedMissionId = localStorage.getItem(STORAGE_KEY.STOPWATCH.MISSION_ID);
-    if (startedMissionId) {
-      setProgressMissionId(startedMissionId);
+    const missionId = getProgressMissionIdToStorage();
+    if (missionId) {
+      setProgressMissionId(missionId);
       triggerSnackBar({
         variant: 'text-button',
         message: '인증을 완료해 주세요!',
         buttonText: '바로가기',
         offset: 'appBar',
         onButtonClick: () => {
-          router.push(ROUTER.MISSION.STOP_WATCH(startedMissionId));
+          router.push(ROUTER.MISSION.STOP_WATCH(missionId));
         },
       });
     }

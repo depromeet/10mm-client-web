@@ -13,12 +13,16 @@ import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
-import { STORAGE_KEY } from '@/constants/storage';
 import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
-import { resetStopwatchStorage } from '@/utils/storage/timer';
+import {
+  checkPrevProgressMission,
+  getProgressMissionStartTimeToStorage,
+  removeProgressMissionData,
+  setMissionData,
+} from '@/utils/storage/progressMission';
 import { formatDate } from '@/utils/time';
 import { css, cx } from '@styled-system/css';
 
@@ -32,7 +36,7 @@ export default function StopwatchPage() {
   const category = missionData?.category ? MISSION_CATEGORY_LABEL[missionData?.category].label : '';
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step);
+  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step, missionId);
   const [isMoveLoading, setIsMoveLoading] = useState(false);
 
   const time = Number(minutes) * 60 + Number(seconds);
@@ -55,8 +59,8 @@ export default function StopwatchPage() {
     openBackMidOutModal();
   });
 
-  useRecordMidTime(time);
-  useUnloadAction(time);
+  useRecordMidTime(time, missionId);
+  useUnloadAction(time, missionId);
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
@@ -66,7 +70,7 @@ export default function StopwatchPage() {
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
 
       setIsMoveLoading(true);
-      resetStopwatchStorage();
+      removeProgressMissionData();
     },
     onError: () => {
       setIsMoveLoading(() => false); // 없어도 되는지 확인 필요
@@ -75,7 +79,7 @@ export default function StopwatchPage() {
 
   // TODO: 끝내기 후 로직 추가
   const onSubmit = async () => {
-    const startTimeString = localStorage.getItem(STORAGE_KEY.STOPWATCH.START_TIME);
+    const startTimeString = getProgressMissionStartTimeToStorage(missionId);
     if (!startTimeString) return;
 
     const startTime = new Date(startTimeString);
@@ -112,7 +116,7 @@ export default function StopwatchPage() {
   // 뒤로가기 버튼 눌렀을 때
   const onExit = () => {
     router.replace(ROUTER.MISSION.DETAIL(missionId));
-    resetStopwatchStorage();
+    removeProgressMissionData();
   };
 
   const onFinish = () => {
@@ -147,6 +151,10 @@ export default function StopwatchPage() {
 
   const onStart = () => {
     onNextStep('progress');
+
+    // 이전 미션 기록 삭제 - 강제 접근 이슈
+    checkPrevProgressMission(missionId);
+
     // 중도 재시작
     if (time > 0) {
       eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
@@ -154,9 +162,7 @@ export default function StopwatchPage() {
     }
     // 초기시작
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
-    const startTime = new Date().toISOString();
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.MISSION_ID, missionId);
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.START_TIME, startTime);
+    setMissionData(missionId);
   };
 
   const onBackAction = () => {
