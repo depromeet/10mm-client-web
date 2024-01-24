@@ -19,7 +19,7 @@ export default function GuestMissionStopwatchPage() {
   const category = useGetCategory();
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper } = useStopwatch(step);
+  const { seconds, minutes, stepper } = useStopwatch(step, '');
 
   const { isOpen, openModal, closeModal } = useModal();
 
