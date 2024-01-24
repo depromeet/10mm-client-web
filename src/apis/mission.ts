@@ -79,7 +79,7 @@ type GetMissionsResponse = MissionItemTypeWithRecordId[];
 
 type GetFollowMissionsResponse = {
   symbolStack: number;
-  missions: MissionItemTypeWithRecordId[];
+  followMissions: MissionItemTypeWithRecordId[];
 };
 
 interface ModifyMissionResponse {

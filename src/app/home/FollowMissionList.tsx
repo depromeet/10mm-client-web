@@ -50,7 +50,7 @@ function MissionFollowListInner() {
     return null;
   }
 
-  if (!data || data.missions.length === 0) {
+  if (!data || data.followMissions.length === 0) {
     return (
       <div className={containerCss}>
         <MissionEmptyList />
@@ -60,7 +60,7 @@ function MissionFollowListInner() {
 
   return (
     <>
-      {data.missions.map((item) => {
+      {data.followMissions.map((item) => {
         const status = item.missionStatus;
 
         const moveHref = ROUTER.MISSION.DETAIL(item.missionId.toString());

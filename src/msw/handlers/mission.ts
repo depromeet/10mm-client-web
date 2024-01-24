@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
 
 const followMissionResponse = {
   symbolStack: 210,
-  missions: [
+  followMissions: [
     {
       missionId: 1,
       name: '오운완',
