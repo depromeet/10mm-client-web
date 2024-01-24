@@ -5,8 +5,7 @@ import { cva } from '@/styled-system/css';
 export const DEFAULT_THUMBNAIL_URL = '/images/thumbnail-null.png';
 
 function Thumbnail({ url, ...props }: ThumbnailProps) {
-  // const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
-  const imageUrl = DEFAULT_THUMBNAIL_URL;
+  const imageUrl = url ?? DEFAULT_THUMBNAIL_URL;
 
   switch (props.variant) {
     case 'filled':
