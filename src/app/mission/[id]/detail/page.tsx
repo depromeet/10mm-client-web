@@ -57,7 +57,9 @@ export default function MissionDetailPage() {
         onMenuClick={handleMenuClick}
         onBackAction={() => router.replace(ROUTER.HOME)}
       />
-      <Tab tabs={tabs} activeTab={'mission-history'} />
+      <div className={tabWrapperCss}>
+        <Tab tabs={tabs} activeTab={'mission-history'} />
+      </div>
       <MissionHistoryTab isButtonDisabled={isCompeteMission} />
       <Dialog
         variant={'default'}
@@ -90,3 +92,7 @@ const DETAIL_MENUS = [
     id: 'mission-delete',
   },
 ];
+
+const tabWrapperCss = css({
+  padding: '16px 16px 4px 16px',
+});

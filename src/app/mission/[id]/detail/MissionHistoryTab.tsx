@@ -47,7 +47,7 @@ function MissionHistoryTab({ isButtonDisabled }: { isButtonDisabled: boolean }) 
 
   const onMissionStart = () => {
     if (!missionId) return;
-    router.push(ROUTER.MISSION.STOP_WATCH(missionId));
+    router.replace(ROUTER.MISSION.STOP_WATCH(missionId));
   };
 
   return (
