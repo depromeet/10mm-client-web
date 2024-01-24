@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useGetMissionSummary } from '@/apis/mission';
-import Character, { LockedCharacter } from '@/app/level/guide/Character';
+import Character from '@/app/level/guide/Character';
 import GrowthLevel from '@/app/level/guide/GrowthLevel';
+import LockedCharacter from '@/components/Level/LockedCharacter';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
 import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 import { LEVEL_SYSTEM } from '@/constants/level';

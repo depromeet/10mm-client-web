@@ -1,5 +1,6 @@
-import Character, { LockedCharacter } from '@/app/level/guide/Character';
+import Character from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
+import LockedCharacter from '@/components/Level/LockedCharacter';
 import { LEVEL_SYSTEM, type LevelSystemType } from '@/constants/level';
 import { gradientTextCss } from '@/constants/style/text';
 import { css, cva } from '@/styled-system/css';
