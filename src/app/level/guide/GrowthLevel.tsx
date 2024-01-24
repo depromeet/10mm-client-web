@@ -1,4 +1,4 @@
-import Character from '@/app/level/guide/Character';
+import Character, { LockedCharacter } from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
 import { LEVEL_SYSTEM, type LevelSystemType } from '@/constants/level';
 import { gradientTextCss } from '@/constants/style/text';
@@ -79,7 +79,11 @@ function GrowthLevelItem(props: GrowthLevelItemProps) {
     <li className={itemContainerRecipe({ selected: props.isSelected })} onClick={props.onClick}>
       <p className={levelLabelCss}>{props.level}</p>
       <div className={imageWrapperCss}>
-        <Character width={76} height={56.8} level={props.level} isLocked={props.isLocked} />
+        {props.isLocked ? (
+          <LockedCharacter level={props.level} size="md" />
+        ) : (
+          <Character width={76} height={56.8} level={props.level} isLocked={props.isLocked} />
+        )}
       </div>
       <div className={stackTextCss}>
         <Icon name={props.isLocked ? '10mm-symbol-circle-lock' : '10mm-symbol-circle'} />
@@ -125,6 +129,7 @@ const itemContainerRecipe = cva({
 
 const imageWrapperCss = center({
   flex: 1,
+  width: '100%',
 });
 
 const stackTextCss = flex({
