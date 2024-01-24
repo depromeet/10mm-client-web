@@ -1,5 +1,5 @@
 import { useFollowMissions } from '@/apis/mission';
-import { useFollowNickname } from '@/app/home/FollowNicknameProvider';
+import { useFollowId } from '@/app/home/FollowIdProvider';
 import LevelProgressBar from '@/app/result/LevelStatus/LevelProgressBar';
 import Banner from '@/components/Banner/Banner';
 import Icon from '@/components/Icon';
@@ -10,8 +10,8 @@ import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
 function FollowSummary() {
-  const { followNickname } = useFollowNickname();
-  const { data } = useFollowMissions(followNickname ?? '');
+  const { followId } = useFollowId();
+  const { data } = useFollowMissions(followId ?? 0);
   const symbolStack = data?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
 

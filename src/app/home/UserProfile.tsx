@@ -1,17 +1,23 @@
 import { useGetMembersMe } from '@/apis/member';
-import { useFollowNickname } from '@/app/home/FollowNicknameProvider';
+import { useFollowId } from '@/app/home/FollowIdProvider';
 import ProfileItem from '@/app/home/ProfileItem';
 
 function UserProfile() {
   const { data } = useGetMembersMe();
-  const { followNickname, setFollowNickname } = useFollowNickname();
+  const { followId, setFollowId } = useFollowId();
 
   const onClickProfile = () => {
-    setFollowNickname(null);
+    setFollowId(null);
   };
 
   return (
-    <ProfileItem name={'나'} url={data?.profileImageUrl} onClick={onClickProfile} selected={followNickname === null} />
+    <ProfileItem
+      id={null}
+      name={'나'}
+      url={data?.profileImageUrl}
+      onClick={onClickProfile}
+      selected={followId === null}
+    />
   );
 }
 

@@ -1,6 +1,6 @@
 'use client';
 import AppBar from '@/app/home/AppBar';
-import FollowNicknameProvider from '@/app/home/FollowNicknameProvider';
+import FollowIdProvider from '@/app/home/FollowIdProvider';
 import ProfileContent from '@/app/home/ProfileContent';
 import ProfileList from '@/app/home/ProfileList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
@@ -11,10 +11,10 @@ export default function Home() {
   return (
     <main className={mainCss}>
       <AppBar />
-      <FollowNicknameProvider>
+      <FollowIdProvider>
         <ProfileList />
         <ProfileContent />
-      </FollowNicknameProvider>
+      </FollowIdProvider>
       <AppBarBottom />
       <BottomDim />
     </main>

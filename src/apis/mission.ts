@@ -36,10 +36,8 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get<GetMissionsResponse>('/missions');
     return data;
   },
-  getFollowMissions: async (nickname: string): Promise<GetFollowMissionsResponse> => {
-    const { data } = await apiInstance.get('/missions/follow', {
-      params: { nickname },
-    });
+  getFollowMissions: async (followId: number): Promise<GetFollowMissionsResponse> => {
+    const { data } = await apiInstance.get(`/missions/follow/${followId}`);
     return data;
   },
 
@@ -142,10 +140,10 @@ export const useDeleteMissionMutation = (missionId: string, option?: UseMutation
   });
 };
 
-export const useFollowMissions = (nickname: string, option?: UseQueryOptions<GetFollowMissionsResponse>) => {
+export const useFollowMissions = (followId: number, option?: UseQueryOptions<GetFollowMissionsResponse>) => {
   return useQuery<GetFollowMissionsResponse>({
-    queryKey: getQueryKey('followMissions', { nickname }),
-    queryFn: () => MISSION_APIS.getFollowMissions(nickname),
+    queryKey: getQueryKey('followMissions', { followId }),
+    queryFn: () => MISSION_APIS.getFollowMissions(followId),
     ...option,
   });
 };

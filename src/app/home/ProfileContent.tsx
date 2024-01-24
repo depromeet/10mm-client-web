@@ -3,11 +3,11 @@ import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
-import { useFollowNickname } from './FollowNicknameProvider';
+import { useFollowId } from './FollowIdProvider';
 
 function ProfileContent() {
-  const { followNickname } = useFollowNickname();
-  if (!followNickname)
+  const { followId } = useFollowId();
+  if (!followId)
     return (
       <div className={containerCss}>
         <MissionList />

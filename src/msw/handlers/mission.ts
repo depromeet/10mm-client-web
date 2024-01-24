@@ -59,7 +59,7 @@ const followMissionResponse = {
   ],
 };
 
-const getFollowMission = http.get(BASE_URL + '/missions/follow', () => {
+const getFollowMission = http.get(BASE_URL + '/missions/follow/:followId', () => {
   return HttpResponse.json({
     data: followMissionResponse,
   });

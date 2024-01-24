@@ -2,9 +2,15 @@ import React from 'react';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cx } from '@styled-system/css';
 
-function ProfileItem(props: { name: string; onClick: (id: string | null) => void; selected?: boolean; url?: string }) {
+function ProfileItem(props: {
+  name: string;
+  id: number | null;
+  onClick: (id: number | null) => void;
+  selected?: boolean;
+  url?: string;
+}) {
   const handleClick = () => {
-    props.onClick(props.name);
+    props.onClick(props.id);
   };
   return (
     <div className={itemCss} onClick={handleClick}>

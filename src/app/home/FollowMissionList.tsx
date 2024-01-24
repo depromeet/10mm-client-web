@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useFollowMissions } from '@/apis/mission';
-import { useFollowNickname } from '@/app/home/FollowNicknameProvider';
+import { useFollowId } from '@/app/home/FollowIdProvider';
 import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import { TwoLineListItem } from '@/components/ListItem';
@@ -40,8 +40,8 @@ const listCss = flex({
 });
 
 function MissionFollowListInner() {
-  const { followNickname } = useFollowNickname();
-  const { data, isLoading } = useFollowMissions(followNickname ?? '');
+  const { followId } = useFollowId();
+  const { data, isLoading } = useFollowMissions(followId ?? 0);
   if (isLoading) {
     return <Skeleton />;
   }
