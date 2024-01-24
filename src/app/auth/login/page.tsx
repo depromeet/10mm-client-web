@@ -64,6 +64,10 @@ export default function LoginPage() {
     });
   };
 
+  const onClickLoginButton = () => {
+    router.push(ROUTER.AUTH.SIGNIN);
+  };
+
   useEffect(() => {
     const appleIdSignInOnSuccessHandler = (event: CustomEvent) => {
       mutateAsync(
@@ -127,6 +131,9 @@ export default function LoginPage() {
       </head>
       <div className={MainWrapperCss}>
         <div className={LoginButtonListWrapperCss}>
+          <Button variant="primary" size="large" onClick={onClickLoginButton}>
+            아이디로 로그인
+          </Button>
           {isIOS() && <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />}
           <ButtonSocialLogin type="kakao" onClick={onClickKakaoLogin} />
           <Button size="large" variant="ghost" onClick={onClickGuest}>
