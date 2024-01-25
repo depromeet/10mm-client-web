@@ -11,7 +11,7 @@ export const gradientTextCss = css({
 export const gradientBorderWrapperCss = cva({
   base: {
     border: '.5px solid transparent',
-    padding: '0px!', // NOTE: padding 0 필수,
+    padding: '0px !', // NOTE: padding 0 필수,
     backgroundOrigin: 'border-box',
     backgroundClip: 'content-box, border-box',
   },

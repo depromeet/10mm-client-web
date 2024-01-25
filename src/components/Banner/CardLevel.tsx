@@ -17,7 +17,13 @@ function CardLevel(props: Props) {
   const levelInfo = LEVEL_SYSTEM[props.level - 1];
 
   return (
-    <li className={cx(itemContainerRecipe, props.isSelected ? gradientBorderWrapperCss() : '')} onClick={props.onClick}>
+    <li
+      className={cx(
+        itemContainerRecipe,
+        props.isSelected ? gradientBorderWrapperCss() : css({ backgroundColor: 'bg.surface3' }),
+      )}
+      onClick={props.onClick}
+    >
       <div className={itemInnerContainerCss}>
         <p className={levelLabelCss}>Lv. {levelInfo.level}</p>
         <div className={imageWrapperCss}>
@@ -49,7 +55,6 @@ const itemContainerRecipe = css({
   borderRadius: '22px',
   width: '116px!',
   height: '163px',
-  backgroundColor: 'bg.surface3',
   listStyle: 'none',
 });
 

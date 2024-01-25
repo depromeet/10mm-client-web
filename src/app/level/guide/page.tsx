@@ -58,7 +58,7 @@ function LevelGuidePage() {
                 />
               )}
             </section>
-            <LevelStatus current={symbolStack} level={currentLevelInfo} />
+            <LevelStatus symbolStack={symbolStack} viewLevel={selectLevelInfo.level} />
           </>
         )}
       </div>
