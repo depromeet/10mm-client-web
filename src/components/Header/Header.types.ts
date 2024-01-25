@@ -2,14 +2,17 @@ import { type ComponentProps } from 'react';
 import type Button from '@/components/Button/Button';
 import { type IconComponentMap } from '@/components/Icon';
 import { type MenuBaseItem } from '@/components/Menu';
+import { type ColorToken } from '@styled-system/tokens';
 
-interface HeaderBaseType {
+export interface HeaderBaseType {
   rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu' | 'component';
 
   title?: string;
   onBackAction?: () => void;
   isBackIcon?: boolean;
-  headerBgColor?: string;
+  headerBgColor?: ColorToken;
+  iconColor?: ColorToken;
+  textColor?: ColorToken;
 }
 
 export interface IconHeaderType extends HeaderBaseType {

@@ -11,5 +11,4 @@ const mainCss = css({
   maxWidth: 'maxWidth',
   margin: '0 auto',
   minHeight: '100vh',
-  background: 'gradients.primary',
 });

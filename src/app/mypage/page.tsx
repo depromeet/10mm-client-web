@@ -35,6 +35,7 @@ const backgroundCss = css({
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
+  background: 'gradients.primary',
 });
 
 const dimCss = css({

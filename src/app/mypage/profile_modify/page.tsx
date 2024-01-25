@@ -23,6 +23,23 @@ interface DialogProps {
   logData?: Record<string, string | number>;
 }
 
+const validateProfileData = ({
+  nickname,
+  imageFile,
+  isError,
+  isNicknameValid,
+}: {
+  nickname: string;
+  imageFile: File | undefined;
+  isError: boolean;
+  isNicknameValid: boolean;
+}) => {
+  if (nickname.length === 0) return true;
+  if (isError) return true;
+  if (imageFile) return false;
+  return isNicknameValid;
+};
+
 function ProfileModifyPage() {
   const { data } = useGetMembersMe();
 
@@ -30,11 +47,7 @@ function ProfileModifyPage() {
 
   const router = useRouter();
 
-  //TODO: 완료 버튼 disabled되는 조건 추가 -> 이미지가 바뀌지 않았을경우, 기존 닉네임에서 바뀐게 없을 경우, 중복확인 결과 사용 불가능한 닉네임일 경우
-  const rightButtonDisabled = nickname.length === 0;
-
   const imageRef = useRef<HTMLInputElement>(null);
-  const duplicateCheckButtonDisabled = data?.nickname === nickname;
 
   const { uploadImageChange, imagePreview, imageFile } = useImage(data?.profileImageUrl || '');
   const { triggerSnackBar } = useSnackBar();
@@ -43,10 +56,20 @@ function ProfileModifyPage() {
     onSuccess: () => {
       triggerSnackBar({
         message: '프로필 수정이 완료되었습니다.',
+        offset: 'appBar',
       });
       router.replace(ROUTER.MYPAGE.HOME);
     },
   });
+
+  const rightButtonDisabled = validateProfileData({
+    nickname,
+    imageFile,
+    isError: Boolean(massageState.errorMsg),
+    isNicknameValid: data?.nickname === nickname,
+  });
+
+  const duplicateCheckButtonDisabled = data?.nickname === nickname;
 
   const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
     if (!files) return;
@@ -99,14 +122,17 @@ function ProfileModifyPage() {
   }
 
   return (
-    <>
+    <div className={backgroundCss}>
       <Header
-        rightAction="component"
+        rightAction="text-button"
         title="프로필 수정"
+        textColor={'text.primary'}
+        iconColor={'icon.primary'}
+        headerBgColor={'transparent'}
         rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
         onBackAction={openCancleModal}
       />
-
+      <div className={dimCss} />
       <main className={mainCss}>
         <section className={myTabContainerCss}>
           <section className={thumbnailWrapperCss} onClick={handleImageClick}>
@@ -141,7 +167,7 @@ function ProfileModifyPage() {
         </section>
         <CancleDialog isOpen={isCancleModalOpen} onClose={closeCancleModal} onCancel={onCancel} onConfirm={onExit} />
       </main>
-    </>
+    </div>
   );
 }
 
@@ -155,6 +181,7 @@ const myTabContainerCss = css({
   borderTopRightRadius: '28px',
   borderTopLeftRadius: '28px',
   padding: '52px 24px 0',
+  zIndex: 4,
 });
 
 const hiddenInputCss = css({
@@ -165,6 +192,20 @@ const mainCss = css({
   paddingTop: '184px',
   height: '100vh',
   flex: 1,
+});
+
+const backgroundCss = css({
+  background: 'gradients.primary',
+  position: 'relative',
+});
+
+const dimCss = css({
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.15) 100%)',
+  top: 0,
+  zIndex: 1,
 });
 
 const thumbnailWrapperCss = css({
