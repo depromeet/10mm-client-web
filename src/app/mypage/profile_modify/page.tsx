@@ -107,7 +107,7 @@ function ProfileModifyPage() {
   };
   const onCancel = () => {};
 
-  function CancleDialog({ onConfirm, logData, ...props }: DialogProps) {
+  function CancelDialog({ onConfirm, logData, ...props }: DialogProps) {
     return (
       <Dialog
         variant={'default'}
@@ -165,7 +165,7 @@ function ProfileModifyPage() {
             onTextButtonClick={handleDuplicateCheck}
           />
         </section>
-        <CancleDialog isOpen={isCancleModalOpen} onClose={closeCancleModal} onCancel={onCancel} onConfirm={onExit} />
+        <CancelDialog isOpen={isCancleModalOpen} onClose={closeCancleModal} onCancel={onCancel} onConfirm={onExit} />
       </main>
     </div>
   );
