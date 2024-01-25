@@ -89,6 +89,7 @@ const spaceCss = css({
 const containerCss = css({
   paddingTop: '184px',
   flex: 1,
+  zIndex: 3,
 });
 
 const myTabContainerCss = css({

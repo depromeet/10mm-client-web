@@ -40,6 +40,9 @@ export default defineConfig({
           appBar: {
             value: '100',
           },
+          bottomDim: {
+            value: '99',
+          },
           loading: {
             value: '10000',
           },

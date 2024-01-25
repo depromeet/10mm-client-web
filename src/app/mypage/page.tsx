@@ -23,10 +23,9 @@ function Mypage() {
   return (
     <main className={backgroundCss}>
       <Header />
-
       <MyProfile />
-
       <AppBarBottom />
+      <div className={dimCss} />
       <BottomDim />
     </main>
   );
@@ -35,7 +34,18 @@ const backgroundCss = css({
   height: '100vh',
   display: 'flex',
   flexDirection: 'column',
+  position: 'relative',
 });
+
+const dimCss = css({
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.15) 100%)',
+  top: 0,
+  zIndex: 1,
+});
+
 const headingCss = flex({
   padding: '12px 8px',
   justifyContent: 'flex-end',
@@ -43,6 +53,7 @@ const headingCss = flex({
   color: 'text.primary',
   userSelect: 'none',
   gap: '10px',
+  zIndex: 3,
 });
 
 export default Mypage;
