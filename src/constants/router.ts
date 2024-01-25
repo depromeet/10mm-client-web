@@ -25,6 +25,7 @@ export const ROUTER = {
     TERMS: '/mypage/terms',
     LOGIN_INFO: '/mypage/login_info',
     WITHDRAWAL: '/mypage/withdrawal',
+    SETTING: '/mypage/setting_and_private',
   },
   RESULT: {
     HOME: '/result',
