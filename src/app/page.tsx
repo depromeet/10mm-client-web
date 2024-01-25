@@ -1,6 +1,6 @@
 'use client';
+import { useState } from 'react';
 import AppBar from '@/app/home/AppBar';
-import FollowIdProvider from '@/app/home/FollowIdProvider';
 import ProfileContent from '@/app/home/ProfileContent';
 import ProfileList from '@/app/home/ProfileList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
@@ -8,13 +8,13 @@ import BottomDim from '@/components/BottomDim/BottomDim';
 import { css } from '@styled-system/css';
 
 export default function Home() {
+  const [followId, setFollowId] = useState<number | null>(null);
+
   return (
     <main className={mainCss}>
       <AppBar />
-      <FollowIdProvider>
-        <ProfileList />
-        <ProfileContent />
-      </FollowIdProvider>
+      <ProfileList selectedFollowId={followId} onChangeFollowId={setFollowId} />
+      <ProfileContent selectedFollowId={followId} />
       <AppBarBottom />
       <BottomDim />
     </main>

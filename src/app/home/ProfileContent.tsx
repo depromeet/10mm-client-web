@@ -3,11 +3,12 @@ import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
-import { useFollowId } from './FollowIdProvider';
+interface ProfileContentProps {
+  selectedFollowId: number | null;
+}
 
-function ProfileContent() {
-  const { followId } = useFollowId();
-  if (!followId)
+function ProfileContent({ selectedFollowId }: ProfileContentProps) {
+  if (!selectedFollowId)
     return (
       <div className={containerCss}>
         <MissionList />
@@ -15,8 +16,8 @@ function ProfileContent() {
     );
   return (
     <div className={containerCss}>
-      <FollowSummary />
-      <FollowMissionList />
+      <FollowSummary followId={selectedFollowId} />
+      <FollowMissionList followId={selectedFollowId} />
     </div>
   );
 }

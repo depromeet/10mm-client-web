@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useFollowMissions } from '@/apis/mission';
-import { useFollowId } from '@/app/home/FollowIdProvider';
 import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import { TwoLineListItem } from '@/components/ListItem';
@@ -11,14 +10,18 @@ import { flex } from '@styled-system/patterns';
 
 import { Skeleton } from './MissionList';
 
-function FollowMissionList() {
+interface FollowMissionListProps {
+  followId: number;
+}
+
+function FollowMissionList({ followId }: FollowMissionListProps) {
   return (
     <div className={containerCss}>
       <h2 className={headingCss}>
         <span>미션 목록</span>
       </h2>
       <ul className={listCss}>
-        <MissionFollowListInner />
+        <MissionFollowListInner followId={followId} />
       </ul>
     </div>
   );
@@ -39,8 +42,7 @@ const listCss = flex({
   gap: '8px',
 });
 
-function MissionFollowListInner() {
-  const { followId } = useFollowId();
+function MissionFollowListInner({ followId }: { followId: number }) {
   const { data, isLoading } = useFollowMissions(followId ?? 0);
   if (isLoading) {
     return <Skeleton />;
