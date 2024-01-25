@@ -1,4 +1,3 @@
-import { type ChangeEvent, useRef } from 'react';
 import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionSummary } from '@/apis/mission';
@@ -6,7 +5,6 @@ import Badge from '@/components/Badge/Badge';
 import Banner from '@/components/Banner/Banner';
 import Tab from '@/components/Tab/Tab';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { useImage } from '@/hooks/useImage';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
 
@@ -26,35 +24,11 @@ export default function MyProfile() {
   const symbolStack = missionSummaryData?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
 
-  const imageRef = useRef<HTMLInputElement>(null);
-
-  const { uploadImageChange, imagePreview } = useImage(data?.profileImageUrl || '');
-
-  const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
-    if (!files) return;
-
-    uploadImageChange(files);
-  };
-
-  const handleImageClick = () => {
-    imageRef.current?.click();
-  };
   return (
     <div className={containerCss}>
       <section className={myTabContainerCss}>
-        <section className={thumbnailWrapperCss} onClick={handleImageClick}>
-          <input
-            accept="image/x-png,image/jpeg,image/gif"
-            onChange={handleUploadChange}
-            className={hiddenInputCss}
-            ref={imageRef}
-            type="file"
-          />
-          {imagePreview ? (
-            <Thumbnail size="h80" url={imagePreview} variant={'filled'} />
-          ) : (
-            <Thumbnail size="h80" variant={'null'} />
-          )}
+        <section className={thumbnailWrapperCss}>
+          <Thumbnail size="h80" url={data?.profileImageUrl} variant={'filled'} />
         </section>
         <div className={myTabCss}>
           <div>
@@ -122,9 +96,6 @@ const myTabCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-});
-const hiddenInputCss = css({
-  display: 'none',
 });
 
 const thumbnailWrapperCss = css({
