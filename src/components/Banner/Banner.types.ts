@@ -1,7 +1,7 @@
 import { type IconComponentMap } from '@/components/Icon';
 
 interface BaseBannerType {
-  type: 'list' | 'card' | 'graphic';
+  type: 'list' | 'card' | 'graphic' | 'level';
 }
 
 export interface ListBannerType extends BaseBannerType {
@@ -14,7 +14,7 @@ export interface ListBannerType extends BaseBannerType {
 
 export interface CardBannerType extends BaseBannerType {
   type: 'card';
-  iconName: keyof typeof IconComponentMap;
+  iconUrl: string;
   title: string;
   description: string;
 }
@@ -23,5 +23,12 @@ export interface GraphicBannerType extends BaseBannerType {
   type: 'graphic';
   imageUrl: string;
 }
+export interface LevelBannerType extends BaseBannerType {
+  type: 'level';
+  level: string;
+  imageUrl: string;
+  iconName: keyof typeof IconComponentMap;
+  amount: number;
+}
 
-export type BannerType = ListBannerType | CardBannerType | GraphicBannerType;
+export type BannerType = ListBannerType | CardBannerType | GraphicBannerType | LevelBannerType;

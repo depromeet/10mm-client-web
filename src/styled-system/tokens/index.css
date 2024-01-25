@@ -172,6 +172,7 @@
   --sizes-breakpoint-2xl: 1536px;
   --z-index-modal-overlay: 9999;
   --z-index-app-bar: 100;
+  --z-index-bottom-dim: 99;
   --z-index-loading: 10000;
   --colors-current: currentColor;
   --colors-black: #000;

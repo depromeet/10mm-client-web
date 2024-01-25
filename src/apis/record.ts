@@ -88,7 +88,7 @@ export default RECORD_API;
 
 export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse>) => {
   return useQuery({
-    queryKey:  getQueryKey('record', params),
+    queryKey: getQueryKey('record', params),
     queryFn: () => RECORD_API.getRecords(params),
     ...option,
   });

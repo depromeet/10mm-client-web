@@ -27,6 +27,21 @@ interface UploadProfileImageCompleteRequest extends Partial<UploadBaseRequest> {
   nickname: string;
 }
 
+interface SocialLoginInfoResponse {
+  provider: AUTH_PROVIDER;
+  email: 'string';
+}
+
+enum AUTH_PROVIDER {
+  KAKAO = 'KAKAO',
+  APPLE = 'APPLE',
+}
+
+export const AUTH_PROVIDER_LABEL = {
+  [AUTH_PROVIDER.KAKAO]: '카카오',
+  [AUTH_PROVIDER.APPLE]: '애플',
+};
+
 type MemberMeResponse = MemberType;
 
 const MEMBER_API = {
@@ -55,6 +70,10 @@ const MEMBER_API = {
   },
   uploadProfileImageComplete: async (request: UploadProfileImageCompleteRequest) => {
     const { data } = await apiInstance.post(`/members/me/upload-complete`, request);
+    return data;
+  },
+  getSocialLoginInfo: async (): Promise<SocialLoginInfoResponse> => {
+    const { data } = await apiInstance.get(`/members/me/social`);
     return data;
   },
 };
@@ -118,6 +137,14 @@ export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
 export const useWithdrawalMember = (option?: UseMutationOptions<unknown, unknown, WithdrawalMemberRequest>) => {
   return useMutation({
     mutationFn: MEMBER_API.withdrawalMember,
+    ...option,
+  });
+};
+
+export const useGetSocialLoginInfo = (option?: UseQueryOptions<SocialLoginInfoResponse>) => {
+  return useQuery({
+    queryKey: getQueryKey('memberSocial'),
+    queryFn: () => MEMBER_API.getSocialLoginInfo(),
     ...option,
   });
 };

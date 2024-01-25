@@ -25,9 +25,7 @@ export const ListBanner: Story = {
     description: '왜냐하면 수미칩은 맛있기 때문이다. ',
     imageUrl: '/images/category/study.png',
   },
-  argTypes: {
-    iconName: { table: { disable: true } },
-  },
+  argTypes: {},
 };
 
 export const ListBannerDate: Story = {
@@ -38,9 +36,7 @@ export const ListBannerDate: Story = {
     imageUrl: '/images/category/study.png',
     date: '날짜',
   },
-  argTypes: {
-    iconName: { table: { disable: true } },
-  },
+  argTypes: {},
 };
 
 export const CardBanner: Story = {
@@ -48,7 +44,7 @@ export const CardBanner: Story = {
     type: 'card',
     title: '수미칩은 맛있다',
     description: '난 최고야 ',
-    iconName: '10mm-symbol',
+    iconUrl: '/assets/icons/clock.png',
   },
   argTypes: {
     imageUrl: { table: { disable: true } },

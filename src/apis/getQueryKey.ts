@@ -15,6 +15,8 @@ type QueryList = {
   member: {
     me: undefined;
   };
+
+  memberSocial: undefined;
 };
 
 /**
