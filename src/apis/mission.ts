@@ -77,10 +77,10 @@ export interface MissionContentType {
 
 type GetMissionsResponse = MissionItemTypeWithRecordId[];
 
-type GetFollowMissionsResponse = {
+interface GetFollowMissionsResponse {
   symbolStack: number;
   followMissions: MissionItemTypeWithRecordId[];
-};
+}
 
 interface ModifyMissionResponse {
   missionId: string;

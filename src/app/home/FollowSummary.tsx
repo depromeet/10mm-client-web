@@ -32,7 +32,7 @@ function FollowSummary({ followId }: FollowSummaryProps) {
             <Icon name={'10mm-symbol-circle'} size={20} />
             <span className={cx(levelLabelCss, gradientTextCss)}>{symbolStack}</span>
           </div>
-          <p className={LevelNameCss}>{currentLevel.label}. 잼민이</p>
+          <p className={LevelNameCss}>{currentLevel.label}</p>
           <LevelProgressBar current={50} isLabel={false} backgroundColor={'purple.purple500'} />
         </div>
       </div>

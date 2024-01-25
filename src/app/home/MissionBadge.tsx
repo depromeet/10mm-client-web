@@ -1,7 +1,11 @@
 import { type MissionStatus } from '@/apis/schema/mission';
 import Badge from '@/components/Badge/Badge';
 
-function MissionBadge({ status }: { status: MissionStatus }) {
+interface Props {
+  status: MissionStatus;
+}
+
+function MissionBadge({ status }: Props) {
   switch (status) {
     case 'COMPLETED':
       return <Badge color="purple">완료</Badge>;

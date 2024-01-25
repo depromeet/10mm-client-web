@@ -15,7 +15,6 @@ function ProfileList({ selectedFollowId, onChangeFollowId }: ProfileListProps) {
     <section className={containerCss}>
       <UserProfile selectedId={selectedFollowId} onClick={onChangeFollowId} />
       {data &&
-        data.length !== 0 &&
         data.map((profile) => (
           <ProfileItem
             key={profile.memberId}
