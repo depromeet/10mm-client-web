@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { MissionStatus } from '@/apis/schema/mission';
+import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import Icon from '@/components/Icon';
@@ -33,7 +34,7 @@ export function MissionListInner() {
   const { missionList, isLoading, progressMissionId } = useMissions();
 
   if (isLoading) {
-    return <Skeleton />;
+    return <MissionListSkeleton />;
   }
 
   if (missionList.length === 0) {
@@ -70,24 +71,6 @@ export function MissionListInner() {
     </>
   );
 }
-
-// TODO: 공통으로 분리
-export function Skeleton() {
-  return (
-    <>
-      <div className={missionItemSkeletonCss} />
-      <div className={missionItemSkeletonCss} />
-    </>
-  );
-}
-
-const missionItemSkeletonCss = css({
-  animation: 'skeleton',
-  height: '74px',
-  width: '100%',
-  backgroundColor: 'bg.surface4',
-  borderRadius: '22px',
-});
 
 function Header() {
   return (
