@@ -1,6 +1,6 @@
 'use client';
 
-import LevelProgressBar from '@/components/LevelStatus/LevelProgressBar';
+import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import { type LevelSystemType } from '@/constants/level';
 import { gradientTextCss } from '@/constants/style/gradient';
 import { css, cx } from '@/styled-system/css';
