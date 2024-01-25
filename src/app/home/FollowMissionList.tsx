@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useFollowMissions } from '@/apis/mission';
+import { useFollowMissions } from '@/apis/follow';
 import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
@@ -42,7 +42,7 @@ const listCss = flex({
 });
 
 function MissionFollowListInner({ followId }: { followId: number }) {
-  const { data, isLoading } = useFollowMissions(followId ?? 0);
+  const { data, isLoading } = useFollowMissions(followId);
   if (isLoading) {
     return <MissionListSkeleton />;
   }

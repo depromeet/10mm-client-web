@@ -36,10 +36,6 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get<GetMissionsResponse>('/missions');
     return data;
   },
-  getFollowMissions: async (followId: number): Promise<GetFollowMissionsResponse> => {
-    const { data } = await apiInstance.get(`/missions/follow/${followId}`);
-    return data;
-  },
 
   getMissionDetail: async (missionId: string): Promise<MissionContentType> => {
     const { data } = await apiInstance.get(`/missions/${missionId}`);
@@ -76,11 +72,6 @@ export interface MissionContentType {
 }
 
 type GetMissionsResponse = MissionItemTypeWithRecordId[];
-
-interface GetFollowMissionsResponse {
-  symbolStack: number;
-  followMissions: MissionItemTypeWithRecordId[];
-}
 
 interface ModifyMissionResponse {
   missionId: string;
@@ -136,14 +127,6 @@ export const useDeleteMissionMutation = (missionId: string, option?: UseMutation
       await queryClient.invalidateQueries({ queryKey: getQueryKey('missions') });
       option?.onSuccess?.(...data);
     },
-    ...option,
-  });
-};
-
-export const useFollowMissions = (followId: number, option?: UseQueryOptions<GetFollowMissionsResponse>) => {
-  return useQuery<GetFollowMissionsResponse>({
-    queryKey: getQueryKey('followMissions', { followId }),
-    queryFn: () => MISSION_APIS.getFollowMissions(followId),
     ...option,
   });
 };

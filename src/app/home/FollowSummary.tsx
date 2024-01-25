@@ -1,4 +1,4 @@
-import { useFollowMissions } from '@/apis/mission';
+import { useFollowMissions } from '@/apis/follow';
 import Banner from '@/components/Banner/Banner';
 import Icon from '@/components/Icon';
 import LevelProgressBar from '@/components/LevelStatus/LevelProgressBar';
