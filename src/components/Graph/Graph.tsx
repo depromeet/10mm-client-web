@@ -1,3 +1,4 @@
+import FutureLevelGraph from '@/components/Graph/FutureLevelGraph';
 import { type GraphType } from '@/components/Graph/Graph.types';
 import PastLevelGraph from '@/components/Graph/PastLevelGraph';
 import PresentLevelGraph from '@/components/Graph/PresentLevelGraph';
@@ -8,6 +9,8 @@ function Graph(props: GraphType) {
       return <PastLevelGraph {...props} />;
     case 'present-level':
       return <PresentLevelGraph {...props} />;
+    case 'future-level':
+      return <FutureLevelGraph {...props} />;
     default:
       return <div></div>;
   }

@@ -13,6 +13,7 @@ export interface PresentLevelGraphType extends GraphBaseType {
 
 export interface FutureLevelGraphType extends GraphBaseType {
   status: 'future-level';
+  level: number;
 }
 
 export interface LastLevelGraphType extends GraphBaseType {

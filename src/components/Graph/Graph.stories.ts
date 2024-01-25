@@ -24,3 +24,11 @@ export const PresentLevel: Story = {
     symbolStack: 210,
   },
 };
+
+export const FutureLevel: Story = {
+  args: {
+    status: 'future-level',
+    symbolStack: 210,
+    level: 4,
+  },
+};

@@ -8,7 +8,6 @@ function GraphRoot({ children }: PropsWithChildren) {
 }
 
 const containerCss = flex({
-  width: '214px',
   margin: '0 auto',
   flexDirection: 'column',
   alignItems: 'center',
@@ -80,6 +79,7 @@ function ProgressBar(props: { percent: number; labels?: string[] }) {
 }
 
 const progressBarContainerCss = css({
+  maxWidth: '214px',
   width: '100%',
 });
 
@@ -107,19 +107,14 @@ const labelContainerCss = flex({
   justifyContent: 'space-between',
 });
 
-function Description({ children }: { children: string }) {
-  return (
-    <div className={descriptionCss}>
-      {children.split('/n').map((text) => (
-        <p key={text}>{text}</p>
-      ))}
-    </div>
-  );
+function Description({ children }: PropsWithChildren) {
+  return <div className={descriptionCss}>{children}</div>;
 }
 
 const descriptionCss = css({
   textStyle: 'body4',
   color: 'text.tertiary',
+  textAlign: 'center',
 });
 
 export default Object.assign(GraphRoot, {
