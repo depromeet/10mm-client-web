@@ -15,6 +15,7 @@ export const PastLevel: Story = {
   args: {
     status: 'past-level',
     symbolStack: 210,
+    level: 1,
   },
 };
 
