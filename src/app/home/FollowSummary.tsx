@@ -1,12 +1,22 @@
+import { useFollowMissions } from '@/apis/follow';
 import Banner from '@/components/Banner/Banner';
 import Icon from '@/components/Icon';
 import LevelProgressBar from '@/components/LevelStatus/LevelProgressBar';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { gradientTextCss } from '@/constants/style/text';
+import { getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
-function FollowSummary() {
+interface FollowSummaryProps {
+  followId: number;
+}
+
+function FollowSummary({ followId }: FollowSummaryProps) {
+  const { data } = useFollowMissions(followId);
+  const symbolStack = data?.symbolStack ?? 0;
+  const currentLevel = getLevel(symbolStack);
+
   return (
     <div>
       <div className={followSummaryTitleCss}>
@@ -20,9 +30,9 @@ function FollowSummary() {
         <div className={followLevelInfoCss}>
           <div className={levelWrapperCss}>
             <Icon name={'10mm-symbol-circle'} size={20} />
-            <span className={cx(levelLabelCss, gradientTextCss)}>210</span>
+            <span className={cx(levelLabelCss, gradientTextCss)}>{symbolStack}</span>
           </div>
-          <p className={LevelNameCss}>Lv 4. 잼민이</p>
+          <p className={LevelNameCss}>{currentLevel.label}</p>
           <LevelProgressBar current={50} isLabel={false} backgroundColor={'purple.purple500'} />
         </div>
       </div>
