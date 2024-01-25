@@ -11,8 +11,6 @@ import { getLevel } from '@/utils/result';
 
 import MissionList from './MissionList';
 
-const FOLLOWING = '132';
-const FOLLOWER = '181';
 const tabs = [
   {
     tabName: '미션 목록',
@@ -57,10 +55,10 @@ export default function MyProfile() {
         </section>
         <div className={myTabCss}>
           <div>
-            <p className={userNameCss}>{data?.name}</p>
-            <span className={followerTabCss}>
-              팔로잉 {FOLLOWING} &nbsp; 팔로워 {FOLLOWER}
-            </span>
+            <p className={userNameCss}>{data?.nickname}</p>
+            {/*<span className={followerTabCss}>*/}
+            {/*  팔로잉 {FOLLOWING} &nbsp; 팔로워 {FOLLOWER}*/}
+            {/*</span>*/}
           </div>
           <Link href={'mypage/profile_modify'}>
             <Badge color="gray">프로필 수정</Badge>
@@ -106,10 +104,10 @@ const userNameCss = css({
   fontSize: 'subtitle2',
   fontWeight: 'semibold',
 });
-const followerTabCss = css({
-  color: 'text.secondary',
-  marginTop: '6px',
-});
+// const followerTabCss = css({
+//   color: 'text.secondary',
+//   marginTop: '6px',
+// });
 
 const myTabCss = css({
   display: 'flex',
