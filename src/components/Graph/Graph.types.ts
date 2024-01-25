@@ -5,6 +5,7 @@ interface GraphBaseType {
 
 export interface PastLabelGraphType extends GraphBaseType {
   status: 'past-level';
+  level: number;
 }
 
 export interface PresentLevelGraphType extends GraphBaseType {

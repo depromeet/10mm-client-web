@@ -39,7 +39,7 @@ function ResultPage() {
       <section className={imageSectionCss}>
         <Character width={280} height={210} level={currentLevel.level} isBackground />
       </section>
-      <LevelStatus current={symbolStack} level={currentLevel} />
+      <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} />
       <section className={bannerSectionCss}>
         <Banner type="card" description="전체 누적 시간" iconName="alarm" title={totalTime} />
         <Banner type="card" description="총 미션 달성률" iconName="alarm" title={totalMissionAttainRate} />

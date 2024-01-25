@@ -48,6 +48,8 @@ const levelLabelCss = css({
   fontWeight: '100',
 });
 
+const MIN_PERCENT = 3;
+
 type LevelProgressBarProps =
   | { symbolStack: number; min: number; max: number; isFull?: false }
   | { isFull: true; min?: number };
@@ -58,9 +60,9 @@ function LevelProgressBar(props: LevelProgressBarProps) {
   }
 
   const { symbolStack, max, min } = props;
-  const percent = !max ? 100 : (100 / (max - min)) * (symbolStack - min);
+  const percent = (100 / (max - min)) * (symbolStack - min);
 
-  return <ProgressBar percent={percent} labels={[String(min), String(max)]} />;
+  return <ProgressBar percent={Math.max(percent, MIN_PERCENT)} labels={[String(min), String(max)]} />;
 }
 
 function ProgressBar(props: { percent: number; labels?: string[] }) {
@@ -86,8 +88,7 @@ function ProgressBar(props: { percent: number; labels?: string[] }) {
 }
 
 const progressBarContainerCss = css({
-  maxWidth: '214px',
-  width: '100%',
+  width: '214px',
 });
 
 const progressContainerCss = css({
