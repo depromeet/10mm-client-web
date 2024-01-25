@@ -687,6 +687,10 @@ const tokens = {
     "value": "100",
     "variable": "var(--z-index-app-bar)"
   },
+  "zIndex.bottomDim": {
+    "value": "99",
+    "variable": "var(--z-index-bottom-dim)"
+  },
   "zIndex.loading": {
     "value": "10000",
     "variable": "var(--z-index-loading)"

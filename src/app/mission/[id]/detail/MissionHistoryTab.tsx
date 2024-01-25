@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import MISSION_APIS from '@/apis/mission';
 import RECORD_API from '@/apis/record';
@@ -13,19 +13,21 @@ import useModal from '@/hooks/useModal';
 import { checkIsExistProgressMission, removeProgressMissionData } from '@/utils/storage/progressMission';
 import { css } from '@styled-system/css';
 
-function MissionHistoryTab({ isButtonDisabled }: { isButtonDisabled: boolean }) {
+function MissionHistoryTab(props: { isCompeteMission: boolean }) {
   const { id } = useParams();
   const router = useRouter();
   const missionId = id as string;
   const currentDate = new Date();
 
   const { isOpen, openModal, closeModal } = useModal();
-  const { isProgress } = useCheckMissionProgress(missionId);
+  const { isProgress, isLoading } = useCheckMissionProgress(missionId);
+
+  const isButtonDisabled = props.isCompeteMission || isLoading;
 
   const checkMissionStart = async () => {
     if (!missionId) return;
     // 이미 완료한 미션인지?
-    if (isProgress) {
+    if (isProgress !== 'none') {
       openModal();
       return;
     }
@@ -111,10 +113,11 @@ function CheckProgressMissionDialog({ onConfirm, ...props }: DialogProps) {
   );
 }
 
-type MissionProgressType = 'progress' | 'record_required';
+type MissionProgressType = 'progress' | 'record_required' | 'none';
 
 const useCheckMissionProgress = (missionId: string) => {
-  const isProgress = useRef<MissionProgressType | false>(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const isProgress = useRef<MissionProgressType>('none');
 
   useEffect(() => {
     const _checkProgress = async () => {
@@ -128,10 +131,12 @@ const useCheckMissionProgress = (missionId: string) => {
         isProgress.current = 'record_required';
       }
     };
-    _checkProgress();
+    _checkProgress().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
-  return { isProgress: isProgress.current };
+  return { isProgress: isProgress.current, isLoading };
 };
 
 // 인증 필요 미션 체크

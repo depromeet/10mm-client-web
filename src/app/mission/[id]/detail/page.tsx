@@ -60,7 +60,7 @@ export default function MissionDetailPage() {
       <div className={tabWrapperCss}>
         <Tab tabs={tabs} activeTab={'mission-history'} />
       </div>
-      <MissionHistoryTab isButtonDisabled={isCompeteMission} />
+      <MissionHistoryTab isCompeteMission={isCompeteMission} />
       <Dialog
         variant={'default'}
         isOpen={isOpen}

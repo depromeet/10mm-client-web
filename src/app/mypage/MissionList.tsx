@@ -3,20 +3,18 @@
 import Link from 'next/link';
 import { MissionStatus } from '@/apis/schema/mission';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
-import Badge from '@/components/Badge/Badge';
-import Icon from '@/components/Icon';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-import { useMissions } from './home.hooks';
+import { useMissions } from '../home/home.hooks';
+import { MissionBadge } from '../home/MissionList';
 
 function MissionList() {
   return (
     <div className={containerCss}>
-      <Header />
       <ul className={listCss}>
         {/* TODO : Suspense로 리팩토링 */}
         {/* <Suspense fallback={<Skeleton />}> */}
@@ -91,27 +89,8 @@ const missionItemSkeletonCss = css({
   borderRadius: '22px',
 });
 
-function Header() {
-  return (
-    <h2 className={headingCss}>
-      <span>내 미션 목록</span>
-      <Link href={ROUTER.MISSION.NEW}>
-        <Icon name="plus" size={20} />
-      </Link>
-    </h2>
-  );
-}
-
 const containerCss = css({
-  height: '100%',
-});
-
-const headingCss = flex({
-  padding: '12px 4px',
-  justifyContent: 'space-between',
-  textStyle: 'body4',
-  color: 'text.primary',
-  userSelect: 'none',
+  paddingBottom: '100px',
 });
 
 const listCss = flex({
@@ -121,17 +100,3 @@ const listCss = flex({
   gap: '8px',
   height: '100%',
 });
-
-export function MissionBadge({ status }: { status: MissionStatus }) {
-  switch (status) {
-    case 'COMPLETED':
-      return <Badge color="purple">완료</Badge>;
-    case 'REQUIRED':
-      return <Badge color="red">인증 필요</Badge>;
-    case 'PROGRESSING':
-      return <Badge color="gray">진행중</Badge>;
-
-    default:
-      return null;
-  }
-}

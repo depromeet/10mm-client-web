@@ -9,6 +9,8 @@ import TextButtonHeader from '@/components/Header/TextButtonHeader';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
 
+import RightComponentHeader from './RightComponentHeader';
+
 function Header({ onBackAction, isBackIcon = true, ...props }: HeaderType) {
   const router = useRouter();
 
@@ -28,6 +30,8 @@ function Header({ onBackAction, isBackIcon = true, ...props }: HeaderType) {
       return <NoneHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
     case 'text-button':
       return <TextButtonHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
+    case 'component':
+      return <RightComponentHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
     case 'icon-menu':
       return <IconMenuHeader onBackAction={isBackIcon ? handleBackIconClick : undefined} {...props} />;
   }
