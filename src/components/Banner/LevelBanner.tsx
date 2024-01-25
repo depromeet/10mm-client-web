@@ -9,7 +9,7 @@ export default function LevelBanner(props: LevelBannerType) {
     <div className={levelBannerCss}>
       <Image className={imageCss} width={53.333} height={40} alt={props.level} src={props.imageUrl} />
 
-      <p className={levelCss}>Lv 4. 잼민이</p>
+      <p className={levelCss}>{props.level}</p>
 
       <div className={levelStatusCss}>
         <Icon name={'10mm-symbol-circle'} color={'icon.secondary'} width={12} height={12} />

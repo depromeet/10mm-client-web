@@ -1,6 +1,7 @@
 import { type ChangeEvent, useRef } from 'react';
 import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
+import { useGetMissionSummary } from '@/apis/mission';
 import Badge from '@/components/Badge/Badge';
 import Banner from '@/components/Banner/Banner';
 import Tab from '@/components/Tab/Tab';
@@ -17,11 +18,13 @@ const tabs = [
     id: 'mission-list',
   },
 ];
-const DUMMY_SYMBOL_STACK = 90;
-const currentLevel = getLevel(DUMMY_SYMBOL_STACK);
 
 export default function MyProfile() {
   const { data } = useGetMembersMe();
+  const { data: missionSummaryData } = useGetMissionSummary();
+
+  const symbolStack = missionSummaryData?.symbolStack ?? 0;
+  const currentLevel = getLevel(symbolStack);
 
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -64,7 +67,13 @@ export default function MyProfile() {
             <Badge color="gray">프로필 수정</Badge>
           </Link>
         </div>
-        <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
+        <Banner
+          type="level"
+          amount={currentLevel.level}
+          iconName="alarm"
+          level={currentLevel.label}
+          imageUrl={currentLevel.imageUrl}
+        />
         <div className={tabWrapper}>
           <Tab tabs={tabs} activeTab={'mission-list'} />
         </div>
