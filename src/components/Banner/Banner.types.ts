@@ -1,3 +1,5 @@
+import { type IconComponentMap } from '@/components/Icon';
+
 interface BaseBannerType {
   type: 'list' | 'card' | 'graphic' | 'level';
 }
