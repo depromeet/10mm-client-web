@@ -2,7 +2,7 @@
 
 import LevelProgressBar from '@/components/LevelStatus/LevelProgressBar';
 import { type LevelSystemType } from '@/constants/level';
-import { gradientTextCss } from '@/constants/style/text';
+import { gradientTextCss } from '@/constants/style/gradient';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useGetMissionSummary } from '@/apis/mission';
 import Character from '@/app/level/guide/Character';
 import GrowthLevel from '@/app/level/guide/GrowthLevel';
+import LockedCharacter from '@/components/Level/LockedCharacter';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
 import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 import { LEVEL_SYSTEM } from '@/constants/level';
@@ -45,8 +46,9 @@ function LevelGuidePage() {
             </section>
             <section className={characterImageSectionCss}>
               {isLockedLevel ? (
-                <Character width={202} height={151} level={selectLevelInfo.level} isLocked={isLockedLevel} />
+                <LockedCharacter size="lg" level={selectLevelInfo.level} />
               ) : (
+                // <Character width={202} height={151} level={selectLevelInfo.level} isLocked={isLockedLevel} />
                 <Character
                   width={240}
                   height={180}

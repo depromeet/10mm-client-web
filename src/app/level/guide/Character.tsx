@@ -69,6 +69,7 @@ const imageWrapperCss = css({
   margin: '0 auto',
   animation: 'fadeIn .7s',
   height: '100%',
+  width: '100%',
 });
 
 const imageCss = css({
