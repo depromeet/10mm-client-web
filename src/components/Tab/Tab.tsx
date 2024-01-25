@@ -20,4 +20,5 @@ const tabWrapperCss = css({
   flexDirection: 'row',
   gap: '16px',
   width: '100%',
+  height: 'fit-content',
 });

@@ -71,6 +71,7 @@ const thumbnailStyle = cva({
       },
     },
     selected: {
+      // TODO: css recipe로 변경
       true: {
         border: '1px solid transparent',
         backgroundRepeat: 'no-repeat',

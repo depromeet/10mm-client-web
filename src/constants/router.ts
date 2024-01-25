@@ -30,13 +30,19 @@ export const ROUTER = {
   RESULT: {
     HOME: '/result',
   },
+  LEVEL: {
+    GUIDE: '/level/guide',
+  },
   AUTH: {
+    SOCIAL_LOGIN: (provider: string) => `/auth/social-login?provider=${provider}`,
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     SIGNIN: '/auth/signin',
     NICKNAME: '/auth/nickname',
     TEMP_REGISTER: '/auth/temp-register',
     REGISTER: '/auth/register',
+    KAKAO_CALLBACK: '/auth/kakaoCallback',
+    APPLE_CALLBACK: '/auth/appleCallback',
   },
   PRIVACY: '/privacy',
   GUEST: {

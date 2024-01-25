@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
-import { STORAGE_KEY } from '@/constants/storage';
 import useInterval from '@/hooks/useInterval';
 import { eventLogger } from '@/utils';
+import { setProgressMissionTime, setProgressMissionTime2 } from '@/utils/storage/progressMission';
 
-export function useUnloadAction(time: number) {
+export function useUnloadAction(time: number, missionId: string) {
   const onSaveTime = useCallback(() => {
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.MID_SAVE, EVENT_LOG_CATEGORY.STOPWATCH, { time });
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME, String(time));
+    setProgressMissionTime(missionId, time);
   }, [time]);
 
   useVisibilityState(onSaveTime);
@@ -30,10 +30,11 @@ function useVisibilityState(onAction: VoidFunction) {
   }, [onVisibilityChange]); // 빈 의존성 배열을 전달하여 이 훅이 컴포넌트가 마운트되거나 언마운트될 때만 실행되도록 합니다.
 }
 
-export function useRecordMidTime(time: number) {
+export function useRecordMidTime(time: number, missionId: string) {
   const onSaveTime = () => {
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.MID_SAVE_2, EVENT_LOG_CATEGORY.STOPWATCH, { time });
-    localStorage.setItem(STORAGE_KEY.STOPWATCH.TIME_2, String(time));
+
+    setProgressMissionTime2(missionId, time);
   };
 
   useInterval(() => {
@@ -43,7 +44,6 @@ export function useRecordMidTime(time: number) {
 
 export function useCustomBack(customBack: () => void) {
   const browserPreventEvent = (event: () => void) => {
-    history.pushState(null, '', location.href);
     event();
   };
 
