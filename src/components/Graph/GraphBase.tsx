@@ -48,11 +48,13 @@ const levelLabelCss = css({
   fontWeight: '100',
 });
 
-type LevelProgressBarProps = { symbolStack: number; min: number; max: number; isFull?: false } | { isFull: true };
+type LevelProgressBarProps =
+  | { symbolStack: number; min: number; max: number; isFull?: false }
+  | { isFull: true; min?: number };
 
 function LevelProgressBar(props: LevelProgressBarProps) {
   if (props?.isFull) {
-    return <ProgressBar percent={100} />;
+    return <ProgressBar percent={100} labels={props.min ? [`${props.min} 이상`] : undefined} />;
   }
 
   const { symbolStack, max, min } = props;
@@ -68,7 +70,12 @@ function ProgressBar(props: { percent: number; labels?: string[] }) {
         <div className={cx(progressInnerContainerCss)} style={{ width: `${props.percent}%` }} />
       </div>
       {props.labels && (
-        <div className={labelContainerCss}>
+        <div
+          className={cx(
+            labelContainerCss,
+            css({ justifyContent: props.labels.length === 1 ? 'center' : 'space-between' }),
+          )}
+        >
           {props.labels.map((label) => (
             <span key={label}>{label}</span>
           ))}
@@ -104,7 +111,6 @@ const labelContainerCss = flex({
   color: 'text.quaternary',
   marginTop: '5px',
   width: '100%',
-  justifyContent: 'space-between',
 });
 
 function Description({ children }: PropsWithChildren) {

@@ -18,7 +18,6 @@ export interface FutureLevelGraphType extends GraphBaseType {
 
 export interface LastLevelGraphType extends GraphBaseType {
   status: 'last-level';
-  min: number;
 }
 
 export type GraphType = PastLabelGraphType | PresentLevelGraphType | FutureLevelGraphType | LastLevelGraphType;

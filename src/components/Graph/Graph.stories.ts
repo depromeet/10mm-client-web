@@ -32,3 +32,10 @@ export const FutureLevel: Story = {
     level: 4,
   },
 };
+
+export const LastLevel: Story = {
+  args: {
+    status: 'last-level',
+    symbolStack: 210,
+  },
+};
