@@ -3,30 +3,27 @@ import { LEVEL_SYSTEM } from '@/constants/level';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-function GrowthLevel({
-  selectLevel,
-  maxLevel,
-  onClick,
-}: {
+interface Props {
   selectLevel: number;
   onClick: (level: number) => void;
   maxLevel: number;
-}) {
+}
+
+function GrowthLevel({ selectLevel, maxLevel, onClick }: Props) {
   return (
     <>
       <h2 className={headingCss}>성장 레벨</h2>
       <div className={containerCss}>
         <ul className={listContainerCss}>
-          {LEVEL_SYSTEM.map((level, idx) => {
+          {LEVEL_SYSTEM.map(({ level, label }, idx) => {
             const isLocked = maxLevel <= idx;
             return (
               <CardLevel
-                key={level.label}
-                // {...level}
-                level={level.level}
-                isSelected={selectLevel === level.level}
+                key={label}
+                level={level}
+                isSelected={selectLevel === level}
                 isLocked={isLocked}
-                onClick={() => onClick(level.level)}
+                onClick={() => onClick(level)}
               />
             );
           })}
