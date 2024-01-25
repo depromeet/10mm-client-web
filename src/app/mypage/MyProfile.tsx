@@ -67,19 +67,23 @@ export default function MyProfile() {
           </Link>
         </div>
         <Banner type="level" amount={210} iconName="alarm" level="Lv 4. 잼민이" imageUrl={currentLevel.imageUrl} />
-        <div className={betweenCss}></div>
-        <Tab tabs={tabs} activeTab={'mission-list'} />
-        <div className={tabBottomCss}></div>
+        <div className={tabWrapper}>
+          <Tab tabs={tabs} activeTab={'mission-list'} />
+        </div>
         <MissionList />
+        <div className={spaceCss} />
       </section>
     </div>
   );
 }
-const betweenCss = css({
-  marginTop: '20px',
+
+const tabWrapper = css({
+  margin: '20px 0',
+  padding: '16px 16px 0 16px',
 });
-const tabBottomCss = css({
-  marginBottom: '20px',
+
+const spaceCss = css({
+  height: '50px',
 });
 
 const containerCss = css({
