@@ -21,7 +21,7 @@ const getFollowMembersResponse = {
   timestamp: '2024-01-24T00:53:03.643373',
 };
 
-const getFollowMembers = http.get(BASE_URL + '/follow/members', () => {
+const getFollowMembers = http.get(BASE_URL + '/follows/members', () => {
   return HttpResponse.json(getFollowMembersResponse);
 });
 

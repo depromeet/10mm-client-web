@@ -19,7 +19,7 @@ interface GetFollowMissionsResponse {
 
 const FOLLOW_APIS = {
   getFollowMembers: async (): Promise<GetFollowMembersResponse> => {
-    const { data } = await apiInstance.get<GetFollowMembersResponse>('/follow/members');
+    const { data } = await apiInstance.get<GetFollowMembersResponse>('/follows/members');
     return data;
   },
 
