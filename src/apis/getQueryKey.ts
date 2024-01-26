@@ -19,7 +19,10 @@ type QueryList = {
     me: undefined;
   };
   followMembers: undefined;
-
+  followsCountMe: undefined;
+  followsCountTargetId: {
+    followId: number;
+  };
   memberSocial: undefined;
 };
 

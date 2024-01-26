@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useFollowsCountMembers } from '@/apis/follow';
 import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionSummary } from '@/apis/mission';
 import MyProfileMissionList from '@/app/mypage/MyProfileMissionList';
@@ -22,14 +23,14 @@ export default function MyProfile() {
   const { data: missionSummaryData } = useGetMissionSummary();
 
   const symbolStack = missionSummaryData?.symbolStack ?? 0;
-
+  const { data: followCountData } = useFollowsCountMembers();
   return (
     <ProfileContent
       profileImageUrl={data?.profileImageUrl || null}
       nickname={data?.nickname || ''}
       symbolStack={symbolStack}
-      followerCount={12}
-      followingCount={12}
+      followerCount={followCountData?.followerCount || 0}
+      followingCount={followCountData?.followingCount || 0}
       rightElement={
         <Link href={ROUTER.MYPAGE.PROFILE_MODIFY}>
           <Badge color="gray">프로필 수정</Badge>

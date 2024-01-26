@@ -17,6 +17,11 @@ interface GetFollowMissionsResponse {
   followMissions: MissionItemTypeWithRecordId[];
 }
 
+interface FollowsResponse {
+  followingCount: number;
+  followerCount: number;
+}
+
 const FOLLOW_APIS = {
   getFollowMembers: async (): Promise<GetFollowMembersResponse> => {
     const { data } = await apiInstance.get<GetFollowMembersResponse>('/follows/members');
@@ -25,6 +30,14 @@ const FOLLOW_APIS = {
 
   getFollowMissions: async (followId: number): Promise<GetFollowMissionsResponse> => {
     const { data } = await apiInstance.get(`/missions/follow/${followId}`);
+    return data;
+  },
+  getFollowsMe: async (): Promise<FollowsResponse> => {
+    const { data } = await apiInstance.get<FollowsResponse>('/follows/me');
+    return data;
+  },
+  getFollowsTargetId: async (followId: number): Promise<FollowsResponse> => {
+    const { data } = await apiInstance.get<FollowsResponse>(`/follows/${followId}`);
     return data;
   },
 };
@@ -41,6 +54,22 @@ export const useFollowMissions = (followId: number, option?: UseQueryOptions<Get
   return useQuery<GetFollowMissionsResponse>({
     queryKey: getQueryKey('followMissions', { followId }),
     queryFn: () => FOLLOW_APIS.getFollowMissions(followId),
+    ...option,
+  });
+};
+
+export const useFollowsCountMembers = (option?: UseQueryOptions<FollowsResponse>) => {
+  return useQuery<FollowsResponse>({
+    queryKey: getQueryKey('followsCountMe'),
+    queryFn: FOLLOW_APIS.getFollowsMe,
+    ...option,
+  });
+};
+
+export const useFollowsCountTargetId = (followId: number, option?: UseQueryOptions<FollowsResponse>) => {
+  return useQuery<FollowsResponse>({
+    queryKey: getQueryKey('followsCountTargetId', { followId }),
+    queryFn: () => FOLLOW_APIS.getFollowsTargetId(followId),
     ...option,
   });
 };

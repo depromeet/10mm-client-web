@@ -1,5 +1,6 @@
 'use client';
 
+import { useFollowsCountTargetId } from '@/apis/follow';
 import ProfileMissionList from '@/app/mypage/MyProfileMissionList';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import BottomDim from '@/components/BottomDim/BottomDim';
@@ -9,13 +10,14 @@ import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
 
 function FollowProfilePage({ params }: { params: { id: string } }) {
+  const { data: followCountData } = useFollowsCountTargetId(Number(params.id));
   return (
     <main className={backgroundCss}>
       <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
       <ProfileContent
         nickname={'123123'}
-        followingCount={12}
-        followerCount={12}
+        followingCount={followCountData?.followingCount || 0}
+        followerCount={followCountData?.followerCount || 0}
         profileImageUrl={null}
         symbolStack={0}
         rightElement={<GradientTextButton>팔로우</GradientTextButton>}
