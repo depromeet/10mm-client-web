@@ -10,7 +10,7 @@ interface ProfileListProps {
   onChangeFollowData: (props: FollowDataState) => void;
 }
 
-function ProfileList({ selectedFollowData, onChangeFollowData }: ProfileListProps) {
+function FollowList({ selectedFollowData, onChangeFollowData }: ProfileListProps) {
   const { data } = useFollowMembers();
   return (
     <section className={containerCss}>
@@ -30,7 +30,7 @@ function ProfileList({ selectedFollowData, onChangeFollowData }: ProfileListProp
   );
 }
 
-export default ProfileList;
+export default FollowList;
 
 const containerCss = flex({
   overflowY: 'auto',

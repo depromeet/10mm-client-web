@@ -10,7 +10,7 @@ interface ProfileContentProps {
   } | null;
 }
 
-function ProfileContent({ selectedFollowData }: ProfileContentProps) {
+function FollowContent({ selectedFollowData }: ProfileContentProps) {
   if (!selectedFollowData)
     return (
       <div className={containerCss}>
@@ -25,7 +25,7 @@ function ProfileContent({ selectedFollowData }: ProfileContentProps) {
   );
 }
 
-export default ProfileContent;
+export default FollowContent;
 
 const containerCss = flex({
   flexDirection: 'column',

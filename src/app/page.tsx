@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import AppBar from '@/app/home/AppBar';
-import ProfileContent from '@/app/home/ProfileContent';
-import ProfileList from '@/app/home/ProfileList';
+import FollowContent from '@/app/home/FollowContent';
+import FollowList from '@/app/home/FollowList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import { css } from '@styled-system/css';
@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <main className={mainCss}>
       <AppBar />
-      <ProfileList selectedFollowData={followData} onChangeFollowData={setFollowData} />
-      <ProfileContent selectedFollowData={followData} />
+      <FollowList selectedFollowData={followData} onChangeFollowData={setFollowData} />
+      <FollowContent selectedFollowData={followData} />
       <AppBarBottom />
       <BottomDim />
     </main>
