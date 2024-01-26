@@ -12,3 +12,8 @@ export const getLevel = (symbolStack: number): LevelSystemType => {
 
   return findLevel;
 };
+
+export const calcProgress = (symbolStack: number) => {
+  const currentLevel = getLevel(symbolStack);
+  return ((symbolStack - currentLevel.min) / (currentLevel.max - currentLevel.min)) * 100;
+};

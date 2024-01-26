@@ -4,7 +4,7 @@ import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { gradientTextCss } from '@/constants/style/gradient';
-import { getLevel } from '@/utils/result';
+import { calcProgress, getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
@@ -16,6 +16,7 @@ function FollowSummary({ followId }: FollowSummaryProps) {
   const { data } = useFollowMissions(followId);
   const symbolStack = data?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
+  const progress = calcProgress(symbolStack);
 
   return (
     <div>
@@ -33,7 +34,7 @@ function FollowSummary({ followId }: FollowSummaryProps) {
             <span className={cx(levelLabelCss, gradientTextCss)}>{symbolStack}</span>
           </div>
           <p className={LevelNameCss}>{currentLevel.label}</p>
-          <LevelProgressBar current={50} isLabel={false} backgroundColor={'purple.purple500'} />
+          <LevelProgressBar current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
         </div>
       </div>
     </div>

@@ -38,7 +38,7 @@ const itemCss = css({
 const nameCss = css({
   textAlign: 'center',
   overflow: 'hidden',
-  maxWidth: '100%',
+  maxWidth: '52px',
   width: '100%',
   display: 'block',
   textOverflow: 'ellipsis',
