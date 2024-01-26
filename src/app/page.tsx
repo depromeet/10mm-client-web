@@ -7,14 +7,21 @@ import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import { css } from '@styled-system/css';
 
+export interface FollowData {
+  followId: number;
+  nickname: string;
+}
+
+export type FollowDataState = FollowData | null;
+
 export default function Home() {
-  const [followId, setFollowId] = useState<number | null>(null);
+  const [followData, setFollowData] = useState<FollowDataState>(null);
 
   return (
     <main className={mainCss}>
       <AppBar />
-      <ProfileList selectedFollowId={followId} onChangeFollowId={setFollowId} />
-      <ProfileContent selectedFollowId={followId} />
+      <ProfileList selectedFollowData={followData} onChangeFollowData={setFollowData} />
+      <ProfileContent selectedFollowData={followData} />
       <AppBarBottom />
       <BottomDim />
     </main>

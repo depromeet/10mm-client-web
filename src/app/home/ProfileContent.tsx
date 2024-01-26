@@ -4,11 +4,14 @@ import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
 interface ProfileContentProps {
-  selectedFollowId: number | null;
+  selectedFollowData: {
+    followId: number;
+    nickname: string;
+  } | null;
 }
 
-function ProfileContent({ selectedFollowId }: ProfileContentProps) {
-  if (!selectedFollowId)
+function ProfileContent({ selectedFollowData }: ProfileContentProps) {
+  if (!selectedFollowData)
     return (
       <div className={containerCss}>
         <MissionList />
@@ -16,8 +19,8 @@ function ProfileContent({ selectedFollowId }: ProfileContentProps) {
     );
   return (
     <div className={containerCss}>
-      <FollowSummary followId={selectedFollowId} />
-      <FollowMissionList followId={selectedFollowId} />
+      <FollowSummary followId={selectedFollowData.followId} followNickname={selectedFollowData.nickname} />
+      <FollowMissionList followId={selectedFollowData.followId} />
     </div>
   );
 }

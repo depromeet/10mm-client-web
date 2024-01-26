@@ -41,7 +41,7 @@ const listCss = flex({
   gap: '8px',
 });
 
-function MissionFollowListInner({ followId }: { followId: number }) {
+export function MissionFollowListInner({ followId }: { followId: number }) {
   const { data, isLoading } = useFollowMissions(followId);
   if (isLoading) {
     return <MissionListSkeleton />;

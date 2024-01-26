@@ -1,16 +1,24 @@
 import React from 'react';
+import { type FollowDataState } from '@/app/page';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cx } from '@styled-system/css';
 
 function ProfileItem(props: {
   name: string;
   id: number | null;
-  onClick: (id: number | null) => void;
+  onClick: (props: FollowDataState) => void;
   selected?: boolean;
   url?: string;
 }) {
   const handleClick = () => {
-    props.onClick(props.id);
+    if (props.id === null) {
+      props.onClick(null);
+      return;
+    }
+    props.onClick({
+      followId: props.id,
+      nickname: props.name,
+    });
   };
   return (
     <div className={itemCss} onClick={handleClick}>

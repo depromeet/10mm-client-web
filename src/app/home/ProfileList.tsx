@@ -1,28 +1,29 @@
 import { useFollowMembers } from '@/apis/follow';
 import UserProfile from '@/app/home/UserProfile';
+import { type FollowDataState } from '@/app/page';
 import { flex } from '@/styled-system/patterns';
 
 import ProfileItem from './ProfileItem';
 
 interface ProfileListProps {
-  selectedFollowId: number | null;
-  onChangeFollowId: (id: number | null) => void;
+  selectedFollowData: FollowDataState;
+  onChangeFollowData: (props: FollowDataState) => void;
 }
 
-function ProfileList({ selectedFollowId, onChangeFollowId }: ProfileListProps) {
+function ProfileList({ selectedFollowData, onChangeFollowData }: ProfileListProps) {
   const { data } = useFollowMembers();
   return (
     <section className={containerCss}>
-      <UserProfile selectedId={selectedFollowId} onClick={onChangeFollowId} />
+      <UserProfile selectedData={selectedFollowData} onClick={onChangeFollowData} />
       {data &&
         data.map((profile) => (
           <ProfileItem
             key={profile.memberId}
             id={profile.memberId}
-            onClick={onChangeFollowId}
+            onClick={onChangeFollowData}
             url={profile.profileImageUrl}
             name={profile.nickname}
-            selected={selectedFollowId === profile.memberId}
+            selected={selectedFollowData?.followId === profile.memberId}
           />
         ))}
     </section>
