@@ -12,7 +12,7 @@ import MyProfile from './MyProfile';
 function Header() {
   return (
     <h2 className={headingCss}>
-      <Link href={ROUTER.MYPAGE.SETTING}>
+      <Link className={iconWrapperCss} href={ROUTER.MYPAGE.SETTING}>
         <Icon name="normal-setting" size={20} color="icon.primary" />
       </Link>
     </h2>
@@ -48,13 +48,15 @@ const dimCss = css({
 });
 
 const headingCss = flex({
-  padding: '12px 8px',
   justifyContent: 'flex-end',
   textStyle: 'body4',
   color: 'text.primary',
+  padding: '2px 8px 2px 0',
   userSelect: 'none',
   gap: '10px',
   zIndex: 3,
 });
-
+const iconWrapperCss = css({
+  padding: '10px',
+});
 export default Mypage;

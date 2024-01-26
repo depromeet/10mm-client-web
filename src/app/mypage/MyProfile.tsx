@@ -68,7 +68,7 @@ const spaceCss = css({
 });
 
 const containerCss = css({
-  paddingTop: '184px',
+  paddingTop: '168px',
   flex: 1,
   zIndex: 3,
 });

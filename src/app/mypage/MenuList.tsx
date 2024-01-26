@@ -37,7 +37,7 @@ const mainCss = css({
 const listCss = flex({
   flexDirection: 'column',
   gap: '7px',
-  margin: '0px 16px 0',
+  margin: '24px 16px 0px',
 });
 
 interface MenuItemProps {

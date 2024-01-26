@@ -188,7 +188,7 @@ const hiddenInputCss = css({
 });
 
 const mainCss = css({
-  paddingTop: '184px',
+  paddingTop: '168px',
   flex: 1,
 });
 
