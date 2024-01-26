@@ -45,7 +45,7 @@ export default function MyProfile() {
         <Link href={ROUTER.LEVEL.GUIDE}>
           <Banner
             type="level"
-            amount={currentLevel.level}
+            amount={symbolStack}
             iconName="alarm"
             level={currentLevel.label}
             imageUrl={currentLevel.imageUrl}
