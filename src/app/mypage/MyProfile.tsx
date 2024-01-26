@@ -5,6 +5,7 @@ import Badge from '@/components/Badge/Badge';
 import Banner from '@/components/Banner/Banner';
 import Tab from '@/components/Tab/Tab';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
 
@@ -37,17 +38,19 @@ export default function MyProfile() {
             {/*  팔로잉 {FOLLOWING} &nbsp; 팔로워 {FOLLOWER}*/}
             {/*</span>*/}
           </div>
-          <Link href={'mypage/profile_modify'}>
+          <Link href={ROUTER.MYPAGE.PROFILE_MODIFY}>
             <Badge color="gray">프로필 수정</Badge>
           </Link>
         </div>
-        <Banner
-          type="level"
-          amount={currentLevel.level}
-          iconName="alarm"
-          level={currentLevel.label}
-          imageUrl={currentLevel.imageUrl}
-        />
+        <Link href={ROUTER.LEVEL.GUIDE}>
+          <Banner
+            type="level"
+            amount={symbolStack}
+            iconName="alarm"
+            level={currentLevel.label}
+            imageUrl={currentLevel.imageUrl}
+          />
+        </Link>
         <div className={tabWrapper}>
           <Tab tabs={tabs} activeTab={'mission-list'} />
         </div>
@@ -68,7 +71,7 @@ const spaceCss = css({
 });
 
 const containerCss = css({
-  paddingTop: '184px',
+  paddingTop: '168px',
   flex: 1,
   zIndex: 3,
 });
