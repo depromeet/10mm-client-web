@@ -14,12 +14,14 @@ import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
+const GUEST_MISSION_ID = '';
+
 export default function GuestMissionStopwatchPage() {
   const router = useRouter();
   const category = useGetCategory();
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper } = useStopwatch(step);
+  const { seconds, minutes, stepper } = useStopwatch(step, GUEST_MISSION_ID);
 
   const { isOpen, openModal, closeModal } = useModal();
 

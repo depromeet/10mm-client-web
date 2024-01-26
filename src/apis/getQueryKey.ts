@@ -19,6 +19,8 @@ type QueryList = {
     me: undefined;
   };
   followMembers: undefined;
+
+  memberSocial: undefined;
 };
 
 /**

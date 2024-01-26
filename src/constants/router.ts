@@ -25,6 +25,7 @@ export const ROUTER = {
     TERMS: '/mypage/terms',
     LOGIN_INFO: '/mypage/login_info',
     WITHDRAWAL: '/mypage/withdrawal',
+    SETTING: '/mypage/setting_and_private',
   },
   RESULT: {
     HOME: '/result',
@@ -33,12 +34,15 @@ export const ROUTER = {
     GUIDE: '/level/guide',
   },
   AUTH: {
+    SOCIAL_LOGIN: (provider: string) => `/auth/social-login?provider=${provider}`,
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     SIGNIN: '/auth/signin',
     NICKNAME: '/auth/nickname',
     TEMP_REGISTER: '/auth/temp-register',
     REGISTER: '/auth/register',
+    KAKAO_CALLBACK: '/auth/kakaoCallback',
+    APPLE_CALLBACK: '/auth/appleCallback',
   },
   PRIVACY: '/privacy',
   GUEST: {

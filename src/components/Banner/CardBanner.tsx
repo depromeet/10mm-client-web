@@ -1,12 +1,14 @@
-import React from 'react';
+import Image from 'next/image';
 import { type CardBannerType } from '@/components/Banner/Banner.types';
-import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
 function CardBanner(props: CardBannerType) {
   return (
     <div className={containerCss}>
-      <Icon name={props.iconName} width={20} height={20} />
+      <div>
+        <Image src={props.iconUrl} width={20} height={20} alt={props.title} />
+      </div>
+      {/* <Icon name={props.iconName} width={20} height={20} /> */}
       <p className={descriptionCss}>{props.description}</p>
       <p className={titleCss}>{props.title}</p>
     </div>

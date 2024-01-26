@@ -1,16 +1,18 @@
+'use client';
+import { AUTH_PROVIDER_LABEL, useGetSocialLoginInfo } from '@/apis/member';
 import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
-const KAKAO_LOGIN_EMAIL = 'carrotjoy123@kakao.com';
-
 function LoginInfoPage() {
+  const { data } = useGetSocialLoginInfo();
+  if (!data) return null;
   return (
     <div className={containerCss}>
       <Icon name="log-in-information" color="icon.secondary" width={20} height={20} />
       <div className={textWrapperCss}>
-        <p className={titleCss}>카카오 로그인</p>
-        <p className={contentCss}>{KAKAO_LOGIN_EMAIL}</p>
+        <p className={titleCss}>{AUTH_PROVIDER_LABEL[data.provider]}</p>
+        <p className={contentCss}>{data.email}</p>
       </div>
     </div>
   );

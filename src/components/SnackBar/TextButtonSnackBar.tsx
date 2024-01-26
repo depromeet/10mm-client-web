@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Button from '@/components/Button/Button';
 import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar.styles';
 import { type SnackBarTextButtonType } from '@/components/SnackBar/SnackBar.types';
@@ -22,7 +23,6 @@ function TextButtonSnackBar({ onButtonClick, message, timerSecond, buttonText, i
     removeSnackBar(id);
   };
 
-  const timerText = getTimerText(timerSecond);
   return (
     <div
       className={snackBarWrapperCss({
@@ -31,7 +31,7 @@ function TextButtonSnackBar({ onButtonClick, message, timerSecond, buttonText, i
     >
       <div className={textCss}>
         {message}
-        {Boolean(timerText) && <span className={timerTextCss}>{timerText}</span>}
+        {timerSecond && <TimerText initSeconds={timerSecond} />}
       </div>
 
       <Button variant="ghost" size="small" className={buttonCss} onClick={handleTextButtonClick}>
@@ -39,6 +39,28 @@ function TextButtonSnackBar({ onButtonClick, message, timerSecond, buttonText, i
       </Button>
     </div>
   );
+}
+
+const MIN_SECOND = 0;
+
+function TimerText(props: { initSeconds: number }) {
+  const [second, setSecond] = useState(props.initSeconds); // 남은 시간 (단위: 초)
+  const timerText = getTimerText(second);
+
+  useEffect(() => {
+    if (second <= MIN_SECOND) {
+      return;
+    }
+
+    const timer: NodeJS.Timeout = setInterval(() => {
+      setSecond((prev) => (prev <= MIN_SECOND ? MIN_SECOND : prev - 1));
+    }, 1000);
+
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return <span className={timerTextCss}>{timerText}</span>;
 }
 
 const getTimerText = (timer?: number) => {
