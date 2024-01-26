@@ -178,7 +178,7 @@ export const useSuspenseGetSearchNickname = (
 ) => {
   return useSuspenseQuery<SearchNicknameResponse>({
     queryKey: getQueryKey('searchNickname', { nickname }),
-    queryFn: () => MEMBER_API.searchNickname(nickname),
+    queryFn: () => (nickname ? MEMBER_API.searchNickname(nickname) : []),
     ...option,
   });
 };

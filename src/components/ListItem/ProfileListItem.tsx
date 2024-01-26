@@ -1,5 +1,4 @@
 import { type ReactNode } from 'react';
-import Button from '@/components/Button/Button';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
@@ -23,16 +22,8 @@ function ProfileListItem(props: Props) {
       <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
         {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
-        {/* {isExistFollowerButton && (
-          <span onClick={props.onSubButtonClick}>
-            팔로우
-          </span>
-        )} */}
       </p>
       <div className={buttonCss}>{props.buttonElement}</div>
-      {/* <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
-        팔로우
-      </Button> */}
     </li>
   );
 }
