@@ -1,4 +1,4 @@
-import { type MouseEventHandler } from 'react';
+import { type ReactNode } from 'react';
 import Button from '@/components/Button/Button';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
@@ -9,10 +9,9 @@ import { flex } from '@/styled-system/patterns';
 interface Props {
   thumbnail?: ThumbnailProps;
   name: string;
-  onButtonClick?: MouseEventHandler<HTMLButtonElement>;
-
   variant?: 'one-button' | 'two-button';
-  onSubButtonClick?: MouseEventHandler<HTMLButtonElement>;
+  buttonElement: ReactNode;
+  subElement?: ReactNode;
 }
 
 function ProfileListItem(props: Props) {
@@ -23,22 +22,58 @@ function ProfileListItem(props: Props) {
       <Thumbnail size="h36" {...props.thumbnail} />
       <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
-        {isExistFollowerButton && (
-          <span className={followLabelCss} onClick={props.onSubButtonClick}>
+        {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
+        {/* {isExistFollowerButton && (
+          <span onClick={props.onSubButtonClick}>
             팔로우
           </span>
-        )}
+        )} */}
       </p>
-      {props.onButtonClick && (
-        <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
-          팔로우
-        </Button>
-      )}
+      <div className={buttonCss}>{props.buttonElement}</div>
+      {/* <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
+        팔로우
+      </Button> */}
     </li>
   );
 }
 
 export default ProfileListItem;
+
+type CustomProfileListItemProps = Omit<Props, 'buttonElement' | 'subElement' | 'variant'>;
+
+export function FollowListItem(
+  props: CustomProfileListItemProps & {
+    onButtonClick?: () => void;
+  },
+) {
+  return (
+    <ProfileListItem
+      buttonElement={
+        <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
+          팔로우
+        </Button>
+      }
+      {...props}
+    />
+  );
+}
+
+export function FollowingListItem(
+  props: CustomProfileListItemProps & {
+    onButtonClick?: () => void;
+  },
+) {
+  return (
+    <ProfileListItem
+      buttonElement={
+        <Button size="small" variant="secondary" onClick={props.onButtonClick} className={buttonCss}>
+          팔로우
+        </Button>
+      }
+      {...props}
+    />
+  );
+}
 
 const containerCss = flex({ padding: '10px 8px', gap: '12px', alignItems: 'center' });
 
