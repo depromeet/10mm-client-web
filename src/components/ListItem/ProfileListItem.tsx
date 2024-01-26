@@ -39,42 +39,6 @@ function ProfileListItem(props: Props) {
 
 export default ProfileListItem;
 
-type CustomProfileListItemProps = Omit<Props, 'buttonElement' | 'subElement' | 'variant'>;
-
-export function FollowListItem(
-  props: CustomProfileListItemProps & {
-    onButtonClick?: () => void;
-  },
-) {
-  return (
-    <ProfileListItem
-      buttonElement={
-        <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
-          팔로우
-        </Button>
-      }
-      {...props}
-    />
-  );
-}
-
-export function FollowingListItem(
-  props: CustomProfileListItemProps & {
-    onButtonClick?: () => void;
-  },
-) {
-  return (
-    <ProfileListItem
-      buttonElement={
-        <Button size="small" variant="secondary" onClick={props.onButtonClick} className={buttonCss}>
-          팔로우
-        </Button>
-      }
-      {...props}
-    />
-  );
-}
-
 export function ProfileItemSkeleton() {
   return <div className={skeletonCss} />;
 }

@@ -18,4 +18,6 @@ const mainCss = css({
   height: '100%',
   minHeight: 'calc(100vh - 44px)',
   maxHeight: 'calc(100vh - 44px)',
+  display: 'flex',
+  flexDirection: 'column',
 });
