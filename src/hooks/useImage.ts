@@ -3,11 +3,13 @@ import RECORD_API from '@/apis/record';
 import { IMAGE_File_Extension, type ImageFileExtensionType } from '@/apis/schema/upload';
 import axios from 'axios';
 
+// TODO : 추후 백엔드에서 내려오는 데이터로 변경
 export const getUrlImageType = (url?: string) => {
   if (!url) return '';
+  console.log(url);
   const imageType = url.split('/').pop();
   if (!imageType) return '';
-  return imageType.replace('.', '/');
+  return imageType.split('?')[0].replace('.', '/');
 };
 
 export const useImage = (initialImagePreviewUrl?: string) => {

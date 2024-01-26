@@ -7,6 +7,7 @@ import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
+import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
@@ -19,25 +20,29 @@ interface DialogProps {
   isOpen: boolean;
   onClose: VoidFunction;
   onConfirm: VoidFunction;
-  onCancel: VoidFunction;
   logData?: Record<string, string | number>;
 }
 
 const validateProfileData = ({
-  nickname,
+  isNicknameDiff,
   imageFile,
   isError,
   isNicknameValid,
+  isPending,
 }: {
-  nickname: string;
+  isNicknameDiff: boolean;
   imageFile: File | undefined;
   isError: boolean;
   isNicknameValid: boolean;
+  isPending: boolean;
 }) => {
-  if (nickname.length === 0) return true;
-  if (isError) return true;
-  if (imageFile) return false;
-  return isNicknameValid;
+  if (isPending) return false;
+  if (isError) return false;
+  if (isNicknameDiff) {
+    return isNicknameValid || Boolean(imageFile);
+  } else {
+    return Boolean(imageFile);
+  }
 };
 
 function ProfileModifyPage() {
@@ -51,8 +56,11 @@ function ProfileModifyPage() {
 
   const { uploadImageChange, imagePreview, imageFile } = useImage(data?.profileImageUrl || '');
   const { triggerSnackBar } = useSnackBar();
-  const { mutateAsync: uploadProfileMutate } = useUploadProfileImage(imageFile, {});
-  const { mutateAsync: uploadProfileCompleteMutate } = useUploadProfileImageComplete({
+  const { mutateAsync: uploadProfileMutate, isPending: uploadProfileMutatePending } = useUploadProfileImage(
+    imageFile,
+    {},
+  );
+  const { mutateAsync: uploadProfileCompleteMutate, isPending } = useUploadProfileImageComplete({
     onSuccess: () => {
       triggerSnackBar({
         message: '프로필 수정이 완료되었습니다.',
@@ -62,14 +70,17 @@ function ProfileModifyPage() {
     },
   });
 
-  const rightButtonDisabled = validateProfileData({
-    nickname,
+  const isImageUploadLoading = uploadProfileMutatePending || isPending;
+
+  const rightButtonDisabled = !validateProfileData({
+    isNicknameDiff: data?.nickname !== nickname,
     imageFile,
     isError: Boolean(massageState.errorMsg),
-    isNicknameValid: data?.nickname === nickname,
+    isNicknameValid: massageState.validMsg === '사용 가능한 닉네임입니다.',
+    isPending: isImageUploadLoading,
   });
 
-  const duplicateCheckButtonDisabled = data?.nickname === nickname;
+  const duplicateCheckButtonDisabled = data?.nickname === nickname || nickname.length < 2 || isPending;
 
   const handleUploadChange = ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
     if (!files) return;
@@ -101,11 +112,10 @@ function ProfileModifyPage() {
     }
   };
 
-  const { isOpen: isCancleModalOpen, openModal: openCancleModal, closeModal: closeCancleModal } = useModal();
+  const { isOpen: isCancelModalOpen, openModal: openCancelModal, closeModal: closeCancelModal } = useModal();
   const onExit = () => {
     router.replace(ROUTER.MYPAGE.HOME);
   };
-  const onCancel = () => {};
 
   function CancelDialog({ onConfirm, logData, ...props }: DialogProps) {
     return (
@@ -130,10 +140,17 @@ function ProfileModifyPage() {
         iconColor={'icon.primary'}
         headerBgColor={'transparent'}
         rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
-        onBackAction={openCancleModal}
+        onBackAction={openCancelModal}
       />
-      <div className={dimCss} />
+
       <main className={mainCss}>
+        <div className={dimCss} />
+
+        {isImageUploadLoading && (
+          <div className={loadingCss}>
+            <LoadingSpinner />
+          </div>
+        )}
         <section className={myTabContainerCss}>
           <section className={thumbnailWrapperCss} onClick={handleImageClick}>
             <input
@@ -165,7 +182,7 @@ function ProfileModifyPage() {
             onTextButtonClick={handleDuplicateCheck}
           />
         </section>
-        <CancelDialog isOpen={isCancleModalOpen} onClose={closeCancleModal} onCancel={onCancel} onConfirm={onExit} />
+        <CancelDialog isOpen={isCancelModalOpen} onClose={closeCancelModal} onConfirm={onExit} />
       </main>
     </div>
   );
@@ -194,7 +211,20 @@ const mainCss = css({
 
 const backgroundCss = css({
   background: 'gradients.primary',
+  width: '100%',
   position: 'relative',
+});
+
+const loadingCss = css({
+  position: 'absolute',
+  top: 0,
+  zIndex: 'appBar',
+  display: 'flex',
+  width: '100%',
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.15) 100%)',
+  height: '100vh',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 const dimCss = css({
