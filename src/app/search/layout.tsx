@@ -14,5 +14,8 @@ function SearchLayout({ children }: PropsWithChildren) {
 export default SearchLayout;
 
 const mainCss = css({
-  padding: '8px 16px',
+  padding: '8px 16px 16px',
+  height: '100%',
+  minHeight: 'calc(100vh - 44px)',
+  maxHeight: 'calc(100vh - 44px)',
 });

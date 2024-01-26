@@ -17,6 +17,9 @@ type QueryList = {
   };
 
   memberSocial: undefined;
+  searchNickname: {
+    nickname: string;
+  };
 };
 
 /**
