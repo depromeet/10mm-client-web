@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import Layout from '@/components/Layout';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
 import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
 import { MSWInitComponent } from '@/msw';
 import { css } from '@/styled-system/css';
-import { pretendardFont } from '@/styles/font';
 
 import { QueryProvider } from '../hooks/query';
 
@@ -25,19 +23,26 @@ export const metadata: Metadata = {
       },
     ],
   },
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={pretendardFont.variable}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="preload"
+          as="style"
+          crossOrigin=""
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"
+        />
+      </head>
       <body className={css(bodyCss)}>
         <MonitoringInitializer />
         <MSWInitComponent />
         <QueryProvider>
           <SnackBarProvider>
-            <Layout>
-              <div className={css(containerCss)}>{children}</div>
-            </Layout>
+            <div className={css(containerCss)}>{children}</div>
           </SnackBarProvider>
         </QueryProvider>
       </body>
