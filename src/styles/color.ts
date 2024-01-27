@@ -99,6 +99,9 @@ export const colorList = defineTokens({
       medium: {
         value: 'linear-gradient(91deg, #F7C1D8 0%, #DDD5FA 48%, #97CDF4 100%)',
       },
+      stroke: {
+        value: 'linear-gradient(0deg, #777E9800 0%, #D5DCFF 100%)',
+      },
     },
   },
 });

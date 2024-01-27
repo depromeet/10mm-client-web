@@ -458,6 +458,7 @@
   --colors-gradients-button4: linear-gradient(91deg, #F9D8F0 0%, #B4D5FB 100%);
   --colors-gradients-strong: linear-gradient(91deg, #FD8EB6 0%, #E79FCA 24.5%, #B6ADEB 57%, #75C5FF 100%);
   --colors-gradients-medium: linear-gradient(91deg, #F7C1D8 0%, #DDD5FA 48%, #97CDF4 100%);
+  --colors-gradients-stroke: linear-gradient(0deg, #777E9800 0%, #D5DCFF 100%);
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
   --breakpoints-lg: 1024px;
