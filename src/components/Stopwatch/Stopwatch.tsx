@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Icon from '@/components/Icon';
+import StopwatchContainer from '@/components/Stopwatch/StopwatchContainer';
 import { css } from '@/styled-system/css';
 
 interface Props {
@@ -14,28 +14,7 @@ interface Props {
 function Stopwatch({ minutes, seconds, missionName, stepper, isDisabled, isProgress }: Props) {
   return (
     <div className={containerCss}>
-      <div
-        className={css(imageWrapperCss, {
-          animationPlayState: isProgress ? '' : 'paused',
-          boxShadow: isDisabled
-            ? '0px 4px 40px 4px rgba(60, 58, 75, 0.80) inset, 10px 10px 100px 0px rgba(160, 161, 188, 0.07)'
-            : '0px 4px 40px 4px rgba(100, 78, 122, 0.80) inset, 10px 10px 100px 0px rgba(151, 155, 255, 0.07)',
-        })}
-      >
-        <Image
-          fill
-          src={isDisabled ? '/assets/stopwatch/disabled-circle.png' : '/assets/stopwatch/gradient-circle.png'}
-          alt="stopwatch circle bg"
-          className={css(birCircleImageCss)}
-        />
-        <Image
-          className={smallCircleCss}
-          width={24}
-          height={24}
-          src={isDisabled ? '/assets/stopwatch/disabled-small-circle.svg' : '/assets/stopwatch/small-circle.svg'}
-          alt="small circle"
-        />
-      </div>
+      <StopwatchContainer isPaused={!isProgress} />
       <div className={innerContainerCss}>
         <p
           className={css(categoryCss, ellipsis, {
@@ -91,6 +70,7 @@ const containerCss = css({
   height: '312px',
   borderRadius: '312px',
   color: 'white',
+  margin: 'auto',
 });
 
 const innerContainerCss = css({
@@ -134,33 +114,5 @@ const timeTextCss = {
 };
 
 const lightingWrapperCss = css({ display: 'flex', gap: '5px', marginTop: '12px' });
-
-// background image
-const imageWrapperCss = {
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  borderRadius: '312px',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 0,
-
-  transition: '1s ease-in-out',
-  // rotate animation
-  transformOrigin: '50% 50%',
-  animation: 'circleRotate 60s linear infinite',
-};
-
-const smallCircleCss = css({ position: 'absolute', top: '-10px', left: 0, right: 0, margin: '0 auto' });
-
-const birCircleImageCss = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-};
 
 export default Stopwatch;

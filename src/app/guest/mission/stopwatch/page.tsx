@@ -72,7 +72,7 @@ export default function GuestMissionStopwatchPage() {
       <p className={titleCss}>{stepLabel.title}</p>
       <p className={descCss}>{stepLabel.desc}</p>
 
-      <section className={stopwatchCss}>
+      <section>
         <Stopwatch
           minutes={minutes}
           seconds={seconds}
@@ -147,14 +147,6 @@ const containerCss = css({
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
 const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
-
-const stopwatchCss = css({
-  width: 'fit-content',
-  margin: '0 auto',
-  overflow: 'hidden',
-  maxWidth: '100vw',
-  padding: '4px', // small circle 잘리지 않게
-});
 
 const buttonContainerCss = css({
   margin: '28px auto',
