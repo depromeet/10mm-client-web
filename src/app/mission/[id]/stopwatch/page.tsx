@@ -173,7 +173,7 @@ export default function StopwatchPage() {
 
   const onBackMidModalClose = () => {
     closeBackMidOutModal();
-    history.pushState(null, '', location.href);
+    history.pushState({}, '', location.href);
     onNextStep(prevStep);
   };
 
