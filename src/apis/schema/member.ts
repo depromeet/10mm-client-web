@@ -17,8 +17,12 @@ export interface MemberType {
   username: string;
 }
 
+
+export type FollowStatusType = 'FOLLOWING' | 'FOLLOWED_BY_ME' | 'NOT_FOLLOWING';
+
 export enum FileExtension {
   JPEG = 'JPEG',
   JPG = 'JPG',
   PNG = 'PNG',
 }
+

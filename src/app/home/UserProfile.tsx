@@ -1,13 +1,17 @@
 import { useGetMembersMe } from '@/apis/member';
-import { useProfileId } from '@/app/home/ProfileIdProvider';
 import ProfileItem from '@/app/home/ProfileItem';
+import { type FollowDataState } from '@/app/page';
 
-function UserProfile() {
+interface UserProfileProps {
+  selectedData: FollowDataState;
+  onClick: (props: FollowDataState) => void;
+}
+
+function UserProfile({ selectedData, onClick }: UserProfileProps) {
   const { data } = useGetMembersMe();
-  const { profileId, setProfileId } = useProfileId();
 
   const onClickProfile = () => {
-    setProfileId(null);
+    onClick(null);
   };
 
   return (
@@ -16,7 +20,7 @@ function UserProfile() {
       name={'나'}
       url={data?.profileImageUrl}
       onClick={onClickProfile}
-      selected={profileId === null}
+      selected={selectedData === null}
     />
   );
 }

@@ -7,7 +7,7 @@ const getMembersMe = http.get(BASE_URL + '/members/me', () => {
     data: {
       memberId: 1,
       nickname: 'string',
-      profileImageUrl: 'http://example.com',
+      profileImageUrl: null,
       username: 'JONO',
     },
   });

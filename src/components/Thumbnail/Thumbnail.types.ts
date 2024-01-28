@@ -4,7 +4,7 @@ interface ThumbnailBaseProps {
   variant?: 'null' | 'dimed' | 'filled'; // default : null
   size: ThumbnailSizeType;
   selected?: boolean;
-  url?: string;
+  url?: string | null;
 }
 
 export interface FilledThumbnailProps extends ThumbnailBaseProps {

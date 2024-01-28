@@ -1,8 +1,9 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import MISSION_APIS, { useDeleteMissionMutation } from '@/apis/mission';
+import { useDeleteMissionMutation } from '@/apis/mission';
 import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
+import MissionStartButton from '@/app/mission/[id]/detail/MissionStartButton';
 import useCheckCompleteMission from '@/app/mission/[id]/detail/useCheckCompleteMission';
 import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
@@ -60,7 +61,8 @@ export default function MissionDetailPage() {
       <div className={tabWrapperCss}>
         <Tab tabs={tabs} activeTab={'mission-history'} />
       </div>
-      <MissionHistoryTab isCompeteMission={isCompeteMission} />
+      <MissionHistoryTab />
+      <MissionStartButton missionId={id as string} isCompeteMission={isCompeteMission} />
       <Dialog
         variant={'default'}
         isOpen={isOpen}
