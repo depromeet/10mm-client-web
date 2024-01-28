@@ -50,7 +50,7 @@ export function useCustomBack(customBack: () => void) {
   useEffect(() => {
     const backAction = () => browserPreventEvent(customBack);
 
-    history.pushState(null, '', location.href);
+    history.pushState({}, '', location.href);
     window.addEventListener('popstate', backAction);
     return () => {
       window.removeEventListener('popstate', backAction);
