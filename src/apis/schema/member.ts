@@ -10,8 +10,15 @@ export interface MemberType {
   name: string;
   nickname: string;
   profileImageUrl?: string;
+  imageFileExtension: FileExtension;
   memberStatus: string;
   memberRole: string;
   memberVisibility: string;
   username: string;
+}
+
+export enum FileExtension {
+  JPEG = 'JPEG',
+  JPG = 'JPG',
+  PNG = 'PNG',
 }
