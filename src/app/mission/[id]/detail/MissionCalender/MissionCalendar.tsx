@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useGetRecord } from '@/apis';
 import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
 import {
@@ -8,7 +9,15 @@ import {
 import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
 import { css } from '@styled-system/css';
 
-function MissionCalendar({ currentDate, missionId }: { currentDate: Date; missionId: number }) {
+function MissionCalendar({
+  currentDate,
+  missionId,
+  isFollow,
+}: {
+  currentDate: Date;
+  missionId: number;
+  isFollow?: boolean;
+}) {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
   const selectedDate = currentDate.getDate();
@@ -37,13 +46,12 @@ function MissionCalendar({ currentDate, missionId }: { currentDate: Date; missio
             <tr key={i}>
               {week.map((day, index) => {
                 if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
+                const { routerLink, ...restProps } = getMissionCalendarItemProps(day.date, data || [], isFollow);
                 return (
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
-                    <MissionCalendarItem
-                      date={day.date}
-                      {...getMissionCalendarItemProps(day.date, data || [])}
-                      isActive={day.date === selectedDate}
-                    />
+                    <Link href={getMissionCalendarItemProps(day.date, data || [], isFollow).routerLink}>
+                      <MissionCalendarItem date={day.date} {...restProps} isActive={day.date === selectedDate} />
+                    </Link>
                   </td>
                 );
               })}

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cva } from '@styled-system/css';
@@ -8,41 +7,38 @@ interface MissionCalendarItemProps {
   missionId?: string;
   date: number;
   isActive?: boolean;
-  routerLink: string;
 }
 
-function MissionCalendarItem({ imageUrl, date, isActive, routerLink }: MissionCalendarItemProps) {
+function MissionCalendarItem({ imageUrl, date, isActive }: MissionCalendarItemProps) {
   return (
-    <Link href={routerLink}>
-      <div
-        className={missionCalendarItemWrapperCss({
-          active: isActive,
-        })}
-      >
-        {imageUrl ? (
-          <div className={thumbnailCss}>
-            <Thumbnail size={'h36'} variant={'dimed'} url={imageUrl} />
-            <Icon
-              className={css({
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              })}
-              name={'10mm-symbol'}
-              size={24}
-            />
-          </div>
-        ) : (
-          <div
-            className={missionCalendarItemNonCompletedCss({
-              active: isActive,
+    <div
+      className={missionCalendarItemWrapperCss({
+        active: isActive,
+      })}
+    >
+      {imageUrl ? (
+        <div className={thumbnailCss}>
+          <Thumbnail size={'h36'} variant={'dimed'} url={imageUrl} />
+          <Icon
+            className={css({
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
             })}
+            name={'10mm-symbol'}
+            size={24}
           />
-        )}
-        {date}
-      </div>
-    </Link>
+        </div>
+      ) : (
+        <div
+          className={missionCalendarItemNonCompletedCss({
+            active: isActive,
+          })}
+        />
+      )}
+      {date}
+    </div>
   );
 }
 
