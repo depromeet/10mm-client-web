@@ -1,5 +1,8 @@
 type QueryList = {
   missions: undefined;
+  followMissions: {
+    followId: number;
+  };
   missionDetail: {
     missionId: string;
   };
@@ -13,10 +16,21 @@ type QueryList = {
   };
 
   member: {
-    me: undefined;
+    me?: undefined;
+    id?: number;
   };
-
+  followMembers: undefined;
+  followsCountMe: undefined;
+  followsCountTargetId: {
+    followId: number;
+  };
   memberSocial: undefined;
+  searchNickname: {
+    nickname: string;
+  };
+  missionStack: {
+    missionId: string;
+  };
 };
 
 /**

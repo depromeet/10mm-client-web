@@ -11,7 +11,7 @@ import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
-import { checkImageType, getUrlImageType, useImage } from '@/hooks/useImage';
+import { checkImageType, useImage } from '@/hooks/useImage';
 import useModal from '@/hooks/useModal';
 import useNickname from '@/hooks/useNickname';
 import { css } from '@/styled-system/css';
@@ -93,7 +93,7 @@ function ProfileModifyPage() {
   };
 
   const onSubmit = async () => {
-    const imageType = imageFile?.type || getUrlImageType(data?.profileImageUrl || '');
+    const imageType = imageFile?.type;
     const imageFileExtension = checkImageType(imageType);
 
     try {
@@ -102,7 +102,7 @@ function ProfileModifyPage() {
           imageFileExtension,
         }));
       await uploadProfileCompleteMutate({
-        imageFileExtension: imageFileExtension ? imageFileExtension : undefined,
+        imageFileExtension: imageFileExtension ? imageFileExtension : data?.imageFileExtension,
         nickname: nickname,
       });
     } catch (e) {

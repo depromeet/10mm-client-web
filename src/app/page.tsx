@@ -1,20 +1,27 @@
 'use client';
+import { useState } from 'react';
 import AppBar from '@/app/home/AppBar';
-import ProfileContent from '@/app/home/ProfileContent';
-import ProfileIdProvider from '@/app/home/ProfileIdProvider';
-import ProfileList from '@/app/home/ProfileList';
+import FollowContent from '@/app/home/FollowContent';
+import FollowList from '@/app/home/FollowList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import { css } from '@styled-system/css';
 
+export interface FollowData {
+  followId: number;
+  nickname: string;
+}
+
+export type FollowDataState = FollowData | null;
+
 export default function Home() {
+  const [followData, setFollowData] = useState<FollowDataState>(null);
+
   return (
     <main className={mainCss}>
       <AppBar />
-      <ProfileIdProvider>
-        <ProfileList />
-        <ProfileContent />
-      </ProfileIdProvider>
+      <FollowList selectedFollowData={followData} onChangeFollowData={setFollowData} />
+      <FollowContent selectedFollowData={followData} />
       <AppBarBottom />
       <BottomDim />
     </main>

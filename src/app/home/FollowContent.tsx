@@ -3,11 +3,15 @@ import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
-import { useProfileId } from './ProfileIdProvider';
+interface ProfileContentProps {
+  selectedFollowData: {
+    followId: number;
+    nickname: string;
+  } | null;
+}
 
-function ProfileContent() {
-  const { profileId } = useProfileId();
-  if (!profileId)
+function FollowContent({ selectedFollowData }: ProfileContentProps) {
+  if (!selectedFollowData)
     return (
       <div className={containerCss}>
         <MissionList />
@@ -15,13 +19,13 @@ function ProfileContent() {
     );
   return (
     <div className={containerCss}>
-      <FollowSummary />
-      <FollowMissionList />
+      <FollowSummary followId={selectedFollowData.followId} followNickname={selectedFollowData.nickname} />
+      <FollowMissionList followId={selectedFollowData.followId} />
     </div>
   );
 }
 
-export default ProfileContent;
+export default FollowContent;
 
 const containerCss = flex({
   flexDirection: 'column',

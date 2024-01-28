@@ -2,7 +2,7 @@ export const ROUTER = {
   HOME: '/',
   MISSION: {
     NEW: '/mission/new',
-
+    FOLLOW: (id: string) => `/mission/${id}/follow`,
     STOP_WATCH: (id: string) => `/mission/${id}/stopwatch`,
     DETAIL: (id: string) => `/mission/${id}/detail`,
     MODIFY: (id: string) => `/mission/${id}/detail/modify`,
@@ -13,9 +13,13 @@ export const ROUTER = {
     SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
     DETAIL: {
       HOME: (id: string) => `/record/${id}/detail`,
+      FOLLOW: (id: string) => `/record/${id}/follow`,
       EMPTY: `/record/empty`,
       EDIT: (id: string) => `/record/${id}/edit`,
     },
+  },
+  PROFILE: {
+    DETAIL: (id: number) => `/profile/${id}`,
   },
   MYPAGE: {
     HOME: '/mypage',
@@ -51,5 +55,8 @@ export const ROUTER = {
       SUCCESS: `/guest/mission/success`,
       STOP_WATCH: `/guest/mission/stopwatch`,
     },
+  },
+  SEARCH: {
+    HOME: '/search',
   },
 };

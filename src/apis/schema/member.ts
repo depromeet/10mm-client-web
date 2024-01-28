@@ -10,8 +10,19 @@ export interface MemberType {
   name: string;
   nickname: string;
   profileImageUrl?: string;
+  imageFileExtension: FileExtension;
   memberStatus: string;
   memberRole: string;
   memberVisibility: string;
   username: string;
 }
+
+
+export type FollowStatusType = 'FOLLOWING' | 'FOLLOWED_BY_ME' | 'NOT_FOLLOWING';
+
+export enum FileExtension {
+  JPEG = 'JPEG',
+  JPG = 'JPG',
+  PNG = 'PNG',
+}
+

@@ -1,5 +1,4 @@
-import { type MouseEventHandler } from 'react';
-import Button from '@/components/Button/Button';
+import { type ReactNode } from 'react';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
@@ -9,10 +8,9 @@ import { flex } from '@/styled-system/patterns';
 interface Props {
   thumbnail?: ThumbnailProps;
   name: string;
-  onButtonClick?: MouseEventHandler<HTMLButtonElement>;
-
   variant?: 'one-button' | 'two-button';
-  onSubButtonClick?: MouseEventHandler<HTMLButtonElement>;
+  buttonElement: ReactNode;
+  subElement?: ReactNode;
 }
 
 function ProfileListItem(props: Props) {
@@ -23,22 +21,27 @@ function ProfileListItem(props: Props) {
       <Thumbnail size="h36" {...props.thumbnail} />
       <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
-        {isExistFollowerButton && (
-          <span className={followLabelCss} onClick={props.onSubButtonClick}>
-            팔로우
-          </span>
-        )}
+        {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
       </p>
-      {props.onButtonClick && (
-        <Button size="small" variant="primary" onClick={props.onButtonClick} className={buttonCss}>
-          팔로우
-        </Button>
-      )}
+      <div className={buttonCss}>{props.buttonElement}</div>
     </li>
   );
 }
 
 export default ProfileListItem;
+
+export function ProfileItemSkeleton() {
+  return <div className={skeletonCss} />;
+}
+
+const skeletonCss = css({
+  animation: 'skeleton',
+  height: '56px',
+  width: '100%',
+  backgroundColor: 'bg.surface4',
+  borderRadius: '12px',
+  marginBottom: '8px',
+});
 
 const containerCss = flex({ padding: '10px 8px', gap: '12px', alignItems: 'center' });
 
