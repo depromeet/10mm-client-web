@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import Icon from '@/components/Icon';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -9,6 +12,9 @@ function AppBar() {
         <div className={logoWrapperCss}>
           <Image src={'/assets/10mm-logo.svg'} alt="10MM" width={68} height={20} />
         </div>
+        <Link className={searchIconWrapper} href={ROUTER.SEARCH.HOME} passHref>
+          <Icon name="navigation-search" size={24} color="icon.secondary" />
+        </Link>
       </header>
       <div className={blankCss} />
     </>
@@ -30,6 +36,10 @@ const headerCss = flex({
   left: 0,
   right: 0,
   margin: '0 auto',
+});
+
+const searchIconWrapper = css({
+  padding: '8px',
 });
 
 const blankCss = css({ height: '44px' });

@@ -38,19 +38,27 @@ export const ListBannerDate: Story = {
   },
   argTypes: {},
 };
-
+export const ListLevelBanner: Story = {
+  args: {
+    type: 'level',
+    symbolStack: 11,
+  },
+  argTypes: {},
+};
 export const CardBanner: Story = {
   args: {
     type: 'card',
     title: '수미칩은 맛있다',
     description: '난 최고야 ',
-    iconUrl: '/assets/icons/clock.png',
+    iconUrl: '/assets/icons/graph/clock.png',
   },
   argTypes: {
     imageUrl: { table: { disable: true } },
     date: { table: { disable: true } },
   },
+  decorators: [(Story) => <div style={{ maxWidth: '167px' }}>{<Story />}</div>],
 };
+
 export const GraphicBanner: Story = {
   args: {
     type: 'graphic',
@@ -60,4 +68,5 @@ export const GraphicBanner: Story = {
     imageUrl: { table: { disable: true } },
     date: { table: { disable: true } },
   },
+  decorators: [(Story) => <div style={{ maxWidth: '235px' }}>{<Story />}</div>],
 };

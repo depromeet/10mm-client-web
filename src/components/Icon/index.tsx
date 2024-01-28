@@ -16,6 +16,7 @@ import NavigationFeedIcon from '@/components/Icon/NavigationFeedIcon';
 import NavigationMissionIcon from '@/components/Icon/NavigationMissionIcon';
 import NavigationMypageIcon from '@/components/Icon/NavigationMypageIcon';
 import NavigationResultIcon from '@/components/Icon/NavigationResultIcon';
+import NavigationSearchIcon from '@/components/Icon/NavigationSearchIcon';
 import NavigationUsersearchIcon from '@/components/Icon/NavigationUsersearchIcon';
 import PlusCircleIcon from '@/components/Icon/PlusCircleIcon';
 import PlusIcon from '@/components/Icon/PlusIcon';
@@ -55,6 +56,7 @@ export const IconComponentMap = {
   'navigation-result': NavigationResultIcon,
   'navigation-mypage': NavigationMypageIcon,
   'navigation-usersearch': NavigationUsersearchIcon,
+  'navigation-search': NavigationSearchIcon,
   'navigation-mission': NavigationMissionIcon,
   'navigation-feed': NavigationFeedIcon,
   camera: CameraIcon,

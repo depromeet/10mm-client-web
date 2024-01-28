@@ -1,10 +1,8 @@
-import React from 'react';
-import { type BannerType } from '@/components/Banner/Banner.types';
-import CardBanner from '@/components/Banner/CardBanner';
-import GraphicBanner from '@/components/Banner/GraphicBanner';
-import ListBanner from '@/components/Banner/ListBanner';
-
-import LevelBanner from './LevelBanner';
+import { type BannerType } from './Banner.types';
+import CardBanner from './CardBanner';
+import GraphicBanner from './GraphicBanner';
+import ListBanner from './ListBanner';
+import ListLevelBanner from './ListLevelBanner';
 
 function Banner(props: BannerType) {
   switch (props.type) {
@@ -15,7 +13,7 @@ function Banner(props: BannerType) {
     case 'graphic':
       return <GraphicBanner {...props} />;
     case 'level':
-      return <LevelBanner {...props} />;
+      return <ListLevelBanner {...props} />;
   }
 }
 

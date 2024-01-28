@@ -1,5 +1,6 @@
 'use client';
 
+import { Fragment } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
@@ -70,13 +71,19 @@ export default function GuestMissionStopwatchPage() {
     <div className={containerCss}>
       <Header rightAction="none" />
       <p className={titleCss}>{stepLabel.title}</p>
-      <p className={descCss}>{stepLabel.desc}</p>
-
-      <section className={stopwatchCss}>
+      <p className={descCss}>
+        {stepLabel.desc.split('\n').map((text) => (
+          <Fragment key={text}>
+            {text}
+            <br />
+          </Fragment>
+        ))}
+      </p>
+      <section>
         <Stopwatch
           minutes={minutes}
           seconds={seconds}
-          category={category}
+          missionName={category}
           stepper={stepper}
           isProgress={step === 'progress'}
           isDisabled={step === 'stop'}
@@ -146,14 +153,12 @@ const containerCss = css({
 });
 
 const titleCss = css({ color: 'text.primary', textStyle: 'title2' });
-const descCss = css({ color: 'text.secondary', textStyle: 'body4', marginTop: '4px', marginBottom: '96px' });
-
-const stopwatchCss = css({
-  width: 'fit-content',
-  margin: '0 auto',
-  overflow: 'hidden',
-  maxWidth: '100vw',
-  padding: '4px', // small circle 잘리지 않게
+const descCss = css({
+  color: 'text.secondary',
+  textStyle: 'body4',
+  marginTop: '8px',
+  marginBottom: '76px',
+  minHeight: '40px',
 });
 
 const buttonContainerCss = css({

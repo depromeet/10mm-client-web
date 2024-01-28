@@ -1,39 +1,19 @@
-'use client';
-
 import Link from 'next/link';
 import { MissionStatus } from '@/apis/schema/mission';
+import { useMissions } from '@/app/home/home.hooks';
+import { MissionListSkeleton } from '@/app/home/home.styles';
+import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
-import { css } from '@/styled-system/css';
-import { flex } from '@/styled-system/patterns';
+import { css } from '@styled-system/css';
 
-import { useMissions } from '../home/home.hooks';
-import { MissionBadge } from '../home/MissionList';
-
-function MissionList() {
-  return (
-    <div className={containerCss}>
-      <ul className={listCss}>
-        {/* TODO : Suspense로 리팩토링 */}
-        {/* <Suspense fallback={<Skeleton />}> */}
-        {/* TODO : 미션 최근 순 정렬 */}
-        {/* TODO : 완료된 미션은 하단 정렬 */}
-        <MissionListInner />
-        {/* </Suspense> */}
-      </ul>
-    </div>
-  );
-}
-
-export default MissionList;
-
-export function MissionListInner() {
+function MissionListInner() {
   const { missionList, isLoading, progressMissionId } = useMissions();
 
   if (isLoading) {
-    return <Skeleton />;
+    return <MissionListSkeleton />;
   }
 
   if (missionList.length === 0) {
@@ -71,32 +51,9 @@ export function MissionListInner() {
   );
 }
 
-// TODO: 공통으로 분리
-function Skeleton() {
-  return (
-    <>
-      <div className={missionItemSkeletonCss} />
-      <div className={missionItemSkeletonCss} />
-    </>
-  );
-}
-
-const missionItemSkeletonCss = css({
-  animation: 'skeleton',
-  height: '74px',
-  width: '100%',
-  backgroundColor: 'bg.surface4',
-  borderRadius: '22px',
-});
+export default MissionListInner;
 
 const containerCss = css({
-  paddingBottom: '100px',
-});
-
-const listCss = flex({
-  flexDirection: 'column',
-  flex: 1,
-
-  gap: '8px',
   height: '100%',
+  padding: '60px 0',
 });

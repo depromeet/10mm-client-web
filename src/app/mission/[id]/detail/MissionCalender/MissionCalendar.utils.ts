@@ -53,11 +53,13 @@ export const getCalenderInfo = (currentMonth: number, currentYear: number) => {
   return { monthCalendarData };
 };
 
-export const getMissionCalendarItemProps = (date: number, records: RecordType[]) => {
+export const getMissionCalendarItemProps = (date: number, records: RecordType[], isFollow?: boolean) => {
   const filterRecord = records.filter((record) => record.missionDay === date);
   if (filterRecord.length > 0) {
     return {
-      routerLink: ROUTER.RECORD.DETAIL.HOME(filterRecord[0].recordId.toString()),
+      routerLink: isFollow
+        ? ROUTER.RECORD.DETAIL.FOLLOW(filterRecord[0].recordId.toString())
+        : ROUTER.RECORD.DETAIL.HOME(filterRecord[0].recordId.toString()),
       imageUrl: filterRecord[0].imageUrl,
     };
   }

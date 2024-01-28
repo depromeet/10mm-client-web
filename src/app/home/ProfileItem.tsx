@@ -1,16 +1,24 @@
 import React from 'react';
+import { type FollowDataState } from '@/app/page';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cx } from '@styled-system/css';
 
 function ProfileItem(props: {
-  id: number | null;
   name: string;
-  onClick: (id: number | null) => void;
+  id: number | null;
+  onClick: (props: FollowDataState) => void;
   selected?: boolean;
   url?: string;
 }) {
   const handleClick = () => {
-    props.onClick(props.id);
+    if (props.id === null) {
+      props.onClick(null);
+      return;
+    }
+    props.onClick({
+      followId: props.id,
+      nickname: props.name,
+    });
   };
   return (
     <div className={itemCss} onClick={handleClick}>
@@ -38,7 +46,7 @@ const itemCss = css({
 const nameCss = css({
   textAlign: 'center',
   overflow: 'hidden',
-  maxWidth: '100%',
+  maxWidth: '52px',
   width: '100%',
   display: 'block',
   textOverflow: 'ellipsis',
