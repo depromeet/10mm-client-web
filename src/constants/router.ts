@@ -17,6 +17,9 @@ export const ROUTER = {
       EDIT: (id: string) => `/record/${id}/edit`,
     },
   },
+  PROFILE: {
+    DETAIL: (id: number) => `/profile/${id}`,
+  },
   MYPAGE: {
     HOME: '/mypage',
     // TODO : 상황에 맞게 수정 필요

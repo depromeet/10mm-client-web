@@ -63,6 +63,10 @@ const MEMBER_API = {
     const { data } = await apiInstance.get(`/members/me`);
     return data;
   },
+  getMembersById: async (id: number): Promise<MemberMeResponse> => {
+    const { data } = await apiInstance.get(`/members/${id}`);
+    return data;
+  },
   checkUsername: async (request: CheckUsernameRequest) => {
     const { data } = await apiInstance.post(`/members/check-username`, request);
     return data;
@@ -179,6 +183,14 @@ export const useSuspenseGetSearchNickname = (
   return useSuspenseQuery<SearchNicknameResponse>({
     queryKey: getQueryKey('searchNickname', { nickname }),
     queryFn: () => (nickname ? MEMBER_API.searchNickname(nickname) : []),
+    ...option,
+  });
+};
+
+export const useGetMembersById = (id: number, option?: UseQueryOptions<MemberMeResponse>) => {
+  return useQuery({
+    queryKey: getQueryKey('member', { id }),
+    queryFn: () => MEMBER_API.getMembersById(id),
     ...option,
   });
 };

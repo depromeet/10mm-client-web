@@ -1,29 +1,35 @@
+import Link from 'next/link';
 import { useFollowMissions } from '@/apis/follow';
 import Banner from '@/components/Banner/Banner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { ROUTER } from '@/constants/router';
 import { gradientTextCss } from '@/constants/style/gradient';
-import { getLevel } from '@/utils/result';
+import { calcProgress, getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
 interface FollowSummaryProps {
   followId: number;
+  followNickname: string;
 }
 
-function FollowSummary({ followId }: FollowSummaryProps) {
+function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
   const { data } = useFollowMissions(followId);
   const symbolStack = data?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
+  const progress = calcProgress(symbolStack);
 
   return (
     <div>
       <div className={followSummaryTitleCss}>
         <Thumbnail size={'h36'} />
-        <p className={followSummaryTextCss}>
-          당근조이 <Icon name={'arrow-forward'} size={12} />
-        </p>
+        <Link href={ROUTER.PROFILE.DETAIL(followId)}>
+          <p className={followSummaryTextCss}>
+            {followNickname} <Icon name={'arrow-forward'} size={12} />
+          </p>
+        </Link>
       </div>
       <div className={followBannerCss}>
         <Banner type={'graphic'} imageUrl={'/assets/level/1.png'} />
@@ -33,7 +39,7 @@ function FollowSummary({ followId }: FollowSummaryProps) {
             <span className={cx(levelLabelCss, gradientTextCss)}>{symbolStack}</span>
           </div>
           <p className={LevelNameCss}>{currentLevel.label}</p>
-          <LevelProgressBar current={50} isLabel={false} backgroundColor={'purple.purple500'} />
+          <LevelProgressBar current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
         </div>
       </div>
     </div>
