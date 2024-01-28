@@ -35,7 +35,7 @@ function ProfileContent({
           <div>
             <p className={userNameCss}>{nickname}</p>
             <span className={followerTabCss}>
-              팔로잉 {followerCount} &nbsp; 팔로워 {followingCount}
+              팔로잉 {followingCount} &nbsp; 팔로워 {followerCount}
             </span>
           </div>
           {rightElement}
