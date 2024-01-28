@@ -1,3 +1,4 @@
+import Button from '@/components/Button/Button';
 import ProfileListItem from '@/components/ListItem/ProfileListItem';
 import { css } from '@/styled-system/css';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -20,10 +21,6 @@ const meta = {
     name: '수미칩',
     variant: 'one-button',
   },
-  argTypes: {
-    onButtonClick: { table: { disable: true } },
-    onSubButtonClick: { table: { disable: true } },
-  },
   decorators: [
     (Story) => (
       <div className={containerCss}>
@@ -40,12 +37,22 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     name: '수미칩',
+    buttonElement: (
+      <Button size="small" variant="primary">
+        팔로우
+      </Button>
+    ),
   },
 };
 
 export const Long: Story = {
   args: {
     name: '수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩',
+    buttonElement: (
+      <Button size="small" variant="primary">
+        팔로우
+      </Button>
+    ),
   },
 };
 
@@ -53,6 +60,12 @@ export const TwoButton: Story = {
   args: {
     name: '수미칩',
     variant: 'two-button',
+    buttonElement: (
+      <Button size="small" variant="primary">
+        팔로우
+      </Button>
+    ),
+    subElement: <span>팔로우</span>,
   },
 };
 
@@ -60,6 +73,12 @@ export const TwoButtonLong: Story = {
   args: {
     name: '수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩수미칩',
     variant: 'two-button',
+    buttonElement: (
+      <Button size="small" variant="primary">
+        팔로우
+      </Button>
+    ),
+    subElement: <span>팔로우</span>,
   },
 };
 

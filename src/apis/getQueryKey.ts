@@ -21,6 +21,9 @@ type QueryList = {
   followMembers: undefined;
 
   memberSocial: undefined;
+  searchNickname: {
+    nickname: string;
+  };
 };
 
 /**
