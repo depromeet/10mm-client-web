@@ -76,7 +76,7 @@ export default function GuestMissionStopwatchPage() {
         <Stopwatch
           minutes={minutes}
           seconds={seconds}
-          category={category}
+          missionName={category}
           stepper={stepper}
           isProgress={step === 'progress'}
           isDisabled={step === 'stop'}

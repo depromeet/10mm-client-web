@@ -34,6 +34,7 @@ export default function StopwatchPage() {
 
   const { data: missionData } = useGetMissionDetailNoSuspense(missionId);
   const category = missionData?.category ? MISSION_CATEGORY_LABEL[missionData?.category].label : '';
+  const missionName = missionData?.name ?? '';
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
   const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step, missionId);
@@ -203,7 +204,7 @@ export default function StopwatchPage() {
           <Stopwatch
             minutes={minutes}
             seconds={seconds}
-            category={category}
+            missionName={missionName}
             stepper={stepper}
             isProgress={step === 'progress'}
             isDisabled={step === 'stop'}

@@ -5,14 +5,13 @@ import { css } from '@/styled-system/css';
 interface Props {
   minutes: string;
   seconds: string;
-  category: string;
   stepper: number;
-
+  missionName: string;
   isDisabled: boolean;
   isProgress: boolean;
 }
 
-function Stopwatch({ minutes, seconds, category, stepper, isDisabled, isProgress }: Props) {
+function Stopwatch({ minutes, seconds, missionName, stepper, isDisabled, isProgress }: Props) {
   return (
     <div className={containerCss}>
       <div
@@ -42,9 +41,9 @@ function Stopwatch({ minutes, seconds, category, stepper, isDisabled, isProgress
           className={css(categoryCss, ellipsis, {
             color: isDisabled ? 'text.tertiary' : 'purple.purple800',
           })}
-          key={category}
+          key={missionName}
         >
-          {category}
+          {missionName}
         </p>
         <div
           className={css(timeTextCss, {
