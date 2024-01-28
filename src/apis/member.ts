@@ -78,13 +78,6 @@ const MEMBER_API = {
   },
 };
 
-export const useCheckUsername = (option?: UseMutationOptions<unknown, unknown, CheckUsernameRequest>) => {
-  return useMutation({
-    mutationFn: MEMBER_API.checkUsername,
-    ...option,
-  });
-};
-
 export const useCheckNickname = (option?: UseMutationOptions<unknown, unknown, CheckNicknameRequest>) => {
   return useMutation({
     mutationFn: MEMBER_API.checkNickname,
