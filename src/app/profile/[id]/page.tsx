@@ -3,10 +3,9 @@
 import { FollowStatus, useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById } from '@/apis/member';
 import ProfileMissionList from '@/app/mypage/MyProfileMissionList';
+import FollowButton from '@/app/profile/[id]/FollowButton';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import BottomDim from '@/components/BottomDim/BottomDim';
-import Button from '@/components/Button/Button';
-import GradientTextButton from '@/components/Button/GradientTextButton';
 import Header from '@/components/Header/Header';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
@@ -23,7 +22,12 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
         followerCount={followCountData?.followerCount || 0}
         profileImageUrl={data?.profileImageUrl || null}
         symbolStack={0}
-        rightElement={FollowButton[followCountData?.followStatus || FollowStatus.NOT_FOLLOWING]}
+        rightElement={
+          <FollowButton
+            followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}
+            memberId={Number(params.id)}
+          />
+        }
       >
         <div className={tabWrapper}>
           <Tab tabs={tabs} activeTab={'mission-list'} />
@@ -37,25 +41,6 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
 }
 
 export default FollowProfilePage;
-
-const followingButtonCss = css({
-  border: '1px solid',
-  borderColor: 'gray.gray500',
-  borderRadius: '20px',
-  backgroundColor: 'transparent',
-  color: 'gray.gray800',
-  fontSize: '13px',
-});
-
-const FollowButton = {
-  [FollowStatus.FOLLOWED_BY_ME]: <GradientTextButton>맞팔로우</GradientTextButton>,
-  [FollowStatus.FOLLOWING]: (
-    <Button variant="primary" size={'small'} className={followingButtonCss}>
-      팔로잉
-    </Button>
-  ),
-  [FollowStatus.NOT_FOLLOWING]: <GradientTextButton>팔로우</GradientTextButton>,
-};
 
 const tabs = [
   {

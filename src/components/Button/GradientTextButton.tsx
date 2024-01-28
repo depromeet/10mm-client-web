@@ -12,6 +12,7 @@ function GradientTextButton({ children, ...props }: PropsWithChildren<ButtonHTML
           justifyContent: 'center',
           borderRadius: '20px',
           cursor: 'pointer',
+          height: '34px',
         }),
         gradientBorderWrapperCss(),
       )}
@@ -21,6 +22,7 @@ function GradientTextButton({ children, ...props }: PropsWithChildren<ButtonHTML
       <span
         className={cx(
           css({
+            textStyle: 'subtitle5',
             fontSize: '13px',
             fontWeight: 300,
             lineHeight: '18px',
