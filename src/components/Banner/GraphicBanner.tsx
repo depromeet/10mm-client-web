@@ -1,22 +1,22 @@
 import Image from 'next/image';
 import { type GraphicBannerType } from '@/components/Banner/Banner.types';
-import { css } from '@/styled-system/css';
+import { center } from '@/styled-system/patterns';
 
 function GraphicBanner(props: GraphicBannerType) {
   return (
     <div className={containerCss}>
-      <Image src={props.imageUrl} alt="graphicBanner" fill />
+      <Image src={props.imageUrl} alt="graphicBanner" width={160} height={120} />
     </div>
   );
 }
 
 export default GraphicBanner;
 
-const containerCss = css({
+const containerCss = center({
   borderRadius: '22px',
-  border: '0.25px solid #5C5977',
-  background: 'linear-gradient(136deg, rgba(168, 227, 240, 0.02) 15.95%, rgba(143, 169, 255, 0.02) 85.07%)',
-  boxShadow: '-10px 0px 100px 4px rgba(90, 78, 122, 0.20) inset',
+  border: '1px solid #393C4C',
+  background: 'rgba(168, 197, 240, 0.02)',
+  boxShadow: '0px 10px 100px 4px rgba(78, 80, 122, 0.20) inset',
   position: 'relative',
   width: '100%',
   height: '120px',
@@ -25,5 +25,6 @@ const containerCss = css({
   '& img': {
     objectFit: 'contain',
     height: '100%',
+    flex: 0,
   },
 });

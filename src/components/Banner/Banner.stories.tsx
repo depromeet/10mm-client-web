@@ -50,12 +50,13 @@ export const CardBanner: Story = {
     type: 'card',
     title: '수미칩은 맛있다',
     description: '난 최고야 ',
-    iconUrl: '/assets/icons/clock.png',
+    iconUrl: '/assets/icons/graph/clock.png',
   },
   argTypes: {
     imageUrl: { table: { disable: true } },
     date: { table: { disable: true } },
   },
+  decorators: [(Story) => <div style={{ maxWidth: '167px' }}>{<Story />}</div>],
 };
 
 export const GraphicBanner: Story = {
@@ -67,4 +68,5 @@ export const GraphicBanner: Story = {
     imageUrl: { table: { disable: true } },
     date: { table: { disable: true } },
   },
+  decorators: [(Story) => <div style={{ maxWidth: '235px' }}>{<Story />}</div>],
 };
