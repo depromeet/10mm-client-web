@@ -1831,6 +1831,10 @@ const tokens = {
     "value": "linear-gradient(91deg, #F7C1D8 0%, #DDD5FA 48%, #97CDF4 100%)",
     "variable": "var(--colors-gradients-medium)"
   },
+  "colors.gradients.stroke": {
+    "value": "linear-gradient(0deg, #777E9800 0%, #D5DCFF 100%)",
+    "variable": "var(--colors-gradients-stroke)"
+  },
   "breakpoints.sm": {
     "value": "640px",
     "variable": "var(--breakpoints-sm)"
@@ -2250,6 +2254,10 @@ const tokens = {
   "colors.colorPalette.medium": {
     "value": "var(--colors-color-palette-medium)",
     "variable": "var(--colors-color-palette-medium)"
+  },
+  "colors.colorPalette.stroke": {
+    "value": "var(--colors-color-palette-stroke)",
+    "variable": "var(--colors-color-palette-stroke)"
   },
   "colors.colorPalette.surface1": {
     "value": "var(--colors-color-palette-surface1)",

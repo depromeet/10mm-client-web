@@ -1,44 +1,9 @@
 @layer reset, base, tokens, recipes, utilities;
 
-/* 아래 폰트들은 safari에서의 대응을 위한 css 변수 등록을 위한 코드 입니다 */
-@font-face {
-  font-family: 'Pretendard';
-  font-weight: 400;
-  font-display: swap;
-  src:
-    local('Pretendard'),
-    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  font-weight: 500;
-  font-display: swap;
-  src:
-    local('Pretendard'),
-    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  font-weight: 600;
-  font-display: swap;
-  src:
-    local('Pretendard'),
-    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  font-weight: 700;
-  font-display: swap;
-  src:
-    local('Pretendard'),
-    url('../assets/fonts/PretendardVariable.woff2') format('woff2');
-}
-
 :root {
-  --pretendard: 'Pretendard', sans-serif;
+  --pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 html {
@@ -58,4 +23,15 @@ button {
   &:disabled {
     pointer-events: none;
   }
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* 버튼 클릭시 나오는 하이라이트 제거 */
+  -webkit-touch-callout: none; /* 링크를 오래 눌렀을때 액션 막기*/
+  -webkit-user-select: none; /* 글자들 선택 안되게 막기 */
+  -khtml-user-select: none; /* 글자들 선택 안되게 막기 */
+  -moz-user-select: none; /* 글자들 선택 안되게 막기 */
+  -ms-user-select: none; /* 글자들 선택 안되게 막기 */
+  user-select: none; /* 글자들 선택 안되게 막기 */
+  -webkit-user-drag: none; /* 이미지, 글자 drag 막기*/
 }
