@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Icon from '@/components/Icon';
-import { LEVEL_SYSTEM } from '@/constants/level';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
 
@@ -29,10 +28,9 @@ export default ListLevelBanner;
 const levelBannerCss = css({
   display: 'flex',
   flexDirection: 'row',
-  padding: '12px 16px',
+  padding: '12px 16px 12px 8px',
   alignItems: 'center',
   marginTop: '20px',
-  gap: '8px',
   borderRadius: '20px',
   background: 'linear-gradient(93deg, rgba(28, 29, 33, 0.80) 0.82%, rgba(24, 25, 33, 0.80) 99.97%)',
   boxShadow: '0px 5px 50px 4px rgba(78, 85, 122, 0.50) inset, 0px 4px 20px 0px rgba(16, 15, 23, 0.20)',
@@ -41,9 +39,10 @@ const levelBannerCss = css({
 
 const imageCss = css({
   flexShrink: '0',
-  width: '36px',
-  height: '36px',
+  width: '53.333px',
+  height: '40px',
   objectFit: 'contain',
+  marginRight: '2px',
 });
 
 const levelCss = css({
