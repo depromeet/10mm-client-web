@@ -16,7 +16,8 @@ type QueryList = {
   };
 
   member: {
-    me: undefined;
+    me?: undefined;
+    id?: number;
   };
   followMembers: undefined;
   followsCountMe: undefined;

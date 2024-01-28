@@ -55,6 +55,10 @@ const MEMBER_API = {
     const { data } = await apiInstance.get(`/members/me`);
     return data;
   },
+  getMembersById: async (id: number): Promise<MemberMeResponse> => {
+    const { data } = await apiInstance.get(`/members/${id}`);
+    return data;
+  },
   checkUsername: async (request: CheckUsernameRequest) => {
     const { data } = await apiInstance.post(`/members/check-username`, request);
     return data;
@@ -145,6 +149,14 @@ export const useGetSocialLoginInfo = (option?: UseQueryOptions<SocialLoginInfoRe
   return useQuery({
     queryKey: getQueryKey('memberSocial'),
     queryFn: () => MEMBER_API.getSocialLoginInfo(),
+    ...option,
+  });
+};
+
+export const useGetMembersById = (id: number, option?: UseQueryOptions<MemberMeResponse>) => {
+  return useQuery({
+    queryKey: getQueryKey('member', { id }),
+    queryFn: () => MEMBER_API.getMembersById(id),
     ...option,
   });
 };

@@ -20,6 +20,12 @@ interface GetFollowMissionsResponse {
 interface FollowsResponse {
   followingCount: number;
   followerCount: number;
+  followStatus: FollowStatus;
+}
+export enum FollowStatus {
+  FOLLOWING = 'FOLLOWING',
+  FOLLOWED_BY_ME = 'FOLLOWED_BY_ME',
+  NOT_FOLLOWING = 'NOT_FOLLOWING',
 }
 
 const FOLLOW_APIS = {
