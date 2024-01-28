@@ -1,11 +1,13 @@
 'use client';
 
 import { Suspense, useState } from 'react';
+import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
 import FollowerItem from '@/components/ListItem/Follow/FollowerItem';
 import FollowingItem from '@/components/ListItem/Follow/FollowingItem';
 import { ProfileItemSkeleton } from '@/components/ListItem/ProfileListItem';
 import SearchBar from '@/components/SearchBar/SearchBar';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 
 function SearchPage() {
@@ -46,10 +48,14 @@ function List({ nickname }: { nickname: string }) {
           memberId: item.memberId,
           onButtonClick,
         };
-        return item.followStatus === 'FOLLOWING' ? (
-          <FollowingItem key={item.memberId} {...params} />
-        ) : (
-          <FollowerItem key={item.memberId} followStatus={item.followStatus} {...params} />
+        return (
+          <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+            {item.followStatus === 'FOLLOWING' ? (
+              <FollowingItem {...params} />
+            ) : (
+              <FollowerItem followStatus={item.followStatus} {...params} />
+            )}
+          </Link>
         );
       })}
     </ul>

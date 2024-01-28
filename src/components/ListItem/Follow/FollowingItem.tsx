@@ -1,4 +1,4 @@
-import { type ComponentProps } from 'react';
+import { type ComponentProps, type MouseEventHandler } from 'react';
 import { FOLLOW_API } from '@/apis/follow';
 import Button from '@/components/Button/Button';
 import { ProfileListItem } from '@/components/ListItem';
@@ -12,7 +12,9 @@ interface Props extends Omit<ComponentProps<typeof ProfileListItem>, 'buttonElem
 function FollowingItem(props: Props) {
   const { triggerSnackBar } = useSnackBar();
 
-  const onFollowerClick = async () => {
+  const onFollowerClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+
     try {
       await FOLLOW_API.deleteFollow(props.memberId);
       props.onButtonClick?.();

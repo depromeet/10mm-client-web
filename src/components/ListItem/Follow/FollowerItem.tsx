@@ -1,4 +1,4 @@
-import { type ComponentProps } from 'react';
+import { type ComponentProps, type MouseEventHandler } from 'react';
 import { FOLLOW_API } from '@/apis/follow';
 import { isSeverError } from '@/apis/instance.api';
 import { type FollowStatusType } from '@/apis/schema/member';
@@ -15,12 +15,13 @@ interface Props extends Omit<ComponentProps<typeof ProfileListItem>, 'buttonElem
 function FollowerItem(props: Props) {
   const { triggerSnackBar } = useSnackBar();
 
-  const onFollowerClick = async () => {
+  const onFollowerClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+
     try {
       await FOLLOW_API.addFollow(props.memberId);
       props.onButtonClick?.();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error) {
       if (isSeverError(error)) {
         triggerSnackBar({
           message: error.response.data.data.message,
