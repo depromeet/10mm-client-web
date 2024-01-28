@@ -64,7 +64,7 @@ export function MissionFollowListInner({ followId }: { followId: number }) {
       {data.followMissions.map((item) => {
         const status = item.missionStatus;
 
-        const moveHref = ROUTER.MISSION.DETAIL(item.missionId.toString());
+        const moveHref = ROUTER.MISSION.FOLLOW(item.missionId.toString());
         return (
           <Link href={moveHref} key={item.missionId}>
             <TwoLineListItem

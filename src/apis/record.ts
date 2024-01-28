@@ -90,6 +90,7 @@ export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<
   return useQuery({
     queryKey: getQueryKey('record', params),
     queryFn: () => RECORD_API.getRecords(params),
+    enabled: !!params.missionId && !!params.yearMonth,
     ...option,
   });
 };

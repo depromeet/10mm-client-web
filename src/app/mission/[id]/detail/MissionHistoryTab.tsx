@@ -5,7 +5,7 @@ import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBan
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import { css } from '@styled-system/css';
 
-function MissionHistoryTab() {
+function MissionHistoryTab({ isFollow }: { isFollow?: boolean }) {
   const { id } = useParams();
   const missionId = id as string;
   const currentDate = new Date();
@@ -17,7 +17,7 @@ function MissionHistoryTab() {
           {missionId && <MissionHistoryBannerApi missionId={missionId} />}
         </Suspense>
         <Suspense>
-          <MissionCalendar currentDate={currentDate} missionId={Number(missionId)} />
+          <MissionCalendar isFollow={isFollow} currentDate={currentDate} missionId={Number(missionId)} />
         </Suspense>
       </div>
     </div>
