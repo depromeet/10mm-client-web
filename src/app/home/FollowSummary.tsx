@@ -4,6 +4,7 @@ import Banner from '@/components/Banner/Banner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { LEVEL_SYSTEM } from '@/constants/level';
 import { ROUTER } from '@/constants/router';
 import { gradientTextCss } from '@/constants/style/gradient';
 import { calcProgress, getLevel } from '@/utils/result';
@@ -32,7 +33,7 @@ function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
         </Link>
       </div>
       <div className={followBannerCss}>
-        <Banner type={'graphic'} imageUrl={'/assets/level/1.png'} />
+        <Banner type={'graphic'} imageUrl={currentLevel.imageUrl} />
         <div className={followLevelInfoCss}>
           <div className={levelWrapperCss}>
             <Icon name={'10mm-symbol-circle'} size={20} />
