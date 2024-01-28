@@ -191,7 +191,7 @@ export default function StopwatchPage() {
       <div className={containerCss}>
         <section key={step} className={opacityAnimation}>
           <h1 className={cx(titleCss)}>{stepLabel.title}</h1>
-          <p className={cx(descCss)}>
+          <p className={descCss}>
             {stepLabel.desc.split('\n').map((text) => (
               <Fragment key={text}>
                 {text}
@@ -200,7 +200,7 @@ export default function StopwatchPage() {
             ))}
           </p>
         </section>
-        <section className={cx(stopwatchCss, opacityAnimation)}>
+        <section className={opacityAnimation}>
           <Stopwatch
             minutes={minutes}
             seconds={seconds}
@@ -281,14 +281,6 @@ const descCss = css({
   marginTop: '8px',
   marginBottom: '76px',
   minHeight: '40px',
-});
-
-const stopwatchCss = css({
-  width: 'fit-content',
-  margin: '0 auto',
-  overflow: 'hidden',
-  maxWidth: '100vw',
-  padding: '4px', // small circle 잘리지 않게
 });
 
 const buttonContainerCss = css({

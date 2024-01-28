@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Banner from '@/components/Banner/Banner';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
-import { getLevel } from '@/utils/result';
 import { css } from '@styled-system/css';
 
 interface ProfileContentProps {
@@ -24,7 +23,6 @@ function ProfileContent({
   rightElement,
   children,
 }: PropsWithChildren<ProfileContentProps>) {
-  const currentLevel = getLevel(symbolStack);
   return (
     <div className={containerCss}>
       <section className={myTabContainerCss}>
@@ -41,13 +39,7 @@ function ProfileContent({
           {rightElement}
         </div>
         <Link href={ROUTER.LEVEL.GUIDE}>
-          <Banner
-            type="level"
-            amount={symbolStack}
-            iconName="alarm"
-            level={currentLevel.label}
-            imageUrl={currentLevel.imageUrl}
-          />
+          <Banner type="level" symbolStack={symbolStack} />
         </Link>
         {children}
         <div className={spaceCss} />
