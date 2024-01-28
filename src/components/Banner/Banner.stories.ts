@@ -41,7 +41,7 @@ export const ListBannerDate: Story = {
 export const ListLevelBanner: Story = {
   args: {
     type: 'level',
-    amount: 11,
+    symbolStack: 11,
   },
   argTypes: {},
 };

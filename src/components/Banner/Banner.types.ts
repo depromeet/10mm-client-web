@@ -23,7 +23,7 @@ export interface GraphicBannerType extends BaseBannerType {
 }
 export interface LevelBannerType extends BaseBannerType {
   type: 'level';
-  amount: number;
+  symbolStack: number;
 }
 
 export type BannerType = ListBannerType | CardBannerType | GraphicBannerType | LevelBannerType;
