@@ -12,7 +12,7 @@ function GradientTextButton({ children, ...props }: PropsWithChildren<ButtonHTML
           justifyContent: 'center',
           borderRadius: '20px',
           cursor: 'pointer',
-          height: '34px',
+          height: '30px',
         }),
         gradientBorderWrapperCss(),
       )}

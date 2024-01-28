@@ -6,7 +6,7 @@ import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionSummary } from '@/apis/mission';
 import MyProfileMissionList from '@/app/mypage/MyProfileMissionList';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
-import Badge from '@/components/Badge/Badge';
+import Button from '@/components/Button/Button';
 import Tab from '@/components/Tab/Tab';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -33,7 +33,9 @@ export default function MyProfile() {
       followingCount={followCountData?.followingCount || 0}
       rightElement={
         <Link href={ROUTER.MYPAGE.PROFILE_MODIFY}>
-          <Badge color="gray">프로필 수정</Badge>
+          <Button className={profileEditButtonCss} color="gray">
+            프로필 수정
+          </Button>
         </Link>
       }
     >
@@ -48,4 +50,18 @@ export default function MyProfile() {
 const tabWrapper = css({
   margin: '20px 0',
   padding: '16px 16px 0 16px',
+});
+
+const profileEditButtonCss = css({
+  border: '1px solid',
+  borderColor: 'gray.gray500',
+  borderRadius: '20px',
+  backgroundColor: 'transparent',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'gray.gray800',
+  height: '30px',
+  padding: '6px 12px',
+  fontSize: '13px',
 });
