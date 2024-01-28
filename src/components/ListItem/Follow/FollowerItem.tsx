@@ -1,5 +1,6 @@
 import { type ComponentProps } from 'react';
 import { FOLLOW_API } from '@/apis/follow';
+import { isSeverError } from '@/apis/instance.api';
 import { type FollowStatusType } from '@/apis/schema/member';
 import Button from '@/components/Button/Button';
 import { ProfileListItem } from '@/components/ListItem';
@@ -20,9 +21,11 @@ function FollowerItem(props: Props) {
       props.onButtonClick?.();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      triggerSnackBar({
-        message: error.response.data.data.message,
-      });
+      if (isSeverError(error)) {
+        triggerSnackBar({
+          message: error.response.data.data.message,
+        });
+      }
     }
   };
 

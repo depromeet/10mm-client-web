@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionSummary } from '@/apis/mission';
+import MyProfileMissionList from '@/app/mypage/MyProfileMissionList';
 import Badge from '@/components/Badge/Badge';
 import Banner from '@/components/Banner/Banner';
 import Tab from '@/components/Tab/Tab';
@@ -8,8 +9,6 @@ import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
-
-import MissionList from './MissionList';
 
 const tabs = [
   {
@@ -54,7 +53,7 @@ export default function MyProfile() {
         <div className={tabWrapper}>
           <Tab tabs={tabs} activeTab={'mission-list'} />
         </div>
-        <MissionList />
+        <MyProfileMissionList />
         <div className={spaceCss} />
       </section>
     </div>

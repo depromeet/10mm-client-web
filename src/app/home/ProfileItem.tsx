@@ -3,8 +3,8 @@ import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cx } from '@styled-system/css';
 
 function ProfileItem(props: {
-  id: number | null;
   name: string;
+  id: number | null;
   onClick: (id: number | null) => void;
   selected?: boolean;
   url?: string;
