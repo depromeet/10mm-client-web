@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useFollowMissions } from '@/apis/follow';
 import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
-import MissionEmptyList from '@/app/home/MissionEmptyList';
+import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
@@ -15,7 +15,7 @@ interface FollowMissionListProps {
 
 function FollowMissionList({ followId }: FollowMissionListProps) {
   return (
-    <div className={containerCss}>
+    <div>
       <h2 className={headingCss}>
         <span>미션 목록</span>
       </h2>
@@ -34,7 +34,15 @@ const headingCss = flex({
   color: 'text.primary',
 });
 
-const containerCss = css({});
+const containerCss = css({
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  padding: '60px 0',
+});
 
 const listCss = flex({
   flexDirection: 'column',
@@ -54,7 +62,7 @@ export function MissionFollowListInner({ followId }: { followId: number }) {
   if (!data || data.followMissions.length === 0) {
     return (
       <div className={containerCss}>
-        <MissionEmptyList />
+        <Empty type="notice" title={'아직 등록된 미션이 없어요.'} description={''} image={'docs'} />
       </div>
     );
   }

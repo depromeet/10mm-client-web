@@ -19,4 +19,4 @@ function MissionEmptyList() {
 
 export default MissionEmptyList;
 
-const containerCss = flex({ flex: 1, justifyContent: 'center', alignItems: 'center' });
+const containerCss = flex({ justifyContent: 'center', alignItems: 'center' });

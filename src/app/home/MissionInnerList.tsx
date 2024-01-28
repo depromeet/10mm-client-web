@@ -55,4 +55,5 @@ export default MissionListInner;
 
 const containerCss = css({
   height: '100%',
+  padding: '60px 0',
 });
