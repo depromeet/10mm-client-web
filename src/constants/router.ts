@@ -55,4 +55,7 @@ export const ROUTER = {
       STOP_WATCH: `/guest/mission/stopwatch`,
     },
   },
+  SEARCH: {
+    HOME: '/search',
+  },
 };

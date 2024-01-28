@@ -15,3 +15,5 @@ export interface MemberType {
   memberVisibility: string;
   username: string;
 }
+
+export type FollowStatusType = 'FOLLOWING' | 'FOLLOWED_BY_ME' | 'NOT_FOLLOWING';

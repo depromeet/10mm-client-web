@@ -1,6 +1,6 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
-import { type MemberType } from '@/apis/schema/member';
+import { type FollowStatusType, type MemberType } from '@/apis/schema/member';
 import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schema/upload';
 import {
   useMutation,
@@ -8,6 +8,7 @@ import {
   useQuery,
   useQueryClient,
   type UseQueryOptions,
+  useSuspenseQuery,
 } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -31,6 +32,13 @@ interface SocialLoginInfoResponse {
   provider: AUTH_PROVIDER;
   email: 'string';
 }
+
+type SearchNicknameResponse = {
+  memberId: number;
+  nickname: string;
+  profileImageUrl: string;
+  followStatus: FollowStatusType;
+}[];
 
 enum AUTH_PROVIDER {
   KAKAO = 'KAKAO',
@@ -78,6 +86,10 @@ const MEMBER_API = {
   },
   getSocialLoginInfo: async (): Promise<SocialLoginInfoResponse> => {
     const { data } = await apiInstance.get(`/members/me/social`);
+    return data;
+  },
+  searchNickname: async (nickname: string): Promise<SearchNicknameResponse> => {
+    const { data } = await apiInstance.get(`/members/search?nickname=${nickname}`);
     return data;
   },
 };
@@ -149,6 +161,28 @@ export const useGetSocialLoginInfo = (option?: UseQueryOptions<SocialLoginInfoRe
   return useQuery({
     queryKey: getQueryKey('memberSocial'),
     queryFn: () => MEMBER_API.getSocialLoginInfo(),
+    ...option,
+  });
+};
+
+export const useGetSearchNickname = (
+  nickname: string,
+  option?: Omit<UseQueryOptions<SearchNicknameResponse>, 'queryKey'>,
+) => {
+  return useQuery({
+    queryKey: getQueryKey('searchNickname', { nickname }),
+    queryFn: () => MEMBER_API.searchNickname(nickname),
+    ...option,
+  });
+};
+
+export const useSuspenseGetSearchNickname = (
+  nickname: string,
+  option?: Omit<UseQueryOptions<SearchNicknameResponse>, 'queryKey'>,
+) => {
+  return useSuspenseQuery<SearchNicknameResponse>({
+    queryKey: getQueryKey('searchNickname', { nickname }),
+    queryFn: () => (nickname ? MEMBER_API.searchNickname(nickname) : []),
     ...option,
   });
 };

@@ -21,7 +21,7 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
         nickname={data?.nickname || ''}
         followingCount={followCountData?.followingCount || 0}
         followerCount={followCountData?.followerCount || 0}
-        profileImageUrl={null}
+        profileImageUrl={data?.profileImageUrl || null}
         symbolStack={0}
         rightElement={FollowButton[followCountData?.followStatus || FollowStatus.NOT_FOLLOWING]}
       >

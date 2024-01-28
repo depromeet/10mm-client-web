@@ -1,6 +1,5 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
-import MISSION_APIS from '@/apis/mission';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
@@ -28,7 +27,7 @@ export enum FollowStatus {
   NOT_FOLLOWING = 'NOT_FOLLOWING',
 }
 
-const FOLLOW_APIS = {
+export const FOLLOW_API = {
   getFollowMembers: async (): Promise<GetFollowMembersResponse> => {
     const { data } = await apiInstance.get<GetFollowMembersResponse>('/follows/members');
     return data;
@@ -36,6 +35,14 @@ const FOLLOW_APIS = {
 
   getFollowMissions: async (followId: number): Promise<GetFollowMissionsResponse> => {
     const { data } = await apiInstance.get(`/missions/follow/${followId}`);
+    return data;
+  },
+  addFollow: async (targetId: number) => {
+    const { data } = await apiInstance.post(`/follows`, { targetId });
+    return data;
+  },
+  deleteFollow: async (targetId: number) => {
+    const { data } = await apiInstance.delete(`/follows`, { data: { targetId } });
     return data;
   },
   getFollowsMe: async (): Promise<FollowsResponse> => {
@@ -52,14 +59,14 @@ export const useFollowMembers = (options?: UseQueryOptions<GetFollowMembersRespo
   return useQuery<GetFollowMembersResponse>({
     ...options,
     queryKey: getQueryKey('followMembers'),
-    queryFn: FOLLOW_APIS.getFollowMembers,
+    queryFn: FOLLOW_API.getFollowMembers,
   });
 };
 
 export const useFollowMissions = (followId: number, option?: UseQueryOptions<GetFollowMissionsResponse>) => {
   return useQuery<GetFollowMissionsResponse>({
     queryKey: getQueryKey('followMissions', { followId }),
-    queryFn: () => FOLLOW_APIS.getFollowMissions(followId),
+    queryFn: () => FOLLOW_API.getFollowMissions(followId),
     ...option,
   });
 };
@@ -67,7 +74,7 @@ export const useFollowMissions = (followId: number, option?: UseQueryOptions<Get
 export const useFollowsCountMembers = (option?: UseQueryOptions<FollowsResponse>) => {
   return useQuery<FollowsResponse>({
     queryKey: getQueryKey('followsCountMe'),
-    queryFn: FOLLOW_APIS.getFollowsMe,
+    queryFn: FOLLOW_API.getFollowsMe,
     ...option,
   });
 };
@@ -75,7 +82,7 @@ export const useFollowsCountMembers = (option?: UseQueryOptions<FollowsResponse>
 export const useFollowsCountTargetId = (followId: number, option?: UseQueryOptions<FollowsResponse>) => {
   return useQuery<FollowsResponse>({
     queryKey: getQueryKey('followsCountTargetId', { followId }),
-    queryFn: () => FOLLOW_APIS.getFollowsTargetId(followId),
+    queryFn: () => FOLLOW_API.getFollowsTargetId(followId),
     ...option,
   });
 };
