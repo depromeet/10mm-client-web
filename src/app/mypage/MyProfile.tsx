@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useFollowsCountMembers } from '@/apis/follow';
 import { useGetMembersMe } from '@/apis/member';
-import { useGetMissionSummary } from '@/apis/mission';
+import { useGetMissionStack } from '@/apis/mission';
 import MyProfileMissionList from '@/app/mypage/MyProfileMissionList';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import Button from '@/components/Button/Button';
@@ -20,10 +20,11 @@ const tabs = [
 
 export default function MyProfile() {
   const { data } = useGetMembersMe();
-  const { data: missionSummaryData } = useGetMissionSummary();
-
-  const symbolStack = missionSummaryData?.symbolStack ?? 0;
+  const missionId = data?.memberId ?? 0;
+  const { data: symbolStackData } = useGetMissionStack(missionId.toString());
+  const symbolStack = symbolStackData?.symbolStack ?? 0;
   const { data: followCountData } = useFollowsCountMembers();
+
   return (
     <ProfileContent
       profileImageUrl={data?.profileImageUrl || null}

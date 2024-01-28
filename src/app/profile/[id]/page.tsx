@@ -2,6 +2,7 @@
 
 import { FollowStatus, useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById } from '@/apis/member';
+import { useGetMissionStack } from '@/apis/mission';
 import ProfileMissionList from '@/app/mypage/MyProfileMissionList';
 import FollowButton from '@/app/profile/[id]/FollowButton';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
@@ -13,6 +14,8 @@ import { css } from '@styled-system/css';
 function FollowProfilePage({ params }: { params: { id: string } }) {
   const { data: followCountData } = useFollowsCountTargetId(Number(params.id));
   const { data } = useGetMembersById(Number(params.id));
+  const { data: symbolStackData } = useGetMissionStack(params.id);
+
   return (
     <main className={backgroundCss}>
       <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
@@ -21,7 +24,7 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
         followingCount={followCountData?.followingCount || 0}
         followerCount={followCountData?.followerCount || 0}
         profileImageUrl={data?.profileImageUrl || null}
-        symbolStack={0}
+        symbolStack={symbolStackData?.symbolStack || 0}
         rightElement={
           <FollowButton
             followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}

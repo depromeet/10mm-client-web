@@ -57,6 +57,11 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get(`/missions/summary`);
     return data;
   },
+
+  getMissionStack: async (missionId: string): Promise<GetMissionStackResponse> => {
+    const { data } = await apiInstance.get(`/missions/symbol/${missionId}`);
+    return data;
+  },
 };
 
 export default MISSION_APIS;
@@ -138,12 +143,25 @@ interface GetMissionSummeryResponse {
   totalMissionAttainRate: number;
 }
 
+interface GetMissionStackResponse {
+  symbolStack: number;
+}
+
 const missionsSummeryQueryKey = ['missions-summery'];
 
 export const useGetMissionSummary = (option?: UseQueryOptions<GetMissionSummeryResponse>) => {
   return useQuery<GetMissionSummeryResponse>({
     queryKey: missionsSummeryQueryKey,
     queryFn: MISSION_APIS.getMissionSummery,
+    ...option,
+  });
+};
+
+export const useGetMissionStack = (missionId: string, option?: UseQueryOptions<GetMissionStackResponse>) => {
+  return useQuery<GetMissionStackResponse>({
+    queryKey: getQueryKey('missionStack', { missionId }),
+    queryFn: () => MISSION_APIS.getMissionStack(missionId),
+    enabled: Boolean(missionId),
     ...option,
   });
 };

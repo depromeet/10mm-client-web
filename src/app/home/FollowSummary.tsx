@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useFollowMissions } from '@/apis/follow';
+import { useGetMissionStack } from '@/apis/mission';
 import Banner from '@/components/Banner/Banner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
@@ -16,8 +16,8 @@ interface FollowSummaryProps {
 }
 
 function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
-  const { data } = useFollowMissions(followId);
-  const symbolStack = data?.symbolStack ?? 0;
+  const { data: stackData } = useGetMissionStack(followId.toString());
+  const symbolStack = stackData?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
   const progress = calcProgress(symbolStack);
 

@@ -28,6 +28,9 @@ type QueryList = {
   searchNickname: {
     nickname: string;
   };
+  missionStack: {
+    missionId: string;
+  };
 };
 
 /**
