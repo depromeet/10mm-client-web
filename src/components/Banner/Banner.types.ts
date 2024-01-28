@@ -1,5 +1,3 @@
-import { type IconComponentMap } from '@/components/Icon';
-
 interface BaseBannerType {
   type: 'list' | 'card' | 'graphic' | 'level';
 }
@@ -25,9 +23,6 @@ export interface GraphicBannerType extends BaseBannerType {
 }
 export interface LevelBannerType extends BaseBannerType {
   type: 'level';
-  level: string;
-  imageUrl: string;
-  iconName: keyof typeof IconComponentMap;
   amount: number;
 }
 

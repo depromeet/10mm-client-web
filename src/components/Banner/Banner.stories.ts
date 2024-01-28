@@ -38,7 +38,13 @@ export const ListBannerDate: Story = {
   },
   argTypes: {},
 };
-
+export const ListLevelBanner: Story = {
+  args: {
+    type: 'level',
+    amount: 11,
+  },
+  argTypes: {},
+};
 export const CardBanner: Story = {
   args: {
     type: 'card',
@@ -51,6 +57,7 @@ export const CardBanner: Story = {
     date: { table: { disable: true } },
   },
 };
+
 export const GraphicBanner: Story = {
   args: {
     type: 'graphic',
