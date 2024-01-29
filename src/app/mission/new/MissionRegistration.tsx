@@ -53,7 +53,7 @@ export default function MissionRegistration() {
     <section>
       <Input
         type="text"
-        placeholder="미션명을 입력하세요"
+        placeholder="미션명 입력"
         name="미션명"
         required
         maxLength={20}
@@ -62,7 +62,7 @@ export default function MissionRegistration() {
       />
       <Input
         type="text"
-        placeholder="미션 내용을 입력"
+        placeholder="미션 내용 입력"
         name="미션내용"
         maxLength={30}
         value={missionContentInput}
@@ -75,7 +75,7 @@ export default function MissionRegistration() {
         title="카테고리"
         required
         list={MISSION_CATEGORY_LIST}
-        placeholder="카테고리를 선택해주세요."
+        placeholder="카테고리 선택"
         selected={missionCategory}
         onSelect={(item) => setMissionCategory(item)}
       />
