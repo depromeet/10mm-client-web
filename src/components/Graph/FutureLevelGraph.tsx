@@ -11,7 +11,7 @@ function FutureLevelGraph(props: FutureLevelGraphType) {
       <Graph.Description>
         아직 10분 토큰이 부족해요.
         <br />
-        조금만 더 노력하면 {thisLevel.label}을 볼 수 있어요!
+        조금만 더 노력하면 {thisLevel.label}를 볼 수 있어요!
       </Graph.Description>
     </Graph>
   );

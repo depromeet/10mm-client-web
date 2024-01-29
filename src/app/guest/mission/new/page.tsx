@@ -64,15 +64,9 @@ export default function GuestMissionNewPage() {
                 />
               ))}
             </div>
-            {/* 
-           디자인과 다르지만 일단 아래와 같이 세팅하였습니다.
-           버튼 자체에 fixed박혀 있는것이 변경되어야 할것 같아요
-          */}
-            <div className={buttonWrapperCss}>
-              <Button variant={'cta'} size={'medium'} disabled={!selectedCategory} onClick={handleClick}>
-                다음
-              </Button>
-            </div>
+            <Button variant={'cta'} size={'medium'} disabled={!selectedCategory} onClick={handleClick}>
+              다음
+            </Button>
           </section>
         </div>
       </main>
@@ -117,8 +111,4 @@ const listCss = flex({
   width: '100%',
   flexDirection: 'column',
   gap: '6px',
-});
-
-const buttonWrapperCss = css({
-  marginTop: '48px',
 });

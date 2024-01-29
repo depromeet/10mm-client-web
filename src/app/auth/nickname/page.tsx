@@ -11,6 +11,7 @@ import { ROUTER } from '@/constants/router';
 import useNickname from '@/hooks/useNickname';
 import { css } from '@styled-system/css';
 
+// TODO : 강제 접근 안되도록 수정 필요
 export default function AuthNickNamePage() {
   const { nickname, handleNicknameChange, massageState, handleDuplicateCheck } = useNickname();
 
@@ -60,7 +61,7 @@ export default function AuthNickNamePage() {
           onTextButtonClick={handleDuplicateCheck}
         />
         <div className={buttonContainerCss}>
-          <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
+          <Button variant={'cta'} size={'large'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
             완료
           </Button>
         </div>
