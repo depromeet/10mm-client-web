@@ -3,26 +3,18 @@ import ProfileItem from '@/app/home/ProfileItem';
 import { type FollowDataState } from '@/app/page';
 
 interface UserProfileProps {
-  selectedData: FollowDataState;
+  selected: boolean;
   onClick: (props: FollowDataState) => void;
 }
 
-function UserProfile({ selectedData, onClick }: UserProfileProps) {
+function UserProfile({ selected, onClick }: UserProfileProps) {
   const { data } = useGetMembersMe();
 
   const onClickProfile = () => {
     onClick(null);
   };
 
-  return (
-    <ProfileItem
-      id={null}
-      name={'나'}
-      url={data?.profileImageUrl}
-      onClick={onClickProfile}
-      selected={selectedData === null}
-    />
-  );
+  return <ProfileItem id={null} name={'나'} url={data?.profileImageUrl} onClick={onClickProfile} selected={selected} />;
 }
 
 export default UserProfile;
