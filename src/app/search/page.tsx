@@ -46,6 +46,11 @@ function List({ nickname }: { nickname: string }) {
         const params = {
           name: item.nickname,
           memberId: item.memberId,
+          thumbnail: {
+            url: item.profileImageUrl,
+            alt: item.nickname,
+            variant: 'filled',
+          },
           onButtonClick,
         };
         return (
