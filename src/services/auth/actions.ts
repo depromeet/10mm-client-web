@@ -23,8 +23,9 @@ export async function getTokens() {
       refreshToken: null,
     };
   }
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
+
+  const accessToken = localStorage.getItem('accessToken') ?? process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+  const refreshToken = localStorage.getItem('refreshToken') ?? process.env.NEXT_PUBLIC_REFRESH_TOKEN;
 
   return {
     accessToken: accessToken ?? null,
