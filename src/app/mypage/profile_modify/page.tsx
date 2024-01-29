@@ -3,6 +3,7 @@
 import { type ChangeEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
+import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
@@ -72,7 +73,7 @@ function ProfileModifyPage() {
 
   const isImageUploadLoading = uploadProfileMutatePending || isPending;
 
-  const rightButtonDisabled = !validateProfileData({
+  const ButtonDisabled = !validateProfileData({
     isNicknameDiff: data?.nickname !== nickname,
     imageFile,
     isError: Boolean(massageState.errorMsg),
@@ -134,18 +135,16 @@ function ProfileModifyPage() {
   return (
     <div className={backgroundCss}>
       <Header
-        rightAction="text-button"
+        rightAction="none"
         title="프로필 수정"
         textColor={'text.primary'}
         iconColor={'icon.primary'}
         headerBgColor={'transparent'}
-        rightButtonProps={{ disabled: rightButtonDisabled, onClick: onSubmit }}
         onBackAction={openCancelModal}
       />
 
       <main className={mainCss}>
         <div className={dimCss} />
-
         {isImageUploadLoading && (
           <div className={loadingCss}>
             <LoadingSpinner />
@@ -181,12 +180,25 @@ function ProfileModifyPage() {
             validMsg={massageState.validMsg}
             onTextButtonClick={handleDuplicateCheck}
           />
+          <div className={buttonContainerCss}>
+            <Button variant={'cta'} size={'medium'} disabled={ButtonDisabled} onClick={onSubmit}>
+              저장
+            </Button>
+          </div>
         </section>
+
+        {/* onClick={handleSubmit} disabled={isSubmitButtonDisabled} */}
         <CancelDialog isOpen={isCancelModalOpen} onClose={closeCancelModal} onConfirm={onExit} />
       </main>
     </div>
   );
 }
+const buttonContainerCss = css({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  marginTop: '48px',
+  backgroundColor: 'bg.surface2',
+});
 
 export default ProfileModifyPage;
 
