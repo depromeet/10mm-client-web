@@ -186,8 +186,6 @@ function ProfileModifyPage() {
             </Button>
           </div>
         </section>
-
-        {/* onClick={handleSubmit} disabled={isSubmitButtonDisabled} */}
         <CancelDialog isOpen={isCancelModalOpen} onClose={closeCancelModal} onConfirm={onExit} />
       </main>
     </div>
