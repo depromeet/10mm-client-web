@@ -48,9 +48,6 @@ function MissionStartButton({ missionId, isCompeteMission }: { missionId: string
 
   return (
     <>
-      {/* <div className={bottomDimCss}> */}
-      {/* TODO : position fixed */}
-
       <Button
         size={'medium'}
         variant={'cta'}
@@ -61,7 +58,6 @@ function MissionStartButton({ missionId, isCompeteMission }: { missionId: string
         미션 시작하기
       </Button>
       <BottomDim />
-      {/* </div> */}
       <CheckProgressMissionDialog
         isOpen={isOpen}
         onClose={closeModal}
@@ -80,30 +76,11 @@ const buttonCss = css({
   left: '0 !',
   right: '0 !',
   margin: '0 auto',
-  // TODO : bottom dim 보다 높은 값
-  zIndex: '100',
+  zIndex: 'appBar',
 });
-
-// const bottomDimCss = css({
-//   position: 'fixed',
-//   bottom: 0,
-//   left: '50%',
-//   transform: 'translateX(-50%)',
-//   backgroundColor:
-//     'linear-gradient(180deg, rgba(24, 24, 29, 0.00) 0%, rgba(24, 24, 29, 0.09) 7.58%, rgba(24, 24, 29, 0.59) 34.59%, rgba(24, 24, 29, 0.69) 41.18%, rgba(24, 24, 29, 0.83) 51.39%, #18181D 63.25%)',
-//   width: '100%',
-//   maxWidth: 'maxWidth',
-//   height: '166px',
-//   display: 'flex',
-//   justifyContent: 'center',
-//   alignItems: 'flex-end',
-// });
 
 function CheckProgressMissionDialog({ onConfirm, ...props }: DialogProps) {
   const _onConfirm = () => {
-    // TODO: 진행중 미션 제거 , 새로운 미션 시작
-
-    // TODO : 인증 필요 미션 체크
     onConfirm();
   };
   return (
