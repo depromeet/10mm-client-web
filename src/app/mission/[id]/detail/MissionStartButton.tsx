@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import MISSION_APIS from '@/apis/mission';
 import RECORD_API from '@/apis/record';
 import { MissionStatus } from '@/apis/schema/mission';
+import BottomDim from '@/components/BottomDim/BottomDim';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import { ROUTER } from '@/constants/router';
@@ -47,17 +48,16 @@ function MissionStartButton({ missionId, isCompeteMission }: { missionId: string
 
   return (
     <>
-      <div className={bottomDimCss}>
-        <Button
-          size={'medium'}
-          variant={'cta'}
-          className={buttonCss}
-          onClick={checkMissionStart}
-          disabled={isButtonDisabled}
-        >
-          미션 시작하기
-        </Button>
-      </div>
+      <Button
+        size={'medium'}
+        variant={'cta'}
+        className={buttonCss}
+        onClick={checkMissionStart}
+        disabled={isButtonDisabled}
+      >
+        미션 시작하기
+      </Button>
+      <BottomDim />
       <CheckProgressMissionDialog
         isOpen={isOpen}
         onClose={closeModal}
@@ -73,30 +73,14 @@ function MissionStartButton({ missionId, isCompeteMission }: { missionId: string
 export default MissionStartButton;
 
 const buttonCss = css({
-  position: 'relative',
-  left: '0',
-});
-
-const bottomDimCss = css({
-  position: 'fixed',
-  bottom: 0,
-  left: '50%',
-  transform: 'translateX(-50%)',
-  backgroundColor:
-    'linear-gradient(180deg, rgba(24, 24, 29, 0.00) 0%, rgba(24, 24, 29, 0.09) 7.58%, rgba(24, 24, 29, 0.59) 34.59%, rgba(24, 24, 29, 0.69) 41.18%, rgba(24, 24, 29, 0.83) 51.39%, #18181D 63.25%)',
-  width: '100%',
-  maxWidth: 'maxWidth',
-  height: '166px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-end',
+  left: '0 !',
+  right: '0 !',
+  margin: '0 auto',
+  zIndex: 'appBar',
 });
 
 function CheckProgressMissionDialog({ onConfirm, ...props }: DialogProps) {
   const _onConfirm = () => {
-    // TODO: 진행중 미션 제거 , 새로운 미션 시작
-
-    // TODO : 인증 필요 미션 체크
     onConfirm();
   };
   return (
