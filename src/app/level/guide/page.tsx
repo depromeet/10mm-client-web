@@ -48,7 +48,6 @@ function LevelGuidePage() {
               {isLockedLevel ? (
                 <LockedCharacter size="lg" level={selectLevelInfo.level} />
               ) : (
-                // <Character width={202} height={151} level={selectLevelInfo.level} isLocked={isLockedLevel} />
                 <Character
                   width={240}
                   height={180}
