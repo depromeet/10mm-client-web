@@ -19,6 +19,7 @@ function IconHeader({ iconName = 'close', ...props }: IconHeaderType) {
 export default IconHeader;
 
 const iconWrapperCss = css({
-  padding: '12px',
+  padding: '10px',
   cursor: 'pointer',
+  marginRight: '8px',
 });
