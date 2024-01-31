@@ -6,7 +6,7 @@ function StopwatchContainer({ isPaused }: { isPaused?: boolean }) {
   });
   return (
     <div>
-      <div className={cx(positionCss, rotateLayerContainerCss)}>
+      <div className={cx(positionCss, rotateLayerContainerCss, 'rotate')}>
         <div className={cx(animationCss, smallCircleLayerCss)}>
           <div className={cx(smallCircleCss)} />
         </div>
@@ -33,20 +33,23 @@ const positionCss = css({
 });
 
 const rotateLayerContainerCss = css({
-  width: '312px',
-  height: '312px',
-  borderRadius: '312px',
+  width: '320px',
+  height: '320px',
   overflow: 'hidden',
-  padding: '4px',
-  boxSizing: 'content-box',
-  top: '-8px !',
+  padding: '8px',
+  // boxSizing: 'content-box',
+  bottom: '-4px !',
+  top: 'auto !',
+  right: 'auto !',
+  left: '-6px !',
+  borderRadius: '0 !',
 
   '& > div': {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    margin: 0,
+    bottom: '4px',
+    left: '4px',
+    right: '0',
+    margin: 'auto',
     width: '312px',
     height: '312px',
     borderRadius: '312px',

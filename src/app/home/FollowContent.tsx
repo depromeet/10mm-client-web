@@ -1,31 +1,41 @@
+import { useSearchParams } from 'next/navigation';
+import { useFollowMembers } from '@/apis/follow';
+import { type FollowMemberType } from '@/apis/schema/member';
 import FollowMissionList from '@/app/home/FollowMissionList';
 import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
-interface ProfileContentProps {
-  selectedFollowData: {
-    followId: number;
-    nickname: string;
-  } | null;
-}
+function FollowContent() {
+  const selectedFollowData = useGetSelectFollowData();
 
-function FollowContent({ selectedFollowData }: ProfileContentProps) {
   if (!selectedFollowData)
     return (
       <div className={containerCss}>
         <MissionList />
       </div>
     );
+
   return (
     <div className={containerCss}>
-      <FollowSummary followId={selectedFollowData.followId} followNickname={selectedFollowData.nickname} />
-      <FollowMissionList followId={selectedFollowData.followId} />
+      <FollowSummary {...selectedFollowData} />
+      <FollowMissionList followId={selectedFollowData.memberId} />
     </div>
   );
 }
 
 export default FollowContent;
+
+const useGetSelectFollowData = (): FollowMemberType | null => {
+  const { data } = useFollowMembers();
+  const searchParams = useSearchParams();
+
+  if (!searchParams.get('id')) return null;
+
+  const id = Number(searchParams.get('id'));
+  const selectedFollowData = data?.find((profile) => profile.memberId === id);
+  return selectedFollowData ?? null;
+};
 
 const containerCss = flex({
   flexDirection: 'column',

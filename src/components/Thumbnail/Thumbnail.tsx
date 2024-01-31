@@ -12,7 +12,7 @@ function Thumbnail({ url, ...props }: ThumbnailProps) {
     case 'dimed':
       return (
         <div className={thumbnailStyle(props)}>
-          <Image src={imageUrl} fill alt="thumbnail" />
+          <Image src={imageUrl} alt="thumbnail" width={80} height={80} />
         </div>
       );
     // TODO : null variant 삭제하기
@@ -20,7 +20,7 @@ function Thumbnail({ url, ...props }: ThumbnailProps) {
     default:
       return (
         <div className={thumbnailStyle(props)}>
-          <Image src={DEFAULT_THUMBNAIL_URL} fill alt="thumbnail" />
+          <Image src={DEFAULT_THUMBNAIL_URL} alt="thumbnail" width={80} height={80} />
         </div>
       );
   }
@@ -54,6 +54,11 @@ const thumbnailStyle = cva({
       h24: {
         width: '24px',
         height: '24px',
+        borderRadius: '10px',
+      },
+      h18: {
+        width: '18px',
+        height: '18px',
         borderRadius: '10px',
       },
     },

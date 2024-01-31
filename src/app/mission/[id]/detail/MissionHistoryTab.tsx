@@ -38,5 +38,5 @@ const missionHistoryTabCss = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
-  padding: '24px 16px 172px 16px',
+  padding: '24px 16px 192px 16px',
 });

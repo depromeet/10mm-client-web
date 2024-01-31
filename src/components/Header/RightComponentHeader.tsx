@@ -5,6 +5,7 @@ import { css } from '@/styled-system/css';
 import Button from '../Button/Button';
 import Icon from '../Icon';
 
+// 이거 여기에 있는 이유가?
 function RightComponentHeader({ rightButtonText = '완료', rightButtonProps, title }: TextButtonHeaderType) {
   const router = useRouter();
   const goBack = () => {

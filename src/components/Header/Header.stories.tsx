@@ -1,4 +1,5 @@
 import Header from '@/components/Header/Header';
+import IconComponent from '@/components/Icon';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -31,6 +32,22 @@ export const Icon: Story = {
   args: {
     title: '타이틀',
     rightAction: 'icon',
+  },
+};
+export const Custom: Story = {
+  args: {
+    title: '타이틀',
+    rightAction: 'custom',
+    rightElement: (
+      <div style={{ display: 'flex', marginRight: '8px' }}>
+        <div style={{ padding: '10px' }}>
+          <IconComponent name={'menu'} width={20} height={20} />
+        </div>
+        <div style={{ padding: '10px' }}>
+          <IconComponent name={'plus'} width={20} height={20} />
+        </div>
+      </div>
+    ),
   },
 };
 

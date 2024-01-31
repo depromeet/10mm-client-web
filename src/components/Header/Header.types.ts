@@ -5,7 +5,7 @@ import { type MenuBaseItem } from '@/components/Menu';
 import { type ColorToken } from '@styled-system/tokens';
 
 export interface HeaderBaseType {
-  rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu' | 'component';
+  rightAction: 'icon' | 'none' | 'text-button' | 'icon-menu' | 'component' | 'custom';
 
   title?: string;
   onBackAction?: () => void;
@@ -13,6 +13,7 @@ export interface HeaderBaseType {
   headerBgColor?: ColorToken;
   iconColor?: ColorToken;
   textColor?: ColorToken;
+  rightElement?: React.ReactNode;
 }
 
 export interface IconHeaderType extends HeaderBaseType {
@@ -38,4 +39,9 @@ export interface IconMenuHeaderType extends HeaderBaseType {
   onMenuClick: (id: string) => void;
 }
 
-export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType | IconMenuHeaderType;
+export interface CustomHeaderType extends HeaderBaseType {
+  rightAction: 'custom';
+  rightElement: React.ReactNode;
+}
+
+export type HeaderType = IconHeaderType | NoneHeaderType | TextButtonHeaderType | IconMenuHeaderType | CustomHeaderType;

@@ -19,10 +19,10 @@ function AppBarBottomView(props: Props) {
             <div
               onClick={() => props.onClick?.(item)}
               className={css(itemCss, {
-                color: isActive ? 'purple.purple800' : 'text.quaternary',
+                color: isActive ? 'purple.purple800' : 'purple.purple100',
               })}
             >
-              <Icon name={item.icon} color={isActive ? 'purple.purple800' : 'text.quaternary'} />
+              <Icon name={item.icon} color={isActive ? 'purple.purple800' : 'purple.purple100'} />
               <span>{item.name}</span>
             </div>
           </Link>
@@ -36,7 +36,6 @@ export default AppBarBottomView;
 
 const containerCss = flex({
   padding: '12px 16px 14px',
-  backgroundColor: 'rgba(42, 42, 51, 0.80)',
   backdropFilter: 'blur(20px)',
   width: 'fit-content',
   borderRadius: '24px',
@@ -46,6 +45,7 @@ const containerCss = flex({
   right: 0,
   margin: '16px auto',
   zIndex: 'appBar',
+  background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
 });
 
 const itemCss = {

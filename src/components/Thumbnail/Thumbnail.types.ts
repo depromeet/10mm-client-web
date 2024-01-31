@@ -1,4 +1,4 @@
-type ThumbnailSizeType = 'h52' | 'h36' | 'h80' | 'h24';
+type ThumbnailSizeType = 'h52' | 'h36' | 'h80' | 'h24' | 'h18';
 
 interface ThumbnailBaseProps {
   variant?: 'null' | 'dimed' | 'filled'; // default : null

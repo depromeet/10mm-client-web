@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useGetMissionStack } from '@/apis/mission';
+import { type FollowMemberType } from '@/apis/schema/member';
 import Banner from '@/components/Banner/Banner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
@@ -11,12 +12,9 @@ import { calcProgress, getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
-interface FollowSummaryProps {
-  followId: number;
-  followNickname: string;
-}
+type FollowSummaryProps = FollowMemberType;
 
-function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
+function FollowSummary({ memberId: followId, nickname: followNickname, profileImageUrl }: FollowSummaryProps) {
   const { data: stackData } = useGetMissionStack(followId.toString());
   const symbolStack = stackData?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
@@ -25,7 +23,7 @@ function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
   return (
     <div>
       <div className={followSummaryTitleCss}>
-        <Thumbnail size={'h36'} />
+        <Thumbnail size={'h18'} url={profileImageUrl} variant="filled" />
         <Link href={ROUTER.PROFILE.DETAIL(followId)}>
           <p className={followSummaryTextCss}>
             {followNickname} <Icon name={'arrow-forward'} size={12} />
@@ -40,7 +38,9 @@ function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
             <span className={cx(levelLabelCss, gradientTextCss)}>{symbolStack}</span>
           </div>
           <p className={LevelNameCss}>{currentLevel.label}</p>
-          <LevelProgressBar current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
+          <div className={levelProgressBarWrapperCss}>
+            <LevelProgressBar current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
+          </div>
         </div>
       </div>
     </div>
@@ -51,8 +51,11 @@ export default FollowSummary;
 
 const followLevelInfoCss = flex({
   flexDirection: 'column',
-  paddingRight: '24px',
   justifyContent: 'center',
+  width: '90px',
+  flex: 0,
+  minWidth: '90px',
+  maxWidth: '90px',
 });
 
 const LevelNameCss = css({
@@ -78,6 +81,7 @@ const followBannerCss = flex({
   gap: '24px',
   marginBottom: '20px',
 });
+
 const followSummaryTitleCss = flex({
   padding: '12px 4px',
   flexDirection: 'row',
@@ -91,4 +95,8 @@ const followSummaryTextCss = flex({
   flexDirection: 'row',
   alignItems: 'center',
   gap: '4px',
+});
+
+const levelProgressBarWrapperCss = css({
+  width: '70px',
 });
