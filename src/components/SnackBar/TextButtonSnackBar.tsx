@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Button from '@/components/Button/Button';
 import { snackBarWrapperCss } from '@/components/SnackBar/SnackBar.styles';
 import { type SnackBarTextButtonType } from '@/components/SnackBar/SnackBar.types';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
@@ -34,12 +33,17 @@ function TextButtonSnackBar({ onButtonClick, message, timerSecond, buttonText, i
         {timerSecond && <TimerText initSeconds={timerSecond} />}
       </div>
 
-      <Button variant="ghost" size="small" className={buttonCss} onClick={handleTextButtonClick}>
+      <button type={'button'} className={buttonCss} onClick={handleTextButtonClick}>
         {buttonText}
-      </Button>
+      </button>
     </div>
   );
 }
+
+const buttonCss = css({
+  textStyle: 'subtitle5',
+  color: 'purple.purple500',
+});
 
 const MIN_SECOND = 0;
 
@@ -72,11 +76,6 @@ const getTimerText = (timer?: number) => {
 };
 
 export default TextButtonSnackBar;
-
-const buttonCss = css({
-  padding: 0,
-  height: 'fit-content',
-});
 
 const textCss = css({
   display: 'flex',

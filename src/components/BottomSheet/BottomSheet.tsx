@@ -15,11 +15,16 @@ interface Props extends PropsWithChildren {
   headerElement: ReactNode;
   onClickOutside?: VoidFunction;
   isShowing: boolean;
+  isDraggable?: boolean;
 }
 
-function BottomSheet({ children, onClickOutside, isShowing, headerElement }: Props) {
+function BottomSheet({ children, isDraggable = false, onClickOutside, isShowing, headerElement }: Props) {
   return (
-    <SpringBottomSheet open={isShowing} className={css(bottomSheetCss)} onDismiss={onClickOutside}>
+    <SpringBottomSheet
+      open={isShowing}
+      className={css(bottomSheetCss, isDraggable ? {} : nonDraggableCss)}
+      onDismiss={onClickOutside}
+    >
       <div className={headerWrapperCss}>{headerElement}</div>
       <div className={contentCss}>{children}</div>
       <div className={safeAreaCss} />
@@ -30,6 +35,11 @@ function BottomSheet({ children, onClickOutside, isShowing, headerElement }: Pro
 
 export default BottomSheet;
 
+const nonDraggableCss = {
+  '& [data-rsbs-header]': {
+    display: 'none',
+  },
+};
 const contentCss = css({
   padding: '0 16px',
 });
@@ -70,7 +80,6 @@ const bottomSheetCss = {
   '--rsbs-mr': 'auto',
   '--rsbs-bg': '#212129',
   '--rsbs-overlay-rounded': '28px',
-
   '--rsbs-handle-bg': '#3C3D47',
 };
 
