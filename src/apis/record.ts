@@ -46,7 +46,11 @@ type GetRecordsParams = {
   yearMonth: string;
 };
 
-type GetRecordsResponse = RecordType[];
+interface GetRecordsResponse {
+  missionFinishedAt: string;
+  missionStartedAt: string;
+  missionRecords: RecordType[];
+}
 
 type GetRecordDetailResponse = RecordType & {
   sinceDay: number;
