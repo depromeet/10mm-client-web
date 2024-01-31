@@ -1,5 +1,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
+import { type FollowMemberType } from '@/apis/schema/member';
 import FollowMissionList from '@/app/home/FollowMissionList';
 import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
@@ -17,7 +18,7 @@ function FollowContent() {
 
   return (
     <div className={containerCss}>
-      <FollowSummary followId={selectedFollowData.memberId} followNickname={selectedFollowData.nickname} />
+      <FollowSummary {...selectedFollowData} />
       <FollowMissionList followId={selectedFollowData.memberId} />
     </div>
   );
@@ -25,7 +26,7 @@ function FollowContent() {
 
 export default FollowContent;
 
-const useGetSelectFollowData = () => {
+const useGetSelectFollowData = (): FollowMemberType | null => {
   const { data } = useFollowMembers();
   const searchParams = useSearchParams();
 
@@ -33,7 +34,7 @@ const useGetSelectFollowData = () => {
 
   const id = Number(searchParams.get('id'));
   const selectedFollowData = data?.find((profile) => profile.memberId === id);
-  return selectedFollowData;
+  return selectedFollowData ?? null;
 };
 
 const containerCss = flex({

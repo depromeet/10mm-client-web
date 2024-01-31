@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useGetMissionStack } from '@/apis/mission';
+import { type FollowMemberType } from '@/apis/schema/member';
 import Banner from '@/components/Banner/Banner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
@@ -11,12 +12,9 @@ import { calcProgress, getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
-interface FollowSummaryProps {
-  followId: number;
-  followNickname: string;
-}
+type FollowSummaryProps = FollowMemberType;
 
-function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
+function FollowSummary({ memberId: followId, nickname: followNickname, profileImageUrl }: FollowSummaryProps) {
   const { data: stackData } = useGetMissionStack(followId.toString());
   const symbolStack = stackData?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
@@ -25,7 +23,7 @@ function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
   return (
     <div>
       <div className={followSummaryTitleCss}>
-        <Thumbnail size={'h18'} />
+        <Thumbnail size={'h18'} url={profileImageUrl} variant="filled" />
         <Link href={ROUTER.PROFILE.DETAIL(followId)}>
           <p className={followSummaryTextCss}>
             {followNickname} <Icon name={'arrow-forward'} size={12} />
