@@ -9,7 +9,6 @@ function MissionHistoryBannerApi({ missionId }: { missionId: string }) {
   const description = data.content;
   const imageUrl = MISSION_CATEGORY_LABEL[data.category].imgUrl;
 
-  // TODO: 디자인 시스템으로 변경 필요
   return <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />;
 }
 
