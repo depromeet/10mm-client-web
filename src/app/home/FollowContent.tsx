@@ -6,17 +6,15 @@ import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
 function FollowContent() {
-  const { data } = useFollowMembers();
-  const searchParams = useSearchParams();
+  const selectedFollowData = useGetSelectFollowData();
 
-  const id = searchParams.get('id') ? Number(searchParams.get('id')) : null;
-  const selectedFollowData = data?.find((profile) => profile.memberId === id);
   if (!selectedFollowData)
     return (
       <div className={containerCss}>
         <MissionList />
       </div>
     );
+
   return (
     <div className={containerCss}>
       <FollowSummary followId={selectedFollowData.memberId} followNickname={selectedFollowData.nickname} />
@@ -26,6 +24,17 @@ function FollowContent() {
 }
 
 export default FollowContent;
+
+const useGetSelectFollowData = () => {
+  const { data } = useFollowMembers();
+  const searchParams = useSearchParams();
+
+  if (!searchParams.get('id')) return null;
+
+  const id = Number(searchParams.get('id'));
+  const selectedFollowData = data?.find((profile) => profile.memberId === id);
+  return selectedFollowData;
+};
 
 const containerCss = flex({
   flexDirection: 'column',
