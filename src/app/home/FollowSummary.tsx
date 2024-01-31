@@ -25,7 +25,7 @@ function FollowSummary({ followId, followNickname }: FollowSummaryProps) {
   return (
     <div>
       <div className={followSummaryTitleCss}>
-        <Thumbnail size={'h36'} />
+        <Thumbnail size={'h18'} />
         <Link href={ROUTER.PROFILE.DETAIL(followId)}>
           <p className={followSummaryTextCss}>
             {followNickname} <Icon name={'arrow-forward'} size={12} />
