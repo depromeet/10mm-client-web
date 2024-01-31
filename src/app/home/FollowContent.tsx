@@ -1,16 +1,16 @@
+import { useSearchParams } from 'next/navigation';
+import { useFollowMembers } from '@/apis/follow';
 import FollowMissionList from '@/app/home/FollowMissionList';
 import FollowSummary from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
-interface ProfileContentProps {
-  selectedFollowData: {
-    followId: number;
-    nickname: string;
-  } | null;
-}
+function FollowContent() {
+  const { data } = useFollowMembers();
+  const searchParams = useSearchParams();
 
-function FollowContent({ selectedFollowData }: ProfileContentProps) {
+  const id = searchParams.get('id') ? Number(searchParams.get('id')) : null;
+  const selectedFollowData = data?.find((profile) => profile.memberId === id);
   if (!selectedFollowData)
     return (
       <div className={containerCss}>
@@ -19,8 +19,8 @@ function FollowContent({ selectedFollowData }: ProfileContentProps) {
     );
   return (
     <div className={containerCss}>
-      <FollowSummary followId={selectedFollowData.followId} followNickname={selectedFollowData.nickname} />
-      <FollowMissionList followId={selectedFollowData.followId} />
+      <FollowSummary followId={selectedFollowData.memberId} followNickname={selectedFollowData.nickname} />
+      <FollowMissionList followId={selectedFollowData.memberId} />
     </div>
   );
 }
