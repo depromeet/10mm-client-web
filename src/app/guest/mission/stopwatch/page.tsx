@@ -91,9 +91,11 @@ export default function GuestMissionStopwatchPage() {
       </section>
       <section className={buttonContainerCss}>
         {step === 'ready' && (
-          <Button variant="cta" size="large" type="button" onClick={onStart}>
-            시작
-          </Button>
+          <div className={fixedButtonContainerCss}>
+            <Button variant="primary" size="large" type="button" onClick={onStart}>
+              시작
+            </Button>
+          </div>
         )}
         {step === 'progress' && (
           <>
@@ -166,4 +168,17 @@ const buttonContainerCss = css({
   display: 'flex',
   justifyContent: 'center',
   gap: '12px',
+});
+
+const fixedButtonContainerCss = css({
+  position: 'fixed',
+  left: '16px',
+  right: '16px',
+  bottom: '16px',
+  width: '100%',
+  maxWidth: 'calc(475px  - 48px)',
+  margin: '0 auto',
+  '@media (max-width: 475px)': {
+    maxWidth: 'calc(100vw  - 48px)',
+  },
 });
