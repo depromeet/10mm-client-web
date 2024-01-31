@@ -1,15 +1,10 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
+import { type FollowMemberType } from '@/apis/schema/member';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
-interface FollowMember {
-  memberId: number;
-  nickname: string;
-  profileImageUrl: string;
-}
-
-type GetFollowMembersResponse = FollowMember[];
+type GetFollowMembersResponse = FollowMemberType[];
 
 interface GetFollowMissionsResponse {
   symbolStack: number;

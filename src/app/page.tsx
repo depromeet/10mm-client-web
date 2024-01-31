@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import AppBar from '@/app/home/AppBar';
 import FollowContent from '@/app/home/FollowContent';
 import FollowList from '@/app/home/FollowList';
@@ -15,13 +14,11 @@ export interface FollowData {
 export type FollowDataState = FollowData | null;
 
 export default function Home() {
-  const [followData, setFollowData] = useState<FollowDataState>(null);
-
   return (
     <main className={mainCss}>
       <AppBar />
-      <FollowList selectedFollowData={followData} onChangeFollowData={setFollowData} />
-      <FollowContent selectedFollowData={followData} />
+      <FollowList />
+      <FollowContent />
       <AppBarBottom />
       <BottomDim />
     </main>

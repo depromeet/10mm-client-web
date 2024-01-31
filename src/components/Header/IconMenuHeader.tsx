@@ -24,6 +24,7 @@ function IconMenuHeader({ iconName = 'menu', menus, onMenuClick, ...props }: Ico
 export default IconMenuHeader;
 
 const iconWrapperCss = css({
-  padding: '12px',
+  padding: '10px',
   cursor: 'pointer',
+  marginRight: '8px',
 });

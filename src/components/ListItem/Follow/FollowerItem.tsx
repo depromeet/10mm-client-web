@@ -6,7 +6,8 @@ import Button from '@/components/Button/Button';
 import { ProfileListItem } from '@/components/ListItem';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 
-interface Props extends Omit<ComponentProps<typeof ProfileListItem>, 'buttonElement' | 'subElement' | 'variant'> {
+interface Props
+  extends Omit<ComponentProps<typeof ProfileListItem>, 'buttonElement' | 'subElement' | 'variant' | 'thumbnail'> {
   onButtonClick?: () => void;
   memberId: number;
   followStatus: FollowStatusType;
