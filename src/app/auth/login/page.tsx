@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
-import { useSocialLogin } from '@/apis/auth';
+import { useSocialLogin, useUpdateMemberFcmToken } from '@/apis/auth';
 import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
@@ -30,7 +30,8 @@ const initAppleLogin = () => {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { mutateAsync } = useSocialLogin();
+  const { mutateAsync: socialLoginAsyncMutate } = useSocialLogin();
+  const { mutate: updateMemberFcmTokenMutate } = useUpdateMemberFcmToken();
 
   const onClickGuest = () => {
     router.push(ROUTER.GUEST.MISSION.NEW);
@@ -65,8 +66,8 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    const appleIdSignInOnSuccessHandler = (event: CustomEvent) => {
-      mutateAsync(
+    const webAppleIdSignInOnSuccessEventListener = (event: CustomEvent) => {
+      socialLoginAsyncMutate(
         {
           provider: AUTH_PROVIDER.APPLE,
           idToken: event.detail.authorization.id_token,
@@ -79,8 +80,9 @@ export default function LoginPage() {
       );
     };
 
-    const handleEvent = (event: CustomEvent) => {
-      mutateAsync(
+    const nativeLoginCallbackEventListener = (event: CustomEvent) => {
+      updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
+      socialLoginAsyncMutate(
         {
           provider: event.detail.data.provider,
           idToken: event.detail.data.data,
@@ -95,18 +97,30 @@ export default function LoginPage() {
 
     document.addEventListener(
       WINDOW_CUSTOM_EVENT.APPLE_ID_SIGN_IN_ON_SUCCESS,
-      appleIdSignInOnSuccessHandler as EventListener,
+      webAppleIdSignInOnSuccessEventListener as EventListener,
     );
-    document.addEventListener(NATIVE_CUSTOM_EVENTS.APPLE_LOGIN_CALLBACK, handleEvent as EventListener);
-    document.addEventListener(NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN_CALLBACK, handleEvent as EventListener);
+    document.addEventListener(
+      NATIVE_CUSTOM_EVENTS.APPLE_LOGIN_CALLBACK,
+      nativeLoginCallbackEventListener as EventListener,
+    );
+    document.addEventListener(
+      NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN_CALLBACK,
+      nativeLoginCallbackEventListener as EventListener,
+    );
 
     return () => {
       document.removeEventListener(
         WINDOW_CUSTOM_EVENT.APPLE_ID_SIGN_IN_ON_SUCCESS,
-        appleIdSignInOnSuccessHandler as EventListener,
+        webAppleIdSignInOnSuccessEventListener as EventListener,
       );
-      document.removeEventListener(NATIVE_CUSTOM_EVENTS.APPLE_LOGIN_CALLBACK, handleEvent as EventListener);
-      document.removeEventListener(NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN_CALLBACK, handleEvent as EventListener);
+      document.removeEventListener(
+        NATIVE_CUSTOM_EVENTS.APPLE_LOGIN_CALLBACK,
+        nativeLoginCallbackEventListener as EventListener,
+      );
+      document.removeEventListener(
+        NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN_CALLBACK,
+        nativeLoginCallbackEventListener as EventListener,
+      );
     };
   }, []);
 
