@@ -20,6 +20,15 @@ const historyThumbnailWrapperCss = css({
   width: '100%',
   aspectRatio: '1 / 1',
   position: 'relative',
+  borderRadius: '22px',
+  overflow: 'hidden',
+  maxWidth: 'calc(475px - 32px)',
+  maxHeight: 'calc(475px - 32px)',
+
+  '@media (max-width: 475px)': {
+    maxWidth: 'calc(100vw - 32px)',
+    maxHeight: 'calc(100vw - 32px)',
+  },
 });
 
 const positionCss = css({

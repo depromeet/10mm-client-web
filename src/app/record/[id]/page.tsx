@@ -266,6 +266,10 @@ const imageWrapperCss = css({
     background: 'rgba(0, 0, 0, 0.1)',
     pointerEvents: 'none',
   },
+
+  '& img': {
+    objectFit: 'cover',
+  },
 });
 
 const imageIconCss = css({
