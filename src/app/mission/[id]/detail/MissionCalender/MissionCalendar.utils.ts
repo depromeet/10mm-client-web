@@ -64,22 +64,23 @@ export const getMissionCalendarItemProps = (
   records: RecordType[],
   isFollow?: boolean,
 ) => {
-  console.log({ missionStartAt, day });
   const isMissionStarted =
-    dayjs(missionStartAt.split(' ')[0]).isBefore(dayjs(`${day.year}-${day.month}-${day.date}`)) ||
-    dayjs(missionStartAt.split(' ')[0]).isSame(dayjs(`${day.year}-${day.month}-${day.date}`));
+    dayjs(missionStartAt).isBefore(dayjs(`${day.year}-${day.month}-${day.date}`), 'day') ||
+    dayjs(missionStartAt).isSame(dayjs(`${day.year}-${day.month}-${day.date}`), 'day');
+
   const filterRecord = records.filter((record) => record.missionDay === day.date);
-  console.log({
-    isMissionStarted,
-    filterRecord,
-    missionStartAt,
-  });
-  if (!isMissionStarted) {
+
+  const isDayBeforeToday =
+    dayjs(`${day.year}-${day.month}-${day.date}`).isBefore(dayjs(), 'day') ||
+    dayjs().isSame(dayjs(`${day.year}-${day.month}-${day.date}`), 'day');
+
+  if (!isMissionStarted || !isDayBeforeToday) {
     return {
       routerLink: '',
       imageUrl: undefined,
     };
   }
+
   if (filterRecord.length > 0) {
     return {
       routerLink: isFollow
