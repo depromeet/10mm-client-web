@@ -27,6 +27,7 @@ function MissionCalendar({
     missionId,
     yearMonth: getYearMonth(currentDate),
   });
+  const missionStartedAt = data?.missionStartedAt || '';
 
   return (
     <section>
@@ -47,15 +48,20 @@ function MissionCalendar({
               {week.map((day, index) => {
                 if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
                 const { routerLink, ...restProps } = getMissionCalendarItemProps(
-                  day.date,
+                  missionStartedAt,
+                  day,
                   data?.missionRecords || [],
                   isFollow,
                 );
                 return (
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
-                    <Link href={routerLink}>
+                    {routerLink ? (
+                      <Link href={routerLink}>
+                        <MissionCalendarItem date={day.date} {...restProps} isActive={day.date === selectedDate} />
+                      </Link>
+                    ) : (
                       <MissionCalendarItem date={day.date} {...restProps} isActive={day.date === selectedDate} />
-                    </Link>
+                    )}
                   </td>
                 );
               })}

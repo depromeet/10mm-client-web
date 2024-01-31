@@ -1,5 +1,6 @@
 import { type RecordType } from '@/apis/schema/record';
 import { ROUTER } from '@/constants/router';
+import dayjs from 'dayjs';
 
 const getWeekArray = (totalDate: number, offsetDate: number) => {
   return Array.from({ length: 7 }, (_, i) => {
@@ -53,8 +54,32 @@ export const getCalenderInfo = (currentMonth: number, currentYear: number) => {
   return { monthCalendarData };
 };
 
-export const getMissionCalendarItemProps = (date: number, records: RecordType[], isFollow?: boolean) => {
-  const filterRecord = records.filter((record) => record.missionDay === date);
+export const getMissionCalendarItemProps = (
+  missionStartAt: string,
+  day: {
+    year: number;
+    month: number;
+    date: number;
+  },
+  records: RecordType[],
+  isFollow?: boolean,
+) => {
+  console.log({ missionStartAt, day });
+  const isMissionStarted =
+    dayjs(missionStartAt.split(' ')[0]).isBefore(dayjs(`${day.year}-${day.month}-${day.date}`)) ||
+    dayjs(missionStartAt.split(' ')[0]).isSame(dayjs(`${day.year}-${day.month}-${day.date}`));
+  const filterRecord = records.filter((record) => record.missionDay === day.date);
+  console.log({
+    isMissionStarted,
+    filterRecord,
+    missionStartAt,
+  });
+  if (!isMissionStarted) {
+    return {
+      routerLink: '',
+      imageUrl: undefined,
+    };
+  }
   if (filterRecord.length > 0) {
     return {
       routerLink: isFollow
