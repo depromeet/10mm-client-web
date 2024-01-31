@@ -39,8 +39,8 @@ export const buttonStyle = cva({
         background: 'gradients.button1',
         color: 'gray.gray100',
         position: 'fixed',
-        left: '24px',
-        right: '24px',
+        left: '16px',
+        right: '16px',
         bottom: '16px',
 
         '&:hover': {
@@ -126,7 +126,15 @@ export const buttonStyle = cva({
       variant: 'cta',
       css: {
         background: 'gradients.button3',
-        position: 'inherit',
+        width: 'fit-content',
+        '@media screen and (min-width: 475px)': {
+          right: 'calc(50vw - 237.5px + 16px)',
+          left: 'auto',
+        },
+        '@media screen and (max-width: 475px)': {
+          left: 'auto',
+          right: '16px',
+        },
         _active: {
           background: 'gradients.button4',
         },
