@@ -46,10 +46,14 @@ function MissionCalendar({
             <tr key={i}>
               {week.map((day, index) => {
                 if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
-                const { routerLink, ...restProps } = getMissionCalendarItemProps(day.date, data || [], isFollow);
+                const { routerLink, ...restProps } = getMissionCalendarItemProps(
+                  day.date,
+                  data?.missionRecords || [],
+                  isFollow,
+                );
                 return (
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
-                    <Link href={getMissionCalendarItemProps(day.date, data || [], isFollow).routerLink}>
+                    <Link href={routerLink}>
                       <MissionCalendarItem date={day.date} {...restProps} isActive={day.date === selectedDate} />
                     </Link>
                   </td>
