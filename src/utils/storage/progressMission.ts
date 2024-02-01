@@ -62,6 +62,11 @@ const getProgressMissionTimeToStack = (missionId: string) => {
   }
 
   const currentTime = new Date().getTime();
+
+  if (timeStackData[timeStackData.length - 1].status === 'stop') {
+    stopTime += currentTime - timeStackData[timeStackData.length - 1].time;
+  }
+
   const progressTime = currentTime - timeStackData[0].time - stopTime;
 
   return progressTime;
