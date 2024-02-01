@@ -38,7 +38,13 @@ export default function StopwatchPage() {
   const missionName = missionData?.name ?? '';
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step, missionId);
+  const {
+    seconds,
+    minutes,
+    stepper,
+    isFinished,
+    isPending: isStopwatchPending,
+  } = useStopwatch(step, missionId, onNextStep);
   const [isMoveLoading, setIsMoveLoading] = useState(false);
 
   const time = Number(minutes) * 60 + Number(seconds);

@@ -9,8 +9,6 @@ export const setMissionData = (missionId: string) => {
   const startTime = new Date().toISOString();
   const missionInfo: MissionData = { missionId, startTime };
   localStorage.setItem(STORAGE_KEY.PROGRESS_MISSION.MISSION, JSON.stringify(missionInfo));
-
-  // setMissionTimeStack(missionId, 'start');
 };
 
 export const setMissionTimeStack = (missionId: string, status: 'start' | 'stop' | 'restart') => {
@@ -61,15 +59,6 @@ const getProgressMissionTimeToStack = (missionId: string) => {
     if (prevStatus === 'stop' && status === 'restart') {
       stopTime += stackTime - prevStackTime;
     }
-    // if (prevStatus === 'start' && status === 'stop') {
-    // }
-    // if (prevStatus === 'restart' && status === 'stop') {
-    //   stopTime += stackTime - prevStackTime;
-    // }
-    // if (status === 'start') {
-    //   const nextStackTime = timeStackData[i + 1]?.time || new Date().getTime();
-    //   time += nextStackTime - stackTime;
-    // }
   }
 
   const currentTime = new Date().getTime();
