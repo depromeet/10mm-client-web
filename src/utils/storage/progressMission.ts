@@ -44,7 +44,6 @@ export const setProgressMissionTime2 = (missionId: string, missionTime: number) 
 const getProgressMissionTimeToStack = (missionId: string) => {
   const timeStack = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId)) || '[]';
   const timeStackData = JSON.parse(timeStack);
-  console.log('timeStackData: ', timeStackData);
   let stopTime = 0;
 
   if (!timeStack || timeStackData.length === 0) return 0;
