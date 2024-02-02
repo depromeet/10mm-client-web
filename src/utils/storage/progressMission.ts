@@ -11,12 +11,26 @@ export const setMissionData = (missionId: string) => {
   localStorage.setItem(STORAGE_KEY.PROGRESS_MISSION.MISSION, JSON.stringify(missionInfo));
 };
 
+export const setMissionTimeStack = (missionId: string, status: 'start' | 'stop' | 'restart') => {
+  const time = new Date().getTime();
+  const timeInfo = { time, status };
+
+  const prevStack = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId)) || '[]';
+  const prevStackData = JSON.parse(prevStack);
+
+  localStorage.setItem(
+    STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId),
+    JSON.stringify([...prevStackData, timeInfo]),
+  );
+};
+
 export const removeProgressMissionData = () => {
   const missionId = getProgressMissionIdToStorage();
   if (!missionId) return;
   localStorage.removeItem(STORAGE_KEY.PROGRESS_MISSION.MISSION);
   localStorage.removeItem(STORAGE_KEY.PROGRESS_MISSION.TIME(missionId));
   localStorage.removeItem(STORAGE_KEY.PROGRESS_MISSION.TIME_2(missionId));
+  localStorage.removeItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId));
 };
 
 export const setProgressMissionTime = (missionId: string, missionTime: number) => {
@@ -27,12 +41,48 @@ export const setProgressMissionTime2 = (missionId: string, missionTime: number) 
   localStorage.setItem(STORAGE_KEY.PROGRESS_MISSION.TIME_2(missionId), String(missionTime));
 };
 
+const getProgressMissionTimeToStack = (missionId: string) => {
+  const timeStack = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId)) || '[]';
+  const timeStackData = JSON.parse(timeStack);
+  let stopTime = 0;
+
+  if (!timeStack || timeStackData.length === 0) return 0;
+
+  for (let i = 1; i < timeStackData.length; i++) {
+    const { time: prevStackTime, status: prevStatus } = timeStackData[i - 1];
+    const { time: stackTime, status } = timeStackData[i];
+
+    if (prevStatus === 'stop' && status === 'start') {
+      stopTime += stackTime - prevStackTime;
+    }
+    if (prevStatus === 'stop' && status === 'restart') {
+      stopTime += stackTime - prevStackTime;
+    }
+  }
+
+  const currentTime = new Date().getTime();
+
+  if (timeStackData[timeStackData.length - 1].status === 'stop') {
+    stopTime += currentTime - timeStackData[timeStackData.length - 1].time;
+  }
+
+  const progressTime = currentTime - timeStackData[0].time - stopTime;
+
+  return progressTime;
+};
+
 export const getProgressMissionTime = (missionId: string): number => {
   if (!checkIsProgressMission(missionId)) return 0;
-  const progressTimeString = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME(missionId));
-  if (!Number(progressTimeString)) return 0;
+  // const progressTimeString = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME(missionId));
 
-  return Number(progressTimeString);
+  // TODO : 오늘 날짜에 진행되고 있던 미션인지 확인
+
+  const progressTimeMs = getProgressMissionTimeToStack(missionId);
+  const progressTime = Math.floor(progressTimeMs / 1000);
+
+  if (!progressTime) return 0;
+
+  return progressTime;
 };
 
 export const checkIsExistProgressMission = (missionId: string) => {
