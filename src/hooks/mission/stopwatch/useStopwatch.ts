@@ -10,7 +10,7 @@ const MAX_SECONDS = 60 * 60; // max 1 hour
 const DEFAULT_MS = 1000;
 const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 
-export default function useStopwatch(status: StepType, missionId: string) {
+export default function useStopwatch(status: StepType, missionId: string, onNextStep?: (step: StepType) => void) {
   const [second, setSecond] = useState(INIT_SECONDS); // 남은 시간 (단위: 초)
   const [isPending, setIsPending] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
@@ -41,6 +41,8 @@ export default function useStopwatch(status: StepType, missionId: string) {
     const initSeconds = getProgressMissionTime(missionId);
     if (initSeconds && initSeconds < MAX_SECONDS) {
       setSecond(initSeconds);
+      // TODO : 구조 변경 필요
+      onNextStep?.('progress'); // 바로 재시작
     }
     setIsPending(false);
   }, []);
