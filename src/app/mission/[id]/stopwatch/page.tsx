@@ -22,6 +22,7 @@ import {
   getProgressMissionStartTimeToStorage,
   removeProgressMissionData,
   setMissionData,
+  setMissionTimeStack,
 } from '@/utils/storage/progressMission';
 import { formatDate } from '@/utils/time';
 import { css, cx } from '@styled-system/css';
@@ -37,7 +38,13 @@ export default function StopwatchPage() {
   const missionName = missionData?.name ?? '';
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper, isFinished, isPending: isStopwatchPending } = useStopwatch(step, missionId);
+  const {
+    seconds,
+    minutes,
+    stepper,
+    isFinished,
+    isPending: isStopwatchPending,
+  } = useStopwatch(step, missionId, onNextStep);
   const [isMoveLoading, setIsMoveLoading] = useState(false);
 
   const time = Number(minutes) * 60 + Number(seconds);
@@ -148,6 +155,7 @@ export default function StopwatchPage() {
       stopTime: Number(minutes) * 60 + Number(seconds),
     });
     onNextStep('stop');
+    setMissionTimeStack(missionId, 'stop');
   };
 
   const onStart = () => {
@@ -155,6 +163,7 @@ export default function StopwatchPage() {
 
     // 이전 미션 기록 삭제 - 강제 접근 이슈
     checkPrevProgressMission(missionId);
+    setMissionTimeStack(missionId, 'start');
 
     // 중도 재시작
     if (time > 0) {
@@ -230,7 +239,15 @@ export default function StopwatchPage() {
           )}
           {step === 'stop' && (
             <>
-              <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('progress')}>
+              <Button
+                size="medium"
+                variant="secondary"
+                type="button"
+                onClick={() => {
+                  setMissionTimeStack(missionId, 'restart');
+                  onNextStep('progress');
+                }}
+              >
                 다시 시작
               </Button>
               <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
