@@ -9,6 +9,7 @@ import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwa
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Loading from '@/components/Loading';
+import useServerErrorSnackBar from '@/components/SnackBar/useServerErrorSnackBar';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
@@ -69,6 +70,7 @@ export default function StopwatchPage() {
 
   useRecordMidTime(time, missionId);
   useUnloadAction(time, missionId);
+  const triggerServerErrorSnackBar = useServerErrorSnackBar();
 
   // isError 처리 어떻게 할것인지?
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
@@ -80,8 +82,14 @@ export default function StopwatchPage() {
       setIsMoveLoading(true);
       removeProgressMissionData();
     },
-    onError: () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      triggerServerErrorSnackBar(error);
       setIsMoveLoading(() => false); // 없어도 되는지 확인 필요
+
+      if (error.response.data.data.errorClassName === 'MISSION_RECORD_ALREADY_EXISTS_TODAY') {
+        router.replace(ROUTER.HOME);
+      }
     },
   });
 
