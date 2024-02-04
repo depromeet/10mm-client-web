@@ -81,7 +81,6 @@ export default function LoginPage() {
     };
 
     const nativeLoginCallbackEventListener = (event: CustomEvent) => {
-      updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
       socialLoginAsyncMutate(
         {
           provider: event.detail.data.provider,
@@ -89,6 +88,9 @@ export default function LoginPage() {
         },
         {
           onSuccess: () => {
+            if (!!event.detail?.data?.deviceToken) {
+              updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
+            }
             router.push(ROUTER.HOME);
           },
         },
