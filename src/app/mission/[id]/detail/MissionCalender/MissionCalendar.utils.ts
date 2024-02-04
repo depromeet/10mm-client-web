@@ -1,6 +1,6 @@
 import { type RecordType } from '@/apis/schema/record';
 import { ROUTER } from '@/constants/router';
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 const getWeekArray = (totalDate: number, offsetDate: number) => {
   return Array.from({ length: 7 }, (_, i) => {
@@ -95,9 +95,9 @@ export const getMissionCalendarItemProps = (
   };
 };
 
-export const getYearMonth = (currentDate: Date) => {
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth() + 1;
+export const getYearMonth = (currentDate: Dayjs) => {
+  const year = currentDate.year();
+  const month = currentDate.month() + 1;
   const monthString = month < 10 ? `0${month}` : `${month}`;
   return `${year}-${monthString}`;
 };

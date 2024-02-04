@@ -4,11 +4,12 @@ import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCa
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import { css } from '@styled-system/css';
+import dayjs from 'dayjs';
 
 function MissionHistoryTab({ isFollow }: { isFollow?: boolean }) {
   const { id } = useParams();
   const missionId = id as string;
-  const currentDate = new Date();
+  const currentDate = dayjs();
 
   return (
     <div className={scrollAreaCss}>

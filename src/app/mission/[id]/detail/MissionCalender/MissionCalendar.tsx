@@ -8,19 +8,20 @@ import {
 } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
 import { css } from '@styled-system/css';
+import { type Dayjs } from 'dayjs';
 
 function MissionCalendar({
   currentDate,
   missionId,
   isFollow,
 }: {
-  currentDate: Date;
+  currentDate: Dayjs;
   missionId: number;
   isFollow?: boolean;
 }) {
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1;
-  const selectedDate = currentDate.getDate();
+  const currentYear = currentDate.year();
+  const currentMonth = currentDate.month() + 1;
+  const selectedDate = currentDate.date();
 
   const { monthCalendarData } = getCalenderInfo(currentMonth, currentYear);
   const { data } = useGetRecord({
