@@ -71,6 +71,9 @@ const getProgressMissionTimeToStack = (missionId: string) => {
   return progressTime;
 };
 
+const DEFAULT_MS = 1000;
+const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
+
 export const getProgressMissionTime = (missionId: string): number => {
   if (!checkIsProgressMission(missionId)) return 0;
   // const progressTimeString = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME(missionId));
@@ -78,7 +81,7 @@ export const getProgressMissionTime = (missionId: string): number => {
   // TODO : 오늘 날짜에 진행되고 있던 미션인지 확인
 
   const progressTimeMs = getProgressMissionTimeToStack(missionId);
-  const progressTime = Math.floor(progressTimeMs / 1000);
+  const progressTime = Math.floor(progressTimeMs / timerMs);
 
   if (!progressTime) return 0;
 
