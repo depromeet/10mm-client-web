@@ -14,6 +14,13 @@ const useNickname = (initialNickName?: string) => {
       { nickname },
       {
         onSuccess: () => {
+          if (!validateNickname(nickname)) {
+            setMassageState({
+              errorMsg: '2~20자 이내의 한글, 영문, 숫자로만 입력해 주세요.',
+              validMsg: '',
+            });
+            return;
+          }
           setMassageState({
             errorMsg: '',
             validMsg: '사용 가능한 닉네임입니다.',
@@ -30,9 +37,10 @@ const useNickname = (initialNickName?: string) => {
   };
 
   const handleNicknameChange = (value: string) => {
-    setNickname(value);
+    const newValue = value.replace(/ /g, '');
+    setNickname(newValue);
 
-    if (!validateNickname(value)) {
+    if (!validateNickname(newValue)) {
       setMassageState({
         errorMsg: '2~20자 이내의 한글, 영문, 숫자로만 입력해 주세요.',
         validMsg: '',
