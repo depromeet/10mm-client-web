@@ -1,5 +1,5 @@
 export const APP_USER_AGENT = '10mm.today.app';
-export const ANDROID = 'android';
+export const ANDROID = 'android|Android';
 export const IOS = 'iPhone|iPad|iPod';
 
 export const AUTH_PROVIDER = {
