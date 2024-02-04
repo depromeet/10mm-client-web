@@ -12,7 +12,7 @@ const useQueryParams = <T extends string>({ queryKey }: { queryKey: T }) => {
   const queryParams = searchParams.get(queryKey) as string | undefined;
 
   const setQueryParamsHandler = (newQueryParams: Record<T, string>) => {
-    router.push(pathname + '?' + new URLSearchParams(newQueryParams).toString());
+    router.replace(pathname + '?' + new URLSearchParams(newQueryParams).toString());
   };
 
   return { queryParams, setQueryParams: setQueryParamsHandler };
