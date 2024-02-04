@@ -7,19 +7,46 @@ import RECORD_API from '@/apis/record';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Icon from '@/components/Icon';
+import Loading from '@/components/Loading';
 import { type ModalProps } from '@/components/Modal/Modal';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
-import { uploadImageToServer, useImage } from '@/hooks/useImage';
+import { checkImageType, uploadImageToServer, useImage } from '@/hooks/useImage';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
+import { useMutation } from '@tanstack/react-query';
 
 export default function MissionRecordPage() {
   const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
   const params = useParams();
+  const { mutateAsync: uploadComplete, isPending: isUploadCompletePending } = useMutation({
+    mutationFn: RECORD_API.uploadComplete,
+    onSuccess: () => {
+      router.replace(ROUTER.RECORD.SUCCESS);
+    },
+    onError: () => {
+      triggerSnackBar({
+        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
+      });
+    },
+  });
+
+  const { mutateAsync: uploadImageToServerMutate, isPending: isUpLoadingPending } = useMutation({
+    mutationFn: ({ missionId, imageFile }: { missionId: string; imageFile: File }) =>
+      uploadImageToServer(missionId, imageFile),
+    onSuccess: async ({ imageFileExtension }) => {
+      await uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
+    },
+    onError: () => {
+      triggerSnackBar({
+        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
+      });
+    },
+  });
+
   const missionId = params.id as string;
 
   const { isOpen, openModal, closeModal } = useModal();
@@ -27,6 +54,8 @@ export default function MissionRecordPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage();
+
+  const isPending = isUpLoadingPending || isUploadCompletePending;
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // TODO: 200자 제한
@@ -41,24 +70,18 @@ export default function MissionRecordPage() {
   };
 
   const onClickSubmitButton = async () => {
-    try {
-      if (!imageFile) {
-        throw new Error('Image file Not Found');
-      }
-
-      eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
-      // S3에 이미지 업로드
-      const { imageFileExtension } = await uploadImageToServer(missionId, imageFile);
-      await RECORD_API.uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
-      router.replace(ROUTER.RECORD.SUCCESS);
-    } catch (error) {
-      triggerSnackBar({
-        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
-      });
+    if (!imageFile || !checkImageType(imageFile.type)) {
+      return;
     }
+
+    eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
+    await uploadImageToServerMutate({
+      missionId,
+      imageFile,
+    });
   };
 
-  const isButtonDisabled = !imagePreview;
+  const isButtonDisabled = !imagePreview || isPending;
 
   const onImageClick = () => {
     imageRef.current?.click();
@@ -67,6 +90,7 @@ export default function MissionRecordPage() {
   return (
     <main className={mainWrapperCss}>
       <div className={headerWrapperCss}>
+        {isPending && <Loading />}
         <div className={headerTitleCss}>미션 인증</div>
         <div className={headerRightCss} onClick={openModal}>
           <Icon name="normal-close" />

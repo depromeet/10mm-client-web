@@ -1,4 +1,5 @@
 import { type ComponentProps } from 'react';
+import FullTab from '@/components/Tab/FullTab';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -58,4 +59,19 @@ export const ActiveTab = () => {
   ]);
 
   return <Tab {...props} />;
+};
+
+export const ActiveFullTab = () => {
+  const props = useTab([
+    {
+      id: 'Tab1',
+      tabName: 'Tab1',
+    },
+    {
+      id: 'Tab2',
+      tabName: 'Tab2',
+    },
+  ]);
+
+  return <FullTab {...props} />;
 };

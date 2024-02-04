@@ -90,6 +90,13 @@ export default function LoginPage() {
           onSuccess: () => {
             router.push(ROUTER.HOME);
           },
+          onError: () => {
+            window.Kakao.Auth.authorize({
+              redirectUri: process.env.NEXT_PUBLIC_KAKAO_LOGIN_REDIRECT_URI,
+              nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE,
+              throughTalk: false,
+            });
+          },
         },
       );
     };
@@ -130,7 +137,7 @@ export default function LoginPage() {
         <div className={LoginButtonListWrapperCss}>
           {isIOS() && <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />}
           <ButtonSocialLogin type="kakao" onClick={onClickKakaoLogin} />
-          <Button size="large" variant="ghost" onClick={onClickGuest}>
+          <Button type="button" size="large" variant="ghost" onClick={onClickGuest}>
             둘러보기
           </Button>
         </div>
