@@ -7,7 +7,7 @@ declare global {
       init: (keyValue: string) => void;
       isInitialized: () => boolean;
       Auth: {
-        authorize: ({ redirectUri: string, nonce: string }) => void;
+        authorize: ({ redirectUri: string, nonce: string, throughTalk: boolean }) => void;
       };
     };
     AppleID: {
