@@ -49,8 +49,7 @@ export default function LoginPage() {
   };
 
   const onClickKakaoLogin = () => {
-    // TODO 일부 안드로이드에서도 네이티브 앱 로그인 가능하게끔 나중에 수정하기
-    if (isWebView() && isIOS()) {
+    if (isWebView()) {
       window.ReactNativeWebView?.postMessage(
         JSON.stringify({
           type: NATIVE_CUSTOM_EVENTS.KAKAO_LOGIN,
