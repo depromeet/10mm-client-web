@@ -2,28 +2,29 @@ import Link from 'next/link';
 import { useGetRecord } from '@/apis';
 import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
 import {
-  getCalenderInfo,
   getMissionCalendarItemProps,
   getYearMonth,
 } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
+import Icon from '@/components/Icon';
+import useCalendar from '@/hooks/useCalendar';
 import { css } from '@styled-system/css';
-import { type Dayjs } from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 function MissionCalendar({
-  currentDate,
+  initialDate,
   missionId,
   isFollow,
 }: {
-  currentDate: Dayjs;
+  initialDate: Dayjs;
   missionId: number;
   isFollow?: boolean;
 }) {
+  const { currentDate, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar(initialDate);
+
   const currentYear = currentDate.year();
   const currentMonth = currentDate.month() + 1;
-  const selectedDate = currentDate.date();
 
-  const { monthCalendarData } = getCalenderInfo(currentMonth, currentYear);
   const { data } = useGetRecord({
     missionId,
     yearMonth: getYearMonth(currentDate),
@@ -32,8 +33,24 @@ function MissionCalendar({
 
   return (
     <section>
-      <div className={missionHistoryCalendarCss}>
-        {currentYear}년 {currentMonth}월
+      <div
+        className={css({
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+        })}
+      >
+        <button type={'button'} className={buttonCss} onClick={onPrevMonth}>
+          <Icon name="arrow-back" size={12} />
+        </button>
+        <div className={missionHistoryCalendarCss}>
+          {currentYear}년 {currentMonth}월
+        </div>
+        {!isCurrentMonth && (
+          <button type={'button'} className={buttonCss} onClick={onNextMonth}>
+            <Icon name="arrow-forward" size={12} />
+          </button>
+        )}
       </div>
       <table className={tableCss}>
         <thead>
@@ -54,14 +71,17 @@ function MissionCalendar({
                   data?.missionRecords || [],
                   isFollow,
                 );
+
+                const isToday = dayjs().isSame(`${day.year}-${day.month}-${day.date}`, 'day');
+
                 return (
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
                     {routerLink ? (
                       <Link href={routerLink}>
-                        <MissionCalendarItem date={day.date} {...restProps} isActive={day.date === selectedDate} />
+                        <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
                       </Link>
                     ) : (
-                      <MissionCalendarItem date={day.date} {...restProps} isActive={day.date === selectedDate} />
+                      <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
                     )}
                   </td>
                 );
@@ -75,6 +95,10 @@ function MissionCalendar({
 }
 
 export default MissionCalendar;
+
+const buttonCss = css({
+  padding: '8px',
+});
 
 const tableCss = css({
   width: '100%',

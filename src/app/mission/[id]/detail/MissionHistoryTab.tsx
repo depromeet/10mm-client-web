@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 function MissionHistoryTab({ isFollow }: { isFollow?: boolean }) {
   const { id } = useParams();
   const missionId = id as string;
-  const currentDate = dayjs();
+  const initialDate = dayjs();
 
   return (
     <div className={scrollAreaCss}>
@@ -18,7 +18,7 @@ function MissionHistoryTab({ isFollow }: { isFollow?: boolean }) {
           {missionId && <MissionHistoryBannerApi missionId={missionId} />}
         </Suspense>
         <Suspense>
-          <MissionCalendar isFollow={isFollow} currentDate={currentDate} missionId={Number(missionId)} />
+          <MissionCalendar isFollow={isFollow} initialDate={initialDate} missionId={Number(missionId)} />
         </Suspense>
       </div>
     </div>
