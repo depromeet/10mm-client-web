@@ -1,21 +1,37 @@
 import { useState } from 'react';
-import { type Dayjs } from 'dayjs';
+import useQueryParams from '@/hooks/useQueryParams';
+import dayjs, { type Dayjs } from 'dayjs';
 
-const useCalendar = (date: Dayjs) => {
-  const [currentDate, setDate] = useState(date);
-  const { monthCalendarData } = getCalenderInfo(currentDate.month() + 1, currentDate.year());
+/**
+ * useCalendar hook - 달력 정보를 다루기 위한 hook
+ *
+ * @param date 초기 랜더링 시 달력의 기준이 되는 날짜
+ * @param isQueryParams 년과 월의 정보를 query params로 관리할지 여부
+ */
+const useCalendar = ({ currentData, isQueryParams }: { currentData: Dayjs; isQueryParams?: boolean }) => {
+  const { queryParams, setQueryParams } = useQueryParams({ queryKey: 'date' });
+  const [date, setDate] = useState(queryParams ? dayjs(queryParams) : currentData);
+  const { monthCalendarData } = getCalenderInfo(date.month() + 1, date.year());
 
   const onNextMonth = () => {
-    setDate(currentDate.add(1, 'month'));
+    const nextMonth = date.add(1, 'month');
+    setDate(nextMonth);
+    if (isQueryParams) {
+      setQueryParams({ date: nextMonth.format('YYYY-MM') });
+    }
   };
 
   const onPrevMonth = () => {
-    setDate(currentDate.subtract(1, 'month'));
+    const prevMonth = date.subtract(1, 'month');
+    setDate(prevMonth);
+    if (isQueryParams) {
+      setQueryParams({ date: prevMonth.format('YYYY-MM') });
+    }
   };
 
-  const isCurrentMonth = date.month() === currentDate.month() && date.year() === currentDate.year();
+  const isCurrentMonth = currentData.month() === date.month() && currentData.year() === date.year();
 
-  return { currentDate, monthCalendarData, onNextMonth, onPrevMonth, isCurrentMonth };
+  return { date, monthCalendarData, onNextMonth, onPrevMonth, isCurrentMonth };
 };
 
 export default useCalendar;

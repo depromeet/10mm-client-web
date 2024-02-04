@@ -12,22 +12,25 @@ import { css } from '@styled-system/css';
 import dayjs, { type Dayjs } from 'dayjs';
 
 function MissionCalendar({
-  initialDate,
+  currentData,
   missionId,
   isFollow,
 }: {
-  initialDate: Dayjs;
+  currentData: Dayjs;
   missionId: number;
   isFollow?: boolean;
 }) {
-  const { currentDate, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar(initialDate);
+  const { date, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar({
+    currentData,
+    isQueryParams: true,
+  });
 
-  const currentYear = currentDate.year();
-  const currentMonth = currentDate.month() + 1;
+  const currentYear = date.year();
+  const currentMonth = date.month() + 1;
 
   const { data } = useGetRecord({
     missionId,
-    yearMonth: getYearMonth(currentDate),
+    yearMonth: getYearMonth(date),
   });
   const missionStartedAt = data?.missionStartedAt || '';
 
