@@ -9,7 +9,7 @@ import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin'
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
 import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { ROUTER } from '@/constants/router';
-import { isIOS, isWebView } from '@/utils/appEnv';
+import { isAndroid, isIOS, isWebView } from '@/utils/appEnv';
 import { css } from '@styled-system/css';
 
 const initKakao = () => {
@@ -62,6 +62,7 @@ export default function LoginPage() {
     window.Kakao.Auth.authorize({
       redirectUri: process.env.NEXT_PUBLIC_KAKAO_LOGIN_REDIRECT_URI,
       nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE,
+      throughTalk: isAndroid() ? false : true,
     });
   };
 
