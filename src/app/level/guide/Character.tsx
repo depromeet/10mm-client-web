@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import MotionDiv from '@/components/Motion/MotionDiv';
 import { css, cx } from '@/styled-system/css';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 
 function Character(props: Props) {
   return (
-    <div
+    <MotionDiv
       key={props.level}
       className={cx(
         imageWrapperCss,
@@ -58,7 +59,7 @@ function Character(props: Props) {
           />
         </>
       )}
-    </div>
+    </MotionDiv>
   );
 }
 
@@ -67,7 +68,6 @@ export default Character;
 const imageWrapperCss = css({
   position: 'relative',
   margin: '0 auto',
-  animation: 'fadeIn .7s',
   height: '100%',
   width: '100%',
 });
