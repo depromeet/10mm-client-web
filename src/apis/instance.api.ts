@@ -1,4 +1,5 @@
 import { getTokens } from '@/services/auth/actions';
+import { isLocal } from '@/utils/appEnv';
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
@@ -7,6 +8,9 @@ const BASE_TIMEOUT = 10000;
 const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     async (config) => {
+      if (!isLocal()) {
+        return config;
+      }
       const { accessToken, refreshToken } = await getTokens();
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
