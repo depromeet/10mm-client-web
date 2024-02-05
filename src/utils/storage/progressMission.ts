@@ -75,10 +75,11 @@ const DEFAULT_MS = 1000;
 const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 
 export const getProgressMissionTime = (missionId: string): number => {
+  // 진행중인 미션이 없다면
   if (!checkIsProgressMission(missionId)) return 0;
-  // const progressTimeString = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME(missionId));
 
-  // TODO : 오늘 날짜에 진행되고 있던 미션인지 확인
+  // 진행중인 미션이 있는 경우
+  if (!checkTodayMission(missionId)) return 0;
 
   const progressTimeMs = getProgressMissionTimeToStack(missionId);
   const progressTime = Math.floor(progressTimeMs / timerMs);
@@ -86,6 +87,17 @@ export const getProgressMissionTime = (missionId: string): number => {
   if (!progressTime) return 0;
 
   return progressTime;
+};
+
+export const getPrevProgressMissionStatus = (missionId: string): 'ready' | 'progress' | 'stop' | undefined => {
+  const timeStack = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId)) || '[]';
+  const timeStackData = JSON.parse(timeStack);
+
+  if (!timeStackData || timeStackData.length === 0) return 'ready';
+  const status = timeStackData[timeStackData.length - 1].status;
+
+  if (status === 'restart') return 'progress';
+  if (status === 'stop') return 'stop';
 };
 
 export const checkIsExistProgressMission = (missionId: string) => {
@@ -106,6 +118,21 @@ const checkIsProgressMission = (missionId: string) => {
     return false;
   }
   return true;
+};
+
+//  오늘 날짜에 진행되고 있던 미션인지 확인
+// return : true - 오늘 날짜에 진행되고 있던 미션 데이터, false - 오늘 날짜에 진행되고 있던 미션 데이터가 아니거나 없음
+const checkTodayMission = (missionId: string) => {
+  const mission = getProgressMissionStartTimeToStorage(missionId);
+  if (!mission) return false;
+  const missionDate = new Date(mission).getDate();
+  const currentDate = new Date().getDate();
+
+  if (missionDate === currentDate) return true;
+
+  // 오늘 날짜에 진행되고 있던 미션 데이터가 아님 -> 삭제
+  removeProgressMissionData();
+  return false;
 };
 
 const getProgressMissionToStorage = (): MissionData | false => {

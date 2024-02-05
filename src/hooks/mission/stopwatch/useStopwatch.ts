@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useVisibilityStateVisible } from '@/app/mission/[id]/stopwatch/index.hooks';
-import { getProgressMissionTime } from '@/utils/storage/progressMission';
+import { getPrevProgressMissionStatus, getProgressMissionTime } from '@/utils/storage/progressMission';
 import { formatMMSS } from '@/utils/time';
 
 import { type StepType } from './useStopwatchStatus';
 
 const INIT_SECONDS = 0;
-const MAX_SECONDS = 60 * 60; // max 1 hour
+const MAX_SECONDS = 3600; // max 1 hour
 
 const DEFAULT_MS = 1000;
 const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
@@ -37,20 +37,17 @@ export default function useStopwatch(status: StepType, missionId: string, onNext
     return () => clearInterval(timer);
   }, [second, status]);
 
+  // init time setting 분리
   const settingInitTime = () => {
     const initSeconds = getProgressMissionTime(missionId);
-    console.log('initSeconds: ', initSeconds);
 
-    if (!initSeconds) return;
+    if (!initSeconds) return false;
     if (initSeconds >= MAX_SECONDS) {
       setSecond(MAX_SECONDS);
-      // setIsFinished(true);
-      // return;
     } else {
       setSecond(initSeconds);
     }
-
-    onNextStep?.('progress'); // 바로 재시작
+    return true;
   };
 
   // 화면 visible 상태로 변경 시, 시간을 다시 세팅
@@ -62,8 +59,12 @@ export default function useStopwatch(status: StepType, missionId: string, onNext
 
   useEffect(() => {
     // 해당 미션을 이어 가는 경우. init time setting
-    settingInitTime();
+    const flag = settingInitTime();
     setIsPending(false);
+    if (!flag) return;
+
+    const prevStatus = getPrevProgressMissionStatus(missionId);
+    prevStatus && onNextStep?.(prevStatus); // 바로 재시작
   }, []);
 
   return { minutes: formattedMinutes, seconds: formattedSeconds, stepper, isFinished, isPending };
