@@ -23,6 +23,10 @@ interface RegisterRequest {
   nickname: string;
 }
 
+interface FcmTokenRequest {
+  fcmToken: string;
+}
+
 export const AUTH_APIS = {
   login: async (request: LoginRequest): Promise<LoginResponse> => {
     const { data } = await apiInstance.post(ROUTER.AUTH.LOGIN, {
@@ -51,6 +55,13 @@ export const AUTH_APIS = {
   register: async (request: RegisterRequest) => {
     const { data } = await apiInstance.post(ROUTER.AUTH.REGISTER, {
       ...request,
+    });
+    return data;
+  },
+
+  fcmUpdate: async (request: FcmTokenRequest) => {
+    const { data } = await apiInstance.patch('/members/fcm-token', {
+      fcmToken: request.fcmToken,
     });
     return data;
   },
@@ -94,6 +105,13 @@ export const useSocialLogin = (option?: UseMutationOptions<LoginResponse, AxiosE
 export const useNicknameRegister = (option?: UseMutationOptions<RegisterRequest, AxiosError, RegisterRequest>) => {
   return useMutation({
     mutationFn: AUTH_APIS.register,
+    ...option,
+  });
+};
+
+export const useUpdateMemberFcmToken = (option?: UseMutationOptions<FcmTokenRequest, AxiosError, FcmTokenRequest>) => {
+  return useMutation({
+    mutationFn: AUTH_APIS.fcmUpdate,
     ...option,
   });
 };
