@@ -1,6 +1,7 @@
 import getQueryKey from '@/apis/getQueryKey';
 import { type RecordType } from '@/apis/schema/record';
 import { type UploadBaseRequest } from '@/apis/schema/upload';
+import useMutationHandleError from '@/hooks/query/useMutationHandleError';
 import {
   useMutation,
   type UseMutationOptions,
@@ -109,7 +110,7 @@ export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<Ge
 };
 
 export const useRecordTime = (options?: UseMutationOptions<RecordTimeResponse, unknown, RecordTimeRequest>) =>
-  useMutation({ mutationFn: RECORD_API.recordTime, ...options });
+  useMutationHandleError({ mutationFn: RECORD_API.recordTime, ...options });
 
 export const useUpdateRemarkMutation = (
   recordId: string,

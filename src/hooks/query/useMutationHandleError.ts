@@ -1,10 +1,8 @@
 import { isSeverError } from '@/apis/instance.api';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
+import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 
-// mutation을 통해 서버에 요청을 보낼 때 발생하는 에러를 처리하는 hook
-// mutation을 래핑하기로 결정
-// option에 추가할지 useMutationWithSanckBar 등 새로운 hook을 만들지 고민
-function useServerErrorSnackBar() {
+function useMutationHandleError<T, _unknown, V>(options?: UseMutationOptions<T, unknown, V>) {
   const { triggerSnackBar } = useSnackBar();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,12 +10,19 @@ function useServerErrorSnackBar() {
     if (isSeverError(error)) {
       triggerSnackBar({
         message: error.response.data.data.message,
+        offset: 'cta',
       });
       return;
     }
   };
 
-  return triggerServerErrorSnackBar;
+  return useMutation({
+    ...options,
+    onError: (error, variables, context) => {
+      triggerServerErrorSnackBar(error);
+      options?.onError?.(error, variables, context);
+    },
+  });
 }
 
-export default useServerErrorSnackBar;
+export default useMutationHandleError;
