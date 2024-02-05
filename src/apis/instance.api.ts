@@ -1,3 +1,4 @@
+import { ROUTER } from '@/constants/router';
 import { getTokens } from '@/services/auth/actions';
 import { isLocal } from '@/utils/appEnv';
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
@@ -32,8 +33,7 @@ const setInterceptors = (instance: AxiosInstance) => {
     (error) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          //TODO : refresh token
-          console.log('refresh token');
+          window.location.href = ROUTER.AUTH.LOGIN;
         }
       }
       return Promise.reject(error);
