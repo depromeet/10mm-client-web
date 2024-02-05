@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useQueryParams from '@/hooks/useQueryParams';
+import useSearchParamState from '@/hooks/useSearchParamState';
 import dayjs, { type Dayjs } from 'dayjs';
 
 /**
@@ -9,7 +9,7 @@ import dayjs, { type Dayjs } from 'dayjs';
  * @param isQueryParams 년과 월의 정보를 query params로 관리할지 여부
  */
 const useCalendar = ({ currentData, isQueryParams }: { currentData: Dayjs; isQueryParams?: boolean }) => {
-  const { queryParams, setQueryParams } = useQueryParams({ queryKey: 'date' });
+  const { queryParams, setQueryParams } = useSearchParamState({ queryKey: 'date' });
   const [date, setDate] = useState(queryParams ? dayjs(queryParams) : currentData);
   const { monthCalendarData } = getCalenderInfo(date.month() + 1, date.year());
 
