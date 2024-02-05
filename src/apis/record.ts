@@ -36,7 +36,7 @@ interface UploadUrlResponse {
 
 interface UploadCompleteRequest {
   missionRecordId: string;
-  imageFileExtension: string;
+  imageFileExtension: ImageFileExtensionType;
   remark: string;
 }
 

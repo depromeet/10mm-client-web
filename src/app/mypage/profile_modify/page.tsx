@@ -8,7 +8,7 @@ import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input/Input';
-import LoadingSpinner from '@/components/Loading/LoadingSpinner';
+import Loading from '@/components/Loading';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
@@ -145,11 +145,7 @@ function ProfileModifyPage() {
 
       <main className={mainCss}>
         <div className={dimCss} />
-        {isImageUploadLoading && (
-          <div className={loadingCss}>
-            <LoadingSpinner />
-          </div>
-        )}
+        {isImageUploadLoading && <Loading />}
         <section className={myTabContainerCss}>
           <section className={thumbnailWrapperCss} onClick={handleImageClick}>
             <input
@@ -223,18 +219,6 @@ const backgroundCss = css({
   background: 'gradients.primary',
   width: '100%',
   position: 'relative',
-});
-
-const loadingCss = css({
-  position: 'absolute',
-  top: 0,
-  zIndex: 'appBar',
-  display: 'flex',
-  width: '100%',
-  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.15) 100%)',
-  height: '100vh',
-  justifyContent: 'center',
-  alignItems: 'center',
 });
 
 const dimCss = css({
