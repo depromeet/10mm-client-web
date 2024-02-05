@@ -11,3 +11,5 @@ const getUserAgent = () => {
 export const isWebView = () => RegExp(APP_USER_AGENT).test(getUserAgent());
 export const isAndroid = () => RegExp(ANDROID).test(getUserAgent());
 export const isIOS = () => RegExp(IOS).test(getUserAgent());
+
+export const isLocal = () => process.env.NODE_ENV === 'development';
