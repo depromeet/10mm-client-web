@@ -1,24 +1,19 @@
-import { Suspense } from 'react';
 import { useParams } from 'next/navigation';
 import MissionCalendar from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
-import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 import { css } from '@styled-system/css';
+import dayjs from 'dayjs';
 
 function MissionHistoryTab({ isFollow }: { isFollow?: boolean }) {
   const { id } = useParams();
   const missionId = id as string;
-  const currentDate = new Date();
+  const currentData = dayjs();
 
   return (
     <div className={scrollAreaCss}>
       <div className={missionHistoryTabCss}>
-        <Suspense fallback={<MissionHistorySkeleton />}>
-          {missionId && <MissionHistoryBannerApi missionId={missionId} />}
-        </Suspense>
-        <Suspense>
-          <MissionCalendar isFollow={isFollow} currentDate={currentDate} missionId={Number(missionId)} />
-        </Suspense>
+        {missionId && <MissionHistoryBannerApi missionId={missionId} />}
+        <MissionCalendar isFollow={isFollow} currentData={currentData} missionId={Number(missionId)} />
       </div>
     </div>
   );
