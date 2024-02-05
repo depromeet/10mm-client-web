@@ -1,10 +1,9 @@
 import { isSeverError } from '@/apis/instance.api';
+import { type SnackBarBaseType } from '@/components/SnackBar/SnackBar.types';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 
-interface SnackBarOptions {
-  offset?: 'appBar' | 'default' | 'cta';
-}
+type SnackBarOptions = Pick<SnackBarBaseType, 'offset'>;
 
 function useMutationHandleError<T, _unknown, V>(
   options?: UseMutationOptions<T, unknown, V>,
@@ -12,8 +11,7 @@ function useMutationHandleError<T, _unknown, V>(
 ) {
   const { triggerSnackBar } = useSnackBar();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const triggerServerErrorSnackBar = (error: any) => {
+  const triggerServerErrorSnackBar = (error: unknown) => {
     if (isSeverError(error)) {
       triggerSnackBar({
         message: error.response.data.data.message,

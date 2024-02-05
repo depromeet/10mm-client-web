@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { isSeverError } from '@/apis/instance.api';
 import { useGetMissionDetailNoSuspense } from '@/apis/mission';
 import { useRecordTime } from '@/apis/record';
 import { useCustomBack, useRecordMidTime, useUnloadAction } from '@/app/mission/[id]/stopwatch/index.hooks';
@@ -81,10 +82,12 @@ export default function StopwatchPage() {
       removeProgressMissionData();
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      if (error.response.data.data.errorClassName === 'MISSION_RECORD_ALREADY_EXISTS_TODAY') {
-        removeProgressMissionData();
-        router.replace(ROUTER.HOME);
+    onError: (error) => {
+      if (isSeverError(error)) {
+        if (error.response.data.data.errorClassName === 'MISSION_RECORD_ALREADY_EXISTS_TODAY') {
+          removeProgressMissionData();
+          router.replace(ROUTER.HOME);
+        }
       }
     },
   });

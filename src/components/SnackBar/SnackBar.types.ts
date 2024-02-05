@@ -1,14 +1,17 @@
 import { type IconComponentMap } from '@/components/Icon';
 
+export type SnackBarOffset = 'appBar' | 'default' | 'cta';
+
 export interface SnackBarBaseType {
   message: string;
-  offset?: 'appBar' | 'default' | 'cta';
+  offset?: SnackBarOffset;
   id: string;
 }
 
 export interface SnackBarNoneType extends SnackBarBaseType {
   variant?: 'none';
 }
+
 export interface SnackBarIconType extends SnackBarBaseType {
   variant: 'icon';
   iconName: keyof typeof IconComponentMap;

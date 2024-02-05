@@ -1,6 +1,6 @@
 import getQueryKey from '@/apis/getQueryKey';
 import { type RecordType } from '@/apis/schema/record';
-import { type UploadBaseRequest } from '@/apis/schema/upload';
+import { type ImageFileExtensionType, type UploadBaseRequest } from '@/apis/schema/upload';
 import useMutationHandleError from '@/hooks/query/useMutationHandleError';
 import {
   useMutation,
