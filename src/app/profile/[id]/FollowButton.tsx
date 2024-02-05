@@ -1,6 +1,7 @@
-import { FOLLOW_API, FollowStatus } from '@/apis/follow';
+import { FOLLOW_API } from '@/apis/follow';
 import getQueryKey from '@/apis/getQueryKey';
 import { isSeverError } from '@/apis/instance.api';
+import { FollowStatus } from '@/apis/schema/member';
 import Button from '@/components/Button/Button';
 import GradientTextButton from '@/components/Button/GradientTextButton';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';

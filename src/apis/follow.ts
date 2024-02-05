@@ -1,6 +1,6 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
-import { type FollowMemberType } from '@/apis/schema/member';
+import { type FollowerMemberWithStatusType, type FollowMemberType, type FollowStatus } from '@/apis/schema/member';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
@@ -16,10 +16,11 @@ interface FollowsResponse {
   followerCount: number;
   followStatus: FollowStatus;
 }
-export enum FollowStatus {
-  FOLLOWING = 'FOLLOWING',
-  FOLLOWED_BY_ME = 'FOLLOWED_BY_ME',
-  NOT_FOLLOWING = 'NOT_FOLLOWING',
+
+interface FollowListResponse {
+  targetNickname: string;
+  followingList: FollowerMemberWithStatusType[];
+  followerList: FollowerMemberWithStatusType[];
 }
 
 export const FOLLOW_API = {
@@ -46,6 +47,10 @@ export const FOLLOW_API = {
   },
   getFollowsTargetId: async (followId: number): Promise<FollowsResponse> => {
     const { data } = await apiInstance.get<FollowsResponse>(`/follows/${followId}`);
+    return data;
+  },
+  getFollowList: async (targetId: number): Promise<FollowListResponse> => {
+    const { data } = await apiInstance.get<FollowListResponse>(`/follows/${targetId}/list`);
     return data;
   },
 };
@@ -78,6 +83,14 @@ export const useFollowsCountTargetId = (followId: number, option?: UseQueryOptio
   return useQuery<FollowsResponse>({
     queryKey: getQueryKey('followsCountTargetId', { followId }),
     queryFn: () => FOLLOW_API.getFollowsTargetId(followId),
+    ...option,
+  });
+};
+
+export const useFetFollowList = (targetId: number, option?: UseQueryOptions<FollowListResponse>) => {
+  return useQuery<FollowListResponse>({
+    queryKey: getQueryKey('followList', { targetId }),
+    queryFn: () => FOLLOW_API.getFollowList(targetId),
     ...option,
   });
 };

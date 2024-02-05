@@ -1,7 +1,7 @@
 import { type ComponentProps, type MouseEventHandler } from 'react';
 import { FOLLOW_API } from '@/apis/follow';
 import { isSeverError } from '@/apis/instance.api';
-import { type FollowStatusType } from '@/apis/schema/member';
+import { type FollowStatus } from '@/apis/schema/member';
 import Button from '@/components/Button/Button';
 import { ProfileListItem } from '@/components/ListItem';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
@@ -10,7 +10,7 @@ interface Props
   extends Omit<ComponentProps<typeof ProfileListItem>, 'buttonElement' | 'subElement' | 'variant' | 'thumbnail'> {
   onButtonClick?: () => void;
   memberId: number;
-  followStatus: FollowStatusType;
+  followStatus: FollowStatus;
 }
 
 function FollowerItem(props: Props) {

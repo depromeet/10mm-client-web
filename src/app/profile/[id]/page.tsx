@@ -1,8 +1,9 @@
 'use client';
 
-import { FollowStatus, useFollowsCountTargetId } from '@/apis/follow';
+import { useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
+import { FollowStatus } from '@/apis/schema/member';
 import ProfileMissionList from '@/app/mypage/MyProfileMissionList';
 import FollowButton from '@/app/profile/[id]/FollowButton';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
@@ -20,6 +21,7 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
     <main className={backgroundCss}>
       <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
       <ProfileContent
+        memberId={Number(params.id)}
         nickname={data?.nickname || ''}
         followingCount={followCountData?.followingCount || 0}
         followerCount={followCountData?.followerCount || 0}
