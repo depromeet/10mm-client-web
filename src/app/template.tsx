@@ -11,7 +11,6 @@ import { useAuth } from '@/hooks/useAuth';
 
 export default function Template({ children }: { children: React.ReactNode }) {
   useAuth();
-
   // const [customMotion, setCustomMotion] = useState(true);
 
   // useEffect(() => {
