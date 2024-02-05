@@ -110,7 +110,12 @@ export const useGetRecordDetail = (recordId: string, option?: UseQueryOptions<Ge
 };
 
 export const useRecordTime = (options?: UseMutationOptions<RecordTimeResponse, unknown, RecordTimeRequest>) =>
-  useMutationHandleError({ mutationFn: RECORD_API.recordTime, ...options });
+  useMutationHandleError(
+    { mutationFn: RECORD_API.recordTime, ...options },
+    {
+      offset: 'appBar',
+    },
+  );
 
 export const useUpdateRemarkMutation = (
   recordId: string,
