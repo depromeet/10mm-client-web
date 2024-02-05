@@ -2,22 +2,16 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { isSeverError } from '@/apis/instance.api';
-import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const onClickResetButton = () => reset();
-  const router = useRouter();
+
   useEffect(() => {
-    if (isSeverError(error)) {
-      if (error.response.status === 401) {
-        router.push(ROUTER.AUTH.LOGIN);
-      }
-    }
+    // TODO: ga로 쏘거나 하는 등의 플로우는 필요없을지 하는 생각
     console.error(error);
   }, [error]);
+
   return (
     <main className={MainWrapperCss}>
       <div className={imageWrapperCss}>

@@ -1,6 +1,4 @@
-import { ROUTER } from '@/constants/router';
 import { getTokens } from '@/services/auth/actions';
-import { isLocal } from '@/utils/appEnv';
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
@@ -9,9 +7,6 @@ const BASE_TIMEOUT = 10000;
 const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     async (config) => {
-      if (!isLocal()) {
-        return config;
-      }
       const { accessToken, refreshToken } = await getTokens();
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -33,7 +28,8 @@ const setInterceptors = (instance: AxiosInstance) => {
     (error) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          window.location.href = ROUTER.AUTH.LOGIN;
+          //TODO : refresh token
+          console.log('refresh token');
         }
       }
       return Promise.reject(error);
