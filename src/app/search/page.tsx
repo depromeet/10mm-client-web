@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
 import FollowerItem from '@/components/ListItem/Follow/FollowerItem';
 import FollowingItem from '@/components/ListItem/Follow/FollowingItem';
-import { ProfileItemSkeleton } from '@/components/ListItem/ProfileListItem';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -16,17 +15,8 @@ function SearchPage() {
   return (
     <>
       <SearchBar placeholder="닉네임을 검색해 주세요." value={input} onChange={setInput} />
-      <Suspense
-        fallback={
-          <>
-            <ProfileItemSkeleton />
-            <ProfileItemSkeleton />
-            <ProfileItemSkeleton />
-            <ProfileItemSkeleton />
-          </>
-        }
-      >
-        <List nickname={filteredInput} />
+      <Suspense fallback={<div></div>}>
+        <List nickname={input} />
       </Suspense>
     </>
   );

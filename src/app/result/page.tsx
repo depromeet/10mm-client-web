@@ -5,6 +5,7 @@ import Character from '@/app/level/guide/Character';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import Banner from '@/components/Banner/Banner';
 import LinkButton from '@/components/Button/LinkButton';
+import MotionDiv from '@/components/Motion/MotionDiv';
 import Tab from '@/components/Tab/Tab';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -21,7 +22,7 @@ const TAB = [
 ];
 
 function ResultPage() {
-  const { data } = useGetMissionSummary();
+  const { data, isLoading } = useGetMissionSummary();
 
   const symbolStack = data?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
@@ -36,19 +37,30 @@ function ResultPage() {
           레벨 안내
         </LinkButton>
       </section>
-      <section className={imageSectionCss}>
-        <Character width={280} height={210} level={currentLevel.level} isBackground />
-      </section>
-      <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} />
-      <section className={bannerSectionCss}>
-        <Banner type="card" description="전체 누적 시간" iconUrl="/assets/icons/graph/clock.png" title={totalTime} />
-        <Banner
-          type="card"
-          description="총 미션 달성률"
-          iconUrl="/assets/icons/graph/chart.png"
-          title={totalMissionAttainRate}
-        />
-      </section>
+      {isLoading ? (
+        <div></div>
+      ) : (
+        <>
+          <MotionDiv variants="fadeInUp" className={imageSectionCss}>
+            <Character width={280} height={210} level={currentLevel.level} isBackground />
+          </MotionDiv>
+          <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} />
+          <MotionDiv className={bannerSectionCss}>
+            <Banner
+              type="card"
+              description="전체 누적 시간"
+              iconUrl="/assets/icons/graph/clock.png"
+              title={totalTime}
+            />
+            <Banner
+              type="card"
+              description="총 미션 달성률"
+              iconUrl="/assets/icons/graph/chart.png"
+              title={totalMissionAttainRate}
+            />
+          </MotionDiv>
+        </>
+      )}
       <AppBarBottom />
     </div>
   );
