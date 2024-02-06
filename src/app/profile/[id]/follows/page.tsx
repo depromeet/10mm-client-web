@@ -3,7 +3,6 @@
 import { useFetFollowList } from '@/apis/follow';
 import { useGetMembersMe } from '@/apis/member';
 import FollowingList from '@/app/profile/[id]/follows/FollowingList';
-import FollowerList from '@/app/profile/[id]/follows/FollowingList';
 import MyFollowerList from '@/app/profile/[id]/follows/MyFollowerList';
 import Header from '@/components/Header/Header';
 import FullTab from '@/components/Tab/FullTab';
@@ -18,7 +17,7 @@ function FollowListPage({ params }: { params: { id: string } }) {
 
   const currentMemberId = Number(params.id);
 
-  const { data, isPending, refetch } = useFetFollowList(Number(params.id));
+  const { data, refetch } = useFetFollowList(Number(params.id));
 
   const followingCount = data?.followingList.length;
   const followerCount = data?.followerList.length;
@@ -37,19 +36,29 @@ function FollowListPage({ params }: { params: { id: string } }) {
     initTabId,
   );
 
-  const viewList = activeTab === 'following' ? data?.followingList : data?.followerList;
-
   const myId = useGetMeId();
   const isMyself = myId === currentMemberId;
-  if (isPending) return <div></div>; // 스켈레톤 고민해보기
+
+  // if (isPending) return <div></div>; // 스켈레톤 고민해보기
 
   return (
     <div>
       <Header rightAction="none" title={data?.targetNickname} className={headerCss} />
       <FullTab tabs={tabs} activeTab={activeTab} onTabClick={onTabClick} />
-      {activeTab === 'following' && <FollowingList list={viewList ?? []} refetch={refetch} />}
-      {activeTab === 'follower' && !isMyself && <FollowingList list={viewList ?? []} refetch={refetch} />}
-      {activeTab === 'follower' && isMyself && <MyFollowerList list={viewList ?? []} refetch={refetch} />}
+      {/* 내 팔로잉/팔로우 */}
+      {isMyself &&
+        (activeTab === 'following' ? (
+          <FollowingList list={data?.followingList ?? []} refetch={refetch} />
+        ) : (
+          <MyFollowerList list={data?.followerList ?? []} refetch={refetch} />
+        ))}
+      {/* 다른 사람 팔로잉/팔로우 */}
+      {!isMyself &&
+        (activeTab === 'following' ? (
+          <FollowingList list={data?.followingList ?? []} refetch={refetch} />
+        ) : (
+          <FollowingList list={data?.followerList ?? []} refetch={refetch} />
+        ))}
     </div>
   );
 }

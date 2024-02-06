@@ -1,9 +1,7 @@
+import { useState } from 'react';
 import Link from 'next/link';
-import { useGetMembersMe } from '@/apis/member';
-import { type FollowerMemberWithStatusType } from '@/apis/schema/member';
-import { ProfileListItem } from '@/components/ListItem';
-import FollowerItem from '@/components/ListItem/Follow/FollowerItem';
-import FollowingItem from '@/components/ListItem/Follow/FollowingItem';
+import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
+import MemberItem from '@/components/ListItem/Follow/MemberItem';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 
@@ -13,14 +11,25 @@ interface Props {
 }
 
 function FollowingList(props: Props) {
-  const onButtonClick = () => {
+  const [viewList, setViewList] = useState(props.list);
+
+  const onButtonClick = (memberId: number, actionType?: 'addFollow' | 'deleteFollow') => {
+    if (actionType === 'deleteFollow') {
+      // TODO : 맞팔인지, 팔로우인지 확인 필요
+      setViewList((prev) =>
+        prev.map((item) => (item.memberId === memberId ? { ...item, followStatus: FollowStatus.NOT_FOLLOWING } : item)),
+      );
+      return;
+    }
     props.refetch();
   };
 
   return (
     <section className={containerCss}>
       {props.list.map((item) => (
-        <FollowItem key={item.memberId} item={item} onButtonClick={onButtonClick} />
+        <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
+          <MemberItem {...item} onButtonClick={onButtonClick} />
+        </Link>
       ))}
     </section>
   );
@@ -31,45 +40,3 @@ export default FollowingList;
 const containerCss = css({
   padding: '16px',
 });
-
-function FollowItem({ item, onButtonClick }: { item: FollowerMemberWithStatusType; onButtonClick: () => void }) {
-  const myId = useGetMeId();
-
-  const params = {
-    name: item.nickname,
-    memberId: item.memberId,
-    thumbnail: {
-      url: item.profileImageUrl,
-      alt: item.nickname,
-      variant: 'filled',
-      size: 'h36',
-    },
-    onButtonClick,
-  };
-
-  return (
-    <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
-      {item.memberId === myId ? (
-        <ProfileListItem
-          buttonElement={<div></div>}
-          thumbnail={{
-            url: item.profileImageUrl,
-            variant: 'filled',
-            size: 'h36',
-          }}
-          name={params.name}
-        />
-      ) : item.followStatus === 'FOLLOWING' ? (
-        <FollowingItem {...params} />
-      ) : (
-        <FollowerItem followStatus={item.followStatus} {...params} />
-      )}
-    </Link>
-  );
-}
-
-const useGetMeId = () => {
-  const { data } = useGetMembersMe();
-  const memberId = data?.memberId ?? 0;
-  return memberId;
-};

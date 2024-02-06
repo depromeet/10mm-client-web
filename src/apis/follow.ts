@@ -2,7 +2,8 @@ import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
 import { type FollowerMemberWithStatusType, type FollowMemberType, type FollowStatus } from '@/apis/schema/member';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import useMutationHandleError from '@/hooks/query/useMutationHandleError';
+import { type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 type GetFollowMembersResponse = FollowMemberType[];
 
@@ -94,3 +95,19 @@ export const useFetFollowList = (targetId: number, option?: UseQueryOptions<Foll
     ...option,
   });
 };
+
+export const useAddFollow = (options?: UseMutationOptions<unknown, unknown, number>) =>
+  useMutationHandleError(
+    { mutationFn: FOLLOW_API.addFollow, ...options },
+    {
+      offset: 'default',
+    },
+  );
+
+export const useDeleteFollow = (options?: UseMutationOptions<unknown, unknown, number>) =>
+  useMutationHandleError(
+    { mutationFn: FOLLOW_API.deleteFollow, ...options },
+    {
+      offset: 'default',
+    },
+  );
