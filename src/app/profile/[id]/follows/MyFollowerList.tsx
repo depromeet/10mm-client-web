@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { type FollowerMemberWithStatusType } from '@/apis/schema/member';
 import { ProfileListItem } from '@/components/ListItem';
+import { stagger } from '@/components/Motion/Motion.constants';
+import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 
@@ -25,7 +27,7 @@ function MyFollowerList(props: Props) {
   // };
 
   return (
-    <section className={containerCss}>
+    <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
       {props.list.map((item) => {
         return (
           <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
@@ -34,13 +36,6 @@ function MyFollowerList(props: Props) {
               buttonElement={
                 // TODO : 삭제 버튼 추가 필요 (맞팔 관계 팔로우 삭제, 맞팔 x, 팔로워 관계 삭제)
                 // 일정 상 무리라고 판단 (2/6) 추후 수정
-                // <Button
-                //   size="small"
-                //   variant="secondary"
-                //   onClick={item.followStatus === FollowStatus.FOLLOWED_BY_ME ? onDeleteFollowByMe : onDeleteFollower}
-                // >
-                //   삭제 {item.followStatus}
-                // </Button>
                 <div></div>
               }
               thumbnail={{
@@ -53,7 +48,7 @@ function MyFollowerList(props: Props) {
           </Link>
         );
       })}
-    </section>
+    </StaggerWrapper>
   );
 }
 
