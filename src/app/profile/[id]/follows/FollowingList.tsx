@@ -21,6 +21,10 @@ interface Props {
 function FollowingList(props: Props) {
   const [viewList, setViewList] = useState(props.list);
 
+  const onFollowing = () => {
+    props.refetch();
+  };
+
   const onFollowingCancel = (member: FollowerMemberWithStatusType) => {
     setViewList((prev) => prev.map((item) => (item.memberId === member.memberId ? member : item)));
   };
@@ -29,7 +33,7 @@ function FollowingList(props: Props) {
     <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
       {viewList.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
-          <Item {...item} onFollowingCancel={onFollowingCancel} />
+          <Item {...item} onFollowingCancel={onFollowingCancel} onFollowing={onFollowing} />
         </Link>
       ))}
     </StaggerWrapper>
@@ -40,8 +44,12 @@ export default FollowingList;
 
 function Item({
   onFollowingCancel,
+  onFollowing,
   ...props
-}: Omit<MemberItemProps, 'onButtonClick'> & { onFollowingCancel: (item: FollowerMemberWithStatusType) => void }) {
+}: Omit<MemberItemProps, 'onButtonClick'> & {
+  onFollowingCancel: (item: FollowerMemberWithStatusType) => void;
+  onFollowing: () => void;
+}) {
   const myId = useGetMeId();
 
   if (props.memberId === myId) {
@@ -53,7 +61,7 @@ function Item({
   }
 
   if (props.followStatus === FollowStatus.NOT_FOLLOWING || props.followStatus === FollowStatus.FOLLOWED_BY_ME) {
-    return <NotFollowingMember {...props} />;
+    return <NotFollowingMember {...props} onButtonClick={onFollowing} />;
   }
 }
 
