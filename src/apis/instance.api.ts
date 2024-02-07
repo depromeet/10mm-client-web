@@ -1,4 +1,4 @@
-import { getTokens } from '@/services/auth/actions';
+import { ROUTER } from '@/constants/router';
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_SEVER_API;
@@ -7,13 +7,6 @@ const BASE_TIMEOUT = 10000;
 const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     async (config) => {
-      const { accessToken, refreshToken } = await getTokens();
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-      if (refreshToken) {
-        config.headers['Refresh-Token'] = `Bearer ${refreshToken}`;
-      }
       return config;
     },
     (error) => {
@@ -28,8 +21,7 @@ const setInterceptors = (instance: AxiosInstance) => {
     (error) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          //TODO : refresh token
-          console.log('refresh token');
+          window.location.href = ROUTER.AUTH.LOGIN;
         }
       }
       return Promise.reject(error);
@@ -43,6 +35,7 @@ const axiosInstance = setInterceptors(
   axios.create({
     timeout: BASE_TIMEOUT,
     baseURL: BASE_URL,
+    withCredentials: true,
   }),
 );
 
