@@ -21,11 +21,14 @@ interface Props {
 function FollowingList(props: Props) {
   const [viewList, setViewList] = useState(props.list);
 
-  const onFollowing = () => {
-    props.refetch();
+  const onFollowing = (member: FollowerMemberWithStatusType) => {
+    console.log('member: ', member);
+    setViewList((prev) => prev.map((item) => (item.memberId === member.memberId ? member : item)));
+    // props.refetch();
   };
 
   const onFollowingCancel = (member: FollowerMemberWithStatusType) => {
+    console.log('member: ', member);
     setViewList((prev) => prev.map((item) => (item.memberId === member.memberId ? member : item)));
   };
 
@@ -48,7 +51,7 @@ function Item({
   ...props
 }: Omit<MemberItemProps, 'onButtonClick'> & {
   onFollowingCancel: (item: FollowerMemberWithStatusType) => void;
-  onFollowing: () => void;
+  onFollowing: (item: FollowerMemberWithStatusType) => void;
 }) {
   const myId = useGetMeId();
 
