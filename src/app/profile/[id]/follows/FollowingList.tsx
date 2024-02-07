@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
+import { sorFollowerList } from '@/app/profile/[id]/follows/index.utils';
 import {
   FollowingMember,
   type MemberItemProps,
@@ -19,10 +20,12 @@ interface Props {
 }
 
 function FollowingList(props: Props) {
+  const myId = useGetMeId();
   const [viewList, setViewList] = useState(props.list);
 
   useEffect(() => {
-    setViewList(props.list);
+    const sortList = sorFollowerList(props.list, Number(myId));
+    setViewList(sortList);
   }, [props.list]);
 
   const onUpdateList = (member: FollowerMemberWithStatusType) => {
