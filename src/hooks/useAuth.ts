@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { ROUTER } from '@/constants/router';
-import { isLocal } from '@/utils/appEnv';
 
 const ALLOW_PATH_LIST = [
   ROUTER.AUTH.LOGIN,
@@ -23,10 +22,6 @@ export function useAuth() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isLocal()) {
-      return;
-    }
-
     const token = localStorage.getItem('accessToken') ?? process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
     if (!token && !ALLOW_PATH_LIST.includes(pathname)) {

@@ -7,11 +7,10 @@ import GrowthLevel from '@/app/level/guide/GrowthLevel';
 import LockedCharacter from '@/components/Level/LockedCharacter';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
 import LoadingSpinner from '@/components/Loading/LoadingSpinner';
+import MotionDiv from '@/components/Motion/MotionDiv';
 import { LEVEL_SYSTEM } from '@/constants/level';
-import { defaultFadeInMotion } from '@/constants/style/animation';
 import { css, cx } from '@/styled-system/css';
 import { getLevel } from '@/utils/result';
-import { motion } from 'framer-motion';
 
 function LevelGuidePage() {
   const { data, isLoading } = useGetMissionSummary();
@@ -39,9 +38,7 @@ function LevelGuidePage() {
             <section className={levelTextWrapperCss}>
               <p className={levelLabelCss}>현재 레벨</p>
               <div className={cx(badgeCss)}>
-                <motion.span key={selectLevelInfo.label} {...defaultFadeInMotion}>
-                  {selectLevelInfo.label}
-                </motion.span>
+                <MotionDiv key={selectLevelInfo.label}>{selectLevelInfo.label}</MotionDiv>
               </div>
             </section>
             <section className={characterImageSectionCss}>
