@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useGetMembersMe } from '@/apis/member';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
-import MemberItem from '@/components/ListItem/Follow/MemberItem';
+import {
+  FollowingMember,
+  type MemberItemProps,
+  MineMemberItem,
+  NotFollowingMember,
+} from '@/components/ListItem/Follow/MemberItem';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 
@@ -13,22 +19,15 @@ interface Props {
 function FollowingList(props: Props) {
   const [viewList, setViewList] = useState(props.list);
 
-  const onButtonClick = (memberId: number, actionType?: 'addFollow' | 'deleteFollow') => {
-    if (actionType === 'deleteFollow') {
-      // TODO : 맞팔인지, 팔로우인지 확인 필요
-      setViewList((prev) =>
-        prev.map((item) => (item.memberId === memberId ? { ...item, followStatus: FollowStatus.NOT_FOLLOWING } : item)),
-      );
-      return;
-    }
-    props.refetch();
+  const onFollowingCancel = (member: FollowerMemberWithStatusType) => {
+    setViewList((prev) => prev.map((item) => (item.memberId === member.memberId ? member : item)));
   };
 
   return (
     <section className={containerCss}>
-      {props.list.map((item) => (
+      {viewList.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
-          <MemberItem {...item} onButtonClick={onButtonClick} />
+          <Item {...item} onFollowingCancel={onFollowingCancel} />
         </Link>
       ))}
     </section>
@@ -36,7 +35,31 @@ function FollowingList(props: Props) {
 }
 
 export default FollowingList;
+function Item({
+  onFollowingCancel,
+  ...props
+}: Omit<MemberItemProps, 'onButtonClick'> & { onFollowingCancel: (item: FollowerMemberWithStatusType) => void }) {
+  const myId = useGetMeId();
+
+  if (props.memberId === myId) {
+    return <MineMemberItem {...props} />;
+  }
+
+  if (props.followStatus === FollowStatus.FOLLOWING) {
+    return <FollowingMember {...props} onButtonClick={onFollowingCancel} />;
+  }
+
+  if (props.followStatus === FollowStatus.NOT_FOLLOWING || props.followStatus === FollowStatus.FOLLOWED_BY_ME) {
+    return <NotFollowingMember {...props} />;
+  }
+}
 
 const containerCss = css({
   padding: '16px',
 });
+
+const useGetMeId = () => {
+  const { data } = useGetMembersMe();
+  const memberId = data?.memberId ?? 0;
+  return memberId;
+};

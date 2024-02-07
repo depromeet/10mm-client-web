@@ -24,6 +24,10 @@ interface FollowListResponse {
   followerList: FollowerMemberWithStatusType[];
 }
 
+interface DeleteFollowResponse {
+  followStatus: FollowStatus;
+}
+
 export const FOLLOW_API = {
   getFollowMembers: async (): Promise<GetFollowMembersResponse> => {
     const { data } = await apiInstance.get<GetFollowMembersResponse>('/follows/members');
@@ -38,7 +42,7 @@ export const FOLLOW_API = {
     const { data } = await apiInstance.post(`/follows`, { targetId });
     return data;
   },
-  deleteFollow: async (targetId: number) => {
+  deleteFollow: async (targetId: number): Promise<DeleteFollowResponse> => {
     const { data } = await apiInstance.delete(`/follows`, { data: { targetId } });
     return data;
   },
@@ -104,7 +108,7 @@ export const useAddFollow = (options?: UseMutationOptions<unknown, unknown, numb
     },
   );
 
-export const useDeleteFollow = (options?: UseMutationOptions<unknown, unknown, number>) =>
+export const useDeleteFollow = (options?: UseMutationOptions<DeleteFollowResponse, unknown, number>) =>
   useMutationHandleError(
     { mutationFn: FOLLOW_API.deleteFollow, ...options },
     {
