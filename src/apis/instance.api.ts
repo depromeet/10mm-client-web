@@ -1,3 +1,4 @@
+import { ROUTER } from '@/constants/router';
 import { getTokens } from '@/services/auth/actions';
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 
@@ -28,8 +29,7 @@ const setInterceptors = (instance: AxiosInstance) => {
     (error) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          //TODO : refresh token
-          console.log('refresh token');
+          window.location.href = ROUTER.AUTH.LOGIN;
         }
       }
       return Promise.reject(error);
@@ -43,6 +43,7 @@ const axiosInstance = setInterceptors(
   axios.create({
     timeout: BASE_TIMEOUT,
     baseURL: BASE_URL,
+    withCredentials: true,
   }),
 );
 
