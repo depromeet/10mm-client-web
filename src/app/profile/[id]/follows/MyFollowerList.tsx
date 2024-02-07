@@ -10,6 +10,7 @@ interface Props {
   list: FollowerMemberWithStatusType[];
   refetch: () => void;
 }
+
 function MyFollowerList(props: Props) {
   // const onFollowerDelete = () => {
   //   // TODO : 삭제 버튼 클릭 시 삭제 처리
@@ -38,11 +39,7 @@ function MyFollowerList(props: Props) {
                 // 일정 상 무리라고 판단 (2/6) 추후 수정
                 <div></div>
               }
-              thumbnail={{
-                url: item.profileImageUrl,
-                variant: 'filled',
-                size: 'h36',
-              }}
+              thumbnailUrl={item.profileImageUrl}
               name={item.nickname}
             />
           </Link>

@@ -3,8 +3,8 @@
 import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
-import FollowerItem from '@/components/ListItem/Follow/FollowerItem';
 import FollowingItem from '@/components/ListItem/Follow/FollowingItem';
+import { NotFollowingMember } from '@/components/ListItem/Follow/MemberItem';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -48,7 +48,7 @@ function List({ nickname }: { nickname: string }) {
             {item.followStatus === 'FOLLOWING' ? (
               <FollowingItem {...params} />
             ) : (
-              <FollowerItem followStatus={item.followStatus} {...params} />
+              <NotFollowingMember {...item} onButtonClick={onButtonClick} />
             )}
           </Link>
         );

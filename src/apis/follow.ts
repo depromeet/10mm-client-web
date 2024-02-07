@@ -3,7 +3,7 @@ import apiInstance from '@/apis/instance.api';
 import { type FollowerMemberWithStatusType, type FollowMemberType, type FollowStatus } from '@/apis/schema/member';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
 import useMutationHandleError from '@/hooks/query/useMutationHandleError';
-import { type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useMutation, type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 type GetFollowMembersResponse = FollowMemberType[];
 
@@ -109,9 +109,4 @@ export const useAddFollow = (options?: UseMutationOptions<unknown, unknown, numb
   );
 
 export const useDeleteFollow = (options?: UseMutationOptions<DeleteFollowResponse, unknown, number>) =>
-  useMutationHandleError(
-    { mutationFn: FOLLOW_API.deleteFollow, ...options },
-    {
-      offset: 'default',
-    },
-  );
+  useMutation({ mutationFn: FOLLOW_API.deleteFollow, ...options });

@@ -12,20 +12,12 @@ export interface MemberItemProps extends FollowerMemberWithStatusType {
 export function FollowingMember({ onClick, ...props }: MemberItemProps) {
   const { mutate } = useDeleteFollow({
     onSuccess: (res) => {
-      console.log('res: ', res);
-      console.log('props: ', props);
-
-      props.onButtonClick &&
-        props.onButtonClick({ ...props, followStatus: res.followStatus ?? FollowStatus.NOT_FOLLOWING });
-      // props.onButtonClick?.({ ...props, followStatus: res.followStatus ?? FollowStatus.NOT_FOLLOWING });
-      // triggerSnackBar({
-      //   message: `${props.nickname} 팔로잉이 취소되었습니다.`,
-      // });
+      props.onButtonClick?.({ ...props, followStatus: res?.followStatus ?? FollowStatus.NOT_FOLLOWING });
     },
   });
 
   const onFollowingCancel = async () => {
-    await mutate(props.memberId);
+    mutate(props.memberId);
   };
 
   return (
@@ -49,7 +41,11 @@ export function FollowingMember({ onClick, ...props }: MemberItemProps) {
 
 // 팔로잉 되어있지 않은 멤버
 export function NotFollowingMember(props: MemberItemProps) {
-  const { mutate } = useAddFollow();
+  const { mutate } = useAddFollow({
+    onSuccess: () => {
+      props.onButtonClick?.({ ...props, followStatus: FollowStatus.FOLLOWING });
+    },
+  });
 
   const onFollowerClick = async () => {
     mutate(props.memberId);
@@ -58,6 +54,7 @@ export function NotFollowingMember(props: MemberItemProps) {
   return (
     <ProfileListItem
       name={props.nickname}
+      thumbnailUrl={props.profileImageUrl}
       buttonElement={
         <Button
           size="small"
@@ -67,7 +64,7 @@ export function NotFollowingMember(props: MemberItemProps) {
             onFollowerClick();
           }}
         >
-          {props.followStatus === 'FOLLOWED_BY_ME' ? '맞팔로우' : '팔로우'}
+          {props.followStatus === FollowStatus.FOLLOWED_BY_ME ? '맞팔로우' : '팔로우'}
         </Button>
       }
     />

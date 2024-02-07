@@ -1,12 +1,11 @@
 import { type ReactNode } from 'react';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 interface Props {
-  thumbnail?: ThumbnailProps;
+  thumbnailUrl?: string;
   name: string;
   variant?: 'one-button' | 'two-button';
   buttonElement: ReactNode;
@@ -18,7 +17,7 @@ function ProfileListItem(props: Props) {
 
   return (
     <li className={containerCss}>
-      <Thumbnail size="h36" {...props.thumbnail} />
+      <Thumbnail size="h36" variant="filled" url={props.thumbnailUrl} />
       <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
         {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
