@@ -8,6 +8,8 @@ import {
   MineMemberItem,
   NotFollowingMember,
 } from '@/components/ListItem/Follow/MemberItem';
+import { stagger } from '@/components/Motion/Motion.constants';
+import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 
@@ -24,17 +26,18 @@ function FollowingList(props: Props) {
   };
 
   return (
-    <section className={containerCss}>
+    <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
       {viewList.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
           <Item {...item} onFollowingCancel={onFollowingCancel} />
         </Link>
       ))}
-    </section>
+    </StaggerWrapper>
   );
 }
 
 export default FollowingList;
+
 function Item({
   onFollowingCancel,
   ...props
@@ -56,6 +59,7 @@ function Item({
 
 const containerCss = css({
   padding: '16px',
+  width: '100%',
 });
 
 const useGetMeId = () => {
