@@ -31,6 +31,8 @@ type QueryList = {
   missionStack: {
     missionId: string;
   };
+
+  feed: undefined;
 };
 
 /**
