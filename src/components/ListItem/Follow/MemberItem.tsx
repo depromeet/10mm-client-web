@@ -5,12 +5,19 @@ import { ProfileListItem } from '@/components/ListItem';
 
 export interface MemberItemProps extends FollowerMemberWithStatusType {
   onButtonClick?: (item: FollowerMemberWithStatusType) => void;
+
+  onClick?: (item: FollowerMemberWithStatusType) => void;
 }
 
-export function FollowingMember(props: MemberItemProps) {
+export function FollowingMember({ onClick, ...props }: MemberItemProps) {
   const { mutate } = useDeleteFollow({
     onSuccess: (res) => {
-      props.onButtonClick?.({ ...props, followStatus: res.followStatus ?? FollowStatus.NOT_FOLLOWING });
+      console.log('res: ', res);
+      console.log('props: ', props);
+
+      props.onButtonClick &&
+        props.onButtonClick({ ...props, followStatus: res.followStatus ?? FollowStatus.NOT_FOLLOWING });
+      // props.onButtonClick?.({ ...props, followStatus: res.followStatus ?? FollowStatus.NOT_FOLLOWING });
       // triggerSnackBar({
       //   message: `${props.nickname} 팔로잉이 취소되었습니다.`,
       // });
@@ -18,7 +25,7 @@ export function FollowingMember(props: MemberItemProps) {
   });
 
   const onFollowingCancel = async () => {
-    mutate(props.memberId);
+    await mutate(props.memberId);
   };
 
   return (
