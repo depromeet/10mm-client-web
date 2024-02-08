@@ -5,11 +5,18 @@ export const EVENT_LOG_CATEGORY = {
   HEADER: 'header',
   BOTTOM_APP_BAR: 'bottom_app_bar',
   HOME: 'home',
+  RESULT: 'result',
+  LEVEL: 'level',
+  MISSION_DETAIL: 'mission_detail',
 };
 
 type EventLogCategoryType = keyof typeof EVENT_LOG_CATEGORY;
 
 export const EVENT_LOG_NAME = {
+  MISSION_DETAIL: {
+    CLICK_CALENDER_ARROW: 'click/calendarArrow',
+    CLICK_CALENDER: 'click/calendar',
+  },
   HOME: {
     CLICK_FOLLOW_MISSION: 'click/followMission',
     CLICK_FOLLOW_PROFILE: 'click/followProfile',
@@ -45,5 +52,11 @@ export const EVENT_LOG_NAME = {
   },
   BOTTOM_APP_BAR: {
     CLICK_TAB: 'click/tab',
+  },
+  RESULT: {
+    CLICK_MISSION: 'click/levelGuide',
+  },
+  LEVEL: {
+    CLICK_LEVEL: 'click/level',
   },
 } satisfies Record<EventLogCategoryType, Record<string, string>>;
