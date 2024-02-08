@@ -11,6 +11,7 @@ import { gradientTextCss } from '@/constants/style/gradient';
 import { calcProgress, getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
+import { motion } from 'framer-motion';
 
 type FollowSummaryProps = FollowMemberType;
 
@@ -21,7 +22,7 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
   const progress = calcProgress(symbolStack);
 
   return (
-    <div>
+    <div key={followId}>
       <div className={followSummaryTitleCss}>
         <Thumbnail size={'h18'} url={profileImageUrl} variant="filled" />
         <Link href={ROUTER.PROFILE.DETAIL(followId)}>
@@ -39,7 +40,7 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
           </div>
           <p className={LevelNameCss}>{currentLevel.label}</p>
           <div className={levelProgressBarWrapperCss}>
-            <LevelProgressBar current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
+            <LevelProgressBar key={followId} current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
           </div>
         </div>
       </div>
