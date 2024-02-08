@@ -25,7 +25,7 @@ function GradientTextButton({ children, ...props }: PropsWithChildren<ButtonHTML
             textStyle: 'subtitle5',
             fontSize: '13px',
             fontWeight: 300,
-            lineHeight: '30px',
+            lineHeight: '28px',
             padding: '0px 12px',
           }),
           gradientTextCss,
