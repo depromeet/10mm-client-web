@@ -14,7 +14,7 @@ export const useViewList = (list: FollowerMemberWithStatusType[]) => {
   useEffect(() => {
     const sortList = sorFollowerList(list, Number(myId));
     setViewList(sortList);
-  }, [list]);
+  }, []);
 
   return { list: viewList, onUpdateItem };
 };

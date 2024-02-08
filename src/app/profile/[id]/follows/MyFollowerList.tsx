@@ -10,6 +10,7 @@ import { css } from '@/styled-system/css';
 
 interface Props {
   list: FollowerMemberWithStatusType[];
+  refetch: () => void;
 }
 
 function MyFollowerList(props: Props) {
@@ -18,7 +19,14 @@ function MyFollowerList(props: Props) {
   return (
     <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
       {list.map((item) => (
-        <Item key={`${item.memberId}-${item.followStatus}`} item={item} onUpdateItem={onUpdateItem} />
+        <Item
+          key={`${item.memberId}-${item.followStatus}`}
+          item={item}
+          onUpdateItem={(_item) => {
+            onUpdateItem(_item);
+            props.refetch();
+          }}
+        />
       ))}
     </StaggerWrapper>
   );

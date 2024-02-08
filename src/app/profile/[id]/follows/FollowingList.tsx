@@ -14,6 +14,7 @@ import { css } from '@/styled-system/css';
 
 interface Props {
   list: FollowerMemberWithStatusType[];
+  refetch: () => void;
 }
 
 function FollowingList(props: Props) {
@@ -23,7 +24,13 @@ function FollowingList(props: Props) {
     <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
       {list.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
-          <Item {...item} onUpdateList={onUpdateItem} />
+          <Item
+            {...item}
+            onUpdateList={(_item) => {
+              onUpdateItem(_item);
+              props.refetch();
+            }}
+          />
         </Link>
       ))}
     </StaggerWrapper>
