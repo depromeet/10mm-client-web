@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { useGetMembersMe } from '@/apis/member';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
-import { useViewList } from '@/app/profile/[id]/follows/index.hooks';
+import { useGetMeId, useViewList } from '@/app/profile/[id]/follows/index.hooks';
 import {
   FollowingMember,
   type MemberItemProps,
@@ -15,7 +14,6 @@ import { css } from '@/styled-system/css';
 
 interface Props {
   list: FollowerMemberWithStatusType[];
-  refetch: () => void;
 }
 
 function FollowingList(props: Props) {
@@ -60,9 +58,3 @@ const containerCss = css({
   padding: '16px',
   width: '100%',
 });
-
-const useGetMeId = () => {
-  const { data } = useGetMembersMe();
-  const memberId = data?.memberId ?? 0;
-  return memberId;
-};

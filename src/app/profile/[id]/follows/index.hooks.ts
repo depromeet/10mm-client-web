@@ -19,7 +19,8 @@ export const useViewList = (list: FollowerMemberWithStatusType[]) => {
   return { list: viewList, onUpdateItem };
 };
 
-const useGetMeId = () => {
+// @description 현재 로그인한 사용자의 memberId를 가져옵니다.
+export const useGetMeId = () => {
   const { data } = useGetMembersMe();
   const memberId = data?.memberId ?? 0;
   return memberId;

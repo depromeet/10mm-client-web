@@ -1,8 +1,8 @@
 'use client';
 
 import { useFetFollowList } from '@/apis/follow';
-import { useGetMembersMe } from '@/apis/member';
 import FollowingList from '@/app/profile/[id]/follows/FollowingList';
+import { useGetMeId } from '@/app/profile/[id]/follows/index.hooks';
 import { sorFollowerList } from '@/app/profile/[id]/follows/index.utils';
 import MyFollowerList from '@/app/profile/[id]/follows/MyFollowerList';
 import Header from '@/components/Header/Header';
@@ -19,7 +19,7 @@ function FollowListPage({ params }: { params: { id: string } }) {
 
   const currentMemberId = Number(params.id);
 
-  const { data, refetch, isLoading } = useFetFollowList(Number(params.id));
+  const { data, isLoading } = useFetFollowList(Number(params.id));
 
   const followingCount = data?.followingList.length ?? '';
   const followerCount = data?.followerList.length ?? '';
@@ -51,16 +51,16 @@ function FollowListPage({ params }: { params: { id: string } }) {
       {/* 내 팔로잉/팔로우 */}
       {isMyself &&
         (activeTab === 'following' ? (
-          <FollowingList key="my-following" list={data?.followingList ?? []} refetch={refetch} />
+          <FollowingList key="my-following" list={data?.followingList ?? []} />
         ) : (
-          <MyFollowerList key="my-follower" list={sorFollowerList(data?.followerList ?? [], myId)} refetch={refetch} />
+          <MyFollowerList key="my-follower" list={sorFollowerList(data?.followerList ?? [], myId)} />
         ))}
       {/* 다른 사람 팔로잉/팔로우 */}
       {!isMyself &&
         (activeTab === 'following' ? (
-          <FollowingList key={`${currentMemberId}-following`} list={data?.followingList ?? []} refetch={refetch} />
+          <FollowingList key={`${currentMemberId}-following`} list={data?.followingList ?? []} />
         ) : (
-          <FollowingList key={`${currentMemberId}-follower`} list={data?.followerList ?? []} refetch={refetch} />
+          <FollowingList key={`${currentMemberId}-follower`} list={data?.followerList ?? []} />
         ))}
     </div>
   );
@@ -76,9 +76,3 @@ const headerCss = css({
     textStyle: 'subtitle1',
   },
 });
-
-const useGetMeId = () => {
-  const { data } = useGetMembersMe();
-  const memberId = data?.memberId ?? 0;
-  return memberId;
-};

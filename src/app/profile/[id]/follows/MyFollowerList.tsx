@@ -10,7 +10,6 @@ import { css } from '@/styled-system/css';
 
 interface Props {
   list: FollowerMemberWithStatusType[];
-  refetch: () => void;
 }
 
 function MyFollowerList(props: Props) {
