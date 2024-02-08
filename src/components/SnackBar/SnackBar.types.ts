@@ -5,6 +5,7 @@ export type SnackBarOffset = 'appBar' | 'default' | 'cta';
 export interface SnackBarBaseType {
   message: string;
   offset?: SnackBarOffset;
+  position?: 'top' | 'bottom';
   id: string;
 }
 

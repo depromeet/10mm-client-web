@@ -16,7 +16,7 @@ function SearchPage() {
     <>
       <SearchBar placeholder="닉네임을 검색해 주세요." value={input} onChange={setInput} />
       <Suspense fallback={<div></div>}>
-        <List nickname={input} />
+        <List nickname={input} key={input} />
       </Suspense>
     </>
   );
@@ -33,8 +33,8 @@ function List({ nickname }: { nickname: string }) {
 
   return (
     <StaggerWrapper wrapperOverrideCss={listContainer} staggerVariants={stagger(0.02)}>
-      {data.map((item) => (
-        <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+      {data.map((item, idx) => (
+        <Link key={item.memberId + idx} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
           {item.followStatus === 'FOLLOWING' ? (
             <FollowingMember {...item} onButtonClick={onButtonClick} />
           ) : (
