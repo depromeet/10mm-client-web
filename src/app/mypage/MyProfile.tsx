@@ -50,8 +50,7 @@ export default function MyProfile() {
 }
 
 const tabWrapper = css({
-  margin: '20px 0',
-  padding: '16px 16px 0 16px',
+  margin: '36px 0 24px',
 });
 
 const profileEditButtonCss = css({
