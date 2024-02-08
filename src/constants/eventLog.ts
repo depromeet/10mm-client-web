@@ -65,5 +65,6 @@ export const EVENT_LOG_NAME = {
     CLICK_EDIT: 'click/edit',
     CLICK_LEVEL_BANNER: 'click/levelBanner',
     CLICK_FOLLOW: 'click/follow',
+    CLICK_SETTING: 'click/setting',
   },
 } satisfies Record<EventLogCategoryType, Record<string, string>>;
