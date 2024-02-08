@@ -17,7 +17,7 @@ function MyFollowerList(props: Props) {
   const { list, onUpdateItem } = useViewList(props.list);
 
   return (
-    <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
+    <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.02)}>
       {list.map((item) => (
         <Item
           key={`${item.memberId}-${item.followStatus}`}
