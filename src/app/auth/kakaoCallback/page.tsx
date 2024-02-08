@@ -29,6 +29,7 @@ export default function KakaoCallbackPage() {
             {
               onSuccess: () => {
                 router.push(ROUTER.HOME);
+                //TODO : 로그인시 이벤트 identifier 필요
               },
             },
           );
