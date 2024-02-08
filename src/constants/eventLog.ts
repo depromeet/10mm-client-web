@@ -3,11 +3,18 @@ export const EVENT_LOG_CATEGORY = {
   STOPWATCH: 'stopwatch',
   CERTIFICATION: 'certification',
   HEADER: 'header',
+  BOTTOM_APP_BAR: 'bottom_app_bar',
+  HOME: 'home',
 };
 
 type EventLogCategoryType = keyof typeof EVENT_LOG_CATEGORY;
 
-export const EVENT_LOG_NAME: Record<EventLogCategoryType, Record<string, string>> = {
+export const EVENT_LOG_NAME = {
+  HOME: {
+    CLICK_FOLLOW_MISSION: 'click/followMission',
+    CLICK_FOLLOW_PROFILE: 'click/followProfile',
+    CLICK_FOLLOW_LIST: 'click/followList',
+  },
   SELECT_CATEGORY: {
     CLICK_NEXT_BUTTON: 'click/nextButton',
     CLICK_SELECT_CATEGORY: 'click/selectCategory',
@@ -34,5 +41,9 @@ export const EVENT_LOG_NAME: Record<EventLogCategoryType, Record<string, string>
   },
   HEADER: {
     CLICK_BACK_BUTTON: 'click/backButton',
+    CLICK_SEARCH_BUTTON: 'click/searchButton',
   },
-};
+  BOTTOM_APP_BAR: {
+    CLICK_TAB: 'click/tab',
+  },
+} satisfies Record<EventLogCategoryType, Record<string, string>>;

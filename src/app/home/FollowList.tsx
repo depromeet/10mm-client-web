@@ -2,7 +2,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
 import UserProfile from '@/app/home/UserProfile';
 import { type FollowDataState } from '@/app/page';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { flex } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
 
 import ProfileItem from './ProfileItem';
 
@@ -13,6 +15,9 @@ function FollowList() {
   const id = searchParams.get('id') ? Number(searchParams.get('id')) : null;
 
   const onChangeFollowData = (props: FollowDataState) => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_FOLLOW_LIST, {
+      memberId: props ? props.followId : 'me',
+    });
     if (props === null) {
       router.push('/');
       return;
