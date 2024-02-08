@@ -5,13 +5,11 @@ import Banner from '@/components/Banner/Banner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { LEVEL_SYSTEM } from '@/constants/level';
 import { ROUTER } from '@/constants/router';
 import { gradientTextCss } from '@/constants/style/gradient';
 import { calcProgress, getLevel } from '@/utils/result';
 import { css, cx } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
-import { motion } from 'framer-motion';
 
 type FollowSummaryProps = FollowMemberType;
 
