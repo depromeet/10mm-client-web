@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import { type FollowerMemberWithStatusType } from '@/apis/schema/member';
+import { useAddFollow } from '@/apis/follow';
+import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
+import { useViewList } from '@/app/profile/[id]/follows/index.hooks';
 import { ProfileListItem } from '@/components/ListItem';
 import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
@@ -12,45 +14,66 @@ interface Props {
 }
 
 function MyFollowerList(props: Props) {
-  // const onFollowerDelete = () => {
-  //   // TODO : 삭제 버튼 클릭 시 삭제 처리
-  //   props.refetch();
-  // };
-
-  // // 맞팔 관계 팔로우 삭제
-  // const onDeleteFollowByMe = () => {
-  //   onFollowerDelete();
-  // };
-
-  // // 맞팔 x, 팔로워 관계 삭제
-  // const onDeleteFollower = () => {
-  //   onFollowerDelete();
-  // };
+  const { list, onUpdateItem } = useViewList(props.list);
 
   return (
     <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
-      {props.list.map((item) => {
-        return (
-          <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
-            {/* TODO :맞팔, 팔로우 버튼 클릭 처리 */}
-            <ProfileListItem
-              buttonElement={
-                // TODO : 삭제 버튼 추가 필요 (맞팔 관계 팔로우 삭제, 맞팔 x, 팔로워 관계 삭제)
-                // 일정 상 무리라고 판단 (2/6) 추후 수정
-                <div></div>
-              }
-              thumbnailUrl={item.profileImageUrl}
-              name={item.nickname}
-            />
-          </Link>
-        );
-      })}
+      {list.map((item) => (
+        <Item key={`${item.memberId}-${item.followStatus}`} item={item} onUpdateItem={onUpdateItem} />
+      ))}
     </StaggerWrapper>
   );
 }
 
 export default MyFollowerList;
 
+interface ItemProps {
+  item: FollowerMemberWithStatusType;
+  onUpdateItem: (member: FollowerMemberWithStatusType) => void;
+}
+
+function Item({ item, onUpdateItem }: ItemProps) {
+  const { mutate } = useAddFollow({
+    onSuccess: () => {
+      onUpdateItem({ ...item, followStatus: FollowStatus.FOLLOWING });
+    },
+  });
+
+  const isFollowing = item.followStatus === FollowStatus.FOLLOWING;
+
+  return (
+    <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+      <ProfileListItem
+        variant={isFollowing ? 'one-button' : 'two-button'}
+        subElement={
+          !isFollowing && (
+            <span
+              className={followLabelCss}
+              onClick={(e) => {
+                e.preventDefault();
+                mutate(item.memberId);
+              }}
+            >
+              팔로우
+            </span>
+          )
+        }
+        buttonElement={
+          // TODO : 삭제 버튼 추가 필요 (맞팔 관계 팔로우 삭제, 맞팔 x, 팔로워 관계 삭제)
+          // 일정 상 무리라고 판단 (2/6) 추후 수정
+          <div></div>
+        }
+        thumbnailUrl={item.profileImageUrl}
+        name={item.nickname}
+      />
+    </Link>
+  );
+}
+
 const containerCss = css({
   padding: '16px',
+});
+
+const followLabelCss = css({
+  padding: '8px 12px',
 });

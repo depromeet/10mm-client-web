@@ -51,10 +51,13 @@ const nameCss = css({
   color: 'text.secondary',
   textStyle: 'subtitle4',
   position: 'relative',
+  display: 'flex',
 });
 
 const existFollowerButtonCss = css({
   paddingRight: '48px',
+  width: 'fit-content',
+  flex: 0,
 });
 
 const buttonCss = css({
@@ -62,9 +65,6 @@ const buttonCss = css({
 });
 
 const followLabelCss = css({
-  top: 0,
-  right: 0,
-  position: 'absolute',
   color: 'purple.purple600',
   textStyle: 'subtitle4',
 });
