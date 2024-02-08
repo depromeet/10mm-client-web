@@ -18,14 +18,14 @@ function ProfileListItem(props: Props) {
   return (
     <li className={containerCss}>
       <Thumbnail size="h36" variant="filled" url={props.thumbnailUrl} />
-      <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
+      <div className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
         {props.subElement && (
           <div className={followLabelCss} onClick={(e) => e.preventDefault()}>
             {props.subElement}
           </div>
         )}
-      </p>
+      </div>
       <div
         className={buttonCss}
         onClick={(e) => {
