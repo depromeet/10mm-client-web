@@ -12,6 +12,7 @@ interface ProfileContentProps {
   followerCount: number;
   followingCount: number;
   rightElement?: React.ReactNode;
+  memberId: number;
 }
 
 function ProfileContent({
@@ -22,6 +23,7 @@ function ProfileContent({
   followingCount,
   rightElement,
   children,
+  memberId,
 }: PropsWithChildren<ProfileContentProps>) {
   return (
     <div className={containerCss}>
@@ -33,7 +35,8 @@ function ProfileContent({
           <div>
             <p className={userNameCss}>{nickname}</p>
             <span className={followerTabCss}>
-              팔로잉 {followingCount} &nbsp; 팔로워 {followerCount}
+              <Link href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'following')}>팔로잉 {followingCount}</Link> &nbsp;
+              <Link href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'follower')}>팔로워 {followerCount}</Link>
             </span>
           </div>
           {rightElement}

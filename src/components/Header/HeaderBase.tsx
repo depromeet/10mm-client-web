@@ -18,7 +18,7 @@ function HeaderBase(
 ) {
   return (
     <>
-      <header className={cx(wrapperCss, css({ background: props.headerBgColor ?? 'bg.surface2' }))}>
+      <header className={cx(wrapperCss, css({ background: props.headerBgColor ?? 'bg.surface2' }), props.className)}>
         <section className={leftSectionCss}>
           {props.onBackAction && (
             <button className={cx(backButtonCss, `back-button`)} type="button" onClick={props.onBackAction}>
