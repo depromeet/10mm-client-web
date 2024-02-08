@@ -4,6 +4,8 @@ import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
 import { FollowingMember, NotFollowingMember } from '@/components/ListItem/Follow/MemberItem';
+import { stagger } from '@/components/Motion/Motion.constants';
+import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -30,19 +32,17 @@ function List({ nickname }: { nickname: string }) {
   };
 
   return (
-    <ul className={listContainer}>
-      {data.map((item) => {
-        return (
-          <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
-            {item.followStatus === 'FOLLOWING' ? (
-              <FollowingMember {...item} onButtonClick={onButtonClick} />
-            ) : (
-              <NotFollowingMember {...item} onButtonClick={onButtonClick} />
-            )}
-          </Link>
-        );
-      })}
-    </ul>
+    <StaggerWrapper wrapperOverrideCss={listContainer} staggerVariants={stagger(0.1)}>
+      {data.map((item) => (
+        <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+          {item.followStatus === 'FOLLOWING' ? (
+            <FollowingMember {...item} onButtonClick={onButtonClick} />
+          ) : (
+            <NotFollowingMember {...item} onButtonClick={onButtonClick} />
+          )}
+        </Link>
+      ))}
+    </StaggerWrapper>
   );
 }
 
