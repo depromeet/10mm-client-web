@@ -32,7 +32,7 @@ function List({ nickname }: { nickname: string }) {
   };
 
   return (
-    <StaggerWrapper wrapperOverrideCss={listContainer} staggerVariants={stagger(0.1)}>
+    <StaggerWrapper wrapperOverrideCss={listContainer} staggerVariants={stagger(0.02)}>
       {data.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
           {item.followStatus === 'FOLLOWING' ? (

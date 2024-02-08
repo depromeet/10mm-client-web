@@ -21,7 +21,7 @@ function FollowingList(props: Props) {
   const { list, onUpdateItem } = useViewList(props.list);
 
   return (
-    <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
+    <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.02)}>
       {list.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
           <Item
