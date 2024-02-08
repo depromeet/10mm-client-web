@@ -22,7 +22,13 @@ function ProfileListItem(props: Props) {
         {props.name}
         {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
       </p>
-      <div className={buttonCss} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={buttonCss}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+      >
         {props.buttonElement}
       </div>
     </li>

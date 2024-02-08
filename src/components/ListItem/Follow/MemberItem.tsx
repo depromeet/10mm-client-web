@@ -26,14 +26,7 @@ export function FollowingMember({ onClick, ...props }: MemberItemProps) {
     <ProfileListItem
       name={props.nickname}
       buttonElement={
-        <Button
-          size="small"
-          variant="secondary"
-          onClick={(e) => {
-            e.preventDefault();
-            onFollowingCancel();
-          }}
-        >
+        <Button size="small" variant="secondary" onClick={onFollowingCancel}>
           팔로잉
         </Button>
       }
@@ -58,14 +51,7 @@ export function NotFollowingMember(props: MemberItemProps) {
       name={props.nickname}
       thumbnailUrl={props.profileImageUrl}
       buttonElement={
-        <Button
-          size="small"
-          variant="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            onFollowerClick();
-          }}
-        >
+        <Button size="small" variant="primary" onClick={onFollowerClick}>
           {props.followStatus === FollowStatus.FOLLOWED_BY_ME ? '맞팔로우' : '팔로우'}
         </Button>
       }

@@ -14,8 +14,6 @@ function FollowingItem(props: Props) {
   const { triggerSnackBar } = useSnackBar();
 
   const onFollowerClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault();
-
     try {
       await FOLLOW_API.deleteFollow(props.memberId);
       props.onButtonClick?.();

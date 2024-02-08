@@ -46,13 +46,7 @@ function Item({ item, onUpdateItem }: ItemProps) {
         variant={isFollowing ? 'one-button' : 'two-button'}
         subElement={
           !isFollowing && (
-            <span
-              className={followLabelCss}
-              onClick={(e) => {
-                e.preventDefault();
-                mutate(item.memberId);
-              }}
-            >
+            <span className={followLabelCss} onClick={() => mutate(item.memberId)}>
               팔로우
             </span>
           )
