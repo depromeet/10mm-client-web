@@ -3,7 +3,7 @@ import apiInstance from '@/apis/instance.api';
 import { type FollowerMemberWithStatusType, type FollowMemberType, type FollowStatus } from '@/apis/schema/member';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
 import useMutationHandleError from '@/hooks/query/useMutationHandleError';
-import { useMutation, type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 type GetFollowMembersResponse = FollowMemberType[];
 

@@ -3,7 +3,6 @@
 import { useFetFollowList } from '@/apis/follow';
 import FollowingList from '@/app/profile/[id]/follows/FollowingList';
 import { useGetMeId } from '@/app/profile/[id]/follows/index.hooks';
-import { sorFollowerList } from '@/app/profile/[id]/follows/index.utils';
 import MyFollowerList from '@/app/profile/[id]/follows/MyFollowerList';
 import Header from '@/components/Header/Header';
 import FullTab from '@/components/Tab/FullTab';
@@ -59,7 +58,7 @@ function FollowListPage({ params }: { params: { id: string } }) {
         (activeTab === 'following' ? (
           <FollowingList key="my-following" list={data?.followingList ?? []} refetch={refetch} />
         ) : (
-          <MyFollowerList key="my-follower" list={sorFollowerList(data?.followerList ?? [], myId)} refetch={refetch} />
+          <MyFollowerList key="my-follower" list={data?.followerList ?? []} refetch={refetch} />
         ))}
       {/* 다른 사람 팔로잉/팔로우 */}
       {!isMyself &&
