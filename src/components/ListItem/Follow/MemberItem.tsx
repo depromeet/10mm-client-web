@@ -25,6 +25,7 @@ export function FollowingMember({ onClick, ...props }: MemberItemProps) {
   return (
     <ProfileListItem
       name={props.nickname}
+      thumbnailUrl={props.profileImageUrl}
       buttonElement={
         <Button size="small" variant="secondary" onClick={onFollowingCancel}>
           팔로잉
@@ -60,5 +61,5 @@ export function NotFollowingMember(props: MemberItemProps) {
 }
 
 export function MineMemberItem(props: MemberItemProps) {
-  return <ProfileListItem name={props.nickname} buttonElement={<div></div>} />;
+  return <ProfileListItem name={props.nickname} buttonElement={<div></div>} thumbnailUrl={props.profileImageUrl} />;
 }

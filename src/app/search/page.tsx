@@ -3,8 +3,7 @@
 import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
-import FollowingItem from '@/components/ListItem/Follow/FollowingItem';
-import { NotFollowingMember } from '@/components/ListItem/Follow/MemberItem';
+import { FollowingMember, NotFollowingMember } from '@/components/ListItem/Follow/MemberItem';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -33,20 +32,10 @@ function List({ nickname }: { nickname: string }) {
   return (
     <ul className={listContainer}>
       {data.map((item) => {
-        const params = {
-          name: item.nickname,
-          memberId: item.memberId,
-          thumbnail: {
-            url: item.profileImageUrl,
-            alt: item.nickname,
-            variant: 'filled',
-          },
-          onButtonClick,
-        };
         return (
           <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
             {item.followStatus === 'FOLLOWING' ? (
-              <FollowingItem {...params} />
+              <FollowingMember {...item} onButtonClick={onButtonClick} />
             ) : (
               <NotFollowingMember {...item} onButtonClick={onButtonClick} />
             )}

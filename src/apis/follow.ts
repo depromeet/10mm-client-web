@@ -109,4 +109,9 @@ export const useAddFollow = (options?: UseMutationOptions<unknown, unknown, numb
   );
 
 export const useDeleteFollow = (options?: UseMutationOptions<DeleteFollowResponse, unknown, number>) =>
-  useMutation({ mutationFn: FOLLOW_API.deleteFollow, ...options });
+  useMutationHandleError(
+    { mutationFn: FOLLOW_API.deleteFollow, ...options },
+    {
+      offset: 'default',
+    },
+  );

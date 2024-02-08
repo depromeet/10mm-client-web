@@ -20,7 +20,11 @@ function ProfileListItem(props: Props) {
       <Thumbnail size="h36" variant="filled" url={props.thumbnailUrl} />
       <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
-        {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
+        {props.subElement && (
+          <div className={followLabelCss} onClick={(e) => e.preventDefault()}>
+            {props.subElement}
+          </div>
+        )}
       </p>
       <div
         className={buttonCss}
