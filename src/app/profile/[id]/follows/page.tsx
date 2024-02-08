@@ -39,7 +39,7 @@ function FollowListPage({ params }: { params: { id: string } }) {
   const { tabs, activeTab, onTabClick } = useTab(_tabs, initTabId);
 
   const myId = useGetMeId();
-  const isMyself = myId === currentMemberId;
+  const isMyFollowList = myId === currentMemberId;
 
   if (isLoading) return <div></div>; // 스켈레톤 고민해보기
 
@@ -54,14 +54,14 @@ function FollowListPage({ params }: { params: { id: string } }) {
         }}
       />
       {/* 내 팔로잉/팔로우 */}
-      {isMyself &&
+      {isMyFollowList &&
         (activeTab === 'following' ? (
           <FollowingList key="my-following" list={data?.followingList ?? []} refetch={refetch} />
         ) : (
           <MyFollowerList key="my-follower" list={data?.followerList ?? []} refetch={refetch} />
         ))}
       {/* 다른 사람 팔로잉/팔로우 */}
-      {!isMyself &&
+      {!isMyFollowList &&
         (activeTab === 'following' ? (
           <FollowingList key={`${currentMemberId}-following`} list={data?.followingList ?? []} refetch={refetch} />
         ) : (
