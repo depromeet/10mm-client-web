@@ -20,13 +20,14 @@ const tabs = [
 
 export default function MyProfile() {
   const { data } = useGetMembersMe();
-  const missionId = data?.memberId ?? 0;
-  const { data: symbolStackData } = useGetMissionStack(missionId.toString());
+  const memberId = data?.memberId ?? 0;
+  const { data: symbolStackData } = useGetMissionStack(memberId.toString());
   const symbolStack = symbolStackData?.symbolStack ?? 0;
   const { data: followCountData } = useFollowsCountMembers();
 
   return (
     <ProfileContent
+      memberId={memberId}
       profileImageUrl={data?.profileImageUrl || null}
       nickname={data?.nickname || ''}
       symbolStack={symbolStack}

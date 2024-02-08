@@ -1,6 +1,6 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
-import { type FollowStatusType, type MemberType } from '@/apis/schema/member';
+import { type FollowerMemberWithStatusType, type MemberType } from '@/apis/schema/member';
 import { type UploadBaseRequest, type UploadUrlBaseResponse } from '@/apis/schema/upload';
 import {
   useMutation,
@@ -33,12 +33,7 @@ interface SocialLoginInfoResponse {
   email: 'string';
 }
 
-type SearchNicknameResponse = {
-  memberId: number;
-  nickname: string;
-  profileImageUrl: string;
-  followStatus: FollowStatusType;
-}[];
+type SearchNicknameResponse = FollowerMemberWithStatusType[];
 
 enum AUTH_PROVIDER {
   KAKAO = 'KAKAO',

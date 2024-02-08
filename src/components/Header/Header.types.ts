@@ -14,6 +14,7 @@ export interface HeaderBaseType {
   iconColor?: ColorToken;
   textColor?: ColorToken;
   rightElement?: React.ReactNode;
+  className?: string;
 }
 
 export interface IconHeaderType extends HeaderBaseType {
