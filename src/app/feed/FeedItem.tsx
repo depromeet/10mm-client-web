@@ -4,8 +4,19 @@ import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
+import dayjs from 'dayjs';
 
-function FeedItem({ remark, nickname, memberId, name, profileImage, recordImageUrl, duration }: FeedItemType) {
+function FeedItem({
+  sinceDay,
+  remark,
+  nickname,
+  memberId,
+  name,
+  profileImage,
+  recordImageUrl,
+  duration,
+  startedAt,
+}: FeedItemType) {
   return (
     <li>
       <Link href={ROUTER.PROFILE.DETAIL(memberId)}>
@@ -19,7 +30,7 @@ function FeedItem({ remark, nickname, memberId, name, profileImage, recordImageU
         <p className={missionNameCss}>{name}</p>
         {remark && <p className={remarkCss}>{remark}</p>}
         <p className={captionCss}>
-          13일차 <div className={dotCss} /> 2023년 11월 12일
+          {sinceDay}일차 <div className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
         </p>
       </div>
     </li>
