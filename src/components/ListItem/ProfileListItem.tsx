@@ -1,12 +1,11 @@
 import { type ReactNode } from 'react';
 import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { type ThumbnailProps } from '@/components/Thumbnail/Thumbnail.types';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
 interface Props {
-  thumbnail?: ThumbnailProps;
+  thumbnailUrl?: string;
   name: string;
   variant?: 'one-button' | 'two-button';
   buttonElement: ReactNode;
@@ -18,12 +17,24 @@ function ProfileListItem(props: Props) {
 
   return (
     <li className={containerCss}>
-      <Thumbnail size="h36" {...props.thumbnail} />
-      <p className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
+      <Thumbnail size="h36" variant="filled" url={props.thumbnailUrl} />
+      <div className={cx(nameCss, oneLineTextCss, isExistFollowerButton && existFollowerButtonCss)}>
         {props.name}
-        {props.subElement && <div className={followLabelCss}>{props.subElement}</div>}
-      </p>
-      <div className={buttonCss}>{props.buttonElement}</div>
+        {props.subElement && (
+          <div className={followLabelCss} onClick={(e) => e.preventDefault()}>
+            {props.subElement}
+          </div>
+        )}
+      </div>
+      <div
+        className={buttonCss}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+      >
+        {props.buttonElement}
+      </div>
     </li>
   );
 }
@@ -50,10 +61,13 @@ const nameCss = css({
   color: 'text.secondary',
   textStyle: 'subtitle4',
   position: 'relative',
+  display: 'flex',
 });
 
 const existFollowerButtonCss = css({
   paddingRight: '48px',
+  width: 'fit-content',
+  flex: 0,
 });
 
 const buttonCss = css({
@@ -61,9 +75,6 @@ const buttonCss = css({
 });
 
 const followLabelCss = css({
-  top: 0,
-  right: 0,
-  position: 'absolute',
   color: 'purple.purple600',
   textStyle: 'subtitle4',
 });

@@ -1,8 +1,9 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
-import { type FollowMemberType } from '@/apis/schema/member';
+import { type FollowerMemberWithStatusType, type FollowMemberType, type FollowStatus } from '@/apis/schema/member';
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import useMutationHandleError from '@/hooks/query/useMutationHandleError';
+import { type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 type GetFollowMembersResponse = FollowMemberType[];
 
@@ -16,10 +17,15 @@ interface FollowsResponse {
   followerCount: number;
   followStatus: FollowStatus;
 }
-export enum FollowStatus {
-  FOLLOWING = 'FOLLOWING',
-  FOLLOWED_BY_ME = 'FOLLOWED_BY_ME',
-  NOT_FOLLOWING = 'NOT_FOLLOWING',
+
+interface FollowListResponse {
+  targetNickname: string;
+  followingList: FollowerMemberWithStatusType[];
+  followerList: FollowerMemberWithStatusType[];
+}
+
+interface DeleteFollowResponse {
+  followStatus: FollowStatus;
 }
 
 export const FOLLOW_API = {
@@ -36,7 +42,7 @@ export const FOLLOW_API = {
     const { data } = await apiInstance.post(`/follows`, { targetId });
     return data;
   },
-  deleteFollow: async (targetId: number) => {
+  deleteFollow: async (targetId: number): Promise<DeleteFollowResponse> => {
     const { data } = await apiInstance.delete(`/follows`, { data: { targetId } });
     return data;
   },
@@ -46,6 +52,10 @@ export const FOLLOW_API = {
   },
   getFollowsTargetId: async (followId: number): Promise<FollowsResponse> => {
     const { data } = await apiInstance.get<FollowsResponse>(`/follows/${followId}`);
+    return data;
+  },
+  getFollowList: async (targetId: number): Promise<FollowListResponse> => {
+    const { data } = await apiInstance.get<FollowListResponse>(`/follows/${targetId}/list`);
     return data;
   },
 };
@@ -81,3 +91,27 @@ export const useFollowsCountTargetId = (followId: number, option?: UseQueryOptio
     ...option,
   });
 };
+
+export const useFetFollowList = (targetId: number, option?: UseQueryOptions<FollowListResponse>) => {
+  return useQuery<FollowListResponse>({
+    queryKey: getQueryKey('followList', { targetId }),
+    queryFn: () => FOLLOW_API.getFollowList(targetId),
+    ...option,
+  });
+};
+
+export const useAddFollow = (options?: UseMutationOptions<unknown, unknown, number>) =>
+  useMutationHandleError(
+    { mutationFn: FOLLOW_API.addFollow, ...options },
+    {
+      offset: 'default',
+    },
+  );
+
+export const useDeleteFollow = (options?: UseMutationOptions<DeleteFollowResponse, unknown, number>) =>
+  useMutationHandleError(
+    { mutationFn: FOLLOW_API.deleteFollow, ...options },
+    {
+      offset: 'default',
+    },
+  );

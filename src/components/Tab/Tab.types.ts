@@ -7,6 +7,7 @@ export interface TabProps {
 export type TabType = {
   tabName: string;
   id: string;
+  href?: string;
 };
 
 export interface TabPartsProps extends TabType {
