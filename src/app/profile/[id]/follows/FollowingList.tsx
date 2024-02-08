@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
-import { sorFollowerList } from '@/app/profile/[id]/follows/index.utils';
+import { useViewList } from '@/app/profile/[id]/follows/index.hooks';
 import {
   FollowingMember,
   type MemberItemProps,
@@ -20,23 +19,13 @@ interface Props {
 }
 
 function FollowingList(props: Props) {
-  const myId = useGetMeId();
-  const [viewList, setViewList] = useState(props.list);
-
-  useEffect(() => {
-    const sortList = sorFollowerList(props.list, Number(myId));
-    setViewList(sortList);
-  }, [props.list]);
-
-  const onUpdateList = (member: FollowerMemberWithStatusType) => {
-    setViewList((prev) => prev.map((item) => (item.memberId === member.memberId ? member : item)));
-  };
+  const { list, onUpdateItem } = useViewList(props.list);
 
   return (
     <StaggerWrapper wrapperOverrideCss={containerCss} staggerVariants={stagger(0.1)}>
-      {viewList.map((item) => (
+      {list.map((item) => (
         <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)} passHref>
-          <Item {...item} onUpdateList={onUpdateList} />
+          <Item {...item} onUpdateList={onUpdateItem} />
         </Link>
       ))}
     </StaggerWrapper>

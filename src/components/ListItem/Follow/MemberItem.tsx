@@ -12,7 +12,9 @@ export interface MemberItemProps extends FollowerMemberWithStatusType {
 export function FollowingMember({ onClick, ...props }: MemberItemProps) {
   const { mutate } = useDeleteFollow({
     onSuccess: (res) => {
-      props.onButtonClick?.({ ...props, followStatus: res?.followStatus ?? FollowStatus.NOT_FOLLOWING });
+      // TODO : 서버 데이터 잘 받아오는지 체크
+      const newStatus = res?.followStatus ?? FollowStatus.NOT_FOLLOWING;
+      props.onButtonClick?.({ ...props, followStatus: newStatus });
     },
   });
 
