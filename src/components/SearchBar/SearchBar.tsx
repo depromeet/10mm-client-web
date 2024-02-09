@@ -1,4 +1,5 @@
 'use client';
+
 import { type ComponentProps } from 'react';
 import Icon from '@/components/Icon';
 import { css, cx } from '@/styled-system/css';
@@ -15,7 +16,7 @@ function SearchBar({ onChange, ...props }: Props) {
   return (
     <div className={containerCss}>
       <Icon name="navigation-search" size={16} className={searchIconCss} color="icon.tertiary" />
-      <input type="search" className={inputCss} onChange={(e) => onChange(e.target.value)} {...props}></input>
+      <input type="search" className={inputCss} onChange={(e) => onChange(e.target.value)} {...props} autoFocus />
       <Icon
         onClick={onClick}
         name="close-circle"
