@@ -14,29 +14,31 @@ import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
-const TAB = [
-  {
-    id: ResultTabId.OVERALL_STATUS,
-    tabName: '전체 현황',
-    href: ROUTER.RESULT.HOME(ResultTabId.OVERALL_STATUS),
-  },
-  {
-    id: ResultTabId.FINISHED_MISSION,
-    tabName: '종료 미션',
-    href: ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION),
-  },
-];
-
 const handleLevelGuideClick = () => {
   eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
 };
 
 function ResultPage() {
+  const finishedMissionQueryData = useGetFinishedMissions();
+  const finishedMissionCount = finishedMissionQueryData.data?.length ?? '';
+
   const { searchParams } = useSearchParamsTypedValue<ResultTabId>('tab');
   const initTabId = searchParams ?? ResultTabId.OVERALL_STATUS;
 
-  const tabProps = useTab(TAB, initTabId);
-  const finishedMissionQueryData = useGetFinishedMissions();
+  const tabList = [
+    {
+      id: ResultTabId.OVERALL_STATUS,
+      tabName: '전체 현황',
+      href: ROUTER.RESULT.HOME(ResultTabId.OVERALL_STATUS),
+    },
+    {
+      id: ResultTabId.FINISHED_MISSION,
+      tabName: `종료 미션 ${finishedMissionCount === 0 ? '' : finishedMissionCount}`,
+      href: ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION),
+    },
+  ];
+
+  const tabProps = useTab(tabList, initTabId);
 
   return (
     <div>
