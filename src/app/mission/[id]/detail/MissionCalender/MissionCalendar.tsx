@@ -13,15 +13,13 @@ import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import dayjs, { type Dayjs } from 'dayjs';
 
-function MissionCalendar({
-  currentData,
-  missionId,
-  isFollow,
-}: {
+interface Props {
   currentData: Dayjs;
   missionId: number;
   isFollow?: boolean;
-}) {
+}
+
+function MissionCalendar({ currentData, missionId, isFollow }: Props) {
   const { date, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar({
     currentData,
     isQueryParams: true,
@@ -61,13 +59,7 @@ function MissionCalendar({
 
   return (
     <section>
-      <div
-        className={css({
-          display: 'flex',
-          alignItems: 'center',
-          gap: '4px',
-        })}
-      >
+      <div className={dateLabeWrapperCss}>
         <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
           <Icon name="arrow-back" size={12} />
         </button>
@@ -123,6 +115,12 @@ function MissionCalendar({
 }
 
 export default MissionCalendar;
+
+const dateLabeWrapperCss = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+});
 
 const buttonCss = css({
   padding: '8px',

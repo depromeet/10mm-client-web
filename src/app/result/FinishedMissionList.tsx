@@ -12,22 +12,14 @@ interface Props {
   queryData: UseQueryResult<GetFinishedMissionsResponse>;
 }
 
-function FinishedMissionList(_: Props) {
-  const data = [
-    {
-      missionId: 1,
-      name: 'default name',
-      content: 'default content',
-      category: 'STUDY',
-      missionAttainRate: 1.1,
-      startedAt: '2024-01-01 00:34:00',
-      finishedAt: '2024-01-15 00:34:00',
-    },
-  ];
+function FinishedMissionList({ queryData }: Props) {
+  const { data } = queryData;
+
+  const list = data ?? [];
 
   return (
     <ul className={ulCss}>
-      {data.map((item) => {
+      {list.map((item) => {
         const category = MISSION_CATEGORY_LABEL[item.category as MissionCategory];
         return (
           <Link key={item.missionId} href={ROUTER.RESULT.FINISHED_MISSION(item.missionId)}>

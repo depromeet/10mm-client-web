@@ -6,7 +6,7 @@ import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
 import { type UseModalReturn } from '@/hooks/useModal';
 
-interface Props extends UseModalReturn {
+interface Props extends Omit<UseModalReturn, 'openModal'> {
   successRoutePath: string;
   missionId: string;
 }
