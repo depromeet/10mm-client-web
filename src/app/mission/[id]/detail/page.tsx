@@ -50,7 +50,6 @@ export default function MissionDetailPage() {
       <MissionStartButton missionId={id as string} isCompeteMission={isCompeteMission} />
       <MissionDeleteDialog
         isOpen={isOpen}
-        openModal={openDeleteDialog}
         closeModal={closeDeleteDialog}
         missionId={String(id)}
         successRoutePath={ROUTER.HOME}

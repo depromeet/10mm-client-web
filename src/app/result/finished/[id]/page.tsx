@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { ResultTabId } from '@/app/result/result.constants';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog, MissionHistoryTab } from '@/components/MissionDetail';
 import Tab from '@/components/Tab/Tab';
@@ -45,7 +46,7 @@ function FinishedMissionDetailPage() {
         isOpen={isOpen}
         closeModal={closeDeleteDialog}
         missionId={String(id)}
-        successRoutePath={ROUTER.HOME}
+        successRoutePath={ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION)}
       />
     </main>
   );

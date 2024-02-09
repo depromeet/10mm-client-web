@@ -3,23 +3,27 @@
 import { useGetFinishedMissions } from '@/apis/mission';
 import FinishedMissionList from '@/app/result/FinishedMissionList';
 import OverallStatus from '@/app/result/OverallStatus';
+import { ResultTabId } from '@/app/result/result.constants';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import LinkButton from '@/components/Button/LinkButton';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
 const TAB = [
   {
-    id: 'overall-status',
+    id: ResultTabId.OVERALL_STATUS,
     tabName: '전체 현황',
+    href: ROUTER.RESULT.HOME(ResultTabId.OVERALL_STATUS),
   },
   {
-    id: 'finished-mission',
+    id: ResultTabId.FINISHED_MISSION,
     tabName: '종료 미션',
+    href: ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION),
   },
 ];
 
@@ -28,7 +32,10 @@ const handleLevelGuideClick = () => {
 };
 
 function ResultPage() {
-  const tabProps = useTab(TAB);
+  const { searchParams } = useSearchParamsTypedValue<ResultTabId>('tab');
+  const initTabId = searchParams ?? ResultTabId.OVERALL_STATUS;
+
+  const tabProps = useTab(TAB, initTabId);
   const finishedMissionQueryData = useGetFinishedMissions();
 
   return (
