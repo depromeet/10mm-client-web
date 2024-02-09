@@ -32,7 +32,10 @@ type QueryList = {
     missionId: string;
   };
 
-  feed: undefined;
+  feedMe: undefined;
+  feed: {
+    memberId: number;
+  };
 };
 
 /**

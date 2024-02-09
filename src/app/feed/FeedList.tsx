@@ -1,10 +1,10 @@
 'use client';
-import { useFeed } from '@/apis/feed';
+import { useFeedMe } from '@/apis/feed';
 import FeedItem from '@/app/feed/FeedItem';
 import { css } from '@styled-system/css';
 
 function FeedList() {
-  const { data } = useFeed();
+  const { data } = useFeedMe();
   if (!data) return <div>Loading...</div>;
 
   return (

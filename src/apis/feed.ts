@@ -20,16 +20,28 @@ export interface FeedItemType {
 type GetFeedResponse = Array<FeedItemType>;
 
 export const FEED_API = {
-  getFeed: async (): Promise<GetFeedResponse> => {
-    const { data } = await apiInstance.get('/feed');
+  getFeedMe: async (): Promise<GetFeedResponse> => {
+    const { data } = await apiInstance.get('/feed/me');
+    return data;
+  },
+  getFeed: async (memberId: number): Promise<GetFeedResponse> => {
+    const { data } = await apiInstance.get(`/feed/${memberId}}`);
     return data;
   },
 };
 
-export const useFeed = (options?: UseQueryOptions<GetFeedResponse>) => {
+export const useFeedMe = (options?: UseQueryOptions<GetFeedResponse>) => {
   return useQuery<GetFeedResponse>({
     ...options,
-    queryKey: getQueryKey('feed'),
-    queryFn: FEED_API.getFeed,
+    queryKey: getQueryKey('feedMe'),
+    queryFn: FEED_API.getFeedMe,
+  });
+};
+
+export const useFeedByMemberId = (memberId: number, options?: UseQueryOptions<GetFeedResponse>) => {
+  return useQuery<GetFeedResponse>({
+    ...options,
+    queryKey: getQueryKey('feed', { memberId }),
+    queryFn: () => FEED_API.getFeed(memberId),
   });
 };

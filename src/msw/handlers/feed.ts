@@ -54,7 +54,7 @@ const getFeedResponse = {
   timestamp: '2024-02-05T10:14:08.636259',
 };
 
-const getFeeds = http.get(BASE_URL + '/feed', () => {
+const getFeeds = http.get(BASE_URL + '/feed/me', () => {
   return HttpResponse.json(getFeedResponse);
 });
 
