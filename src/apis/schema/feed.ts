@@ -1,12 +1,16 @@
-import { type MissionType } from '@/apis/schema/mission';
-import { type RecordType } from '@/apis/schema/record';
+export interface FeedItemType extends FeedBaseType {
+  remark?: string;
+  nickname: string;
+  profileImage?: string;
+}
 
-/**
- * @description
- * @param mission - 미션
- * @param records - 미션 기록
- */
-export interface FeedType {
-  mission: MissionType;
-  records: RecordType[];
+export interface FeedBaseType {
+  missionId: number;
+  recordId: number;
+  name: string;
+  recordImageUrl: string;
+  duration: number;
+  sinceDay: number;
+  startedAt: string;
+  finishedAt: string;
 }
