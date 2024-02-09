@@ -47,6 +47,7 @@ function FinishedMissionDetailPage() {
       </div>
 
       <MissionHistoryTabLayout>
+        {/* TODO: 종료 미션 start ~ finish date 표시 */}
         {missionId && <MissionHistoryBannerApi missionId={String(missionId)} />}
         <MissionCalendar currentData={currentData} missionId={Number(missionId)} />
       </MissionHistoryTabLayout>
