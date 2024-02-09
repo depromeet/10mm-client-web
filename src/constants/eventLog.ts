@@ -10,6 +10,7 @@ export const EVENT_LOG_CATEGORY = {
   MISSION_DETAIL: 'mission_detail',
   MY_PAGE: 'my_page',
   FOLLOW_LIST: 'follow_list',
+  FOLLOW_PROFILE: 'follow_profile',
 };
 
 type EventLogCategoryType = keyof typeof EVENT_LOG_CATEGORY;
@@ -66,10 +67,14 @@ export const EVENT_LOG_NAME = {
   MY_PAGE: {
     CLICK_EDIT: 'click/edit',
     CLICK_LEVEL_BANNER: 'click/levelBanner',
-    CLICK_FOLLOW_BUTTON: 'click/followButton',
+    CLICK_FOLLOW_FOLLOW: 'click/followFollow',
     CLICK_SETTING: 'click/setting',
   },
   FOLLOW_LIST: {
     CLICK_FOLLOW_BUTTON: 'click/followButton',
+  },
+  FOLLOW_PROFILE: {
+    CLICK_FOLLOW_BUTTON: 'click/followButton',
+    CLICK_UNFOLLOW_BUTTON: 'click/unfollowButton',
   },
 } satisfies Record<EventLogCategoryType, Record<string, string>>;
