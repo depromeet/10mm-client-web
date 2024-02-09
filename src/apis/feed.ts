@@ -7,7 +7,7 @@ export interface FeedItemType {
   missionId: number;
   recordId: number;
   name: string;
-  remark: string;
+  remark?: string;
   nickname: string;
   profileImage?: string;
   recordImageUrl: string;
