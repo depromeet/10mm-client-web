@@ -9,6 +9,7 @@ import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin'
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
 import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 import { isAndroid, isIOS, isWebView } from '@/utils/appEnv';
 import { css } from '@styled-system/css';
 
@@ -74,7 +75,10 @@ export default function LoginPage() {
           idToken: event.detail.authorization.id_token,
         },
         {
-          onSuccess: () => {
+          onSuccess: (data) => {
+            if (data?.memberId) {
+              eventLogger.identify(data.memberId.toString());
+            }
             router.push(ROUTER.HOME);
           },
         },
@@ -88,7 +92,11 @@ export default function LoginPage() {
           idToken: event.detail.data.data,
         },
         {
-          onSuccess: () => {
+          onSuccess: (data) => {
+            if (data?.memberId) {
+              eventLogger.identify(data.memberId.toString());
+            }
+
             if (!!event.detail?.data?.deviceToken) {
               updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
             }
