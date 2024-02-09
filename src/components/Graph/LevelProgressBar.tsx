@@ -1,6 +1,7 @@
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { type ColorToken } from '@styled-system/tokens';
+import { motion } from 'framer-motion';
 
 interface Props {
   current: number;
@@ -24,7 +25,7 @@ function LevelProgressBar({
   return (
     <div className={containerCss}>
       <div className={progressContainerCss}>
-        <div
+        <motion.div
           className={cx(
             progressInnerContainerCss,
             css({
@@ -32,6 +33,8 @@ function LevelProgressBar({
             }),
           )}
           style={{ width: `${percent}%` }}
+          initial={{ width: '0' }}
+          animate={{ width: `${percent}%` }}
         />
       </div>
       {isLabel && (
@@ -53,7 +56,6 @@ const progressContainerCss = css({
   backgroundColor: '#3B3E4F',
   width: '100%',
   position: 'relative',
-  // overflow: 'hidden',
   height: '4px',
 });
 
@@ -61,7 +63,6 @@ const progressInnerContainerCss = css({
   position: 'absolute',
   borderRadius: '10px',
   height: '100%',
-  transition: 'width .7s ease-in-out',
 });
 
 const labelContainerCss = flex({

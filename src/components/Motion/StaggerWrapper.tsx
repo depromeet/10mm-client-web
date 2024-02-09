@@ -17,7 +17,7 @@ interface Props extends PropsWithChildren {
   wrapperOverrideCss?: string;
   /**
    * @description wrapper에 적용될 variants 입니다.
-   * @default stagger(0.5)
+   * @default stagger(0.3)
    */
   staggerVariants?: Variants;
   /**
@@ -33,7 +33,7 @@ interface Props extends PropsWithChildren {
 const StaggerWrapper = ({
   children,
   wrapperOverrideCss,
-  staggerVariants = stagger(0.5),
+  staggerVariants = stagger(0.3),
   itemVariants = fadeInUpVariants,
 }: Props) => {
   return (
@@ -59,4 +59,8 @@ const wrapperCss = css({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+
+  _scrollbar: {
+    display: 'none',
+  },
 });

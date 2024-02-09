@@ -14,7 +14,7 @@ function SnackBarOverlay() {
         snackBar.map((item) => (
           <motion.div
             key={item.id}
-            className={snackBarOverlayCss({ offset: item.offset })}
+            className={snackBarOverlayCss({ offset: item.offset, position: item.position })}
             initial="initial"
             animate="animate"
             exit="exit"
@@ -38,23 +38,56 @@ export const snackBarOverlayCss = cva({
     justifyContent: 'center',
     padding: '0 16px',
     zIndex: 2000,
-    bottom: `20px`,
   },
   variants: {
     offset: {
-      default: {
-        bottom: `16px`,
+      default: {},
+      appBar: {},
+      cta: {},
+    },
+    position: {
+      top: {
+        bottom: 'auto',
       },
-      appBar: {
-        bottom: `136px`,
-      },
-      cta: {
-        bottom: `80px`,
+      bottom: {
+        bottom: `20px`,
+        top: 'auto',
       },
     },
   },
+  compoundVariants: [
+    {
+      offset: 'default',
+      position: 'bottom',
+      css: {
+        bottom: `16px`,
+      },
+    },
+    {
+      offset: 'appBar',
+      position: 'bottom',
+      css: {
+        bottom: `136px`,
+      },
+    },
+    {
+      offset: 'cta',
+      position: 'bottom',
+      css: {
+        bottom: `80px`,
+      },
+    },
+    {
+      offset: 'default',
+      position: 'top',
+      css: {
+        top: `60px`, // TODO : 임시 추가
+      },
+    },
+  ],
   defaultVariants: {
     offset: 'default',
+    position: 'bottom',
   },
 });
 

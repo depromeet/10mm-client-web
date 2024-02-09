@@ -5,12 +5,15 @@ import { FollowStatus } from '@/apis/schema/member';
 import Button from '@/components/Button/Button';
 import GradientTextButton from '@/components/Button/GradientTextButton';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function FollowButton({ followStatus, memberId }: { followStatus: FollowStatus; memberId: number }) {
   const { triggerSnackBar } = useSnackBar();
   const queryClient = useQueryClient();
+
   const { mutateAsync: followMutate } = useMutation({
     mutationFn: FOLLOW_API.addFollow,
     onSuccess: () => {
@@ -44,12 +47,15 @@ function FollowButton({ followStatus, memberId }: { followStatus: FollowStatus; 
   });
 
   const handleFollow = async () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.FOLLOW_PROFILE, EVENT_LOG_NAME.FOLLOW_PROFILE.CLICK_FOLLOW_BUTTON);
     await followMutate(memberId);
   };
 
   const handleUnfollow = async () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.FOLLOW_PROFILE, EVENT_LOG_NAME.FOLLOW_PROFILE.CLICK_UNFOLLOW_BUTTON);
     await unFollowMutate(memberId);
   };
+
   switch (followStatus) {
     case FollowStatus.FOLLOWED_BY_ME:
       return <GradientTextButton onClick={handleFollow}>맞팔로우</GradientTextButton>;
@@ -68,7 +74,7 @@ const followingButtonCss = css({
   border: '1px solid',
   borderColor: 'gray.gray500',
   borderRadius: '20px',
-  backgroundColor: 'transparent',
+  backgroundColor: 'transparent !',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
