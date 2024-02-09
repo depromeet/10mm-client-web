@@ -23,6 +23,8 @@ export const ROUTER = {
   },
   PROFILE: {
     DETAIL: (id: number) => `/profile/${id}`,
+    FOLLOW_LIST: (id: number, query?: 'following' | 'follower') =>
+      `/profile/${id}/follows${query ? `?tab=${query}` : ''}`,
   },
   MYPAGE: {
     HOME: '/mypage',

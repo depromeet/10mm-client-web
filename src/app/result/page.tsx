@@ -7,9 +7,11 @@ import Banner from '@/components/Banner/Banner';
 import LinkButton from '@/components/Button/LinkButton';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import Tab from '@/components/Tab/Tab';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
 import { getLevel } from '@/utils/result';
 
 import LevelStatus from '../../components/LevelStatus/LevelStatus';
@@ -29,11 +31,14 @@ function ResultPage() {
   const totalTime = `${data?.totalMissionHour ?? 0}h ${data?.totalMissionMinute ?? 0}m`;
   const totalMissionAttainRate = `${data?.totalMissionAttainRate ?? 0}%`;
 
+  const handleLevelGuideClick = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
+  };
   return (
     <div>
       <section className={topWrapperCss}>
         <Tab tabs={TAB} activeTab="result" />
-        <LinkButton size="small" variant="secondary" href={ROUTER.LEVEL.GUIDE}>
+        <LinkButton onClick={handleLevelGuideClick} size="small" variant="secondary" href={ROUTER.LEVEL.GUIDE}>
           레벨 안내
         </LinkButton>
       </section>

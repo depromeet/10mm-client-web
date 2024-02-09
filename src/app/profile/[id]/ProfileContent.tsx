@@ -2,7 +2,9 @@ import { type PropsWithChildren } from 'react';
 import Link from 'next/link';
 import Banner from '@/components/Banner/Banner';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
 interface ProfileContentProps {
@@ -12,6 +14,7 @@ interface ProfileContentProps {
   followerCount: number;
   followingCount: number;
   rightElement?: React.ReactNode;
+  memberId: number;
 }
 
 function ProfileContent({
@@ -22,7 +25,14 @@ function ProfileContent({
   followingCount,
   rightElement,
   children,
+  memberId,
 }: PropsWithChildren<ProfileContentProps>) {
+  const handleClickFollowList = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_FOLLOW_FOLLOW);
+  };
+  const handleClickFollowProfile = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_LEVEL_BANNER);
+  };
   return (
     <div className={containerCss}>
       <section className={myTabContainerCss}>
@@ -33,12 +43,18 @@ function ProfileContent({
           <div>
             <p className={userNameCss}>{nickname}</p>
             <span className={followerTabCss}>
-              팔로잉 {followingCount} &nbsp; 팔로워 {followerCount}
+              <Link onClick={handleClickFollowList} href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'following')}>
+                팔로잉 {followingCount}
+              </Link>{' '}
+              &nbsp;
+              <Link onClick={handleClickFollowList} href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'follower')}>
+                팔로워 {followerCount}
+              </Link>
             </span>
           </div>
           {rightElement}
         </div>
-        <Link href={ROUTER.LEVEL.GUIDE}>
+        <Link href={ROUTER.LEVEL.GUIDE} onClick={handleClickFollowProfile}>
           <Banner type="level" symbolStack={symbolStack} />
         </Link>
         {children}
@@ -67,7 +83,7 @@ const myTabContainerCss = css({
   backgroundColor: 'bg.surface2',
   borderTopRightRadius: '28px',
   borderTopLeftRadius: '28px',
-  padding: '52px 24px 0',
+  padding: '52px 16px 0',
 });
 const userNameCss = css({
   color: 'text.primary',

@@ -1,18 +1,23 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Icon from '@/components/Icon';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
 
 function AppBar() {
+  const handleSearchClick = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.HEADER, EVENT_LOG_NAME.HEADER.CLICK_SEARCH_BUTTON);
+  };
   return (
     <>
       <header className={headerCss}>
         <div className={logoWrapperCss}>
           <Image src={'/assets/10mm-logo.svg'} alt="10MM" width={68} height={20} />
         </div>
-        <Link className={searchIconWrapper} href={ROUTER.SEARCH.HOME} passHref>
+        <Link className={searchIconWrapper} href={ROUTER.SEARCH.HOME} passHref onClick={handleSearchClick}>
           <Icon name="navigation-search" size={24} color="icon.secondary" />
         </Link>
       </header>

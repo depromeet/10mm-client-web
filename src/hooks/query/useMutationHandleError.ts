@@ -3,7 +3,7 @@ import { type SnackBarBaseType } from '@/components/SnackBar/SnackBar.types';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 
-type SnackBarOptions = Pick<SnackBarBaseType, 'offset'>;
+type SnackBarOptions = Pick<SnackBarBaseType, 'offset' | 'position'>;
 
 function useMutationHandleError<T, _unknown, V>(
   options?: UseMutationOptions<T, unknown, V>,

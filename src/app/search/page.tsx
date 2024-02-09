@@ -3,8 +3,9 @@
 import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
-import FollowerItem from '@/components/ListItem/Follow/FollowerItem';
-import FollowingItem from '@/components/ListItem/Follow/FollowingItem';
+import { FollowingMember, NotFollowingMember } from '@/components/ListItem/Follow/MemberItem';
+import { stagger } from '@/components/Motion/Motion.constants';
+import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -15,7 +16,7 @@ function SearchPage() {
     <>
       <SearchBar placeholder="닉네임을 검색해 주세요." value={input} onChange={setInput} />
       <Suspense fallback={<div></div>}>
-        <List nickname={input} />
+        <List nickname={input} key={input} />
       </Suspense>
     </>
   );
@@ -24,36 +25,24 @@ function SearchPage() {
 export default SearchPage;
 
 function List({ nickname }: { nickname: string }) {
-  const { data, refetch } = useSuspenseGetSearchNickname(nickname);
+  const { data, refetch, isFetching } = useSuspenseGetSearchNickname(nickname);
 
   const onButtonClick = () => {
     refetch();
   };
 
   return (
-    <ul className={listContainer}>
-      {data.map((item) => {
-        const params = {
-          name: item.nickname,
-          memberId: item.memberId,
-          thumbnail: {
-            url: item.profileImageUrl,
-            alt: item.nickname,
-            variant: 'filled',
-          },
-          onButtonClick,
-        };
-        return (
-          <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
-            {item.followStatus === 'FOLLOWING' ? (
-              <FollowingItem {...params} />
-            ) : (
-              <FollowerItem followStatus={item.followStatus} {...params} />
-            )}
-          </Link>
-        );
-      })}
-    </ul>
+    <StaggerWrapper wrapperOverrideCss={listContainer} staggerVariants={stagger(0.02)}>
+      {data.map((item) => (
+        <Link key={item.memberId + item.followStatus} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+          {item.followStatus === 'FOLLOWING' ? (
+            <FollowingMember {...item} onButtonClick={onButtonClick} isLoading={isFetching} />
+          ) : (
+            <NotFollowingMember {...item} onButtonClick={onButtonClick} isLoading={isFetching} />
+          )}
+        </Link>
+      ))}
+    </StaggerWrapper>
   );
 }
 

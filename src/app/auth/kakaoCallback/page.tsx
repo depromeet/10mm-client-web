@@ -6,6 +6,7 @@ import { useSocialLogin } from '@/apis/auth';
 import Loading from '@/components/Loading';
 import { AUTH_PROVIDER } from '@/constants/common';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 
 export default function KakaoCallbackPage() {
   const router = useRouter();
@@ -27,7 +28,10 @@ export default function KakaoCallbackPage() {
               idToken: data.id_token,
             },
             {
-              onSuccess: () => {
+              onSuccess: (successData) => {
+                if (successData?.memberId) {
+                  eventLogger.identify(successData.memberId.toString());
+                }
                 router.push(ROUTER.HOME);
               },
             },
