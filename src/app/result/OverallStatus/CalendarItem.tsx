@@ -8,7 +8,7 @@ interface Props {
 
 function CalendarItem(props: PropsWithChildren<Props>) {
   return (
-    <td className={cx(itemCss, props.isSelected && selectedCss)} {...props}>
+    <td className={cx(itemCss, props.isSelected && selectedCss)} onClick={props.onClick}>
       <span
         className={cx(
           textCss,

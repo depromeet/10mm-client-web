@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import CalendarItem from '@/app/result/OverallStatus/CalendarItem';
 import Icon from '@/components/Icon';
 import { WEEK_DAYS } from '@/components/MissionDetail/MissionCalender/MissionCalendar.constants';
@@ -6,11 +5,15 @@ import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
 import { eventLogger } from '@/utils';
 import { css, cx } from '@styled-system/css';
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
-function MissionCalendar() {
+interface Props {
+  selectDate: Dayjs;
+  setSelectDate: (date: Dayjs) => void;
+}
+
+function MissionCalendar({ selectDate, setSelectDate }: Props) {
   const currentData = dayjs();
-  const [selectDate, setSelectDate] = useState(dayjs());
 
   const { date, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar({
     currentData,
@@ -35,76 +38,64 @@ function MissionCalendar() {
   };
 
   return (
-    <section>
-      <div className={dateLabeWrapperCss}>
-        <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
-          <Icon name="arrow-back" size={14} />
-        </button>
-        <div className={dateLabelTextCss}>
-          <span>
-            {currentYear}년 {currentMonth}월
-          </span>
-          {/* TODO : 나중에 넣어도 되려나 */}
-          {/* <Icon name={'normal-calender'} size={16} /> */}
+    <div>
+      <section>
+        <div className={dateLabeWrapperCss}>
+          <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
+            <Icon name="arrow-back" size={14} />
+          </button>
+          <div className={dateLabelTextCss}>
+            <span>
+              {currentYear}년 {currentMonth}월
+            </span>
+            {/* TODO : 나중에 넣어도 되려나 */}
+            {/* <Icon name={'normal-calender'} size={16} /> */}
+          </div>
+          <button
+            type={'button'}
+            className={cx(buttonCss, css({ visibility: !isCurrentMonth ? 'hidden' : '' }))}
+            onClick={handleNextMonth}
+          >
+            <Icon name="arrow-forward" size={14} />
+          </button>
         </div>
-        <button
-          type={'button'}
-          className={cx(buttonCss, css({ visibility: !isCurrentMonth ? 'hidden' : '' }))}
-          onClick={handleNextMonth}
-        >
-          <Icon name="arrow-forward" size={14} />
-        </button>
-      </div>
-      <table className={tableCss}>
-        <thead>
-          <tr className={calendarHeaderCss}>
-            {WEEK_DAYS.map((day) => (
-              <th key={day}>{day}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className={calendarBodyCss}>
-          {monthCalendarData.map((week, i) => (
-            <tr key={i}>
-              {week.map((day, index) => {
-                if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
-                // const { routerLink, ...restProps } = getMissionCalendarItemProps(
-                //   missionStartedAt,
-                //   day,
-                //   data?.missionRecords || [],
-                //   isFollow,
-                // );
-
-                const isToday = dayjs().isSame(`${day.year}-${day.month}-${day.date}`, 'day');
-                const isSelected = selectDate.isSame(`${day.year}-${day.month}-${day.date}`, 'day');
-                console.log('isToday: ', isToday);
-                const thisDay = `${day.year}-${day.month}-${day.date}`;
-
-                return (
-                  <CalendarItem
-                    key={thisDay}
-                    isSelected={isSelected}
-                    onClick={() => {
-                      setSelectDate(dayjs(thisDay));
-                    }}
-                    // className={missionCalendarTdCss}
-                  >
-                    {day.date}
-                    {/* {routerLink ? (
-                      <Link href={routerLink} onClick={() => handleClickCalendarItem(isToday)}>
-                        <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
-                      </Link>
-                    ) : (
-                      <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
-                    )} */}
-                  </CalendarItem>
-                );
-              })}
+        <table className={tableCss}>
+          <thead>
+            <tr className={calendarHeaderCss}>
+              {WEEK_DAYS.map((day) => (
+                <th key={day}>{day}</th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+          </thead>
+          <tbody className={calendarBodyCss}>
+            {monthCalendarData.map((week, i) => (
+              <tr key={i}>
+                {week.map((day, index) => {
+                  if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
+
+                  // const isToday = dayjs().isSame(`${day.year}-${day.month}-${day.date}`, 'day');
+                  const isSelected = selectDate.isSame(`${day.year}-${day.month}-${day.date}`, 'day');
+                  const thisDay = `${day.year}-${day.month}-${day.date}`;
+
+                  return (
+                    <CalendarItem
+                      key={thisDay}
+                      isSelected={isSelected}
+                      onClick={() => {
+                        setSelectDate(dayjs(thisDay));
+                      }}
+                    >
+                      {day.date}
+                    </CalendarItem>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+      <section></section>
+    </div>
   );
 }
 

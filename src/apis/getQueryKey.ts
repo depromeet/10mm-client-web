@@ -37,6 +37,10 @@ type QueryList = {
     missionId: string;
   };
   finishedMissions: undefined;
+
+  missionSummaryList: {
+    date: string;
+  };
 };
 
 /**
