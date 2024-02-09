@@ -28,7 +28,7 @@ function ProfileContent({
   memberId,
 }: PropsWithChildren<ProfileContentProps>) {
   const handleClickFollowList = () => {
-    eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_FOLLOW);
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_FOLLOW_BUTTON);
   };
   const handleClickFollowProfile = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_LEVEL_BANNER);
