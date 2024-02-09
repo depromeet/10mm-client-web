@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { NAVIGATION, type NavigationItemType } from '@/constants/navigation';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
 
 interface Props {
   current: string;
@@ -10,12 +12,24 @@ interface Props {
 }
 
 function AppBarBottomView(props: Props) {
+  const handleClick = (tabName: string) => {
+    eventLogger.logEvent(EVENT_LOG_NAME.BOTTOM_APP_BAR.CLICK_TAB, EVENT_LOG_CATEGORY.BOTTOM_APP_BAR, {
+      tabName,
+    });
+  };
   return (
     <article className={containerCss}>
       {NAVIGATION.map((item) => {
         const isActive = item.key === props.current;
         return (
-          <Link key={item.key} href={item.path} passHref>
+          <Link
+            key={item.key}
+            href={item.path}
+            passHref
+            onClick={() => {
+              handleClick(item.name);
+            }}
+          >
             <div
               onClick={() => props.onClick?.(item)}
               className={css(itemCss, {

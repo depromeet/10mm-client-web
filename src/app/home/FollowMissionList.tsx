@@ -5,8 +5,10 @@ import MissionBadge from '@/app/home/MissionBadge';
 import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';
 
@@ -76,9 +78,14 @@ export function MissionFollowListInner({ followId }: { followId: number }) {
       {data.followMissions.map((item) => {
         const status = item.missionStatus;
 
-        const moveHref = ROUTER.MISSION.FOLLOW(item.missionId.toString());
+        const handleClick = () => {
+          eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_FOLLOW_MISSION, {
+            status,
+          });
+        };
+
         return (
-          <Link href={moveHref} key={item.missionId}>
+          <Link onClick={handleClick} href={ROUTER.MISSION.FOLLOW(item.missionId.toString())} key={item.missionId}>
             <TwoLineListItem
               badgeElement={<MissionBadge status={status} />}
               name={item.name}

@@ -7,7 +7,9 @@ import {
 } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
 import Icon from '@/components/Icon';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import dayjs, { type Dayjs } from 'dayjs';
 
@@ -34,6 +36,29 @@ function MissionCalendar({
   });
   const missionStartedAt = data?.missionStartedAt || '';
 
+  const handlePrevMonth = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MISSION_DETAIL, EVENT_LOG_NAME.MISSION_DETAIL.CLICK_CALENDER_ARROW, {
+      direction: 'prev',
+      isFollow: isFollow || false,
+    });
+    onPrevMonth();
+  };
+
+  const handleNextMonth = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MISSION_DETAIL, EVENT_LOG_NAME.MISSION_DETAIL.CLICK_CALENDER_ARROW, {
+      direction: 'next',
+      isFollow: isFollow || false,
+    });
+    onNextMonth();
+  };
+
+  const handleClickCalendarItem = (isToday: boolean) => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MISSION_DETAIL, EVENT_LOG_NAME.MISSION_DETAIL.CLICK_CALENDER, {
+      isToday,
+      isFollow: isFollow || false,
+    });
+  };
+
   return (
     <section>
       <div
@@ -43,14 +68,14 @@ function MissionCalendar({
           gap: '4px',
         })}
       >
-        <button type={'button'} className={buttonCss} onClick={onPrevMonth}>
+        <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
           <Icon name="arrow-back" size={12} />
         </button>
         <div className={missionHistoryCalendarCss}>
           {currentYear}년 {currentMonth}월
         </div>
         {!isCurrentMonth && (
-          <button type={'button'} className={buttonCss} onClick={onNextMonth}>
+          <button type={'button'} className={buttonCss} onClick={handleNextMonth}>
             <Icon name="arrow-forward" size={12} />
           </button>
         )}
@@ -80,7 +105,7 @@ function MissionCalendar({
                 return (
                   <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
                     {routerLink ? (
-                      <Link href={routerLink}>
+                      <Link href={routerLink} onClick={() => handleClickCalendarItem(isToday)}>
                         <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
                       </Link>
                     ) : (

@@ -3,16 +3,21 @@ import Link from 'next/link';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Icon from '@/components/Icon';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
 
 import MyProfile from './MyProfile';
 
 function Header() {
+  const handleClickSetting = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_SETTING);
+  };
   return (
     <h2 className={headingCss}>
-      <Link className={iconWrapperCss} href={ROUTER.MYPAGE.SETTING}>
+      <Link className={iconWrapperCss} onClick={handleClickSetting} href={ROUTER.MYPAGE.SETTING}>
         <Icon name="normal-setting" size={20} color="icon.primary" />
       </Link>
     </h2>
