@@ -8,8 +8,10 @@ import LockedCharacter from '@/components/Level/LockedCharacter';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
 import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 import MotionDiv from '@/components/Motion/MotionDiv';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { LEVEL_SYSTEM } from '@/constants/level';
 import { css, cx } from '@/styled-system/css';
+import { eventLogger } from '@/utils';
 import { getLevel } from '@/utils/result';
 
 function LevelGuidePage() {
@@ -21,6 +23,13 @@ function LevelGuidePage() {
 
   const selectLevelInfo = LEVEL_SYSTEM[selectLevel - 1];
   const isLockedLevel = currentLevelInfo.level < selectLevelInfo.level;
+
+  const handleClickedLevel = (level: number) => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.LEVEL, EVENT_LOG_NAME.LEVEL.CLICK_LEVEL, {
+      level,
+    });
+    setSelectLevel(level);
+  };
 
   useEffect(() => {
     if (currentLevelInfo) {
@@ -59,11 +68,7 @@ function LevelGuidePage() {
         )}
       </div>
       <section className={growthSectionCss}>
-        <GrowthLevel
-          selectLevel={selectLevel}
-          onClick={(level) => setSelectLevel(level)}
-          maxLevel={currentLevelInfo.level}
-        />
+        <GrowthLevel selectLevel={selectLevel} onClick={handleClickedLevel} maxLevel={currentLevelInfo.level} />
       </section>
     </div>
   );

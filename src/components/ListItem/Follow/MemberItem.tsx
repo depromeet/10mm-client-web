@@ -2,7 +2,9 @@ import { useAddFollow, useDeleteFollow } from '@/apis/follow';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
 import Button from '@/components/Button/Button';
 import { ProfileListItem } from '@/components/ListItem';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { css } from '@/styled-system/css';
+import { eventLogger } from '@/utils';
 
 export interface MemberItemProps extends FollowerMemberWithStatusType {
   onButtonClick?: (item: FollowerMemberWithStatusType) => void;
@@ -63,6 +65,7 @@ export function NotFollowingMember(props: MemberItemProps) {
   const isButtonDisabled = isPending || props.isLoading;
 
   const onFollowerClick = async () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.FOLLOW_LIST, EVENT_LOG_NAME.FOLLOW_LIST.CLICK_FOLLOW_BUTTON);
     mutate(props.memberId);
   };
 
