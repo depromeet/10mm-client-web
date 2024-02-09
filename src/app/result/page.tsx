@@ -20,25 +20,9 @@ const handleLevelGuideClick = () => {
 
 function ResultPage() {
   const finishedMissionQueryData = useGetFinishedMissions();
-  const finishedMissionCount = finishedMissionQueryData.data?.length ?? '';
+  const finishedMissionCount = finishedMissionQueryData.data?.length ?? 0;
 
-  const { searchParams } = useSearchParamsTypedValue<ResultTabId>('tab');
-  const initTabId = searchParams ?? ResultTabId.OVERALL_STATUS;
-
-  const tabList = [
-    {
-      id: ResultTabId.OVERALL_STATUS,
-      tabName: '전체 현황',
-      href: ROUTER.RESULT.HOME(ResultTabId.OVERALL_STATUS),
-    },
-    {
-      id: ResultTabId.FINISHED_MISSION,
-      tabName: `종료 미션 ${finishedMissionCount === 0 ? '' : finishedMissionCount}`,
-      href: ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION),
-    },
-  ];
-
-  const tabProps = useTab(tabList, initTabId);
+  const tabProps = useResultTab(finishedMissionCount);
 
   return (
     <div>
@@ -57,6 +41,27 @@ function ResultPage() {
 
 export default ResultPage;
 
+const useResultTab = (finishedMissionCount: number) => {
+  const { searchParams } = useSearchParamsTypedValue<ResultTabId>('tab');
+  const initTabId = searchParams ?? ResultTabId.OVERALL_STATUS;
+
+  const tabList = [
+    {
+      id: ResultTabId.OVERALL_STATUS,
+      tabName: '전체 현황',
+      href: ROUTER.RESULT.HOME(ResultTabId.OVERALL_STATUS),
+    },
+    {
+      id: ResultTabId.FINISHED_MISSION,
+      tabName: `종료 미션 ${finishedMissionCount === 0 ? '' : finishedMissionCount}`,
+      href: ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION),
+    },
+  ];
+
+  const tabProps = useTab(tabList, initTabId);
+
+  return tabProps;
+};
 const topWrapperCss = flex({
   zIndex: 1,
   position: 'relative',
