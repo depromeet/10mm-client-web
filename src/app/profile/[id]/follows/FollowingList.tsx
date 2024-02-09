@@ -15,6 +15,7 @@ import { css } from '@/styled-system/css';
 interface Props {
   list: FollowerMemberWithStatusType[];
   refetch: () => void;
+  isFetching: boolean;
 }
 
 function FollowingList(props: Props) {
@@ -30,6 +31,7 @@ function FollowingList(props: Props) {
               onUpdateItem(_item);
               props.refetch();
             }}
+            isLoading={props.isFetching}
           />
         </Link>
       ))}

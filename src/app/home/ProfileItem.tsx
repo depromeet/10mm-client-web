@@ -3,13 +3,15 @@ import { type FollowDataState } from '@/app/page';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css, cx } from '@styled-system/css';
 
-function ProfileItem(props: {
+interface Props {
   name: string;
   id: number | null;
   onClick: (props: FollowDataState) => void;
   selected?: boolean;
   url?: string;
-}) {
+}
+
+function ProfileItem(props: Props) {
   const handleClick = () => {
     if (props.id === null) {
       props.onClick(null);
@@ -20,6 +22,7 @@ function ProfileItem(props: {
       nickname: props.name,
     });
   };
+
   return (
     <div className={itemCss} onClick={handleClick}>
       <Thumbnail size="h52" selected={props.selected} url={props.url} variant={props.selected ? 'filled' : 'dimed'} />

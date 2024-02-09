@@ -1,4 +1,6 @@
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { STORAGE_KEY } from '@/constants/storage';
+import { eventLogger } from '@/utils';
 
 interface MissionData {
   missionId: string;
@@ -86,6 +88,11 @@ export const getProgressMissionTime = (missionId: string): number => {
 
   if (!progressTime) return 0;
 
+  // 10분 이상 진행된 경우 이벤트 기록
+  if (progressTime >= 10 * 60) {
+    recordTenMinuteEvent(missionId);
+  }
+
   return progressTime;
 };
 
@@ -162,4 +169,10 @@ export const checkPrevProgressMission = (missionId: string) => {
     removeProgressMissionData();
     return;
   }
+};
+
+const recordTenMinuteEvent = (missionId: string) => {
+  eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.COMPLETE_TEM_MINUTE, EVENT_LOG_CATEGORY.STOPWATCH, {
+    missionId,
+  });
 };

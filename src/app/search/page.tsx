@@ -16,7 +16,7 @@ function SearchPage() {
     <>
       <SearchBar placeholder="닉네임을 검색해 주세요." value={input} onChange={setInput} />
       <Suspense fallback={<div></div>}>
-        <List nickname={input} />
+        <List nickname={input} key={input} />
       </Suspense>
     </>
   );
@@ -25,7 +25,7 @@ function SearchPage() {
 export default SearchPage;
 
 function List({ nickname }: { nickname: string }) {
-  const { data, refetch } = useSuspenseGetSearchNickname(nickname);
+  const { data, refetch, isFetching } = useSuspenseGetSearchNickname(nickname);
 
   const onButtonClick = () => {
     refetch();
@@ -34,11 +34,11 @@ function List({ nickname }: { nickname: string }) {
   return (
     <StaggerWrapper wrapperOverrideCss={listContainer} staggerVariants={stagger(0.02)}>
       {data.map((item) => (
-        <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+        <Link key={item.memberId + item.followStatus} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
           {item.followStatus === 'FOLLOWING' ? (
-            <FollowingMember {...item} onButtonClick={onButtonClick} />
+            <FollowingMember {...item} onButtonClick={onButtonClick} isLoading={isFetching} />
           ) : (
-            <NotFollowingMember {...item} onButtonClick={onButtonClick} />
+            <NotFollowingMember {...item} onButtonClick={onButtonClick} isLoading={isFetching} />
           )}
         </Link>
       ))}
