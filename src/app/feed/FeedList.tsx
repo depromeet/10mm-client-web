@@ -9,10 +9,9 @@ function FeedList() {
 
   return (
     <ul className={feedListCss}>
-      {data.map((feed, index) => (
-        <FeedItem key={feed.recordId + index} {...feed} />
+      {data.map((feed) => (
+        <FeedItem key={feed.recordId} {...feed} />
       ))}
-      <div className={blockCss} />
     </ul>
   );
 }
@@ -20,10 +19,8 @@ function FeedList() {
 export default FeedList;
 
 const feedListCss = css({
-  padding: '0 16px',
+  padding: '0 16px 132px 16px',
   display: 'flex',
   flexDirection: 'column',
   gap: '32px',
 });
-
-const blockCss = css({ height: '132px' });
