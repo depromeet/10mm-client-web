@@ -58,5 +58,5 @@ const containerCss = {
 };
 
 const bodyCss = {
-  // backgroundColor: 'bg.surface1',
+  backgroundColor: 'bg.surface3',
 };
