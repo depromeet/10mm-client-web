@@ -45,11 +45,8 @@ const containerCss = css({
   overflowY: 'auto',
   position: 'relative',
 
-  '&::-webkit-scrollbar': {
-    width: '0px',
-  },
-  '&::-webkit-scrollbar-track': {
-    width: '0px',
+  _scrollbar: {
+    display: 'none',
   },
 });
 

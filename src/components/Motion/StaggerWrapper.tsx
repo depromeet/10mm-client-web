@@ -60,10 +60,7 @@ const wrapperCss = css({
   flexDirection: 'column',
   width: '100%',
 
-  '&::-webkit-scrollbar': {
-    width: '0px',
-  },
-  '&::-webkit-scrollbar-track': {
-    width: '0px',
+  _scrollbar: {
+    display: 'none',
   },
 });
