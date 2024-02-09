@@ -9,6 +9,8 @@ import { css } from '@/styled-system/css';
 import { grid } from '@/styled-system/patterns';
 import { getLevel } from '@/utils/result';
 
+import MissionCalendar from './Calendar';
+
 function OverallStatus() {
   const { data, isLoading } = useGetMissionSummary();
 
@@ -44,6 +46,9 @@ function OverallStatus() {
           </MotionDiv>
         </>
       )}
+      <section className={calendarWrapperCss}>
+        <MissionCalendar />
+      </section>
     </>
   );
 }
@@ -62,4 +67,10 @@ const imageSectionCss = css({
   margin: '43px auto 12px',
   position: 'relative',
   height: '210px',
+});
+
+const calendarWrapperCss = css({
+  padding: '6px 12px 10px',
+  // maxWidth: '328px',
+  margin: '0 auto',
 });

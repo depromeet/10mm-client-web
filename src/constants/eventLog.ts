@@ -60,6 +60,8 @@ export const EVENT_LOG_NAME = {
   },
   RESULT: {
     CLICK_MISSION: 'click/levelGuide',
+    CLICK_CALENDER_ARROW: 'click/calendarArrow',
+    CLICK_CALENDER: 'click/calendar',
   },
   LEVEL: {
     CLICK_LEVEL: 'click/level',
