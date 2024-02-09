@@ -4,7 +4,13 @@ interface UseModalProps {
   initialOpen?: boolean;
 }
 
-const useModal = ({ initialOpen = false }: UseModalProps = {}) => {
+export interface UseModalReturn {
+  isOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+}
+
+const useModal = ({ initialOpen = false }: UseModalProps = {}): UseModalReturn => {
   const [isOpen, setIsOpen] = useState(initialOpen);
 
   const openModal = () => {

@@ -1,13 +1,11 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useDeleteMissionMutation } from '@/apis/mission';
-import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
 import MissionStartButton from '@/app/mission/[id]/detail/MissionStartButton';
 import useCheckCompleteMission from '@/app/mission/[id]/detail/useCheckCompleteMission';
-import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
-import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
+import { MissionDeleteDialog } from '@/components/MissionDetail';
+import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
 import Tab from '@/components/Tab/Tab';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
@@ -17,18 +15,9 @@ export default function MissionDetailPage() {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
 
-  const { triggerSnackBar } = useSnackBar();
   const { id } = useParams();
   const { isCompeteMission } = useCheckCompleteMission(id as string);
 
-  const { mutate: missionDeleteMutate } = useDeleteMissionMutation(id as string, {
-    onSuccess: () => {
-      router.replace(ROUTER.HOME);
-    },
-    onError: () => {
-      triggerSnackBar({ message: '미션 삭제에 실패했습니다. 다시 시도해주세요.' });
-    },
-  });
   const tabs = [
     {
       tabName: '미션 내역',
@@ -42,10 +31,6 @@ export default function MissionDetailPage() {
       return;
     }
     openDeleteDialog();
-  };
-
-  const handleDeleteCancel = () => {
-    closeDeleteDialog();
   };
 
   return (
@@ -63,16 +48,12 @@ export default function MissionDetailPage() {
       </div>
       <MissionHistoryTab />
       <MissionStartButton missionId={id as string} isCompeteMission={isCompeteMission} />
-      <Dialog
-        variant={'default'}
+      <MissionDeleteDialog
         isOpen={isOpen}
-        onClose={closeDeleteDialog}
-        onConfirm={missionDeleteMutate}
-        onCancel={handleDeleteCancel}
-        title="정말 삭제하시겠어요?"
-        content="미션을 삭제하면 그동안의 기록들이 사라져요."
-        confirmText="삭제"
-        cancelText="취소"
+        openModal={openDeleteDialog}
+        closeModal={closeDeleteDialog}
+        missionId={String(id)}
+        successRoutePath={ROUTER.HOME}
       />
     </main>
   );
