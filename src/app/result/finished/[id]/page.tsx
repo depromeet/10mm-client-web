@@ -34,7 +34,7 @@ function FinishedMissionDetailPage() {
         iconName={'menu'}
         menus={DETAIL_MENUS}
         onMenuClick={handleMenuClick}
-        onBackAction={() => router.replace(ROUTER.HOME)}
+        onBackAction={() => router.replace(ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION))}
       />
       <div className={tabWrapperCss}>
         <Tab tabs={tabs} activeTab={'mission-history'} />
