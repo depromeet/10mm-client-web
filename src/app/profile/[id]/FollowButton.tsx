@@ -10,11 +10,19 @@ import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-function FollowButton({ followStatus, memberId }: { followStatus: FollowStatus; memberId: number }) {
+function FollowButton({
+  followStatus,
+  memberId,
+  isFetching: isListLoading,
+}: {
+  followStatus: FollowStatus;
+  memberId: number;
+  isFetching: boolean;
+}) {
   const { triggerSnackBar } = useSnackBar();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: followMutate } = useMutation({
+  const { mutateAsync: followMutate, isPending: isFollowPending } = useMutation({
     mutationFn: FOLLOW_API.addFollow,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -30,7 +38,7 @@ function FollowButton({ followStatus, memberId }: { followStatus: FollowStatus; 
     },
   });
 
-  const { mutateAsync: unFollowMutate } = useMutation({
+  const { mutateAsync: unFollowMutate, isPending: isUnFollowPending } = useMutation({
     mutationFn: FOLLOW_API.deleteFollow,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -58,15 +66,29 @@ function FollowButton({ followStatus, memberId }: { followStatus: FollowStatus; 
 
   switch (followStatus) {
     case FollowStatus.FOLLOWED_BY_ME:
-      return <GradientTextButton onClick={handleFollow}>맞팔로우</GradientTextButton>;
+      return (
+        <GradientTextButton onClick={handleFollow} blocked={isFollowPending || isListLoading}>
+          맞팔로우
+        </GradientTextButton>
+      );
     case FollowStatus.FOLLOWING:
       return (
-        <Button onClick={handleUnfollow} variant="primary" size={'small'} className={followingButtonCss}>
+        <Button
+          onClick={handleUnfollow}
+          variant="primary"
+          size={'small'}
+          className={followingButtonCss}
+          blocked={isUnFollowPending || isListLoading}
+        >
           팔로잉
         </Button>
       );
     case FollowStatus.NOT_FOLLOWING:
-      return <GradientTextButton onClick={handleFollow}>팔로우</GradientTextButton>;
+      return (
+        <GradientTextButton onClick={handleFollow} blocked={isFollowPending || isListLoading}>
+          팔로우
+        </GradientTextButton>
+      );
   }
 }
 

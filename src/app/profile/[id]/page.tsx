@@ -13,7 +13,7 @@ import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
 
 function FollowProfilePage({ params }: { params: { id: string } }) {
-  const { data: followCountData } = useFollowsCountTargetId(Number(params.id));
+  const { data: followCountData, isFetching } = useFollowsCountTargetId(Number(params.id));
   const { data } = useGetMembersById(Number(params.id));
   const { data: symbolStackData } = useGetMissionStack(params.id);
 
@@ -31,6 +31,7 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
           <FollowButton
             followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}
             memberId={Number(params.id)}
+            isFetching={isFetching}
           />
         }
       >
