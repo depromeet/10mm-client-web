@@ -16,6 +16,7 @@ function FeedItem({
   recordImageUrl,
   duration,
   startedAt,
+  recordId,
 }: FeedItemType) {
   return (
     <li>
@@ -25,14 +26,16 @@ function FeedItem({
           <p>{nickname}</p>
         </div>
       </Link>
-      <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
-      <div className={textWrapperCss}>
-        <p className={missionNameCss}>{name}</p>
-        {remark && <p className={remarkCss}>{remark}</p>}
-        <p className={captionCss}>
-          {sinceDay}일차 <div className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
-        </p>
-      </div>
+      <Link href={ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())}>
+        <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
+        <div className={textWrapperCss}>
+          <p className={missionNameCss}>{name}</p>
+          {remark && <p className={remarkCss}>{remark}</p>}
+          <p className={captionCss}>
+            {sinceDay}일차 <div className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
+          </p>
+        </div>
+      </Link>
     </li>
   );
 }
