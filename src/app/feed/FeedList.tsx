@@ -1,11 +1,17 @@
 'use client';
 import { useFeedMe } from '@/apis/feed';
-import FeedItem from '@/app/feed/FeedItem';
+import FeedItem, { FeedSkeletonItem } from '@/app/feed/FeedItem';
 import { css } from '@styled-system/css';
 
 function FeedList() {
   const { data } = useFeedMe();
-  if (!data) return <div>Loading...</div>;
+  if (!data)
+    return (
+      <ul className={feedListCss}>
+        <FeedSkeletonItem />
+        <FeedSkeletonItem />
+      </ul>
+    );
 
   return (
     <ul className={feedListCss}>

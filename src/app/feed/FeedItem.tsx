@@ -42,6 +42,64 @@ function FeedItem({
 
 export default FeedItem;
 
+export const FeedSkeletonItem = () => {
+  return (
+    <li>
+      <div className={profileWrapperCss}>
+        <Thumbnail size={'h24'} variant={'filled'} url={null} />
+        <div
+          className={css(
+            { ...skeletonTextCss },
+            {
+              width: '80px',
+              height: '20px',
+            },
+          )}
+        />
+      </div>
+      <div className={profile} />
+      <div className={textWrapperCss}>
+        <div
+          className={css(
+            { ...skeletonTextCss },
+            {
+              width: '80px',
+              height: '17px',
+            },
+          )}
+        />
+        <div
+          className={css(
+            { ...skeletonTextCss },
+            {
+              width: '130px',
+              height: '20px',
+            },
+          )}
+        />
+      </div>
+    </li>
+  );
+};
+
+const profile = css({
+  animation: 'skeleton',
+  backgroundColor: 'bg.surface4',
+  width: '100%',
+  aspectRatio: '1 / 1',
+  position: 'relative',
+  borderRadius: '22px',
+  overflow: 'hidden',
+  maxWidth: 'calc(475px - 32px)',
+  maxHeight: 'calc(475px - 32px)',
+});
+
+const skeletonTextCss = {
+  animation: 'skeleton',
+  backgroundColor: 'bg.surface4',
+  borderRadius: '12px',
+};
+
 const textWrapperCss = css({
   display: 'flex',
   gap: '8px',
@@ -49,6 +107,7 @@ const textWrapperCss = css({
 
   padding: '20px 4px',
 });
+
 const missionNameCss = css({
   textStyle: 'body5',
   color: 'gray.gray600',

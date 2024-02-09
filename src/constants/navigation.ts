@@ -19,7 +19,7 @@ export const NAVIGATION: NavigationItemType[] = [
     icon: 'navigation-feed',
     key: 'feed',
     name: 'Feed',
-    path: ROUTER.FEED,
+    path: ROUTER.FEED.HOME,
   },
   {
     icon: 'navigation-result',
