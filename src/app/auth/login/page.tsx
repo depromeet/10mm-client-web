@@ -161,7 +161,13 @@ export default function LoginPage() {
         <div className={LoginButtonListWrapperCss}>
           {isIOS() && <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />}
           <ButtonSocialLogin type="kakao" onClick={onClickKakaoLogin} />
-          <Button type="button" size="large" variant="ghost" onClick={onClickGuest}>
+          <Button
+            type="button"
+            size="large"
+            variant="ghost"
+            onClick={onClickGuest}
+            className={css({ color: 'text.primary' })}
+          >
             둘러보기
           </Button>
         </div>
