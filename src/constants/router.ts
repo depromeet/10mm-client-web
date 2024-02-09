@@ -35,6 +35,7 @@ export const ROUTER = {
   },
   RESULT: {
     HOME: '/result',
+    FINISHED_MISSION: (id: number) => `/result/finished/${id}`,
   },
   LEVEL: {
     GUIDE: '/level/guide',
