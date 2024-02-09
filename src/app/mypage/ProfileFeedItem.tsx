@@ -16,6 +16,34 @@ function ProfileFeedItem(feed: FeedBaseType) {
 
 export default ProfileFeedItem;
 
+export function ProfileFeedItemSkeleton() {
+  return (
+    <li className={feedItemCss}>
+      <div className={skeletonCss} />
+      <div>
+        <div className={skeletonTextCss} />
+      </div>
+    </li>
+  );
+}
+
+const skeletonTextCss = css({
+  backgroundColor: 'gray.gray200',
+  borderRadius: '8px',
+  animation: 'skeleton',
+  width: '100px',
+  height: '12px',
+});
+
+const skeletonCss = css({
+  backgroundColor: 'gray.gray200',
+  borderRadius: '16px',
+  animation: 'skeleton',
+  aspectRatio: '1 / 1',
+  width: '100%',
+  height: '100%',
+});
+
 const sinceDayCss = css({
   color: 'gray.gray600',
   textStyle: 'body6',
