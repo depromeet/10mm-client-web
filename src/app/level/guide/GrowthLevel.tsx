@@ -46,15 +46,10 @@ const containerCss = css({
   position: 'relative',
 
   '&::-webkit-scrollbar': {
-    width: '2px',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    width: '2px',
-    borderRadius: '5px',
-    backgroundColor: 'bg.surface3',
+    width: '0px',
   },
   '&::-webkit-scrollbar-track': {
-    width: '2px',
+    width: '0px',
   },
 });
 
