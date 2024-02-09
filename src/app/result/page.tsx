@@ -1,71 +1,44 @@
 'use client';
 
-import { useGetMissionSummary } from '@/apis/mission';
-import Character from '@/app/level/guide/Character';
+import FinishedMissionList from '@/app/result/FinishedMissionList';
+import OverallStatus from '@/app/result/OverallStatus';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
-import Banner from '@/components/Banner/Banner';
 import LinkButton from '@/components/Button/LinkButton';
-import MotionDiv from '@/components/Motion/MotionDiv';
 import Tab from '@/components/Tab/Tab';
+import { useTab } from '@/components/Tab/Tab.hooks';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
-import { css } from '@/styled-system/css';
-import { flex, grid } from '@/styled-system/patterns';
+import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
-import { getLevel } from '@/utils/result';
-
-import LevelStatus from '../../components/LevelStatus/LevelStatus';
 
 const TAB = [
   {
-    id: 'result',
+    id: 'overall-status',
     tabName: '전체 현황',
+  },
+  {
+    id: 'finished-mission',
+    tabName: '종료 미션',
   },
 ];
 
+const handleLevelGuideClick = () => {
+  eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
+};
+
 function ResultPage() {
-  const { data, isLoading } = useGetMissionSummary();
+  const tabProps = useTab(TAB);
 
-  const symbolStack = data?.symbolStack ?? 0;
-  const currentLevel = getLevel(symbolStack);
-  const totalTime = `${data?.totalMissionHour ?? 0}h ${data?.totalMissionMinute ?? 0}m`;
-  const totalMissionAttainRate = `${data?.totalMissionAttainRate ?? 0}%`;
-
-  const handleLevelGuideClick = () => {
-    eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
-  };
   return (
     <div>
       <section className={topWrapperCss}>
-        <Tab tabs={TAB} activeTab="result" />
+        <Tab {...tabProps} />
         <LinkButton onClick={handleLevelGuideClick} size="small" variant="secondary" href={ROUTER.LEVEL.GUIDE}>
           레벨 안내
         </LinkButton>
       </section>
-      {isLoading ? (
-        <div></div>
-      ) : (
-        <>
-          <MotionDiv variants="fadeInUp" className={imageSectionCss}>
-            <Character width={280} height={210} level={currentLevel.level} isBackground />
-          </MotionDiv>
-          <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} />
-          <MotionDiv className={bannerSectionCss}>
-            <Banner
-              type="card"
-              description="전체 누적 시간"
-              iconUrl="/assets/icons/graph/clock.png"
-              title={totalTime}
-            />
-            <Banner
-              type="card"
-              description="총 미션 달성률"
-              iconUrl="/assets/icons/graph/chart.png"
-              title={totalMissionAttainRate}
-            />
-          </MotionDiv>
-        </>
-      )}
+      {tabProps.activeTab === 'overall-status' && <OverallStatus />}
+      {tabProps.activeTab === 'finished-mission' && <FinishedMissionList />}
       <AppBarBottom />
     </div>
   );
@@ -77,31 +50,4 @@ const topWrapperCss = flex({
   zIndex: 1,
   position: 'relative',
   padding: '16px 16px 4px 16px',
-});
-
-const bannerSectionCss = grid({
-  gridTemplateColumns: '1fr 1fr',
-  padding: '20px 16px',
-  gap: '10px',
-  maxWidth: '376px',
-  margin: '0 auto',
-});
-
-const imageSectionCss = css({
-  margin: '43px auto 12px',
-  position: 'relative',
-  height: '210px',
-
-  // '& img.character': {
-  //   height: '210px !important',
-  //   objectFit: 'contain',
-  // },
-
-  // '& img.bg': {
-  //   position: 'absolute',
-  //   transform: 'translateY(-20%);',
-  //   width: '100vw !important',
-  //   height: '382px !important',
-  //   objectFit: 'contain',
-  // },
 });
