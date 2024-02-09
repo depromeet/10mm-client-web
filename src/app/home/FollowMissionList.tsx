@@ -4,6 +4,7 @@ import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
 import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
+import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
@@ -21,9 +22,8 @@ function FollowMissionList({ followId }: FollowMissionListProps) {
       <h2 className={headingCss}>
         <span>미션 목록</span>
       </h2>
-      <ul className={listCss}>
-        <MissionFollowListInner followId={followId} />
-      </ul>
+
+      <MissionFollowListInner followId={followId} />
     </div>
   );
 }
@@ -54,7 +54,11 @@ const listCss = flex({
 export function MissionFollowListInner({ followId }: { followId: number }) {
   const { data, isLoading } = useFollowMissions(followId);
   if (isLoading) {
-    return <MissionListSkeleton />;
+    return (
+      <ul className={listCss}>
+        <MissionListSkeleton />
+      </ul>
+    );
   }
 
   if (!data) {
@@ -70,7 +74,7 @@ export function MissionFollowListInner({ followId }: { followId: number }) {
   }
 
   return (
-    <>
+    <StaggerWrapper wrapperOverrideCss={listCss}>
       {data.followMissions.map((item) => {
         const status = item.missionStatus;
 
@@ -91,6 +95,6 @@ export function MissionFollowListInner({ followId }: { followId: number }) {
           </Link>
         );
       })}
-    </>
+    </StaggerWrapper>
   );
 }

@@ -27,7 +27,7 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
     });
   };
   return (
-    <div>
+    <div key={followId}>
       <div className={followSummaryTitleCss}>
         <Thumbnail size={'h18'} url={profileImageUrl} variant="filled" />
         <Link onClick={handleClickFollowProfile} href={ROUTER.PROFILE.DETAIL(followId)}>
@@ -45,7 +45,7 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
           </div>
           <p className={LevelNameCss}>{currentLevel.label}</p>
           <div className={levelProgressBarWrapperCss}>
-            <LevelProgressBar current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
+            <LevelProgressBar key={followId} current={progress} isLabel={false} backgroundColor={'purple.purple500'} />
           </div>
         </div>
       </div>

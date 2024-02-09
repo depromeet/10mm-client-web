@@ -43,6 +43,7 @@ export const EVENT_LOG_NAME = {
     API_RECORD_TIME: 'api/record-time',
     CLICK_FINISH_BUTTON_BEFORE_10MM: 'click/finishButton-before-10mm',
     CLICK_AUTO_FINISH: 'click/auto-finish',
+    COMPLETE_TEM_MINUTE: 'complete-ten-minute',
   },
   CERTIFICATION: {
     CLICK_IMAGE_PREVIEW: 'click/imagePreview',

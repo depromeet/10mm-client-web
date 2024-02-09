@@ -83,7 +83,7 @@ const myTabContainerCss = css({
   backgroundColor: 'bg.surface2',
   borderTopRightRadius: '28px',
   borderTopLeftRadius: '28px',
-  padding: '52px 24px 0',
+  padding: '52px 16px 0',
 });
 const userNameCss = css({
   color: 'text.primary',

@@ -1,6 +1,7 @@
 'use client';
 
 import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
+import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
@@ -20,6 +21,7 @@ export default function FollowMissionDetailPage() {
         <Tab tabs={tabs} activeTab={'mission-history'} />
       </div>
       <MissionHistoryTab isFollow={true} />
+      <BottomDim />
     </main>
   );
 }

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useVisibilityStateVisible } from '@/app/mission/[id]/stopwatch/index.hooks';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { eventLogger } from '@/utils';
 import { getPrevProgressMissionStatus, getProgressMissionTime } from '@/utils/storage/progressMission';
 import { formatMMSS } from '@/utils/time';
 
@@ -31,6 +33,9 @@ export default function useStopwatch(status: StepType, missionId: string, onNext
     if (status === 'progress') {
       timer = setInterval(() => {
         setSecond((prev) => (prev >= MAX_SECONDS ? prev : prev + 1));
+
+        // 10분 넘으면 이벤트 기록
+        second === 10 * 60 && recordTenMinuteEvent(missionId);
       }, timerMs);
     }
 
@@ -69,3 +74,9 @@ export default function useStopwatch(status: StepType, missionId: string, onNext
 
   return { minutes: formattedMinutes, seconds: formattedSeconds, stepper, isFinished, isPending };
 }
+
+const recordTenMinuteEvent = (missionId: string) => {
+  eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.COMPLETE_TEM_MINUTE, EVENT_LOG_CATEGORY.STOPWATCH, {
+    missionId,
+  });
+};

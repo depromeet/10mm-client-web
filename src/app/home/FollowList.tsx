@@ -2,6 +2,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
 import UserProfile from '@/app/home/UserProfile';
 import { type FollowDataState } from '@/app/page';
+import MotionDiv from '@/components/Motion/MotionDiv';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
@@ -30,14 +31,15 @@ function FollowList() {
       <UserProfile selected={id === null} onClick={onChangeFollowData} />
       {data &&
         data.map((profile) => (
-          <ProfileItem
-            key={profile.memberId}
-            id={profile.memberId}
-            onClick={onChangeFollowData}
-            url={profile.profileImageUrl}
-            name={profile.nickname}
-            selected={id === profile.memberId}
-          />
+          <MotionDiv key={profile.memberId}>
+            <ProfileItem
+              id={profile.memberId}
+              onClick={onChangeFollowData}
+              url={profile.profileImageUrl}
+              name={profile.nickname}
+              selected={id === profile.memberId}
+            />
+          </MotionDiv>
         ))}
     </section>
   );

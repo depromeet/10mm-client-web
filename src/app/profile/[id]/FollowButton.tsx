@@ -68,7 +68,7 @@ const followingButtonCss = css({
   border: '1px solid',
   borderColor: 'gray.gray500',
   borderRadius: '20px',
-  backgroundColor: 'transparent',
+  backgroundColor: 'transparent !',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

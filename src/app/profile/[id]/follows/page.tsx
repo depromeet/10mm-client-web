@@ -18,7 +18,7 @@ function FollowListPage({ params }: { params: { id: string } }) {
 
   const currentMemberId = Number(params.id);
 
-  const { data, refetch, isLoading } = useFetFollowList(Number(params.id));
+  const { data, refetch, isLoading, isFetching } = useFetFollowList(Number(params.id));
 
   const followingCount = data?.followingList.length ?? '';
   const followerCount = data?.followerList.length ?? '';
@@ -56,16 +56,31 @@ function FollowListPage({ params }: { params: { id: string } }) {
       {/* 내 팔로잉/팔로우 */}
       {isMyFollowList &&
         (activeTab === 'following' ? (
-          <FollowingList key="my-following" list={data?.followingList ?? []} refetch={refetch} />
+          <FollowingList
+            key="my-following"
+            list={data?.followingList ?? []}
+            refetch={refetch}
+            isFetching={isFetching}
+          />
         ) : (
           <MyFollowerList key="my-follower" list={data?.followerList ?? []} refetch={refetch} />
         ))}
       {/* 다른 사람 팔로잉/팔로우 */}
       {!isMyFollowList &&
         (activeTab === 'following' ? (
-          <FollowingList key={`${currentMemberId}-following`} list={data?.followingList ?? []} refetch={refetch} />
+          <FollowingList
+            key={`${currentMemberId}-following`}
+            list={data?.followingList ?? []}
+            refetch={refetch}
+            isFetching={isFetching}
+          />
         ) : (
-          <FollowingList key={`${currentMemberId}-follower`} list={data?.followerList ?? []} refetch={refetch} />
+          <FollowingList
+            key={`${currentMemberId}-follower`}
+            list={data?.followerList ?? []}
+            refetch={refetch}
+            isFetching={isFetching}
+          />
         ))}
     </div>
   );
