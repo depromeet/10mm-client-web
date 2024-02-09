@@ -1,76 +1,50 @@
-import { FOLLOW_API } from '@/apis/follow';
+import { FOLLOW_API, useAddFollow, useDeleteFollow } from '@/apis/follow';
 import getQueryKey from '@/apis/getQueryKey';
-import { isSeverError } from '@/apis/instance.api';
 import { FollowStatus } from '@/apis/schema/member';
 import Button from '@/components/Button/Button';
 import GradientTextButton from '@/components/Button/GradientTextButton';
-import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
-function FollowButton({
-  followStatus,
-  memberId,
-  isFetching: isListLoading,
-}: {
+interface Props {
   followStatus: FollowStatus;
   memberId: number;
   isFetching: boolean;
-}) {
-  const { triggerSnackBar } = useSnackBar();
+}
+
+function FollowButton({ followStatus, memberId, isFetching: isListLoading }: Props) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: followMutate, isPending: isFollowPending } = useMutation({
-    mutationFn: FOLLOW_API.addFollow,
+  const { mutateAsync: followMutate, isPending: isFollowPending } = useAddFollow({
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: getQueryKey('followsCountTargetId', { followId: memberId }),
       });
     },
-    onError: (e) => {
-      if (isSeverError(e)) {
-        triggerSnackBar({
-          message: e.response.data.data.message,
-        });
-      }
-    },
   });
 
-  const { mutateAsync: unFollowMutate, isPending: isUnFollowPending } = useMutation({
+  const { mutateAsync: unFollowMutate, isPending: isUnFollowPending } = useDeleteFollow({
     mutationFn: FOLLOW_API.deleteFollow,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: getQueryKey('followsCountTargetId', { followId: memberId }),
       });
     },
-    onError: (e) => {
-      if (isSeverError(e)) {
-        triggerSnackBar({
-          message: e.response.data.data.message,
-        });
-      }
-    },
   });
 
-  const handleFollow = async () => {
+  const handleFollow = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FOLLOW_PROFILE, EVENT_LOG_NAME.FOLLOW_PROFILE.CLICK_FOLLOW_BUTTON);
-    await followMutate(memberId);
+    followMutate(memberId);
   };
 
-  const handleUnfollow = async () => {
+  const handleUnfollow = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FOLLOW_PROFILE, EVENT_LOG_NAME.FOLLOW_PROFILE.CLICK_UNFOLLOW_BUTTON);
-    await unFollowMutate(memberId);
+    unFollowMutate(memberId);
   };
 
   switch (followStatus) {
-    case FollowStatus.FOLLOWED_BY_ME:
-      return (
-        <GradientTextButton onClick={handleFollow} blocked={isFollowPending || isListLoading}>
-          맞팔로우
-        </GradientTextButton>
-      );
     case FollowStatus.FOLLOWING:
       return (
         <Button
@@ -83,10 +57,12 @@ function FollowButton({
           팔로잉
         </Button>
       );
+
+    case FollowStatus.FOLLOWED_BY_ME:
     case FollowStatus.NOT_FOLLOWING:
       return (
         <GradientTextButton onClick={handleFollow} blocked={isFollowPending || isListLoading}>
-          팔로우
+          {followStatus === FollowStatus.FOLLOWED_BY_ME ? '맞팔로우' : '팔로우'}
         </GradientTextButton>
       );
   }
