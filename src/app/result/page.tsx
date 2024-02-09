@@ -1,5 +1,6 @@
 'use client';
 
+import { useGetFinishedMissions } from '@/apis/mission';
 import FinishedMissionList from '@/app/result/FinishedMissionList';
 import OverallStatus from '@/app/result/OverallStatus';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
@@ -28,6 +29,7 @@ const handleLevelGuideClick = () => {
 
 function ResultPage() {
   const tabProps = useTab(TAB);
+  const finishedMissionQueryData = useGetFinishedMissions();
 
   return (
     <div>
@@ -38,7 +40,7 @@ function ResultPage() {
         </LinkButton>
       </section>
       {tabProps.activeTab === 'overall-status' && <OverallStatus />}
-      {tabProps.activeTab === 'finished-mission' && <FinishedMissionList />}
+      {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}
       <AppBarBottom />
     </div>
   );

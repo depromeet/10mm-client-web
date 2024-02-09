@@ -36,6 +36,7 @@ type QueryList = {
   missionStack: {
     missionId: string;
   };
+  finishedMissions: undefined;
 };
 
 /**
