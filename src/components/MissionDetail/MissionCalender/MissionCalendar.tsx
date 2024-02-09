@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { useGetRecord } from '@/apis';
-import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
+import Icon from '@/components/Icon';
+import { WEEK_DAYS } from '@/components/MissionDetail/MissionCalender/MissionCalendar.constants';
 import {
   getMissionCalendarItemProps,
   getYearMonth,
-} from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
-import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
-import Icon from '@/components/Icon';
+} from '@/components/MissionDetail/MissionCalender/MissionCalendar.utils';
+import MissionCalendarItem from '@/components/MissionDetail/MissionCalender/MissionCalendarItem';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
 import { eventLogger } from '@/utils';
@@ -19,6 +19,7 @@ interface Props {
   isFollow?: boolean;
 }
 
+// NOTE: currentData를 꼭 props로 받아와야할 까?
 function MissionCalendar({ currentData, missionId, isFollow }: Props) {
   const { date, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar({
     currentData,

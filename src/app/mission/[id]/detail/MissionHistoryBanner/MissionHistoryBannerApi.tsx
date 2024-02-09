@@ -5,6 +5,7 @@ import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 
 function MissionHistoryBannerApi({ missionId }: { missionId: string }) {
   const { data } = useGetMissionDetailNoSuspense(missionId);
+  console.log('data: ', data);
 
   if (!data) return <MissionHistorySkeleton />;
 

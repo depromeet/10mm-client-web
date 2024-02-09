@@ -1,19 +1,25 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import { ResultTabId } from '@/app/result/result.constants';
 import Header from '@/components/Header/Header';
-import { MissionDeleteDialog, MissionHistoryTab } from '@/components/MissionDetail';
+import { MissionDeleteDialog } from '@/components/MissionDetail';
+import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
+import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
 import Tab from '@/components/Tab/Tab';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { css } from '@/styled-system/css';
+import dayjs from 'dayjs';
 
 function FinishedMissionDetailPage() {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
 
   const { id } = useParams();
+  const missionId = id;
+  const currentData = dayjs();
 
   const tabs = [
     {
@@ -40,7 +46,10 @@ function FinishedMissionDetailPage() {
         <Tab tabs={tabs} activeTab={'mission-history'} />
       </div>
 
-      <MissionHistoryTab />
+      <MissionHistoryTabLayout>
+        {missionId && <MissionHistoryBannerApi missionId={String(missionId)} />}
+        <MissionCalendar currentData={currentData} missionId={Number(missionId)} />
+      </MissionHistoryTabLayout>
 
       <MissionDeleteDialog
         isOpen={isOpen}
