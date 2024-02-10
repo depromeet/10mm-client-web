@@ -17,7 +17,6 @@ function CardBanner(props: CardBannerType) {
 export default CardBanner;
 
 const containerCss = css({
-  minWidth: 'fit-content',
   width: '100%',
   overflow: 'hidden',
   borderRadius: '22px',
@@ -28,6 +27,7 @@ const containerCss = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  flex: 1,
 });
 
 const descriptionCss = css({

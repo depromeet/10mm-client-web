@@ -102,7 +102,6 @@ const bannerSectionCss = grid({
   gridTemplateColumns: '1fr 1fr',
   padding: '20px 16px',
   gap: '10px',
-  maxWidth: '376px',
   margin: '0 auto',
 });
 
