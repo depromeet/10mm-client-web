@@ -25,7 +25,7 @@ export const NAVIGATION: NavigationItemType[] = [
     icon: 'navigation-result',
     key: 'result',
     name: 'Result',
-    path: ROUTER.RESULT.HOME,
+    path: ROUTER.RESULT.HOME(),
   },
   {
     icon: 'navigation-mypage',

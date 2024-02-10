@@ -28,7 +28,6 @@ type QueryList = {
   followList: {
     targetId: number;
   };
-
   memberSocial: undefined;
   searchNickname: {
     nickname: string;
@@ -36,7 +35,7 @@ type QueryList = {
   missionStack: {
     missionId: string;
   };
-
+  finishedMissions: undefined;
   feedMe: undefined;
   feed: {
     memberId: number;

@@ -37,7 +37,8 @@ export const ROUTER = {
     SETTING: '/mypage/setting_and_private',
   },
   RESULT: {
-    HOME: '/result',
+    HOME: (query?: 'overall-status' | 'finished-mission') => `/result${query ? `?tab=${query}` : ''}`,
+    FINISHED_MISSION: (id: number) => `/result/finished/${id}`,
   },
   LEVEL: {
     GUIDE: '/level/guide',

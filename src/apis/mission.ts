@@ -1,5 +1,10 @@
 import getQueryKey from '@/apis/getQueryKey';
-import { type MissionCategory, type MissionItemTypeWithRecordId, type MissionVisibility } from '@/apis/schema/mission';
+import {
+  type FinishedMissionItemType,
+  type MissionCategory,
+  type MissionItemTypeWithRecordId,
+  type MissionVisibility,
+} from '@/apis/schema/mission';
 import {
   useMutation,
   type UseMutationOptions,
@@ -62,6 +67,11 @@ const MISSION_APIS = {
     const { data } = await apiInstance.get(`/missions/symbol/${missionId}`);
     return data;
   },
+
+  getFinishedMissions: async (): Promise<GetFinishedMissionsResponse> => {
+    const { data } = await apiInstance.get<GetFinishedMissionsResponse>('/missions/finished');
+    return data;
+  },
 };
 
 export default MISSION_APIS;
@@ -77,6 +87,8 @@ export interface MissionContentType {
 }
 
 type GetMissionsResponse = MissionItemTypeWithRecordId[];
+
+export type GetFinishedMissionsResponse = FinishedMissionItemType[];
 
 interface ModifyMissionResponse {
   missionId: string;
@@ -162,6 +174,14 @@ export const useGetMissionStack = (missionId: string, option?: UseQueryOptions<G
     queryKey: getQueryKey('missionStack', { missionId }),
     queryFn: () => MISSION_APIS.getMissionStack(missionId),
     enabled: Boolean(missionId),
+    ...option,
+  });
+};
+
+export const useGetFinishedMissions = (option?: UseQueryOptions<GetFinishedMissionsResponse>) => {
+  return useQuery<GetFinishedMissionsResponse>({
+    queryKey: getQueryKey('finishedMissions'),
+    queryFn: MISSION_APIS.getFinishedMissions,
     ...option,
   });
 };

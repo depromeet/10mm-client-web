@@ -1,27 +1,26 @@
 import Link from 'next/link';
 import { useGetRecord } from '@/apis';
-import { WEEK_DAYS } from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.constants';
+import Icon from '@/components/Icon';
+import { WEEK_DAYS } from '@/components/MissionDetail/MissionCalender/MissionCalendar.constants';
 import {
   getMissionCalendarItemProps,
   getYearMonth,
-} from '@/app/mission/[id]/detail/MissionCalender/MissionCalendar.utils';
-import MissionCalendarItem from '@/app/mission/[id]/detail/MissionCalender/MissionCalendarItem';
-import Icon from '@/components/Icon';
+} from '@/components/MissionDetail/MissionCalender/MissionCalendar.utils';
+import MissionCalendarItem from '@/components/MissionDetail/MissionCalender/MissionCalendarItem';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import dayjs, { type Dayjs } from 'dayjs';
 
-function MissionCalendar({
-  currentData,
-  missionId,
-  isFollow,
-}: {
+interface Props {
   currentData: Dayjs;
   missionId: number;
   isFollow?: boolean;
-}) {
+}
+
+// NOTE: currentData를 꼭 props로 받아와야할 까?
+function MissionCalendar({ currentData, missionId, isFollow }: Props) {
   const { date, monthCalendarData, onPrevMonth, onNextMonth, isCurrentMonth } = useCalendar({
     currentData,
     isQueryParams: true,
@@ -61,13 +60,7 @@ function MissionCalendar({
 
   return (
     <section>
-      <div
-        className={css({
-          display: 'flex',
-          alignItems: 'center',
-          gap: '4px',
-        })}
-      >
+      <div className={dateLabeWrapperCss}>
         <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
           <Icon name="arrow-back" size={12} />
         </button>
@@ -123,6 +116,12 @@ function MissionCalendar({
 }
 
 export default MissionCalendar;
+
+const dateLabeWrapperCss = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+});
 
 const buttonCss = css({
   padding: '8px',
