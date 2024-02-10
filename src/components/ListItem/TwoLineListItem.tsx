@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import Image from 'next/image';
-import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
+import { oneLineTextCss } from '@/constants/style/text';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
