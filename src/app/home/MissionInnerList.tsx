@@ -5,6 +5,7 @@ import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
 import MissionEmptyList from '@/app/home/MissionEmptyList';
 import { TwoLineListItem } from '@/components/ListItem';
+import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
@@ -26,7 +27,7 @@ function MissionListInner() {
   }
 
   return (
-    <StaggerWrapper wrapperOverrideCss={listCss}>
+    <StaggerWrapper wrapperOverrideCss={listCss} staggerVariants={stagger(0.02)}>
       {missionList.map((item) => {
         const isProgressingMission = progressMissionId === String(item.missionId);
         const status = isProgressingMission ? MissionStatus.PROGRESSING : item.missionStatus;
