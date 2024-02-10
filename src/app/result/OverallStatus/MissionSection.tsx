@@ -8,12 +8,14 @@ import MissionList from './MissionList';
 function MissionSection() {
   const [selectDate, setSelectDate] = useState(dayjs());
 
+  const formatSelectDate = selectDate.format('YYYY-MM-DD');
   return (
     <div className={calendarWrapperCss}>
       <section>
         <MissionCalendar selectDate={selectDate} setSelectDate={setSelectDate} />
       </section>
-      <MissionList selectDate={selectDate.format('YYYY-MM-DD')} />
+      <MissionList key={formatSelectDate} selectDate={formatSelectDate} />
+      <div className={blankCss} />
     </div>
   );
 }
@@ -21,5 +23,9 @@ function MissionSection() {
 export default MissionSection;
 
 const calendarWrapperCss = css({
-  padding: '6px 12px 10px',
+  margin: '6px 12px 10px',
+});
+
+const blankCss = css({
+  height: '156px',
 });

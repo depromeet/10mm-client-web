@@ -1,12 +1,13 @@
 import getQueryKey from '@/apis/getQueryKey';
+import { MissionCategory, MissionStatus } from '@/apis/schema/mission';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 interface MissionSummaryType {
   missionId: number;
   name: string;
-  category: string;
+  category: MissionCategory;
   visibility: string;
-  missionStatus: string;
+  missionStatus: MissionStatus;
 }
 
 interface MissionSummaryListResponse {
@@ -16,7 +17,7 @@ interface MissionSummaryListResponse {
   missionList: MissionSummaryType[];
 }
 
-const MissionSummaryListData = {
+const MissionSummaryListData: MissionSummaryListResponse = {
   missionAllCount: 0,
   missionCompleteCount: 0,
   missionNoneCount: 0,
@@ -24,16 +25,16 @@ const MissionSummaryListData = {
     {
       missionId: 1,
       name: 'UX방법론 1챕터씩 공부하기!',
-      category: 'STUDY',
+      category: MissionCategory.STUDY,
       visibility: 'ALL',
-      missionStatus: 'COMPLETED',
+      missionStatus: MissionStatus.COMPLETED,
     },
     {
       missionId: 2,
       name: '스쿼트하고 닭다리 되기!',
-      category: 'STUDY',
+      category: MissionCategory.STUDY,
       visibility: 'ALL',
-      missionStatus: 'COMPLETED',
+      missionStatus: MissionStatus.NONE,
     },
   ],
 };

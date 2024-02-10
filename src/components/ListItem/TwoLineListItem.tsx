@@ -58,5 +58,6 @@ const bgExistContainerCss = css({
 
 const bgNoExistContainerCss = css({
   background: 'transparent',
-  padding: '8px 0',
+  height: '56px !',
+  // padding: '8px 0',
 });
