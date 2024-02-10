@@ -107,6 +107,14 @@ export const buttonStyle = cva({
         },
       },
     },
+    // @params blocked
+    // @description 버튼 클릭 만을 막을 때 사용합니다.
+    blocked: {
+      true: {
+        pointerEvents: 'none',
+      },
+      false: {},
+    },
   },
   compoundVariants: [
     {
@@ -160,6 +168,7 @@ export const buttonStyle = cva({
   ],
   defaultVariants: {
     size: 'large',
+    blocked: false,
   },
 });
 
