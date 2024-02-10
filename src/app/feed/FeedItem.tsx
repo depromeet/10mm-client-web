@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { type FeedItemType } from '@/apis/feed';
+import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ROUTER } from '@/constants/router';
