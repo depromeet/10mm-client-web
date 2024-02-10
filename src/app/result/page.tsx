@@ -25,7 +25,7 @@ function ResultPage() {
   const tabProps = useResultTab(finishedMissionCount);
 
   return (
-    <div>
+    <>
       <section className={topWrapperCss}>
         <Tab {...tabProps} />
         <LinkButton onClick={handleLevelGuideClick} size="small" variant="secondary" href={ROUTER.LEVEL.GUIDE}>
@@ -35,7 +35,7 @@ function ResultPage() {
       {tabProps.activeTab === 'overall-status' && <OverallStatus />}
       {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}
       <AppBarBottom />
-    </div>
+    </>
   );
 }
 
@@ -65,5 +65,5 @@ const useResultTab = (finishedMissionCount: number) => {
 const topWrapperCss = flex({
   zIndex: 1,
   position: 'relative',
-  padding: '16px 16px 4px 16px',
+  padding: '28px 16px 4px 16px',
 });

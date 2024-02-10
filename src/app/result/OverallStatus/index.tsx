@@ -4,7 +4,7 @@ import { useGetMissionSummary } from '@/apis/mission';
 import Character from '@/app/level/guide/Character';
 import MissionSection from '@/app/result/OverallStatus/MissionSection';
 import Banner from '@/components/Banner/Banner';
-import LevelStatus from '@/components/LevelStatus/LevelStatus';
+import Graph from '@/components/Graph/GraphBase';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import { css } from '@/styled-system/css';
 import { grid } from '@/styled-system/patterns';
@@ -25,10 +25,17 @@ function OverallStatus() {
         <div></div>
       ) : (
         <>
-          <MotionDiv variants="fadeInUp" className={imageSectionCss}>
-            <Character width={280} height={210} level={currentLevel.level} isBackground />
-          </MotionDiv>
-          <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} />
+          <section className={characterSectionCss}>
+            <div className={levelStatusCss}>
+              <Graph.SymbolText symbolStack={symbolStack} />
+              <p className={levelTextCss}>{currentLevel.label}</p>
+              <Graph.ProgressBar symbolStack={symbolStack} min={currentLevel.min} max={currentLevel.max} />
+              {/* <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} /> */}
+            </div>
+            <MotionDiv variants="fadeInUp" className={imageSectionCss}>
+              <Character width={200} height={150} level={currentLevel.level} isBackground />
+            </MotionDiv>
+          </section>
           <MotionDiv className={bannerSectionCss}>
             <Banner
               type="card"
@@ -51,6 +58,25 @@ function OverallStatus() {
 }
 
 export default OverallStatus;
+
+const characterSectionCss = css({
+  display: 'flex',
+  alignItems: 'center',
+  height: '219px',
+});
+
+const levelTextCss = css({
+  margin: '12px 0 10px',
+  color: '#fff',
+  textStyle: 'caption',
+});
+
+const levelStatusCss = css({
+  paddingLeft: '28px',
+  '& > div': {
+    width: '93px',
+  },
+});
 
 const bannerSectionCss = grid({
   gridTemplateColumns: '1fr 1fr',

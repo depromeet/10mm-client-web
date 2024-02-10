@@ -53,7 +53,7 @@ function MissionCalendar({ selectDate, setSelectDate }: Props) {
           </div>
           <button
             type={'button'}
-            className={cx(buttonCss, css({ visibility: !isCurrentMonth ? 'hidden' : '' }))}
+            className={cx(buttonCss, css({ visibility: isCurrentMonth ? 'hidden' : '' }))}
             onClick={handleNextMonth}
           >
             <Icon name="arrow-forward" size={14} />

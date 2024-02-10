@@ -41,28 +41,35 @@ const levelWrapperCss = flex({
   gap: '8px',
   alignItems: 'center',
   justifyContent: 'center',
+  height: '43px',
 });
 
 const levelLabelCss = css({
   fontSize: '36px',
+  lineHeight: '43px',
   fontWeight: '100',
 });
 
 const MIN_PERCENT = 3;
 
 type LevelProgressBarProps =
-  | { symbolStack: number; min: number; max: number; isFull?: false }
-  | { isFull: true; min?: number };
+  | { symbolStack: number; min: number; max: number; isFull?: false; isLabel?: boolean }
+  | { isFull: true; min?: number; isLabel?: boolean };
 
 function LevelProgressBar(props: LevelProgressBarProps) {
   if (props?.isFull) {
-    return <ProgressBar percent={100} labels={props.min ? [`${props.min} 이상`] : undefined} />;
+    return <ProgressBar percent={100} labels={props.isLabel && props.min ? [`${props.min} 이상`] : undefined} />;
   }
 
   const { symbolStack, max, min } = props;
   const percent = (100 / (max - min)) * (symbolStack - min);
 
-  return <ProgressBar percent={Math.max(percent, MIN_PERCENT)} labels={[String(min), String(max)]} />;
+  return (
+    <ProgressBar
+      percent={Math.max(percent, MIN_PERCENT)}
+      labels={props.isLabel ? [String(min), String(max)] : undefined}
+    />
+  );
 }
 
 function ProgressBar(props: { percent: number; labels?: string[] }) {
