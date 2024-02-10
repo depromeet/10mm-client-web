@@ -65,4 +65,7 @@ export const ROUTER = {
   SEARCH: {
     HOME: '/search',
   },
+  NOTIFICATION: {
+    HOME: '/notification',
+  },
 };

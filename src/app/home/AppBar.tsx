@@ -18,9 +18,14 @@ function AppBar() {
         <div className={logoWrapperCss}>
           <Image src={'/assets/10mm-logo.svg'} alt="10MM" width={68} height={20} />
         </div>
-        <Link className={searchIconWrapper} href={ROUTER.SEARCH.HOME} passHref onClick={handleSearchClick}>
-          <Icon name="navigation-search" size={24} color="icon.secondary" />
-        </Link>
+        <div className={headerIconWrapperCss}>
+          <Link className={searchIconWrapper} href={ROUTER.NOTIFICATION.HOME} passHref onClick={handleSearchClick}>
+            <Icon name="alarm" size={24} color="icon.secondary" />
+          </Link>
+          <Link className={searchIconWrapper} href={ROUTER.SEARCH.HOME} passHref onClick={handleSearchClick}>
+            <Icon name="navigation-search" size={24} color="icon.secondary" />
+          </Link>
+        </div>
       </header>
       <div className={blankCss} />
     </>
@@ -52,4 +57,8 @@ const blankCss = css({ height: '44px' });
 
 const logoWrapperCss = css({
   padding: '12px 6px',
+});
+
+const headerIconWrapperCss = css({
+  display: 'flex',
 });
