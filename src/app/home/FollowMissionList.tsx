@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useFollowMissions } from '@/apis/follow';
-import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
 import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
