@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 // import lottieJson from '@/assets/lotties/lottieExample.json';
 import Button from '@/components/Button/Button';
-import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { ROUTER } from '@/constants/router';
+import { NATIVE_METHODS } from '@/utils/nativeMethod';
 import { css } from '@styled-system/css';
 // import Lottie from 'react-lottie-player';
 
@@ -15,11 +15,7 @@ export default function MissionSuccessPage() {
   const onClickConfirmButton = () => router.replace(ROUTER.HOME);
 
   useEffect(() => {
-    window.ReactNativeWebView?.postMessage(
-      JSON.stringify({
-        type: NATIVE_CUSTOM_EVENTS.VIBRATE,
-      }),
-    );
+    NATIVE_METHODS.VIBRATE();
   }, []);
 
   return (
