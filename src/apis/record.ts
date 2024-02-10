@@ -58,6 +58,11 @@ type GetRecordDetailResponse = RecordType & {
   duration: number;
 };
 
+export enum UrgingStatus {
+  NONE = 'NONE',
+  URGING = 'URGING',
+}
+
 const RECORD_API = {
   getRecords: async (params: GetRecordsParams) => {
     const { data } = await apiInstance.get<GetRecordsResponse>('/records', {
