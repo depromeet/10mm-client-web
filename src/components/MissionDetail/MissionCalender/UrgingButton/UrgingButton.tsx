@@ -1,5 +1,7 @@
+import { useNotifyUrging } from '@/apis/notifications';
 import { UrgingStatus } from '@/apis/record';
 import GradientPaperAirplaneIcon from '@/components/MissionDetail/MissionCalender/UrgingButton/GradientPaperAirplaneIcon';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { gradientBorderWrapperCss, gradientTextCss } from '@/constants/style/gradient';
 import { css, cx } from '@/styled-system/css';
 
@@ -9,14 +11,25 @@ interface Props {
 }
 
 function UrgingButton(props: Props) {
+  const { triggerSnackBar } = useSnackBar();
+
+  const { mutate, isSuccess, isPending } = useNotifyUrging();
   const isVisible = props.urgingStatus === UrgingStatus.URGING;
 
-  if (!isVisible) {
+  const onClick = () => {
+    mutate({ missionId: props.missionId });
+    triggerSnackBar({
+      message: '재촉 알림을 보냈어요!',
+      offset: 'cta',
+    });
+  };
+
+  if (!isVisible || isSuccess) {
     return null;
   }
 
   return (
-    <button type="button" className={cx(buttonCss, gradientBorderWrapperCss())}>
+    <button type="button" className={cx(buttonCss, gradientBorderWrapperCss())} disabled={isPending} onClick={onClick}>
       <div className={innerCss}>
         <GradientPaperAirplaneIcon size={16} />
         <span className={gradientTextCss}>미션 재촉하기</span>
@@ -36,6 +49,12 @@ const buttonCss = css({
   width: 'fit-content',
   zIndex: 100,
   borderRadius: '16px',
+  cursor: 'pointer',
+
+  '&:disabled': {
+    cursor: 'not-allowed',
+    filter: 'brightness(0.4)',
+  },
 });
 
 const innerCss = css({

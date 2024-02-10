@@ -51,6 +51,7 @@ interface GetRecordsResponse {
   missionFinishedAt: string;
   missionStartedAt: string;
   missionRecords: RecordType[];
+  urgingStatus: UrgingStatus;
 }
 
 type GetRecordDetailResponse = RecordType & {

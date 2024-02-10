@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
