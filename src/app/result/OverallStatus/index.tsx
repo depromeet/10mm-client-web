@@ -109,4 +109,5 @@ const imageSectionCss = css({
   margin: '43px auto 12px',
   position: 'relative',
   height: '210px',
+  width: '100%',
 });
