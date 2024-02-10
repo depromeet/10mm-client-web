@@ -16,36 +16,13 @@ import { checkImageType, uploadImageToServer, useImage } from '@/hooks/useImage'
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
-import { useMutation } from '@tanstack/react-query';
 
 export default function MissionRecordPage() {
   const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
   const params = useParams();
-  const { mutateAsync: uploadComplete, isPending: isUploadCompletePending } = useMutation({
-    mutationFn: RECORD_API.uploadComplete,
-    onSuccess: () => {
-      router.replace(ROUTER.RECORD.SUCCESS);
-    },
-    onError: () => {
-      triggerSnackBar({
-        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
-      });
-    },
-  });
 
-  const { mutateAsync: uploadImageToServerMutate, isPending: isUpLoadingPending } = useMutation({
-    mutationFn: ({ missionId, imageFile }: { missionId: string; imageFile: File }) =>
-      uploadImageToServer(missionId, imageFile),
-    onSuccess: async ({ imageFileExtension }) => {
-      await uploadComplete({ missionRecordId: missionId, imageFileExtension, remark });
-    },
-    onError: () => {
-      triggerSnackBar({
-        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
-      });
-    },
-  });
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
   const missionId = params.id as string;
 
@@ -54,8 +31,6 @@ export default function MissionRecordPage() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { uploadImageChange, imagePreview, imageFile } = useImage();
-
-  const isPending = isUpLoadingPending || isUploadCompletePending;
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // TODO: 200자 제한
@@ -75,22 +50,37 @@ export default function MissionRecordPage() {
     }
 
     eventLogger.logEvent(EVENT_LOG_NAME.CERTIFICATION.CLICK_CONFIRM, EVENT_LOG_CATEGORY.CERTIFICATION, { remark });
-    await uploadImageToServerMutate({
-      missionId,
-      imageFile,
-    });
+
+    await onSubmit(missionId, imageFile);
   };
 
-  const isButtonDisabled = !imagePreview || isPending;
+  const isButtonDisabled = !imagePreview || isSubmitLoading;
 
   const onImageClick = () => {
     imageRef.current?.click();
   };
 
+  // react query 지우로 axios 호출
+  const onSubmit = async (_missionId: string, _imageFile: File) => {
+    setIsSubmitLoading(true);
+
+    try {
+      const { imageFileExtension } = await uploadImageToServer(_missionId, _imageFile);
+      await RECORD_API.uploadComplete({ missionRecordId: _missionId, imageFileExtension, remark });
+
+      router.replace(ROUTER.RECORD.SUCCESS);
+    } catch (e) {
+      triggerSnackBar({
+        message: '미션 인증에 실패했습니다. 다시 시도해주세요.',
+      });
+      setIsSubmitLoading(false);
+    }
+  };
+
   return (
     <main className={mainWrapperCss}>
       <div className={headerWrapperCss}>
-        {isPending && <Loading />}
+        {isSubmitLoading && <Loading />}
         <div className={headerTitleCss}>미션 인증</div>
         <div className={headerRightCss} onClick={openModal}>
           <Icon name="normal-close" />
