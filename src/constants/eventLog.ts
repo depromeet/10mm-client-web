@@ -11,6 +11,7 @@ export const EVENT_LOG_CATEGORY = {
   MY_PAGE: 'my_page',
   FOLLOW_LIST: 'follow_list',
   FOLLOW_PROFILE: 'follow_profile',
+  FEED: 'feed',
 };
 
 type EventLogCategoryType = keyof typeof EVENT_LOG_CATEGORY;
@@ -78,5 +79,11 @@ export const EVENT_LOG_NAME = {
   FOLLOW_PROFILE: {
     CLICK_FOLLOW_BUTTON: 'click/followButton',
     CLICK_UNFOLLOW_BUTTON: 'click/unfollowButton',
+    CLICK_TAB: 'click/tab',
+    CLICK_PROFILE_FEED: 'click/profileFeed',
+  },
+  FEED: {
+    CLICK_FEED: 'click/feed',
+    CLICK_PROFILE: 'click/profile',
   },
 } satisfies Record<EventLogCategoryType, Record<string, string>>;

@@ -1,9 +1,13 @@
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
 import UserProfile from '@/app/home/UserProfile';
 import { type FollowDataState } from '@/app/page';
+import Icon from '@/components/Icon';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { ROUTER } from '@/constants/router';
+import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
@@ -41,6 +45,9 @@ function FollowList() {
             />
           </MotionDiv>
         ))}
+      <Link href={ROUTER.SEARCH.HOME} className={plusWrapperCss}>
+        <Icon name="plus" size={18} color="purple.purple400" />
+      </Link>
     </section>
   );
 }
@@ -57,4 +64,17 @@ const containerCss = flex({
   _scrollbar: {
     display: 'none',
   },
+});
+
+const plusWrapperCss = css({
+  backgroundColor: 'purple.purple000',
+  width: '28px',
+  height: '28px',
+  borderRadius: '12px',
+  flex: 0,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minWidth: '28px',
+  marginTop: '12px',
 });

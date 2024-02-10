@@ -9,7 +9,7 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
-function Header() {
+function MissionListHeader() {
   const handlePlusClick = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_PLUS_BUTTON);
   };
@@ -18,7 +18,7 @@ function Header() {
     <h2 className={headingCss}>
       <span>내 미션 목록</span>
       <Link href={ROUTER.MISSION.NEW} onClick={handlePlusClick}>
-        <Icon name="plus" size={20} />
+        <Icon name="plus" size={20} color="icon.primary" />
       </Link>
     </h2>
   );
@@ -27,7 +27,7 @@ function Header() {
 function MissionList() {
   return (
     <div className={containerCss}>
-      <Header />
+      <MissionListHeader />
       <ul className={listCss}>
         <MissionListInner />
       </ul>

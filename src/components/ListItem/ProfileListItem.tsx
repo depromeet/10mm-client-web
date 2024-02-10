@@ -41,19 +41,6 @@ function ProfileListItem(props: Props) {
 
 export default ProfileListItem;
 
-export function ProfileItemSkeleton() {
-  return <div className={skeletonCss} />;
-}
-
-const skeletonCss = css({
-  animation: 'skeleton',
-  height: '56px',
-  width: '100%',
-  backgroundColor: 'bg.surface4',
-  borderRadius: '12px',
-  marginBottom: '8px',
-});
-
 const containerCss = flex({ padding: '10px 8px', gap: '12px', alignItems: 'center' });
 
 const nameCss = css({
