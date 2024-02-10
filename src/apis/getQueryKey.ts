@@ -28,13 +28,17 @@ type QueryList = {
   followList: {
     targetId: number;
   };
-
   memberSocial: undefined;
   searchNickname: {
     nickname: string;
   };
   missionStack: {
     missionId: string;
+  };
+  finishedMissions: undefined;
+  feedMe: undefined;
+  feed: {
+    memberId: number;
   };
 };
 

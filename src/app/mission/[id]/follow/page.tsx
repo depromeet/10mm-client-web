@@ -1,8 +1,8 @@
 'use client';
 
-import MissionHistoryTab from '@/app/mission/[id]/detail/MissionHistoryTab';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
+import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
 

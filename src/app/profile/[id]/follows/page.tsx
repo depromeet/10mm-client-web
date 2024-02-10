@@ -12,6 +12,7 @@ import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { css } from '@/styled-system/css';
 
 type FollowTabType = 'following' | 'follower';
+
 function FollowListPage({ params }: { params: { id: string } }) {
   const { searchParams } = useSearchParamsTypedValue<FollowTabType>('tab');
   const initTabId = searchParams ?? 'following';

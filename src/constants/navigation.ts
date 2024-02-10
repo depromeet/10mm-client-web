@@ -15,17 +15,17 @@ export const NAVIGATION: NavigationItemType[] = [
     name: 'Mission',
     path: ROUTER.HOME,
   },
-  // {
-  //   icon: 'navigation-feed',
-  //   key: 'feed',
-  //   name: 'Feed',
-  //   path: ROUTER.RESULT.HOME,
-  // },
+  {
+    icon: 'navigation-feed',
+    key: 'feed',
+    name: 'Feed',
+    path: ROUTER.FEED.HOME,
+  },
   {
     icon: 'navigation-result',
     key: 'result',
     name: 'Result',
-    path: ROUTER.RESULT.HOME,
+    path: ROUTER.RESULT.HOME(),
   },
   {
     icon: 'navigation-mypage',
