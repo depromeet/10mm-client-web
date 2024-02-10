@@ -3,7 +3,6 @@ import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/m
 import Button from '@/components/Button/Button';
 import { ProfileListItem } from '@/components/ListItem';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
-import { css } from '@/styled-system/css';
 import { eventLogger } from '@/utils';
 
 export interface MemberItemProps extends FollowerMemberWithStatusType {
@@ -15,7 +14,6 @@ export interface MemberItemProps extends FollowerMemberWithStatusType {
 export function FollowingMember({ onClick, ...props }: MemberItemProps) {
   const { mutate, isPending } = useDeleteFollow({
     onSuccess: (res) => {
-      // TODO : 서버 데이터 잘 받아오는지 체크
       const newStatus = res?.followStatus ?? FollowStatus.NOT_FOLLOWING;
       props.onButtonClick?.({ ...props, followStatus: newStatus });
     },
@@ -32,27 +30,13 @@ export function FollowingMember({ onClick, ...props }: MemberItemProps) {
       name={props.nickname}
       thumbnailUrl={props.profileImageUrl}
       buttonElement={
-        <Button
-          size="small"
-          variant="secondary"
-          onClick={onFollowingCancel}
-          disabled={isButtonDisabled}
-          className={secondaryButtonCss}
-        >
+        <Button size="small" variant="secondary" onClick={onFollowingCancel} blocked={isButtonDisabled}>
           팔로잉
         </Button>
       }
     />
   );
 }
-
-const secondaryButtonCss = css({
-  '&:disabled': {
-    filter: 'none',
-    backgroundColor: 'gray.gray200',
-    color: 'text.secondary',
-  },
-});
 
 // 팔로잉 되어있지 않은 멤버
 export function NotFollowingMember(props: MemberItemProps) {
@@ -74,25 +58,13 @@ export function NotFollowingMember(props: MemberItemProps) {
       name={props.nickname}
       thumbnailUrl={props.profileImageUrl}
       buttonElement={
-        <Button
-          size="small"
-          variant="primary"
-          onClick={onFollowerClick}
-          disabled={isButtonDisabled}
-          className={primaryButtonCss}
-        >
+        <Button size="small" variant="primary" onClick={onFollowerClick} blocked={isButtonDisabled}>
           {props.followStatus === FollowStatus.FOLLOWED_BY_ME ? '맞팔로우' : '팔로우'}
         </Button>
       }
     />
   );
 }
-
-const primaryButtonCss = css({
-  '&:disabled': {
-    filter: 'none',
-  },
-});
 
 export function MineMemberItem(props: MemberItemProps) {
   return <ProfileListItem name={props.nickname} buttonElement={<div></div>} thumbnailUrl={props.profileImageUrl} />;

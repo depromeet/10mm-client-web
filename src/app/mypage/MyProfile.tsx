@@ -1,24 +1,17 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import { useFollowsCountMembers } from '@/apis/follow';
 import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
-import MyProfileMissionList from '@/app/mypage/MyProfileMissionList';
+import ProfileTab from '@/app/mypage/ProfileTab';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import Button from '@/components/Button/Button';
-import Tab from '@/components/Tab/Tab';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { eventLogger } from '@/utils';
-
-const tabs = [
-  {
-    tabName: '미션 목록',
-    id: 'mission-list',
-  },
-];
 
 export default function MyProfile() {
   const { data } = useGetMembersMe();
@@ -30,6 +23,7 @@ export default function MyProfile() {
   const handleProfileEditClick = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_EDIT);
   };
+
   return (
     <ProfileContent
       memberId={memberId}
@@ -46,17 +40,10 @@ export default function MyProfile() {
         </Link>
       }
     >
-      <div className={tabWrapper}>
-        <Tab tabs={tabs} activeTab={'mission-list'} />
-      </div>
-      <MyProfileMissionList />
+      <ProfileTab memberId={memberId} />
     </ProfileContent>
   );
 }
-
-const tabWrapper = css({
-  margin: '36px 0 24px',
-});
 
 const profileEditButtonCss = css({
   border: '1px solid',
