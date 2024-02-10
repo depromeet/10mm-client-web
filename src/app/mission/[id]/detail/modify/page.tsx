@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import MISSION_APIS, { useGetMissionDetail, useModifyMissionMutation } from '@/apis/mission';
-import { type MissionVisibility } from '@/apis/schema/mission';
+import MISSION_APIS, { useGetMissionDetailNoSuspense, useModifyMissionMutation } from '@/apis/mission';
+import { MissionVisibility } from '@/apis/schema/mission';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
@@ -25,11 +25,11 @@ export default function MissionModifyPage({ params }: { params: { id: string } }
     },
   });
 
-  const { data } = useGetMissionDetail(params.id);
+  const { data } = useGetMissionDetailNoSuspense(params.id);
 
-  const PREVIOUS_MISSIONTITLE = data.name;
-  const PREVIOUS_MISSIONCONTENT = data.content;
-  const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LABEL[data.visibility];
+  const PREVIOUS_MISSIONTITLE = data?.name || '';
+  const PREVIOUS_MISSIONCONTENT = data?.content || '';
+  const PREVIOUS_PUBLIC_SETTING = PUBLIC_SETTING_LABEL[data?.visibility || MissionVisibility.ALL];
 
   const [missionTitleInput, setMissionTitleInput] = useState(PREVIOUS_MISSIONTITLE);
   const [missionContentInput, setMissionContentInput] = useState(PREVIOUS_MISSIONCONTENT);
