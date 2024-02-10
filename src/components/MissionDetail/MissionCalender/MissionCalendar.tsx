@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { UrgingStatus, useGetRecord } from '@/apis';
-import UrgingButton from '@/app/mission/[id]/follow/UrgingButton/UrgingButton';
 import Icon from '@/components/Icon';
 import { WEEK_DAYS } from '@/components/MissionDetail/MissionCalender/MissionCalendar.constants';
 import {
@@ -8,6 +7,7 @@ import {
   getYearMonth,
 } from '@/components/MissionDetail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/components/MissionDetail/MissionCalender/MissionCalendarItem';
+import UrgingButton from '@/components/MissionDetail/MissionCalender/UrgingButton/UrgingButton';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
 import { eventLogger } from '@/utils';

@@ -1,5 +1,5 @@
 import { UrgingStatus } from '@/apis/record';
-import GradientPaperAirplaneIcon from '@/app/mission/[id]/follow/UrgingButton/GradientPaperAirplaneIcon';
+import GradientPaperAirplaneIcon from '@/components/MissionDetail/MissionCalender/UrgingButton/GradientPaperAirplaneIcon';
 import { gradientBorderWrapperCss, gradientTextCss } from '@/constants/style/gradient';
 import { css, cx } from '@/styled-system/css';
 

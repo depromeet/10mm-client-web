@@ -1,7 +1,6 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import UrgingButton from '@/app/mission/[id]/follow/UrgingButton';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
