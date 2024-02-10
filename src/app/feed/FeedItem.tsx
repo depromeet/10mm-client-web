@@ -1,8 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 
@@ -18,15 +22,22 @@ function FeedItem({
   startedAt,
   recordId,
 }: FeedItemType) {
+  const handleClickFeedItem = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_FEED);
+  };
+
+  const handleClickFollowProfile = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_PROFILE);
+  };
   return (
     <li>
-      <Link href={ROUTER.PROFILE.DETAIL(memberId)}>
+      <Link href={ROUTER.PROFILE.DETAIL(memberId)} onClick={handleClickFollowProfile}>
         <div className={profileWrapperCss}>
           <Thumbnail size={'h24'} variant={'filled'} url={profileImage} />
           <p>{nickname}</p>
         </div>
       </Link>
-      <Link href={ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())}>
+      <Link href={ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())} onClick={handleClickFeedItem}>
         <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
         <div className={textWrapperCss}>
           <p className={missionNameCss}>{name}</p>
