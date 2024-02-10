@@ -53,14 +53,14 @@ const listCss = flex({
 });
 
 export function MissionFollowListInner({ followId }: { followId: number }) {
-  const { data, isLoading } = useFollowMissions(followId);
-  if (isLoading) {
-    return (
-      <ul className={listCss}>
-        <MissionListSkeleton />
-      </ul>
-    );
-  }
+  const { data } = useFollowMissions(followId);
+  // if (isLoading) {
+  //   return (
+  //     <ul className={listCss}>
+  //       <MissionListSkeleton />
+  //     </ul>
+  //   );
+  // }
 
   if (!data) {
     return null;
