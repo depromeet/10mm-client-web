@@ -41,6 +41,16 @@ export interface MissionItemTypeWithRecordId extends MissionItemType {
   missionRecordId?: string;
 }
 
+export interface FinishedMissionItemType {
+  missionId: number;
+  name: string;
+  content: string;
+  category: MissionCategory;
+  missionAttainRate: number;
+  startedAt: string;
+  finishedAt: string;
+}
+
 export enum MissionCategory {
   STUDY = 'STUDY',
   EXERCISE = 'EXERCISE',
