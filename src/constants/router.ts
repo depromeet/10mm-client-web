@@ -7,6 +7,9 @@ export const ROUTER = {
     DETAIL: (id: string) => `/mission/${id}/detail`,
     MODIFY: (id: string) => `/mission/${id}/detail/modify`,
   },
+  FEED: {
+    HOME: '/feed',
+  },
 
   RECORD: {
     CREATE: (id: string) => `/record/${id}`,
