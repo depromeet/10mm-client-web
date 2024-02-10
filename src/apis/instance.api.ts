@@ -29,7 +29,9 @@ const setInterceptors = (instance: AxiosInstance) => {
     (error) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          window.location.href = ROUTER.AUTH.LOGIN;
+          if (typeof window !== 'undefined') {
+            window.location.href = ROUTER.AUTH.LOGIN;
+          }
         }
       }
       return Promise.reject(error);
