@@ -1,13 +1,18 @@
 'use client';
 
+import Link from 'next/link';
 import { useGetMissionSummary } from '@/apis/mission';
 import Character from '@/app/level/guide/Character';
 import MissionSection from '@/app/result/OverallStatus/MissionSection';
 import Banner from '@/components/Banner/Banner';
 import Graph from '@/components/Graph/GraphBase';
+import Icon from '@/components/Icon';
 import MotionDiv from '@/components/Motion/MotionDiv';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { grid } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
 import { getLevel } from '@/utils/result';
 
 function OverallStatus() {
@@ -30,7 +35,9 @@ function OverallStatus() {
               <Graph.SymbolText symbolStack={symbolStack} />
               <p className={levelTextCss}>{currentLevel.label}</p>
               <Graph.ProgressBar symbolStack={symbolStack} min={currentLevel.min} max={currentLevel.max} />
-              {/* <LevelStatus symbolStack={symbolStack} viewLevel={currentLevel.level} /> */}
+              <Link className={levelGuideLinkCss} onClick={handleLevelGuideClick} href={ROUTER.LEVEL.GUIDE}>
+                레벨 안내 <Icon name="arrow-forward" size={12} />
+              </Link>
             </div>
             <MotionDiv variants="fadeInUp" className={imageSectionCss}>
               <Character width={200} height={150} level={currentLevel.level} isBackground />
@@ -58,6 +65,19 @@ function OverallStatus() {
 }
 
 export default OverallStatus;
+
+const handleLevelGuideClick = () => {
+  eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
+};
+
+const levelGuideLinkCss = css({
+  color: 'purple.purple500',
+  textStyle: 'body3',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+  marginTop: '17px',
+});
 
 const characterSectionCss = css({
   display: 'flex',

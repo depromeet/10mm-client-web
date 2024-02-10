@@ -5,18 +5,12 @@ import FinishedMissionList from '@/app/result/FinishedMissionList';
 import OverallStatus from '@/app/result/OverallStatus';
 import { ResultTabId } from '@/app/result/result.constants';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
-import LinkButton from '@/components/Button/LinkButton';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { flex } from '@/styled-system/patterns';
-import { eventLogger } from '@/utils';
-
-const handleLevelGuideClick = () => {
-  eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
-};
 
 function ResultPage() {
   const finishedMissionQueryData = useGetFinishedMissions();
@@ -28,9 +22,6 @@ function ResultPage() {
     <>
       <section className={topWrapperCss}>
         <Tab {...tabProps} />
-        <LinkButton onClick={handleLevelGuideClick} size="small" variant="secondary" href={ROUTER.LEVEL.GUIDE}>
-          레벨 안내
-        </LinkButton>
       </section>
       {tabProps.activeTab === 'overall-status' && <OverallStatus />}
       {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}
