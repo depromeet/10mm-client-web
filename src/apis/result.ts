@@ -18,9 +18,9 @@ interface MissionSummaryListResponse {
 }
 
 const MissionSummaryListData: MissionSummaryListResponse = {
-  missionAllCount: 0,
-  missionCompleteCount: 0,
-  missionNoneCount: 0,
+  missionAllCount: 3,
+  missionCompleteCount: 1,
+  missionNoneCount: 1,
   missionList: [
     {
       missionId: 1,

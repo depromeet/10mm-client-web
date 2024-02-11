@@ -10,9 +10,10 @@ interface Props {
 }
 
 function MissionList(props: Props) {
-  const { data: selectSummaryListData } = useGetMissionSummaryList(props.selectDate);
+  const { data: selectSummaryListData, isLoading } = useGetMissionSummaryList(props.selectDate);
 
   const missionList = selectSummaryListData?.missionList ?? [];
+
   return (
     <section className={sectionCss}>
       <div className={infoWrapperCss}>
@@ -21,31 +22,35 @@ function MissionList(props: Props) {
             <b>전체</b>
           </span>
           <span>
-            <b>{selectSummaryListData?.missionAllCount ?? 0}</b>
+            <b>{selectSummaryListData?.missionAllCount ?? ' '}</b>
           </span>
         </div>
         <div>
           <span>성공</span>
-          <span>{selectSummaryListData?.missionCompleteCount ?? 0}</span>
+          <span>{selectSummaryListData?.missionCompleteCount ?? ' '}</span>
         </div>
         <div>
           <span>미완료</span>
-          <span>{selectSummaryListData?.missionNoneCount ?? 0}</span>
+          <span>{selectSummaryListData?.missionNoneCount ?? ' '}</span>
         </div>
       </div>
-      <motion.ul className={listCss} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-        {missionList.length === 0 && <div className={emptyTextCss}>등록된 미션 내역이 없습니다.</div>}
-        {missionList.map((item) => (
-          <TwoLineListItem
-            key={item.missionId}
-            badgeElement={<MissionBadge status={item.missionStatus} />}
-            name={item.name}
-            subName={MISSION_CATEGORY_LABEL[item.category].label}
-            imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
-            isBackground={false}
-          />
-        ))}
-      </motion.ul>
+      {isLoading ? (
+        <div></div>
+      ) : (
+        <motion.ul className={listCss} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
+          {missionList.length === 0 && <div className={emptyTextCss}>등록된 미션 내역이 없습니다.</div>}
+          {missionList.map((item) => (
+            <TwoLineListItem
+              key={item.missionId}
+              badgeElement={<MissionBadge status={item.missionStatus} />}
+              name={item.name}
+              subName={MISSION_CATEGORY_LABEL[item.category].label}
+              imageUrl={MISSION_CATEGORY_LABEL[item.category].imgUrl}
+              isBackground={false}
+            />
+          ))}
+        </motion.ul>
+      )}
     </section>
   );
 }
