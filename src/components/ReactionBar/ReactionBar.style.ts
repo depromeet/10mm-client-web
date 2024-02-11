@@ -6,6 +6,7 @@ export const reactionBarContainerCss = flex({
   padding: '0 12px',
   borderRadius: '16px',
   gap: '16px',
+  justifyContent: 'space-between',
 });
 
 export const titleSectionCss = flex({

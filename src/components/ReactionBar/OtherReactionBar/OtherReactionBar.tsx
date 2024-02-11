@@ -18,15 +18,15 @@ interface Props {
 }
 
 function OtherReactionBar(props: Props) {
-  const { data, isFetching, refetch } = useGetReactions(props.recordId);
+  const { data, refetch, isLoading } = useGetReactions(props.recordId);
   const [selectEmoji, setSelectEmoji] = useState<EmojiType[] | undefined>();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { mutate, isPending } = useAddReaction();
+  const { mutate } = useAddReaction();
 
   const myReaction = useGetMyReactions(data as GetReactionsResponse);
 
-  const isApiLoading = isFetching || isPending;
+  // const isApiLoading = isFetching || isPending;
 
   const onSelectEmoji = (emoji: EmojiType) => {
     setSelectEmoji([emoji]);
@@ -34,12 +34,19 @@ function OtherReactionBar(props: Props) {
     refetch();
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  useOutsideClick({
+    ref: ref,
+    handler: () => setIsOpen(false),
+  });
+
   useEffect(() => {
     setSelectEmoji(myReaction);
-  }, [myReaction]);
+  }, [isLoading]);
 
   return (
-    <div className={reactionBarContainerCss}>
+    <div className={reactionBarContainerCss} ref={ref}>
       <div className={titleSectionCss} onClick={() => setIsOpen((prev) => !prev)}>
         <GradientFeedIcon />
         <span className={gradientTextCss}>응원하기</span>
@@ -84,26 +91,28 @@ interface ReactionListProps {
 function ReactionList({ data, selectEmoji }: ReactionListProps) {
   return (
     <div className={reactionListCss}>
-      {data?.map((reaction) => {
-        const isSelectReaction = selectEmoji?.includes(reaction.emojiType);
-        return (
-          <div key={reaction.emojiType} className={reactItemCss}>
-            <Image
-              src={REACTION_EMOJI_IMAGE[reaction.emojiType as EmojiType]}
-              alt={reaction.emojiType}
-              width={16}
-              height={16}
-            />
-            <span
-              className={css({
-                color: isSelectReaction ? 'purple.purple600' : 'gray.gray600',
-              })}
-            >
-              {reaction.count}
-            </span>
-          </div>
-        );
-      })}
+      <div className={reactionListInnerCss}>
+        {data?.map((reaction) => {
+          const isSelectReaction = selectEmoji?.includes(reaction.emojiType);
+          return (
+            <div key={reaction.emojiType} className={reactItemCss}>
+              <Image
+                src={REACTION_EMOJI_IMAGE[reaction.emojiType as EmojiType]}
+                alt={reaction.emojiType}
+                width={16}
+                height={16}
+              />
+              <span
+                className={css({
+                  color: isSelectReaction ? 'purple.purple600' : 'gray.gray600',
+                })}
+              >
+                {reaction.count}
+              </span>
+            </div>
+          );
+        })}
+      </div>
       <Icon name="arrow-forward" size={12} color="icon.tertiary" />
     </div>
   );
@@ -113,13 +122,25 @@ const reactionListCss = css({
   display: 'flex',
   gap: '8px',
   alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: '10px 0',
+  flex: 1,
+});
+
+const reactionListInnerCss = css({
+  display: 'flex',
+  gap: '8px',
+  alignItems: 'center',
   flex: 1,
   justifyContent: 'flex-end',
+  maxWidth: '210px',
+  flexWrap: 'wrap',
 });
 
 const reactItemCss = flex({
   alignItems: 'center',
   gap: '3px',
+  flexShrink: 0,
 });
 
 interface ReactSelectProps {
@@ -130,18 +151,10 @@ interface ReactSelectProps {
 }
 
 function ReactSelect(props: ReactSelectProps) {
-  const ref = useRef<HTMLElement>(null);
-
-  useOutsideClick({
-    ref: ref,
-    handler: () => props.onClose(),
-  });
-
   return (
     <AnimatePresence>
       {props.isOpen && (
         <motion.article
-          ref={ref}
           className={reactionSelectCss}
           variants={reactionVariant}
           initial="initial"
