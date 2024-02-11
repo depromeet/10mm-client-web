@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import { useGetRecordDetail } from '@/apis';
+import MyReactionBar from '@/components/ReactionBar/MyReactionBar/MyReactionBar';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 
@@ -9,7 +10,9 @@ import HistoryThumbnail from './HistoryThumbnail';
 
 function MissionRecordDetail() {
   const params = useParams();
-  const { data } = useGetRecordDetail(params.id as string);
+
+  const recordId = params.id as string;
+  const { data } = useGetRecordDetail(recordId);
 
   const { sinceDay, imageUrl, remark, duration, startedAt: missionDate } = data;
 
@@ -23,6 +26,8 @@ function MissionRecordDetail() {
       </div>
       <HistoryThumbnail imageUrl={imageUrl} missionDuration={duration} />
       <span className={textSecondaryColorCss}>{remark}</span>
+
+      <MyReactionBar recordId={Number(recordId)} />
     </section>
   );
 }

@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
-import OtherReactionBar from '@/components/ReactionBar/OtherReactionBar/OtherReactionBar';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
@@ -48,9 +47,9 @@ function FeedItem({
           </p>
         </div>
       </Link>
-      <section>
+      {/* <section>
         <OtherReactionBar recordId={recordId} />
-      </section>
+      </section> */}
     </li>
   );
 }

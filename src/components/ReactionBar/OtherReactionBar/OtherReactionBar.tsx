@@ -1,3 +1,4 @@
+import { useGetReactions } from '@/apis/reaction';
 import { GradientFeedIcon } from '@/components/Icon/NavigationFeedIcon';
 import { reactionBarContainerCss, titleSectionCss } from '@/components/ReactionBar/ReactionBar.style';
 import { gradientTextCss } from '@/constants/style/gradient';
@@ -7,7 +8,8 @@ interface Props {
 }
 
 function OtherReactionBar(props: Props) {
-  console.log('props: ', props);
+  //   const { data } = useGetReactions(props.recordId);
+
   return (
     <div className={reactionBarContainerCss}>
       <div className={titleSectionCss}>

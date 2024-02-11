@@ -40,6 +40,11 @@ type QueryList = {
   feed: {
     memberId: number;
   };
+
+  // reaction
+  reactions: {
+    recordId: number;
+  };
 };
 
 /**

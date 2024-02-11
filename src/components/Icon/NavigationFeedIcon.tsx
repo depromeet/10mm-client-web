@@ -27,6 +27,34 @@ function NavigationFeedIcon(props: IconComponentProps) {
 
 export default NavigationFeedIcon;
 
+export function FeedOutlineIcon(props: IconComponentProps) {
+  const { color, size = 24, ...restProps } = props;
+
+  const iconColor = color ? token.var(`colors.${color}`) : DEFAULT_ICON_COLOR;
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 20 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      color={iconColor}
+      {...restProps}
+    >
+      <rect x="2.75" y="3.25" width="14.5" height="14.5" rx="4.75" stroke="currentColor" strokeWidth="0.5" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M7.6263 12.4594C7.80902 12.2538 8.12326 12.2345 8.3297 12.4157L8.42225 12.4853C8.49372 12.535 8.60407 12.6045 8.74939 12.675C9.04 12.8159 9.4655 12.9582 10 12.9582C10.5345 12.9582 10.96 12.8159 11.2506 12.675C11.3959 12.6045 11.5063 12.535 11.5777 12.4853L11.6703 12.4157C11.8767 12.2345 12.191 12.2538 12.3737 12.4594C12.5572 12.6658 12.5386 12.9818 12.3322 13.1653L12.2763 13.2117C12.2457 13.2361 12.203 13.2685 12.1488 13.3062C12.0406 13.3815 11.8853 13.4786 11.6869 13.5748C11.29 13.7672 10.7155 13.9582 10 13.9582C9.28451 13.9582 8.71001 13.7672 8.31312 13.5748C8.11469 13.4786 7.95941 13.3815 7.85119 13.3062L7.66782 13.1653C7.46143 12.9818 7.44284 12.6658 7.6263 12.4594Z"
+        fill="currentColor"
+      />
+      <circle cx="13" cy="9" r="1" fill="currentColor" />
+      <circle cx="7.04102" cy="9" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function GradientFeedIcon() {
   return (
     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
