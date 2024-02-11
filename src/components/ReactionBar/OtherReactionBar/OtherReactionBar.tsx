@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useGetMembersMe } from '@/apis/member';
-import { type GetReactionsResponse, useAddReaction, useGetReactions } from '@/apis/reaction';
+import { type GetReactionsResponse, useAddReaction, useGetReactions, useModifyReaction } from '@/apis/reaction';
 import { type EmojiType, REACTION_EMOJI_IMAGE, REACTION_EMOJI_LIST } from '@/apis/schema/reaction';
 import Icon from '@/components/Icon';
 import { GradientFeedIcon } from '@/components/Icon/NavigationFeedIcon';
@@ -13,25 +13,45 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { AnimatePresence, motion } from 'framer-motion';
 
+type SelectEmojiType = EmojiType | null;
+
 interface Props {
   recordId: number;
 }
 
 function OtherReactionBar(props: Props) {
   const { data, refetch, isLoading } = useGetReactions(props.recordId);
-  const [selectEmoji, setSelectEmoji] = useState<EmojiType[] | undefined>();
+  const [selectEmoji, setSelectEmoji] = useState<SelectEmojiType>();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { mutate } = useAddReaction();
+  const { myReactionId, myEmoji } = useGetMyReactions(data as GetReactionsResponse);
 
-  const myReaction = useGetMyReactions(data as GetReactionsResponse);
+  const { mutate } = useAddReaction({
+    onSuccess: () => {
+      refetch();
+    },
+    onError: () => {
+      setSelectEmoji(myEmoji);
+    },
+  });
 
-  // const isApiLoading = isFetching || isPending;
+  const { mutate: modifyMutate } = useModifyReaction({
+    onSuccess: () => {
+      refetch();
+    },
+    onError: () => {
+      setSelectEmoji(myEmoji);
+    },
+  });
 
   const onSelectEmoji = (emoji: EmojiType) => {
-    setSelectEmoji([emoji]);
-    mutate({ missionRecordId: props.recordId, emojiType: emoji });
-    refetch();
+    setSelectEmoji(emoji);
+
+    if (myReactionId) {
+      modifyMutate({ reactionId: myReactionId, emojiType: emoji });
+    } else {
+      mutate({ missionRecordId: props.recordId, emojiType: emoji });
+    }
   };
 
   const ref = useRef<HTMLDivElement>(null);
@@ -42,7 +62,7 @@ function OtherReactionBar(props: Props) {
   });
 
   useEffect(() => {
-    setSelectEmoji(myReaction);
+    setSelectEmoji(myEmoji);
   }, [isLoading]);
 
   return (
@@ -64,28 +84,43 @@ function OtherReactionBar(props: Props) {
 
 export default OtherReactionBar;
 
-const useGetMyReactions = (response: GetReactionsResponse): EmojiType[] => {
+type GetMyReactionsResponse = Record<string, number>;
+
+const useGetMyReactions = (
+  response: GetReactionsResponse,
+): {
+  myReactionId: number | null;
+  myEmoji: SelectEmojiType;
+} => {
   const { data } = useGetMembersMe();
   const memberId = data?.memberId;
 
-  if (!response || !memberId) return [];
+  if (!response || !memberId)
+    return {
+      myReactionId: null,
+      myEmoji: null,
+    };
 
-  const myReactions: EmojiType[] = [];
+  const myReaction: GetMyReactionsResponse = {};
+  const myEmojis: EmojiType[] = [];
 
   for (const item of response) {
     for (const reaction of item.reactions) {
       if (reaction.memberProfile.memberId === memberId) {
-        myReactions.push(item.emojiType);
+        myReaction[item.emojiType] = reaction.reactionId;
+        myEmojis.push(item.emojiType);
+
+        return { myEmoji: item.emojiType, myReactionId: reaction.reactionId };
       }
     }
   }
 
-  return myReactions;
+  return { myReactionId: null, myEmoji: null };
 };
 
 interface ReactionListProps {
   data?: GetReactionsResponse;
-  selectEmoji?: EmojiType[];
+  selectEmoji?: SelectEmojiType;
 }
 
 function ReactionList({ data, selectEmoji }: ReactionListProps) {
@@ -94,6 +129,7 @@ function ReactionList({ data, selectEmoji }: ReactionListProps) {
       <div className={reactionListInnerCss}>
         {data?.map((reaction) => {
           const isSelectReaction = selectEmoji?.includes(reaction.emojiType);
+
           return (
             <div key={reaction.emojiType} className={reactItemCss}>
               <Image
@@ -144,7 +180,7 @@ const reactItemCss = flex({
 });
 
 interface ReactSelectProps {
-  selectEmoji?: EmojiType[];
+  selectEmoji?: SelectEmojiType;
   onSelect: (emoji: EmojiType) => void;
   isOpen: boolean;
   onClose: () => void;
@@ -162,12 +198,15 @@ function ReactSelect(props: ReactSelectProps) {
           exit="exit"
         >
           <div className={innerCss}>
-            {REACTION_EMOJI_LIST.map((emoji: EmojiType) => (
-              <div key={emoji} className={emojiItemCss} onClick={() => props.onSelect(emoji)}>
-                {props.selectEmoji?.includes(emoji) && <MotionDiv className={selectCircleCss} />}
-                <Image src={REACTION_EMOJI_IMAGE[emoji]} alt={emoji} width={28} height={28} />
-              </div>
-            ))}
+            {REACTION_EMOJI_LIST.map((emoji: EmojiType) => {
+              const isSelect = props.selectEmoji?.includes(emoji);
+              return (
+                <div key={emoji} className={emojiItemCss} onClick={() => props.onSelect(emoji)}>
+                  {isSelect && <MotionDiv className={selectCircleCss} />}
+                  <Image src={REACTION_EMOJI_IMAGE[emoji]} alt={emoji} width={28} height={28} />
+                </div>
+              );
+            })}
           </div>
         </motion.article>
       )}

@@ -38,6 +38,11 @@ interface AddReactionResponse {
   missionRecordId: number;
 }
 
+interface ModifyReactionRequest {
+  reactionId: number;
+  emojiType: EmojiType;
+}
+
 export const REACTION_API = {
   getReactions: async (recordId: number): Promise<GetReactionsResponse> => {
     const { data } = await apiInstance.get<GetReactionsResponse>(`/reactions?missionRecordId=${recordId}`);
@@ -45,6 +50,11 @@ export const REACTION_API = {
   },
   addReaction: async (request: AddReactionRequest) => {
     const { data } = await apiInstance.post<AddReactionResponse>('/reactions', request);
+    return data;
+  },
+  modifyReaction: async ({ reactionId, emojiType }: ModifyReactionRequest) => {
+    console.log('reactionId: ', reactionId);
+    const { data } = await apiInstance.put<AddReactionResponse>(`/reactions/${reactionId}`, { emojiType });
     return data;
   },
 };
@@ -59,6 +69,14 @@ export const useGetReactions = (recordId: number) => {
 export const useAddReaction = (options?: UseMutationOptions<AddReactionResponse, unknown, AddReactionRequest>) =>
   useMutationHandleError(
     { mutationFn: REACTION_API.addReaction, ...options },
+    {
+      offset: 'default',
+    },
+  );
+
+export const useModifyReaction = (options?: UseMutationOptions<AddReactionResponse, unknown, ModifyReactionRequest>) =>
+  useMutationHandleError(
+    { mutationFn: REACTION_API.modifyReaction, ...options },
     {
       offset: 'default',
     },
