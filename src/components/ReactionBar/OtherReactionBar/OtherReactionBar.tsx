@@ -47,21 +47,10 @@ function ReactSelect(props: ReactSelectProps) {
       {props.isOpen && (
         <motion.article
           className={reactionSelectCss}
-          initial={{
-            y: 4,
-            opacity: 0.7,
-          }}
-          animate={{
-            y: 0,
-            scale: 1,
-            transition: {
-              type: 'spring',
-              stiffness: 500, // Tension
-              damping: 25, // Friction
-              duration: 0.3,
-            },
-          }}
-          exit={{ y: 4, opacity: 0.7, transition: { ease: 'easeInOut', duration: 0.1 } }}
+          variants={reactionVariant}
+          initial="initial"
+          animate="animate"
+          exit="exit"
         >
           <div className={innerCss}>
             {REACTION_EMOJI_LIST.map((emoji: EmojiType) => (
@@ -76,6 +65,22 @@ function ReactSelect(props: ReactSelectProps) {
     </AnimatePresence>
   );
 }
+
+const reactionVariant = {
+  initial: { scale: 0, opacity: 0.7 },
+  animate: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 500, // Tension
+      damping: 25, // Friction
+      duration: 0.5,
+      transformOrigin: 'bottom left',
+    },
+  },
+  exit: { opacity: 0.7, scale: 0, transition: { ease: 'easeInOut', duration: 0.3 } },
+};
 
 const innerCss = css({
   display: 'flex',
@@ -94,6 +99,7 @@ const reactionSelectCss = css({
   marginBottom: '8px',
   left: 0,
   borderRadius: '20px',
+  transformOrigin: 'bottom left',
 });
 
 const emojiItemCss = css({
