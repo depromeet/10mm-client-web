@@ -3,12 +3,17 @@ import { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import { useGetRecordDetail } from '@/apis';
 import MyReactionBar from '@/components/ReactionBar/MyReactionBar/MyReactionBar';
+import OtherReactionBar from '@/components/ReactionBar/OtherReactionBar/OtherReactionBar';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 
 import HistoryThumbnail from './HistoryThumbnail';
 
-function MissionRecordDetail() {
+interface Props {
+  isFollow: boolean;
+}
+
+function MissionRecordDetail(props: Props) {
   const params = useParams();
 
   const recordId = params.id as string;
@@ -27,7 +32,11 @@ function MissionRecordDetail() {
       <HistoryThumbnail imageUrl={imageUrl} missionDuration={duration} />
       <span className={textSecondaryColorCss}>{remark}</span>
 
-      <MyReactionBar recordId={Number(recordId)} />
+      {props.isFollow ? (
+        <OtherReactionBar recordId={Number(recordId)} />
+      ) : (
+        <MyReactionBar recordId={Number(recordId)} />
+      )}
     </section>
   );
 }

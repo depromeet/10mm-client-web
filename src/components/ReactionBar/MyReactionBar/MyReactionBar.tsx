@@ -19,8 +19,8 @@ function MyReactionBar(props: Props) {
         <span className={textCss}>응원한 사람</span>
       </div>
       <div className={rightSectionCss}>
-        {data?.map((reaction) => <div key={reaction.emojiType}>{reaction.emojiType}</div>)}
-        <Icon name="arrow-forward" size={12} color="icon.tertiary" />
+        {/* {data?.map((reaction) => <div key={reaction.emojiType}>{reaction.emojiType}</div>)}
+        <Icon name="arrow-forward" size={12} color="icon.tertiary" /> */}
       </div>
     </div>
   );
