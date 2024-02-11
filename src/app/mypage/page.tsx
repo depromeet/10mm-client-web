@@ -23,14 +23,17 @@ function Header() {
   const handleClickShare = async () => {
     if (!data) return;
     try {
+      if (window.navigator?.share) {
+        window.navigator.share({
+          title: '10mm',
+          text: '내 프로필 링크 공유하기',
+          url: window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId),
+        });
+      }
+    } catch (e) {
       await copyClipBoard(window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId));
       triggerSnackBar({
         message: '링크가 복사되었습니다.',
-        offset: 'appBar',
-      });
-    } catch (e) {
-      triggerSnackBar({
-        message: '링크 복사에 실패하였습니다. 다시시도해주세요.',
         offset: 'appBar',
       });
     }
