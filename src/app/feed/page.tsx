@@ -8,7 +8,7 @@ export default function FeedPage() {
     <>
       <AppBar />
       <FeedList />
-      <BottomDim />
+      <BottomDim type={'bottomDim2'} />
       <AppBarBottom />
     </>
   );
