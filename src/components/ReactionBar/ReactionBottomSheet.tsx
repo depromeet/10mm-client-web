@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { type GetReactionsResponse, type ReactionType } from '@/apis/reaction';
 import { type EmojiType, REACTION_EMOJI_IMAGE } from '@/apis/schema/reaction';
@@ -18,6 +18,10 @@ function ReactionBottomSheet(props: Props) {
   const initEmoji = props.data?.[0]?.emojiType;
 
   const [selectedEmoji, setSelectedEmoji] = useState(initEmoji);
+
+  useEffect(() => {
+    setSelectedEmoji(initEmoji);
+  }, [props.data]);
 
   const viewReactionList = props.data?.find((item) => item.emojiType === selectedEmoji);
 

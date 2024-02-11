@@ -12,7 +12,6 @@ interface Props {
 
 function MyReactionBar(props: Props) {
   const { data } = useGetReactions(props.recordId);
-  console.log('data: ', data);
   const [isShowing, setIsShowing] = useState(false);
 
   return (
