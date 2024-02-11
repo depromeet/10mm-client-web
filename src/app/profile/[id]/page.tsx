@@ -36,8 +36,8 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
       >
         <ProfileTab memberId={Number(params.id)} />
       </ProfileContent>
-      <div className={dimCss} />
-      <BottomDim />
+      <div className={profileBackgroundDimCss} />
+      <BottomDim type={'bottomDim2'} />
     </main>
   );
 }
@@ -52,7 +52,7 @@ const backgroundCss = css({
   background: 'gradients.primary',
 });
 
-const dimCss = css({
+const profileBackgroundDimCss = css({
   position: 'absolute',
   width: '100%',
   height: '100%',
