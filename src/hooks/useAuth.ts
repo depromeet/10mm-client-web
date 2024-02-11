@@ -25,7 +25,7 @@ export function useAuth() {
     const token = localStorage.getItem('accessToken') ?? process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
     if (!token && !ALLOW_PATH_LIST.includes(pathname)) {
-      router.push(ROUTER.AUTH.LOGIN);
+      router.push(ROUTER.AUTH.LOGIN + '?redirect=' + window.location.pathname);
     }
   }, []);
 }
