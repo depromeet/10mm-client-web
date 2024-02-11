@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useGetReactions } from '@/apis/reaction';
 import { type EmojiType, REACTION_EMOJI_IMAGE, REACTION_EMOJI_LIST } from '@/apis/schema/reaction';
 import { GradientFeedIcon } from '@/components/Icon/NavigationFeedIcon';
+import MotionDiv from '@/components/Motion/MotionDiv';
 import { reactionBarContainerCss, titleSectionCss } from '@/components/ReactionBar/ReactionBar.style';
 import { gradientTextCss } from '@/constants/style/gradient';
+import useOutsideClick from '@/hooks/useOutsideClick';
 import { css } from '@/styled-system/css';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -15,8 +17,9 @@ interface Props {
 function OtherReactionBar(props: Props) {
   const { data } = useGetReactions(props.recordId);
   const [selectEmoji, setSelectEmoji] = useState('');
+  console.log('selectEmoji: ', selectEmoji);
   const [isOpen, setIsOpen] = useState(false);
-  // console.log('data: ', data);
+  console.log('data: ', data);
 
   const onSelectEmoji = (emoji: string) => {
     setSelectEmoji(emoji);
@@ -28,7 +31,12 @@ function OtherReactionBar(props: Props) {
         <GradientFeedIcon />
         <span className={gradientTextCss}>응원하기</span>
       </div>
-      <ReactSelect selectEmoji={selectEmoji} onSelect={onSelectEmoji} isOpen={isOpen} />
+      <ReactSelect
+        selectEmoji={selectEmoji}
+        onSelect={onSelectEmoji}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     </div>
   );
 }
@@ -39,13 +47,22 @@ interface ReactSelectProps {
   selectEmoji: string;
   onSelect: (emoji: string) => void;
   isOpen: boolean;
+  onClose: () => void;
 }
 
 function ReactSelect(props: ReactSelectProps) {
+  const ref = useRef<HTMLElement>(null);
+
+  useOutsideClick({
+    ref: ref,
+    handler: () => props.onClose(),
+  });
+
   return (
     <AnimatePresence>
       {props.isOpen && (
         <motion.article
+          ref={ref}
           className={reactionSelectCss}
           variants={reactionVariant}
           initial="initial"
@@ -54,8 +71,8 @@ function ReactSelect(props: ReactSelectProps) {
         >
           <div className={innerCss}>
             {REACTION_EMOJI_LIST.map((emoji: EmojiType) => (
-              <div key={emoji} className={emojiItemCss}>
-                {props.selectEmoji === emoji && <div className={selectCircleCss} />}
+              <div key={emoji} className={emojiItemCss} onClick={() => props.onSelect(emoji)}>
+                {props.selectEmoji === emoji && <MotionDiv className={selectCircleCss} />}
                 <Image src={REACTION_EMOJI_IMAGE[emoji]} alt={emoji} width={28} height={28} />
               </div>
             ))}
