@@ -104,8 +104,6 @@ export function ImageSectionSkeleton() {
         <div className={cx(levelWrapperCss, skeletonCss)} />
         <p className={cx(levelTextCss, skeletonCss)} />
         <div className={cx(skeletonCss, css({ height: '4px' }))} />
-        {/* <p className={levelTextCss}>{currentLevel.label}</p>
-        <ProgressBar percent={percent} progressColor="purple.purple500" z> */}
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetMissionSummary } from '@/apis/mission';
-import BannerSection from '@/app/result/OverallStatus/BannerSection';
+import BannerSection, { BannerSectionSkeleton } from '@/app/result/OverallStatus/BannerSection';
 import ImageAreaSection, { ImageSectionSkeleton } from '@/app/result/OverallStatus/ImageAreaSection';
 import MissionSection from '@/app/result/OverallStatus/MissionSection';
 
@@ -11,10 +11,19 @@ function OverallStatus() {
   const totalTime = `${data?.totalMissionHour ?? 0}h ${data?.totalMissionMinute ?? 0}m`;
   const totalMissionAttainRate = `${data?.totalMissionAttainRate ?? 0}%`;
 
+  if (isLoading) {
+    return (
+      <>
+        <ImageSectionSkeleton />
+        <BannerSectionSkeleton />
+      </>
+    );
+  }
+
   return (
     <>
-      {isLoading ? <ImageSectionSkeleton /> : <ImageAreaSection symbolStack={data?.symbolStack} />}
-      <BannerSection isLoading={isLoading} totalTime={totalTime} totalMissionAttainRate={totalMissionAttainRate} />
+      <ImageAreaSection symbolStack={data?.symbolStack} />
+      <BannerSection totalTime={totalTime} totalMissionAttainRate={totalMissionAttainRate} />v
       <MissionSection />
     </>
   );

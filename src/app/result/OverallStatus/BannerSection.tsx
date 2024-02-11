@@ -6,18 +6,9 @@ import { grid } from '@/styled-system/patterns';
 interface Props {
   totalTime: string;
   totalMissionAttainRate: string;
-  isLoading: boolean;
 }
 
 function BannerSection(props: Props) {
-  if (props.isLoading)
-    return (
-      <div className={bannerSectionCss}>
-        <CardBannerSkeleton />
-        <CardBannerSkeleton />
-      </div>
-    );
-
   return (
     <MotionDiv className={bannerSectionCss}>
       <Banner
@@ -37,6 +28,15 @@ function BannerSection(props: Props) {
 }
 
 export default BannerSection;
+
+export function BannerSectionSkeleton() {
+  return (
+    <div className={bannerSectionCss}>
+      <CardBannerSkeleton />
+      <CardBannerSkeleton />
+    </div>
+  );
+}
 
 const bannerSectionCss = grid({
   gridTemplateColumns: '1fr 1fr',
