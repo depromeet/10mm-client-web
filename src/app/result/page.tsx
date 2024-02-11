@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useGetFinishedMissions } from '@/apis/mission';
 import FinishedMissionList from '@/app/result/FinishedMissionList';
 import OverallStatus from '@/app/result/OverallStatus';
@@ -10,6 +11,7 @@ import { useTab } from '@/components/Tab/Tab.hooks';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
+import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
@@ -26,7 +28,12 @@ function ResultPage() {
   return (
     <>
       <section className={topWrapperCss}>
-        <Tab {...tabProps} />
+        <div className={tabWrapperCss}>
+          <Tab {...tabProps} />
+        </div>
+        <Link className={levelGuideLinkCss} onClick={handleLevelGuideClick} href={ROUTER.LEVEL.GUIDE}>
+          레벨 안내
+        </Link>
         {/* <Link className={levelGuideLinkCss} onClick={handleLevelGuideClick} href={ROUTER.LEVEL.GUIDE}>
           레벨 안내 <Icon name="arrow-forward" size={12} />
         </Link> */}
@@ -61,8 +68,30 @@ const useResultTab = (finishedMissionCount: number) => {
 
   return tabProps;
 };
+
 const topWrapperCss = flex({
   zIndex: 1,
   position: 'relative',
+  justifyContent: 'space-between',
+});
+
+const tabWrapperCss = css({
   padding: '28px 16px 4px 16px',
+});
+
+const levelGuideLinkCss = css({
+  color: 'gray.gray800',
+  border: '1px solid',
+  borderColor: 'gray.gray500',
+  borderRadius: '20px',
+  fontSize: '13px',
+  fontWeight: '300',
+  width: 'fit-content',
+  display: 'block',
+  padding: '0 12px',
+  minWidth: '75px',
+  lineHeight: '28px',
+  height: '30px',
+  marginTop: '23px',
+  marginRight: '16px',
 });

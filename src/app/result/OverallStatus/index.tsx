@@ -1,11 +1,9 @@
 'use client';
 
 import { useGetMissionSummary } from '@/apis/mission';
+import BannerSection from '@/app/result/OverallStatus/BannerSection';
 import ImageAreaSection from '@/app/result/OverallStatus/ImageAreaSection';
 import MissionSection from '@/app/result/OverallStatus/MissionSection';
-import Banner from '@/components/Banner/Banner';
-import MotionDiv from '@/components/Motion/MotionDiv';
-import { grid } from '@/styled-system/patterns';
 
 function OverallStatus() {
   const { data, isLoading } = useGetMissionSummary();
@@ -16,30 +14,10 @@ function OverallStatus() {
   return (
     <>
       <ImageAreaSection symbolStack={data?.symbolStack} />
-      {isLoading ? (
-        // TODO : 스켈레톤 추가
-        <div></div>
-      ) : (
-        <MotionDiv className={bannerSectionCss}>
-          <Banner type="card" description="전체 누적 시간" iconUrl="/assets/icons/graph/clock.png" title={totalTime} />
-          <Banner
-            type="card"
-            description="총 미션 달성률"
-            iconUrl="/assets/icons/graph/chart.png"
-            title={totalMissionAttainRate}
-          />
-        </MotionDiv>
-      )}
+      <BannerSection isLoading={isLoading} totalTime={totalTime} totalMissionAttainRate={totalMissionAttainRate} />
       <MissionSection />
     </>
   );
 }
 
 export default OverallStatus;
-
-const bannerSectionCss = grid({
-  gridTemplateColumns: '1fr 1fr',
-  padding: '20px 16px',
-  gap: '10px',
-  margin: '0 auto',
-});

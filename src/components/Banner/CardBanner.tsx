@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { type CardBannerType } from '@/components/Banner/Banner.types';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 
 function CardBanner(props: CardBannerType) {
   return (
@@ -17,6 +17,20 @@ function CardBanner(props: CardBannerType) {
 }
 
 export default CardBanner;
+
+export function CardBannerSkeleton() {
+  return (
+    <div
+      className={cx(
+        containerCss,
+        css({
+          animation: 'skeleton',
+          height: '110px',
+        }),
+      )}
+    ></div>
+  );
+}
 
 const containerCss = css({
   width: '100%',
