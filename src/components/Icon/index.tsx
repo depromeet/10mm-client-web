@@ -23,6 +23,7 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import SpinnerIcon from '@/components/Icon/SpinnerIcon';
+import SymbolFillIcon from '@/components/Icon/SymbolFillIcon';
 import TENMMSymbolCircleIcon, { TENMMSymbolCircleLocked } from '@/components/Icon/TENMMSymbolCircleIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
@@ -82,6 +83,7 @@ export const IconComponentMap = {
   'normal-setting': NormalSetting,
   'normal-terms': NormalTerms,
   'normal-link': NormalLink,
+  '10mm-symbol-fill': SymbolFillIcon,
 } as const;
 
 interface Props extends IconComponentProps {

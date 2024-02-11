@@ -30,6 +30,7 @@ function ProgressBar(props: { percent: number; labels?: string[]; progressColor?
 
 export default ProgressBar;
 
+// TODO: width 100%로 변경
 const progressBarContainerCss = css({
   width: '214px',
 });

@@ -10,33 +10,25 @@ import { grid } from '@/styled-system/patterns';
 function OverallStatus() {
   const { data, isLoading } = useGetMissionSummary();
 
-  const symbolStack = data?.symbolStack ?? 0;
   const totalTime = `${data?.totalMissionHour ?? 0}h ${data?.totalMissionMinute ?? 0}m`;
   const totalMissionAttainRate = `${data?.totalMissionAttainRate ?? 0}%`;
 
   return (
     <>
+      <ImageAreaSection symbolStack={data?.symbolStack} />
       {isLoading ? (
         // TODO : 스켈레톤 추가
         <div></div>
       ) : (
-        <>
-          <ImageAreaSection symbolStack={symbolStack} />
-          <MotionDiv className={bannerSectionCss}>
-            <Banner
-              type="card"
-              description="전체 누적 시간"
-              iconUrl="/assets/icons/graph/clock.png"
-              title={totalTime}
-            />
-            <Banner
-              type="card"
-              description="총 미션 달성률"
-              iconUrl="/assets/icons/graph/chart.png"
-              title={totalMissionAttainRate}
-            />
-          </MotionDiv>
-        </>
+        <MotionDiv className={bannerSectionCss}>
+          <Banner type="card" description="전체 누적 시간" iconUrl="/assets/icons/graph/clock.png" title={totalTime} />
+          <Banner
+            type="card"
+            description="총 미션 달성률"
+            iconUrl="/assets/icons/graph/chart.png"
+            title={totalMissionAttainRate}
+          />
+        </MotionDiv>
       )}
       <MissionSection />
     </>
