@@ -72,7 +72,7 @@ const levelTextCss = css({
   margin: '12px 0 10px',
   color: '#fff',
   height: '20px',
-  textStyle: 'caption',
+  textStyle: 'body4',
 });
 
 const levelStatusCss = css({
