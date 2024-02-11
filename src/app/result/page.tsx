@@ -11,6 +11,11 @@ import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { flex } from '@/styled-system/patterns';
+import { eventLogger } from '@/utils';
+
+const handleLevelGuideClick = () => {
+  eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);
+};
 
 function ResultPage() {
   const finishedMissionQueryData = useGetFinishedMissions();
@@ -22,6 +27,9 @@ function ResultPage() {
     <>
       <section className={topWrapperCss}>
         <Tab {...tabProps} />
+        {/* <Link className={levelGuideLinkCss} onClick={handleLevelGuideClick} href={ROUTER.LEVEL.GUIDE}>
+          레벨 안내 <Icon name="arrow-forward" size={12} />
+        </Link> */}
       </section>
       {tabProps.activeTab === 'overall-status' && <OverallStatus />}
       {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}

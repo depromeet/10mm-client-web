@@ -1,7 +1,9 @@
 import { type PropsWithChildren } from 'react';
+import ProgressBar from '@/components/ProgressBar';
 import { gradientTextCss } from '@/constants/style/gradient';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+import { getPercent } from '@/utils/result';
 
 function GraphRoot({ children }: PropsWithChildren) {
   return <section className={containerCss}>{children}</section>;
@@ -50,11 +52,23 @@ const levelLabelCss = css({
   fontWeight: '100',
 });
 
-const MIN_PERCENT = 3;
+interface ProgressBarBaseProps {
+  isLabel?: boolean;
+}
 
-type LevelProgressBarProps =
-  | { symbolStack: number; min: number; max: number; isFull?: false; isLabel?: boolean }
-  | { isFull: true; min?: number; isLabel?: boolean };
+interface ProgressingProgressBarProps extends ProgressBarBaseProps {
+  symbolStack: number;
+  min: number;
+  max: number;
+  isFull?: false;
+}
+
+interface FullProgressBarProps extends ProgressBarBaseProps {
+  isFull: true;
+  min?: number;
+}
+
+type LevelProgressBarProps = ProgressingProgressBarProps | FullProgressBarProps;
 
 function LevelProgressBar(props: LevelProgressBarProps) {
   if (props?.isFull) {
@@ -62,64 +76,10 @@ function LevelProgressBar(props: LevelProgressBarProps) {
   }
 
   const { symbolStack, max, min } = props;
-  const percent = (100 / (max - min)) * (symbolStack - min);
+  const percent = getPercent({ symbolStack, max, min });
 
-  return (
-    <ProgressBar
-      percent={Math.max(percent, MIN_PERCENT)}
-      labels={props.isLabel ? [String(min), String(max)] : undefined}
-    />
-  );
+  return <ProgressBar percent={percent} labels={props.isLabel ? [String(min), String(max)] : undefined} />;
 }
-
-function ProgressBar(props: { percent: number; labels?: string[] }) {
-  return (
-    <div className={progressBarContainerCss}>
-      <div className={progressContainerCss}>
-        <div className={cx(progressInnerContainerCss)} style={{ width: `${props.percent}%` }} />
-      </div>
-      {props.labels && (
-        <div
-          className={cx(
-            labelContainerCss,
-            css({ justifyContent: props.labels.length === 1 ? 'center' : 'space-between' }),
-          )}
-        >
-          {props.labels.map((label) => (
-            <span key={label}>{label}</span>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-const progressBarContainerCss = css({
-  width: '214px',
-});
-
-const progressContainerCss = css({
-  borderRadius: '10px',
-  backgroundColor: '#3B3E4F',
-  width: '100%',
-  position: 'relative',
-  height: '4px',
-});
-
-const progressInnerContainerCss = css({
-  position: 'absolute',
-  borderRadius: '10px',
-  height: '100%',
-  transition: 'width .7s ease-in-out',
-  background: 'gradients.primary',
-});
-
-const labelContainerCss = flex({
-  textStyle: 'body4',
-  color: 'text.quaternary',
-  marginTop: '5px',
-  width: '100%',
-});
 
 function Description({ children }: PropsWithChildren) {
   return <div className={descriptionCss}>{children}</div>;
@@ -136,7 +96,7 @@ export default Object.assign(GraphRoot, {
   ProgressBar: LevelProgressBar,
   Description,
 });
-``;
+
 // TODO: svg(?)로 변경
 function TenMMSymbol() {
   return (
