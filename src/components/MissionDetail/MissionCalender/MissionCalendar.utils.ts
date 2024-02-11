@@ -49,3 +49,7 @@ export const getYearMonth = (currentDate: Dayjs) => {
   const monthString = month < 10 ? `0${month}` : `${month}`;
   return `${year}-${monthString}`;
 };
+
+export const getNotificationDateFormat = (currentDate: Dayjs) => {
+  return currentDate.format('h:m A');
+};
