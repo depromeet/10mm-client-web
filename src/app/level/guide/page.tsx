@@ -45,7 +45,7 @@ function LevelGuidePage() {
         ) : (
           <>
             <section className={levelTextWrapperCss}>
-              <p className={levelLabelCss}>현재 레벨</p>
+              <p className={levelLabelCss}>{!isLockedLevel && '현재 레벨'}</p>
               <div className={cx(badgeCss)}>
                 <MotionDiv key={selectLevelInfo.label}>{selectLevelInfo.label}</MotionDiv>
               </div>
@@ -95,6 +95,7 @@ const levelLabelCss = css({
   textStyle: 'body5',
   color: 'purple.purple700',
   marginBottom: '8px',
+  height: '17px',
 });
 
 const badgeCss = css({
