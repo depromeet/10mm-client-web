@@ -72,6 +72,7 @@ const headerWrapperCss = css({
     display: 'none',
   },
 });
+
 // TODO : 토큰이 입력 안되는 이슈
 const bottomSheetCss = {
   '--rsbs-backdrop-bg': 'rgba(0, 0, 0, 0.60)',

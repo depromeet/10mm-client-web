@@ -18,7 +18,7 @@ interface ReactionItemType {
   memberProfile: MemberProfileType;
 }
 
-interface ReactionType {
+export interface ReactionType {
   emojiType: EmojiType;
   count: number;
   reactions: ReactionItemType[];

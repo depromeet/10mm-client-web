@@ -46,6 +46,7 @@ function ReactionList({ data, selectEmoji }: ReactionListProps) {
 export default ReactionList;
 
 const reactionListCss = css({
+  cursor: 'pointer',
   display: 'flex',
   gap: '8px',
   alignItems: 'center',
