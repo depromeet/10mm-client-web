@@ -1,3 +1,10 @@
+interface KakaoAuthParams {
+  redirectUri?: string;
+  nonce?: string;
+  throughTalk: boolean;
+  state?: string;
+}
+
 declare global {
   interface Window {
     ReactNativeWebView: {
@@ -7,7 +14,7 @@ declare global {
       init: (keyValue: string) => void;
       isInitialized: () => boolean;
       Auth: {
-        authorize: ({ redirectUri: string, nonce: string, throughTalk: boolean }) => void;
+        authorize: (prams: KakaoAuthParams) => void;
       };
     };
     AppleID: {

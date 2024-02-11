@@ -1,7 +1,7 @@
 'use client';
 
 import { useFollowsCountTargetId } from '@/apis/follow';
-import { useGetMembersById } from '@/apis/member';
+import { useGetMembersById, useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
 import { FollowStatus } from '@/apis/schema/member';
 import ProfileTab from '@/app/mypage/ProfileTab';
@@ -15,7 +15,8 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
   const { data: followCountData, isFetching } = useFollowsCountTargetId(Number(params.id));
   const { data } = useGetMembersById(Number(params.id));
   const { data: symbolStackData } = useGetMissionStack(params.id);
-
+  const { data: memebersMeData } = useGetMembersMe();
+  const isMyself = memebersMeData?.memberId === Number(params.id);
   return (
     <main className={backgroundCss}>
       <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
@@ -27,11 +28,13 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
         profileImageUrl={data?.profileImageUrl || null}
         symbolStack={symbolStackData?.symbolStack || 0}
         rightElement={
-          <FollowButton
-            followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}
-            memberId={Number(params.id)}
-            isFetching={isFetching}
-          />
+          !isMyself ? (
+            <FollowButton
+              followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}
+              memberId={Number(params.id)}
+              isFetching={isFetching}
+            />
+          ) : null
         }
       >
         <ProfileTab memberId={Number(params.id)} />
