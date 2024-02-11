@@ -2,7 +2,7 @@
 
 import { useGetMissionSummary } from '@/apis/mission';
 import BannerSection from '@/app/result/OverallStatus/BannerSection';
-import ImageAreaSection from '@/app/result/OverallStatus/ImageAreaSection';
+import ImageAreaSection, { ImageSectionSkeleton } from '@/app/result/OverallStatus/ImageAreaSection';
 import MissionSection from '@/app/result/OverallStatus/MissionSection';
 
 function OverallStatus() {
@@ -13,7 +13,7 @@ function OverallStatus() {
 
   return (
     <>
-      <ImageAreaSection symbolStack={data?.symbolStack} />
+      {isLoading ? <ImageSectionSkeleton /> : <ImageAreaSection symbolStack={data?.symbolStack} />}
       <BannerSection isLoading={isLoading} totalTime={totalTime} totalMissionAttainRate={totalMissionAttainRate} />
       <MissionSection />
     </>

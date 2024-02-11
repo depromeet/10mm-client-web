@@ -7,7 +7,6 @@ function MissionHistorySkeleton() {
       className={cx(
         missionHistoryBannerCss,
         css({
-          animation: 'skeleton',
           height: '70px',
         }),
       )}

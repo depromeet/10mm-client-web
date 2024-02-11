@@ -34,9 +34,6 @@ function ResultPage() {
         <Link className={levelGuideLinkCss} onClick={handleLevelGuideClick} href={ROUTER.LEVEL.GUIDE}>
           레벨 안내
         </Link>
-        {/* <Link className={levelGuideLinkCss} onClick={handleLevelGuideClick} href={ROUTER.LEVEL.GUIDE}>
-          레벨 안내 <Icon name="arrow-forward" size={12} />
-        </Link> */}
       </section>
       {tabProps.activeTab === 'overall-status' && <OverallStatus />}
       {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}

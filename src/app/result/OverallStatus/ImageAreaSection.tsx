@@ -71,6 +71,7 @@ const sectionCss = css({
 const levelTextCss = css({
   margin: '12px 0 10px',
   color: '#fff',
+  height: '20px',
   textStyle: 'caption',
 });
 
@@ -94,4 +95,25 @@ const characterBgCss = css({
   top: '-41px',
   left: '50%',
   transform: 'translateX(-50%)',
+});
+
+export function ImageSectionSkeleton() {
+  return (
+    <section className={sectionCss}>
+      <div className={levelStatusCss}>
+        <div className={cx(levelWrapperCss, skeletonCss)} />
+        <p className={cx(levelTextCss, skeletonCss)} />
+        <div className={cx(skeletonCss, css({ height: '4px' }))} />
+        {/* <p className={levelTextCss}>{currentLevel.label}</p>
+        <ProgressBar percent={percent} progressColor="purple.purple500" z> */}
+      </div>
+    </section>
+  );
+}
+
+const skeletonCss = css({
+  width: '100%',
+  animation: 'skeleton',
+  borderRadius: '12px',
+  backgroundColor: 'bg.surface4',
 });
