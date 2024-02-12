@@ -23,18 +23,7 @@ export default function MissionSuccessPage() {
       <Image className={gradientCss} src="/images/bg-gradient.png" alt="success" fill />
       <div className={containerCss}>
         <div className={contentWrapperCss}>
-          <Lottie
-            className={css({
-              position: 'absolute',
-              top: '0',
-              left: '0',
-              width: '100%',
-              height: '100%',
-            })}
-            loop
-            animationData={lottieJson}
-            play
-          />
+          <Lottie className={lottieCss} loop animationData={lottieJson} play />
 
           <div className={lottieWrapperCss}>
             <Image className={imageCss} src="/images/coin.png" alt="success" fill />
@@ -53,6 +42,14 @@ export default function MissionSuccessPage() {
     </main>
   );
 }
+
+const lottieCss = css({
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  width: '100%',
+  height: '100%',
+});
 
 const gradientCss = css({
   height: '100vh',
@@ -114,6 +111,7 @@ const subTitleCss = css({
 });
 
 const imageCss = css({
+  width: '50%',
   background: 'transparent',
 });
 
@@ -121,7 +119,8 @@ const lottieWrapperCss = css({
   position: 'relative',
   minHeight: '260px',
   maxWidth: '100vw',
-  width: '100%',
+  margin: '24px auto 0 auto',
+  width: '50%',
   '& img': {
     objectFit: 'contain',
   },
