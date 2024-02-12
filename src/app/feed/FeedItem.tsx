@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useGetMyId } from '@/apis/member';
 import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
+import ReactionBar from '@/components/ReactionBar/ReactionBar';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
@@ -22,6 +24,9 @@ function FeedItem({
   startedAt,
   recordId,
 }: FeedItemType) {
+  const { memberId: myId } = useGetMyId();
+  const isMyFeed = memberId === myId;
+
   const handleClickFeedItem = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_FEED);
   };
@@ -29,6 +34,7 @@ function FeedItem({
   const handleClickFollowProfile = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_PROFILE);
   };
+
   return (
     <li>
       <Link href={ROUTER.PROFILE.DETAIL(memberId)} onClick={handleClickFollowProfile}>
@@ -37,7 +43,12 @@ function FeedItem({
           <p>{nickname}</p>
         </div>
       </Link>
-      <Link href={ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())} onClick={handleClickFeedItem}>
+      <Link
+        href={
+          isMyFeed ? ROUTER.RECORD.DETAIL.HOME(recordId.toString()) : ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())
+        }
+        onClick={handleClickFeedItem}
+      >
         <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
         <div className={textWrapperCss}>
           <p className={missionNameCss}>{name}</p>
@@ -47,6 +58,7 @@ function FeedItem({
           </p>
         </div>
       </Link>
+      <ReactionBar memberId={memberId} recordId={recordId} />
     </li>
   );
 }

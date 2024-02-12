@@ -6,6 +6,7 @@ import FinishedMissionList from '@/app/result/FinishedMissionList';
 import OverallStatus from '@/app/result/OverallStatus';
 import { ResultTabId } from '@/app/result/result.constants';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
+import BottomDim from '@/components/BottomDim/BottomDim';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
@@ -39,6 +40,7 @@ function ResultPage() {
       {tabProps.activeTab === ResultTabId.FINISHED_MISSION && (
         <FinishedMissionList queryData={finishedMissionQueryData} />
       )}
+      <BottomDim />
       <AppBarBottom />
     </>
   );
