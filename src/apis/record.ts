@@ -51,12 +51,18 @@ interface GetRecordsResponse {
   missionFinishedAt: string;
   missionStartedAt: string;
   missionRecords: RecordType[];
+  urgingStatus: UrgingStatus;
 }
 
 type GetRecordDetailResponse = RecordType & {
   sinceDay: number;
   duration: number;
 };
+
+export enum UrgingStatus {
+  NONE = 'NONE',
+  URGING = 'URGING',
+}
 
 const RECORD_API = {
   getRecords: async (params: GetRecordsParams) => {
