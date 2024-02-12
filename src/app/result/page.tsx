@@ -5,6 +5,7 @@ import FinishedMissionList from '@/app/result/FinishedMissionList';
 import OverallStatus from '@/app/result/OverallStatus';
 import { ResultTabId } from '@/app/result/result.constants';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
+import BottomDim from '@/components/BottomDim/BottomDim';
 import LinkButton from '@/components/Button/LinkButton';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
@@ -50,6 +51,7 @@ function ResultPage() {
       </section>
       {tabProps.activeTab === 'overall-status' && <OverallStatus />}
       {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}
+      <BottomDim type="bottomDim2" />
       <AppBarBottom />
     </div>
   );
