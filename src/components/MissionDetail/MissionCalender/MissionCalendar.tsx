@@ -115,7 +115,7 @@ function MissionCalendar({ currentData, missionId, isFollow }: Props) {
           </tbody>
         </table>
       </section>
-      {/* TODO: 임시로 값 넣어줌 */}
+      {/* TODO : 해당컴포넌트 리팩토링 하며 분리 필요 @wade */}
       {data?.urgingStatus && <UrgingButton missionId={missionId} urgingStatus={data.urgingStatus} />}
     </>
   );
