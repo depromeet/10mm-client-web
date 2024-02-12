@@ -9,7 +9,7 @@ function MissionRecordDetailPage({ params }: { params: { id: string } }) {
     <main className={mainWrapperCss}>
       <MissionRecordHeader recordId={params.id} />
       <Suspense>
-        <MissionRecordDetail />
+        <MissionRecordDetail isFollow={false} />
       </Suspense>
     </main>
   );
