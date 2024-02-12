@@ -10,11 +10,12 @@ type SelectEmojiType = EmojiType | null;
 interface ReactionListProps {
   data?: GetReactionsResponse;
   selectEmoji?: SelectEmojiType;
+  onClick: () => void;
 }
 
-function ReactionList({ data, selectEmoji }: ReactionListProps) {
+function ReactionList({ data, selectEmoji, onClick }: ReactionListProps) {
   return (
-    <div className={reactionListCss}>
+    <div className={reactionListCss} onClick={onClick}>
       <div className={reactionListInnerCss}>
         {data?.map((reaction) => {
           const isSelectReaction = selectEmoji?.includes(reaction.emojiType);

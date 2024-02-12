@@ -20,9 +20,7 @@ function MyReactionBar(props: Props) {
         <Icon name="navigation-feed-outline" size={20} color="icon.secondary" />
         <span className={textCss}>응원한 사람</span>
       </div>
-      <div onClick={() => setIsShowing(true)}>
-        <ReactionList data={data} />
-      </div>
+      <ReactionList data={data} onClick={() => setIsShowing(true)} />
       <ReactionBottomSheet isShowing={isShowing} data={data} onClose={() => setIsShowing(false)} />
     </div>
   );

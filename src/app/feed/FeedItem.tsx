@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useGetMyId } from '@/apis/member';
 import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
+import ReactionBar from '@/components/ReactionBar/ReactionBar';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
@@ -33,6 +34,7 @@ function FeedItem({
   const handleClickFollowProfile = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_PROFILE);
   };
+
   return (
     <li>
       <Link href={ROUTER.PROFILE.DETAIL(memberId)} onClick={handleClickFollowProfile}>
@@ -56,9 +58,7 @@ function FeedItem({
           </p>
         </div>
       </Link>
-      {/* <section>
-        <OtherReactionBar recordId={recordId} />
-      </section> */}
+      <ReactionBar memberId={memberId} recordId={recordId} />
     </li>
   );
 }

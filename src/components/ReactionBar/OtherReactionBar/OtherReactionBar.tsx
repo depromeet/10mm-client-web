@@ -73,9 +73,7 @@ function OtherReactionBar(props: Props) {
         <GradientFeedIcon />
         <span className={gradientTextCss}>응원하기</span>
       </div>
-      <div onClick={() => setIsShowing(true)}>
-        <ReactionList data={data} selectEmoji={selectEmoji} />
-      </div>
+      <ReactionList data={data} selectEmoji={selectEmoji} onClick={() => setIsShowing(true)} />
       <ReactSelect
         selectEmoji={selectEmoji}
         onSelect={onSelectEmoji}
