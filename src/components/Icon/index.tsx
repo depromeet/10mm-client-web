@@ -12,7 +12,7 @@ import CopyLinkIcon from '@/components/Icon/CopyLinkIcon';
 import LoginInInformationIcon from '@/components/Icon/LoginInInformationIcon';
 import LogOutIcon from '@/components/Icon/LogOutIcon';
 import MenuIcon from '@/components/Icon/MenuIcon';
-import NavigationFeedIcon from '@/components/Icon/NavigationFeedIcon';
+import NavigationFeedIcon, { FeedOutlineIcon } from '@/components/Icon/NavigationFeedIcon';
 import NavigationMissionIcon from '@/components/Icon/NavigationMissionIcon';
 import NavigationMypageIcon from '@/components/Icon/NavigationMypageIcon';
 import NavigationResultIcon from '@/components/Icon/NavigationResultIcon';
@@ -23,6 +23,7 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import SpinnerIcon from '@/components/Icon/SpinnerIcon';
+import SymbolFillIcon from '@/components/Icon/SymbolFillIcon';
 import TENMMSymbolCircleIcon, { TENMMSymbolCircleLocked } from '@/components/Icon/TENMMSymbolCircleIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
@@ -60,6 +61,7 @@ export const IconComponentMap = {
   'navigation-search': NavigationSearchIcon,
   'navigation-mission': NavigationMissionIcon,
   'navigation-feed': NavigationFeedIcon,
+  'navigation-feed-outline': FeedOutlineIcon,
   camera: CameraIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
@@ -83,6 +85,7 @@ export const IconComponentMap = {
   'normal-setting': NormalSetting,
   'normal-terms': NormalTerms,
   'normal-link': NormalLink,
+  '10mm-symbol-fill': SymbolFillIcon,
   notification: NotificationIcon,
 } as const;
 

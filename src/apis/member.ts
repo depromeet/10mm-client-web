@@ -132,6 +132,15 @@ export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
   });
 };
 
+export const useGetMyId = (): {
+  memberId?: number;
+  isLoading: boolean;
+} => {
+  const { data, isLoading } = useGetMembersMe();
+  const memberId = data?.memberId;
+  return { memberId, isLoading };
+};
+
 export const useWithdrawalMember = (option?: UseMutationOptions<unknown, unknown>) => {
   return useMutation({
     mutationFn: MEMBER_API.withdrawalMember,

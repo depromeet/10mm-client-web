@@ -8,7 +8,7 @@ function FollowMissionRecordDetailPage() {
     <main className={mainWrapperCss}>
       <Header rightAction={'none'} title={'미션 내역'} />
       <Suspense>
-        <MissionRecordDetail />
+        <MissionRecordDetail isFollow />
       </Suspense>
     </main>
   );

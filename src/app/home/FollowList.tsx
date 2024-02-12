@@ -56,11 +56,9 @@ export default FollowList;
 
 const containerCss = flex({
   overflowY: 'auto',
-  padding: '16px 0',
-  paddingBottom: '20px',
+  padding: '16px 16px 20px',
   gap: '12px',
   alignItems: 'stretch',
-  margin: '0 16px',
   _scrollbar: {
     display: 'none',
   },
