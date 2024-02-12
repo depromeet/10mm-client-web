@@ -23,13 +23,10 @@ function Header() {
   const handleClickShare = async () => {
     if (!data) return;
     try {
-      if (window.navigator?.share) {
-        window.navigator.share({
-          title: '10mm',
-          text: '내 프로필 링크 공유하기',
-          url: window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId),
-        });
-      }
+      window.navigator.share({
+        title: '10mm - 내 프로필 링크 공유하기',
+        text: window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId),
+      });
     } catch (e) {
       await copyClipBoard(window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId));
       triggerSnackBar({

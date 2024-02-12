@@ -6,14 +6,14 @@ import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
 import Tab from '@/components/Tab/Tab';
 import { css } from '@styled-system/css';
 
-export default function FollowMissionDetailPage() {
-  const tabs = [
-    {
-      tabName: '미션 내역',
-      id: 'mission-history',
-    },
-  ];
+const tabs = [
+  {
+    tabName: '미션 내역',
+    id: 'mission-history',
+  },
+];
 
+export default function FollowMissionDetailPage() {
   return (
     <main className={mainWrapperCss}>
       <Header rightAction={'none'} title={'미션 상세'} />
