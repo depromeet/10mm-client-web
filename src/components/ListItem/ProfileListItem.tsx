@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
-import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { oneLineTextCss } from '@/constants/style/text';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 

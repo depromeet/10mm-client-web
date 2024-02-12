@@ -1,6 +1,7 @@
 import React from 'react';
 import { type FollowDataState } from '@/app/page';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { oneLineTextCss } from '@/constants/style/text';
 import { css, cx } from '@styled-system/css';
 
 interface Props {
@@ -29,6 +30,7 @@ function ProfileItem(props: Props) {
       <span
         className={cx(
           nameCss,
+          oneLineTextCss,
           css({
             color: props.selected ? 'text.primary' : 'text.tertiary',
           }),
