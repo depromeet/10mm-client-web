@@ -182,12 +182,12 @@ const reactionVariant = {
 const innerCss = css({
   display: 'flex',
   padding: '10px 12px',
+  flexWrap: 'wrap',
+  maxWidth: '224px',
 });
 
 const reactionSelectCss = css({
-  // backgroundColor: 'purple.purple100',
-  background:
-    'linear-gradient(0deg, rgba(32, 30, 40, 0.9), rgba(32, 30, 40, 0.9)), linear-gradient(0deg, token(purple.purple100), token(purple.purple100))',
+  backgroundColor: '#201E28',
   border: '1px solid',
   borderColor: 'purple.purple100',
   boxShadow: '0px 5px 50px 4px #5C4E7A4D inset',
