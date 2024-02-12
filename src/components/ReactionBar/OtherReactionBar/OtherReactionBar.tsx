@@ -148,7 +148,7 @@ function ReactSelect(props: ReactSelectProps) {
                   className={emojiItemCss}
                   onClick={() => {
                     props.onSelect(emoji);
-                    props.onClose();
+                    // props.onClose(); // TODO: 기획서에 없는 내용 확인 필요
                   }}
                 >
                   {isSelect && <MotionDiv className={selectCircleCss} />}
