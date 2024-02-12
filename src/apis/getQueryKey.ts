@@ -40,6 +40,9 @@ type QueryList = {
   feed: {
     memberId: number;
   };
+  missionSummaryList: {
+    date: string;
+  };
 };
 
 /**

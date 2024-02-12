@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { type CardBannerType } from '@/components/Banner/Banner.types';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 
 function CardBanner(props: CardBannerType) {
   return (
@@ -18,6 +18,20 @@ function CardBanner(props: CardBannerType) {
 
 export default CardBanner;
 
+export function CardBannerSkeleton() {
+  return (
+    <div
+      className={cx(
+        containerCss,
+        css({
+          animation: 'skeleton',
+          height: '110px',
+        }),
+      )}
+    ></div>
+  );
+}
+
 const containerCss = css({
   width: '100%',
   height: '100%',
@@ -29,6 +43,7 @@ const containerCss = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  border: 'none',
 });
 
 const outerContainerCss = css({
@@ -38,8 +53,7 @@ const outerContainerCss = css({
   padding: '0px !', // NOTE: padding 0 필수,
   backgroundOrigin: 'border-box',
   backgroundClip: 'content-box, border-box',
-  backgroundImage:
-    'linear-gradient(token(colors.bg.surface3), token(colors.bg.surface3)), token(colors.gradients.stroke)',
+  backgroundImage: 'linear-gradient(#18181D, #18181D), linear-gradient(0deg, #474A5D00 0%, #474A5D 100%)',
 });
 
 const descriptionCss = css({
