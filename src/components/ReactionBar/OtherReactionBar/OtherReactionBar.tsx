@@ -8,9 +8,11 @@ import MotionDiv from '@/components/Motion/MotionDiv';
 import { reactionBarContainerCss, titleSectionCss } from '@/components/ReactionBar/ReactionBar.style';
 import ReactionBottomSheet from '@/components/ReactionBar/ReactionBottomSheet';
 import ReactionList from '@/components/ReactionBar/ReactionList';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { gradientTextCss } from '@/constants/style/gradient';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { css } from '@/styled-system/css';
+import { eventLogger } from '@/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type SelectEmojiType = EmojiType | null;
@@ -27,6 +29,11 @@ function OtherReactionBar(props: Props) {
   const [isShowing, setIsShowing] = useState(false);
 
   const { myReactionId, myEmoji } = useGetMyReactions(data as GetReactionsResponse);
+
+  const onOpenReactionBottomSheet = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.OPEN_BOTTOM_SHEET);
+    setIsShowing(true);
+  };
 
   const { mutate } = useAddReaction({
     onSuccess: () => {
@@ -50,8 +57,10 @@ function OtherReactionBar(props: Props) {
     setSelectEmoji(emoji);
 
     if (myReactionId) {
+      eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.MODIFY_EMOJI);
       modifyMutate({ reactionId: myReactionId, emojiType: emoji });
     } else {
+      eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.CLICK_EMOJI);
       mutate({ missionRecordId: props.recordId, emojiType: emoji });
     }
   };
@@ -73,7 +82,7 @@ function OtherReactionBar(props: Props) {
         <GradientFeedIcon />
         <span className={gradientTextCss}>응원하기</span>
       </div>
-      <ReactionList data={data} selectEmoji={selectEmoji} onClick={() => setIsShowing(true)} />
+      <ReactionList data={data} selectEmoji={selectEmoji} onClick={onOpenReactionBottomSheet} />
       <ReactSelect
         selectEmoji={selectEmoji}
         onSelect={onSelectEmoji}
