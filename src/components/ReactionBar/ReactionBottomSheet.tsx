@@ -5,6 +5,7 @@ import { type EmojiType, REACTION_EMOJI_IMAGE } from '@/apis/schema/reaction';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import Header from '@/components/Header/Header';
 import { OneLineListItem } from '@/components/ListItem';
+import { hiddenScrollCss } from '@/constants/style/scroll';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -32,11 +33,21 @@ function ReactionBottomSheet(props: Props) {
       onClickOutside={props.onClose}
       isDraggable
     >
-      <EmojiList data={props.data} selectedEmoji={selectedEmoji} onSelect={setSelectedEmoji} />
-      <PeopleList data={viewReactionList} />
+      <div className={wrapperCss}>
+        <EmojiList data={props.data} selectedEmoji={selectedEmoji} onSelect={setSelectedEmoji} />
+        <PeopleList data={viewReactionList} />
+      </div>
     </BottomSheet>
   );
 }
+
+// TODO : bottom sheet content에서 padding이 제거되면 제거 필요
+const wrapperCss = css({
+  width: '100vw',
+  maxW: '475px',
+  position: 'relative',
+  left: '-16px',
+});
 
 export default ReactionBottomSheet;
 
@@ -48,7 +59,7 @@ interface EmojiListProps {
 
 function EmojiList({ data, selectedEmoji, onSelect }: EmojiListProps) {
   return (
-    <section className={emojiListSectionCss}>
+    <section className={cx(emojiListSectionCss, hiddenScrollCss)}>
       {data?.map((item) => (
         <div
           key={item.emojiType}
@@ -71,6 +82,7 @@ function EmojiList({ data, selectedEmoji, onSelect }: EmojiListProps) {
 const emojiListSectionCss = flex({
   padding: '0 16px 12px',
   gap: '8px',
+  overflowX: 'auto',
 });
 
 const emojiItemCss = flex({
@@ -80,6 +92,7 @@ const emojiItemCss = flex({
   color: 'text.primary',
   textStyle: 'subtitle3',
   borderRadius: '12px',
+  flexShrink: 0,
 });
 
 function PeopleList({ data }: { data?: ReactionType }) {
