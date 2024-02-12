@@ -14,11 +14,11 @@ interface Props {
 
 function MyReactionBar(props: Props) {
   const { data } = useGetReactions(props.recordId);
-  const [isShowing, setIsShowing] = useState(false);
+  const [isReactionBottomSheetShowing, setIsReactionBottomSheetShowing] = useState(false);
 
   const onOpenReactionBottomSheet = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.OPEN_BOTTOM_SHEET);
-    setIsShowing(true);
+    setIsReactionBottomSheetShowing(true);
   };
 
   return (
@@ -28,7 +28,11 @@ function MyReactionBar(props: Props) {
         <span className={textCss}>응원한 사람</span>
       </div>
       <ReactionList data={data} onClick={onOpenReactionBottomSheet} />
-      <ReactionBottomSheet isShowing={isShowing} data={data} onClose={() => setIsShowing(false)} />
+      <ReactionBottomSheet
+        isShowing={isReactionBottomSheetShowing}
+        data={data}
+        onClose={() => setIsReactionBottomSheetShowing(false)}
+      />
     </div>
   );
 }

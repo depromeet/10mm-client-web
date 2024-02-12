@@ -27,13 +27,13 @@ function OtherReactionBar(props: Props) {
   const [selectEmoji, setSelectEmoji] = useState<SelectEmojiType>();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isShowing, setIsShowing] = useState(false);
+  const [isReactionBottomSheetShowing, setIsReactionBottomSheetShowing] = useState(false);
 
   const { myReactionId, myEmoji } = useGetMyReactions(data as GetReactionsResponse);
 
   const onOpenReactionBottomSheet = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.OPEN_BOTTOM_SHEET);
-    setIsShowing(true);
+    setIsReactionBottomSheetShowing(true);
   };
 
   const { mutate } = useAddReaction({
@@ -91,14 +91,16 @@ function OtherReactionBar(props: Props) {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
-      <ReactionBottomSheet isShowing={isShowing} data={data} onClose={() => setIsShowing(false)} />
+      <ReactionBottomSheet
+        isShowing={isReactionBottomSheetShowing}
+        data={data}
+        onClose={() => setIsReactionBottomSheetShowing(false)}
+      />
     </div>
   );
 }
 
 export default OtherReactionBar;
-
-type GetMyReactionsResponse = Record<string, number>;
 
 const useGetMyReactions = (
   response: GetReactionsResponse,
@@ -115,15 +117,9 @@ const useGetMyReactions = (
       myEmoji: null,
     };
 
-  const myReaction: GetMyReactionsResponse = {};
-  const myEmojis: EmojiType[] = [];
-
   for (const item of response) {
     for (const reaction of item.reactions) {
       if (reaction.memberProfile.memberId === memberId) {
-        myReaction[item.emojiType] = reaction.reactionId;
-        myEmojis.push(item.emojiType);
-
         return { myEmoji: item.emojiType, myReactionId: reaction.reactionId };
       }
     }
