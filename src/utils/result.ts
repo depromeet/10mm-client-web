@@ -18,9 +18,9 @@ export const calcProgress = (symbolStack: number) => {
   return ((symbolStack - currentLevel.min) / (currentLevel.max - currentLevel.min)) * 100;
 };
 
-const MIN_PERCENT = 3;
-
 export const getPercent = (props: { symbolStack: number; max: number; min: number }): number => {
+  const MIN_PERCENT = 3;
+
   const { symbolStack, max, min } = props;
   const percent = (100 / (max - min)) * (symbolStack - min);
 

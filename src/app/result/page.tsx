@@ -35,8 +35,10 @@ function ResultPage() {
           레벨 안내
         </Link>
       </section>
-      {tabProps.activeTab === 'overall-status' && <OverallStatus />}
-      {tabProps.activeTab === 'finished-mission' && <FinishedMissionList queryData={finishedMissionQueryData} />}
+      {tabProps.activeTab === ResultTabId.OVERALL_STATUS && <OverallStatus />}
+      {tabProps.activeTab === ResultTabId.FINISHED_MISSION && (
+        <FinishedMissionList queryData={finishedMissionQueryData} />
+      )}
       <AppBarBottom />
     </>
   );

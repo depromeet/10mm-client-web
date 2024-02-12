@@ -20,7 +20,6 @@ interface MissionSummaryListResponse {
 
 const RESULT_API = {
   getMissionSummaryList: async (date: string): Promise<MissionSummaryListResponse> => {
-    console.log('date: ', date);
     const { data } = await apiInstance.get(`/missions/summary-list?date=${date}`);
     return data;
   },

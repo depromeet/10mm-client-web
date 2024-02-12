@@ -11,7 +11,6 @@ interface Props {
 
 function MissionList(props: Props) {
   const { data: selectSummaryListData, isLoading } = useGetMissionSummaryList(props.selectDate);
-  console.log('selectSummaryListData: ', selectSummaryListData);
 
   const missionList = selectSummaryListData?.missionSummaryItems ?? [];
 
