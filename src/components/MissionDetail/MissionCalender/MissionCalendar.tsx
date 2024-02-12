@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { UrgingStatus, useGetRecord } from '@/apis';
+import { useGetRecord } from '@/apis';
 import Icon from '@/components/Icon';
 import { WEEK_DAYS } from '@/components/MissionDetail/MissionCalender/MissionCalendar.constants';
 import {
@@ -116,7 +116,7 @@ function MissionCalendar({ currentData, missionId, isFollow }: Props) {
         </table>
       </section>
       {/* TODO: 임시로 값 넣어줌 */}
-      <UrgingButton missionId={missionId} urgingStatus={data?.urgingStatus ?? UrgingStatus.URGING} />
+      {data?.urgingStatus && <UrgingButton missionId={missionId} urgingStatus={data.urgingStatus} />}
     </>
   );
 }
