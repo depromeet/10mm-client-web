@@ -56,17 +56,6 @@ const outerContainerCss = css({
   backgroundImage: 'linear-gradient(#18181D, #18181D), linear-gradient(0deg, #474A5D00 0%, #474A5D 100%)',
 });
 
-const outerContainerCss = css({
-  overflow: 'hidden',
-  border: '1px solid transparent',
-  borderRadius: '22px',
-  padding: '0px !', // NOTE: padding 0 필수,
-  backgroundOrigin: 'border-box',
-  backgroundClip: 'content-box, border-box',
-  backgroundImage:
-    'linear-gradient(token(colors.bg.surface3), token(colors.bg.surface3)), token(colors.gradients.stroke)',
-});
-
 const descriptionCss = css({
   marginTop: '8px',
   textStyle: 'body4',

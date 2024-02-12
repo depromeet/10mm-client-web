@@ -11,8 +11,9 @@ interface Props {
 
 function MissionList(props: Props) {
   const { data: selectSummaryListData, isLoading } = useGetMissionSummaryList(props.selectDate);
+  console.log('selectSummaryListData: ', selectSummaryListData);
 
-  const missionList = selectSummaryListData?.missionList ?? [];
+  const missionList = selectSummaryListData?.missionSummaryItems ?? [];
 
   return (
     <section className={sectionCss}>
@@ -86,9 +87,11 @@ const infoWrapperCss = css({
   '& span': {
     textStyle: 'body4',
     color: 'text.secondary',
+    minWidth: '10px',
   },
   '& b': {
     color: 'purple.purple700',
+    minWidth: '10px',
   },
 });
 
