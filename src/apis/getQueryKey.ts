@@ -45,6 +45,10 @@ type QueryList = {
   reactions: {
     recordId: number;
   };
+
+  missionSummaryList: {
+    date: string;
+  };
 };
 
 /**
