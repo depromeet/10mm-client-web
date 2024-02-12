@@ -30,7 +30,7 @@ const setInterceptors = (instance: AxiosInstance) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
           if (typeof window !== 'undefined') {
-            window.location.href = ROUTER.AUTH.LOGIN;
+            window.location.href = ROUTER.AUTH.LOGIN + '?redirect=' + window.location.pathname;
           }
         }
       }

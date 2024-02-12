@@ -7,6 +7,7 @@ import {
   getYearMonth,
 } from '@/components/MissionDetail/MissionCalender/MissionCalendar.utils';
 import MissionCalendarItem from '@/components/MissionDetail/MissionCalender/MissionCalendarItem';
+import UrgingButton from '@/components/MissionDetail/MissionCalender/UrgingButton/UrgingButton';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
 import { eventLogger } from '@/utils';
@@ -33,6 +34,7 @@ function MissionCalendar({ currentData, missionId, isFollow }: Props) {
     missionId,
     yearMonth: getYearMonth(date),
   });
+
   const missionStartedAt = data?.missionStartedAt || '';
 
   const handlePrevMonth = () => {
@@ -59,59 +61,63 @@ function MissionCalendar({ currentData, missionId, isFollow }: Props) {
   };
 
   return (
-    <section>
-      <div className={dateLabeWrapperCss}>
-        <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
-          <Icon name="arrow-back" size={12} />
-        </button>
-        <div className={missionHistoryCalendarCss}>
-          {currentYear}년 {currentMonth}월
-        </div>
-        {!isCurrentMonth && (
-          <button type={'button'} className={buttonCss} onClick={handleNextMonth}>
-            <Icon name="arrow-forward" size={12} />
+    <>
+      <section>
+        <div className={dateLabeWrapperCss}>
+          <button type={'button'} className={buttonCss} onClick={handlePrevMonth}>
+            <Icon name="arrow-back" size={12} />
           </button>
-        )}
-      </div>
-      <table className={tableCss}>
-        <thead>
-          <tr className={calendarHeaderCss}>
-            {WEEK_DAYS.map((day) => (
-              <th key={day}>{day}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className={calendarBodyCss}>
-          {monthCalendarData.map((week, i) => (
-            <tr key={i}>
-              {week.map((day, index) => {
-                if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
-                const { routerLink, ...restProps } = getMissionCalendarItemProps(
-                  missionStartedAt,
-                  day,
-                  data?.missionRecords || [],
-                  isFollow,
-                );
-
-                const isToday = dayjs().isSame(`${day.year}-${day.month}-${day.date}`, 'day');
-
-                return (
-                  <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
-                    {routerLink ? (
-                      <Link href={routerLink} onClick={() => handleClickCalendarItem(isToday)}>
-                        <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
-                      </Link>
-                    ) : (
-                      <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
-                    )}
-                  </td>
-                );
-              })}
+          <div className={missionHistoryCalendarCss}>
+            {currentYear}년 {currentMonth}월
+          </div>
+          {!isCurrentMonth && (
+            <button type={'button'} className={buttonCss} onClick={handleNextMonth}>
+              <Icon name="arrow-forward" size={12} />
+            </button>
+          )}
+        </div>
+        <table className={tableCss}>
+          <thead>
+            <tr className={calendarHeaderCss}>
+              {WEEK_DAYS.map((day) => (
+                <th key={day}>{day}</th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+          </thead>
+          <tbody className={calendarBodyCss}>
+            {monthCalendarData.map((week, i) => (
+              <tr key={i}>
+                {week.map((day, index) => {
+                  if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
+                  const { routerLink, ...restProps } = getMissionCalendarItemProps(
+                    missionStartedAt,
+                    day,
+                    data?.missionRecords || [],
+                    isFollow,
+                  );
+
+                  const isToday = dayjs().isSame(`${day.year}-${day.month}-${day.date}`, 'day');
+
+                  return (
+                    <td key={`${day.year}-${day.month}-${day.date}`} className={missionCalendarTdCss}>
+                      {routerLink ? (
+                        <Link href={routerLink} onClick={() => handleClickCalendarItem(isToday)}>
+                          <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
+                        </Link>
+                      ) : (
+                        <MissionCalendarItem date={day.date} {...restProps} isActive={isToday} />
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+      {/* TODO : 해당컴포넌트 리팩토링 하며 분리 필요 @wade */}
+      {data?.urgingStatus && <UrgingButton missionId={missionId} urgingStatus={data.urgingStatus} />}
+    </>
   );
 }
 

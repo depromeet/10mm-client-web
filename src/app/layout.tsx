@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
+import NotificationSnackBarProvider from '@/components/NotificationSnackBar/NotificationSnackBarProvider';
 import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
 import { MSWInitComponent } from '@/msw';
 import { css } from '@/styled-system/css';
@@ -43,11 +44,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MonitoringInitializer />
         <MSWInitComponent />
         <QueryProvider>
-          <SnackBarProvider>
-            <Suspense>
-              <div className={css(containerCss)}>{children}</div>
-            </Suspense>
-          </SnackBarProvider>
+          <NotificationSnackBarProvider>
+            <SnackBarProvider>
+              <Suspense>
+                <div className={css(containerCss)}>{children}</div>
+              </Suspense>
+            </SnackBarProvider>
+          </NotificationSnackBarProvider>
         </QueryProvider>
       </body>
     </html>

@@ -45,8 +45,7 @@ function ProfileContent({
             <span className={followerTabCss}>
               <Link onClick={handleClickFollowList} href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'following')}>
                 팔로잉 {followingCount}
-              </Link>{' '}
-              &nbsp;
+              </Link>
               <Link onClick={handleClickFollowList} href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'follower')}>
                 팔로워 {followerCount}
               </Link>
@@ -92,7 +91,11 @@ const userNameCss = css({
 });
 const followerTabCss = css({
   color: 'text.secondary',
+  textStyle: 'body5',
   marginTop: '6px',
+
+  display: 'flex',
+  gap: '10px',
 });
 
 const myTabCss = css({
