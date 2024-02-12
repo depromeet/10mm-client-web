@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useFeedByMemberId } from '@/apis/feed';
 import ProfileFeedItem, { ProfileFeedItemSkeleton } from '@/app/mypage/ProfileFeedItem';
+import Empty from '@/components/Empty/Empty';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { eventLogger } from '@/utils';
@@ -23,6 +24,14 @@ function ProfileFeedList({ memberId, isMySelf }: { memberId: number; isMySelf: b
         <ProfileFeedItemSkeleton />
       </ul>
     );
+
+  if (data.length === 0) {
+    return (
+      <div className={emptyFeedCss}>
+        <Empty type={'notice'} image={'docs'} title={'아직 작성한 피드가 없어요.'} description={''} />
+      </div>
+    );
+  }
   return (
     <ul className={feedListCss}>
       {data?.map((feed) => (
@@ -42,6 +51,13 @@ const getHref = (recordId: string, isMySelf: boolean) => {
   }
   return ROUTER.RECORD.DETAIL.FOLLOW(recordId);
 };
+
+const emptyFeedCss = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '60px 0',
+});
 
 const feedListCss = css({
   display: 'grid',

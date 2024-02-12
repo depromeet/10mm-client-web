@@ -5,4 +5,5 @@ export const NATIVE_CUSTOM_EVENTS = {
   APPLE_LOGIN_CALLBACK: 'appleLoginCallback',
   VIBRATE: 'vibrate',
   HAPTIC: 'haptic',
+  FOREGROUND_FCM: 'foregroundFcm',
 } as const;

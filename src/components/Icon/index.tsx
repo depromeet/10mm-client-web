@@ -39,6 +39,7 @@ import NormalClose from './NormalClose';
 import NormalLink from './NormalLinkIcon';
 import NormalSetting from './NormalSettingIcon';
 import NormalTerms from './NormalTermsIcon';
+import NotificationIcon from './NotificationIcon';
 import PlusCircleLarge from './PlusCircleLargeIcon';
 
 export const IconComponentMap = {
@@ -83,6 +84,7 @@ export const IconComponentMap = {
   'normal-setting': NormalSetting,
   'normal-terms': NormalTerms,
   'normal-link': NormalLink,
+  notification: NotificationIcon,
 } as const;
 
 interface Props extends IconComponentProps {

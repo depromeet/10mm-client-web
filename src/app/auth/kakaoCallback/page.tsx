@@ -32,7 +32,8 @@ export default function KakaoCallbackPage() {
                 if (successData?.memberId) {
                   eventLogger.identify(successData.memberId.toString());
                 }
-                router.push(ROUTER.HOME);
+
+                router.push(params.get('state') ?? ROUTER.HOME);
               },
             },
           );
