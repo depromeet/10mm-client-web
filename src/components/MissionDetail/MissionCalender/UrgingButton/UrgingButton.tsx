@@ -13,15 +13,18 @@ interface Props {
 function UrgingButton(props: Props) {
   const { triggerSnackBar } = useSnackBar();
 
-  const { mutate, isSuccess, isPending } = useNotifyUrging();
+  const { mutate, isSuccess, isPending } = useNotifyUrging({
+    onSuccess: () => {
+      triggerSnackBar({
+        message: '재촉 알림을 보냈어요!',
+      });
+    },
+  });
+
   const isVisible = props.urgingStatus === UrgingStatus.URGING;
 
   const onClick = () => {
     mutate({ missionId: props.missionId });
-    triggerSnackBar({
-      message: '재촉 알림을 보냈어요!',
-      offset: 'cta',
-    });
   };
 
   if (!isVisible || isSuccess) {
