@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useGetMyId } from '@/apis/member';
 import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
@@ -22,6 +23,9 @@ function FeedItem({
   startedAt,
   recordId,
 }: FeedItemType) {
+  const { memberId: myId } = useGetMyId();
+  const isMyFeed = memberId === myId;
+
   const handleClickFeedItem = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_FEED);
   };
@@ -37,7 +41,12 @@ function FeedItem({
           <p>{nickname}</p>
         </div>
       </Link>
-      <Link href={ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())} onClick={handleClickFeedItem}>
+      <Link
+        href={
+          isMyFeed ? ROUTER.RECORD.DETAIL.HOME(recordId.toString()) : ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())
+        }
+        onClick={handleClickFeedItem}
+      >
         <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
         <div className={textWrapperCss}>
           <p className={missionNameCss}>{name}</p>
