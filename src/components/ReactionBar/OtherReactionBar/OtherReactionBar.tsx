@@ -13,6 +13,7 @@ import { gradientTextCss } from '@/constants/style/gradient';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { css } from '@/styled-system/css';
 import { eventLogger } from '@/utils';
+import { NATIVE_METHODS } from '@/utils/nativeMethod';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type SelectEmojiType = EmojiType | null;
@@ -55,6 +56,7 @@ function OtherReactionBar(props: Props) {
 
   const onSelectEmoji = (emoji: EmojiType) => {
     setSelectEmoji(emoji);
+    NATIVE_METHODS.HAPTIC();
 
     if (myReactionId) {
       eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.MODIFY_EMOJI);
