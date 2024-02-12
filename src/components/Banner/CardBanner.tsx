@@ -39,7 +39,7 @@ const outerContainerCss = css({
   backgroundOrigin: 'border-box',
   backgroundClip: 'content-box, border-box',
   backgroundImage:
-    'linear-gradient(token(colors.bg.surface3), token(colors.bg.surface3)), token(colors.gradients.stroke)',
+    'linear-gradient(token(colors.bg.surface3), token(colors.bg.surface3)), linear-gradient(0deg, #474A5D00 0%, #474A5D 100%)',
 });
 
 const descriptionCss = css({
