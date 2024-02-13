@@ -3,12 +3,12 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-// import lottieJson from '@/assets/lotties/lottieExample.json';
+import lottieJson from '@/assets/lotties/coin-double.json';
 import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
 import { NATIVE_METHODS } from '@/utils/nativeMethod';
 import { css } from '@styled-system/css';
-// import Lottie from 'react-lottie-player';
+import Lottie from 'react-lottie-player';
 
 export default function MissionSuccessPage() {
   const router = useRouter();
@@ -20,11 +20,13 @@ export default function MissionSuccessPage() {
 
   return (
     <main className={mainWrapperCss}>
+      <Image className={gradientCss} src="/images/bg-gradient.png" alt="success" fill />
       <div className={containerCss}>
         <div className={contentWrapperCss}>
+          <Lottie className={lottieCss} loop animationData={lottieJson} play />
+
           <div className={lottieWrapperCss}>
-            <Image src="/assets/mission/10mm-success.svg" alt="success" fill />
-            {/* <Lottie loop animationData={lottieJson} play /> */}
+            <Image className={imageCss} src="/images/coin.png" alt="success" fill />
           </div>
           <div className={titleWrapperCss}>
             <span className={titleCss}>오늘의 미션완료!</span>
@@ -41,11 +43,31 @@ export default function MissionSuccessPage() {
   );
 }
 
+const lottieCss = css({
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  width: '100%',
+  height: '100%',
+});
+
+const gradientCss = css({
+  height: '100vh',
+  width: '100%',
+  maxWidth: 'maxWidth',
+  position: 'absolute',
+  top: '0',
+  objectFit: 'cover',
+  backgroundPosition: 'center',
+  left: '0',
+});
+
 const mainWrapperCss = css({
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: 'bg.surface2',
   height: '100vh',
+  position: 'relative',
 });
 
 const buttonWrapperCss = css({
@@ -66,6 +88,7 @@ const contentWrapperCss = css({
   display: 'flex',
   flexDirection: 'column',
   animation: 'fadeIn 0.3s linear',
+  position: 'relative',
 });
 
 const titleWrapperCss = css({
@@ -87,11 +110,17 @@ const subTitleCss = css({
   color: 'text.secondary',
 });
 
+const imageCss = css({
+  width: '50%',
+  background: 'transparent',
+});
+
 const lottieWrapperCss = css({
   position: 'relative',
   minHeight: '260px',
   maxWidth: '100vw',
-  width: '100%',
+  margin: '24px auto 0 auto',
+  width: '50%',
   '& img': {
     objectFit: 'contain',
   },
