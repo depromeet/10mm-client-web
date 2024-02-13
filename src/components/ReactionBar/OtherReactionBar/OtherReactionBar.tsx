@@ -10,7 +10,6 @@ import ReactionBottomSheet from '@/components/ReactionBar/ReactionBottomSheet';
 import ReactionList from '@/components/ReactionBar/ReactionList';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { gradientTextCss } from '@/constants/style/gradient';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import { css } from '@/styled-system/css';
 import { eventLogger } from '@/utils';
 import { NATIVE_METHODS } from '@/utils/nativeMethod';
@@ -68,11 +67,6 @@ function OtherReactionBar(props: Props) {
   };
 
   const ref = useRef<HTMLDivElement>(null);
-
-  useOutsideClick({
-    ref: ref,
-    handler: () => setIsOpen(false),
-  });
 
   useEffect(() => {
     setSelectEmoji(myEmoji);
@@ -139,36 +133,55 @@ function ReactSelect(props: ReactSelectProps) {
   return (
     <AnimatePresence>
       {props.isOpen && (
-        <motion.article
-          className={reactionSelectCss}
-          variants={reactionVariant}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <div className={innerCss}>
-            {REACTION_EMOJI_LIST.map((emoji: EmojiType) => {
-              const isSelect = props.selectEmoji?.includes(emoji);
-              return (
-                <div
-                  key={emoji}
-                  className={emojiItemCss}
-                  onClick={() => {
-                    props.onSelect(emoji);
-                    props.onClose();
-                  }}
-                >
-                  {isSelect && <MotionDiv className={selectCircleCss} />}
-                  <Image src={REACTION_EMOJI_IMAGE[emoji]} alt={emoji} width={28} height={28} />
-                </div>
-              );
-            })}
-          </div>
-        </motion.article>
+        <>
+          <motion.article
+            className={reactionSelectCss}
+            variants={reactionVariant}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <div className={innerCss}>
+              {REACTION_EMOJI_LIST.map((emoji: EmojiType) => {
+                const isSelect = props.selectEmoji?.includes(emoji);
+                return (
+                  <div
+                    key={emoji}
+                    className={emojiItemCss}
+                    onClick={() => {
+                      props.onSelect(emoji);
+                      props.onClose();
+                    }}
+                  >
+                    {isSelect && <MotionDiv className={selectCircleCss} />}
+                    <Image src={REACTION_EMOJI_IMAGE[emoji]} alt={emoji} width={28} height={28} />
+                  </div>
+                );
+              })}
+            </div>
+          </motion.article>
+          <div
+            className={backDropCss}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              props.onClose();
+            }}
+          />
+        </>
       )}
     </AnimatePresence>
   );
 }
+
+const backDropCss = css({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 1,
+});
 
 const reactionVariant = {
   initial: { scale: 0, opacity: 0.7 },
@@ -204,6 +217,7 @@ const reactionSelectCss = css({
   left: 0,
   borderRadius: '20px',
   transformOrigin: 'bottom left',
+  zIndex: 2,
 });
 
 const emojiItemCss = css({
