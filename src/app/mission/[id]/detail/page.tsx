@@ -1,16 +1,26 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import MissionStartButton from '@/app/mission/[id]/detail/MissionStartButton';
+import MissionTabContents from '@/app/mission/[id]/detail/MissionTabContents';
 import useCheckCompleteMission from '@/app/mission/[id]/detail/useCheckCompleteMission';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
-import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
 import Tab from '@/components/Tab/Tab';
+import { useTab } from '@/components/Tab/Tab.hooks';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { css } from '@styled-system/css';
 
+const MISSION_TABS = [
+  {
+    tabName: '미션 내역',
+    id: 'mission-history',
+  },
+  {
+    tabName: '통계',
+    id: 'mission-statistics',
+  },
+];
 export default function MissionDetailPage() {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
@@ -18,12 +28,7 @@ export default function MissionDetailPage() {
   const { id } = useParams();
   const { isCompeteMission } = useCheckCompleteMission(id as string);
 
-  const tabs = [
-    {
-      tabName: '미션 내역',
-      id: 'mission-history',
-    },
-  ];
+  const { tabs, activeTab, onTabClick } = useTab(MISSION_TABS, 'mission-history');
 
   const handleMenuClick = (menuId: string) => {
     if (menuId === 'mission-modify') {
@@ -44,10 +49,9 @@ export default function MissionDetailPage() {
         onBackAction={() => router.replace(ROUTER.HOME)}
       />
       <div className={tabWrapperCss}>
-        <Tab tabs={tabs} activeTab={'mission-history'} />
+        <Tab tabs={tabs} activeTab={activeTab} onTabClick={onTabClick} />
       </div>
-      <MissionHistoryTab />
-      <MissionStartButton missionId={id as string} isCompeteMission={isCompeteMission} />
+      <MissionTabContents tab={activeTab} missionId={id as string} isCompeteMission={isCompeteMission} />
       <MissionDeleteDialog
         isOpen={isOpen}
         closeModal={closeDeleteDialog}
