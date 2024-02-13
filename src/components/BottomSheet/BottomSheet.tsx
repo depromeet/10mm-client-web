@@ -40,9 +40,8 @@ const nonDraggableCss = {
     display: 'none',
   },
 };
-const contentCss = css({
-  padding: '0 16px',
-});
+
+const contentCss = css({});
 
 const headerWrapperCss = css({
   width: '100%',
