@@ -14,6 +14,7 @@ export default function GuestMissionSuccessPage() {
   return (
     <main className={mainWrapperCss}>
       <div className={containerCss}>
+        <Image className={gradientCss} src="/images/bg-gradient.png" alt="success" fill />
         <div className={contentWrapperCss}>
           <Lottie className={lottieCss} loop animationData={lottieJson} play />
 
@@ -32,6 +33,18 @@ export default function GuestMissionSuccessPage() {
     </main>
   );
 }
+
+const gradientCss = css({
+  height: '100vh',
+  width: '100%',
+  maxWidth: 'maxWidth',
+  position: 'absolute',
+  top: '0',
+  objectFit: 'cover',
+  backgroundPosition: 'center',
+  left: '0',
+});
+
 const lottieCss = css({
   position: 'absolute',
   top: '0',
@@ -53,6 +66,7 @@ const mainWrapperCss = css({
 });
 
 const containerCss = css({
+  position: 'relative',
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
