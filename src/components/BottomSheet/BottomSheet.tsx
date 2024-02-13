@@ -22,7 +22,7 @@ function BottomSheet({ children, isDraggable = false, onClickOutside, isShowing,
   return (
     <SpringBottomSheet
       open={isShowing}
-      className={css(bottomSheetCss, isDraggable ? {} : nonDraggableCss)}
+      className={css(bottomSheetCss, isDraggable ? {} : nonDraggableCss, zIndexCss)}
       onDismiss={onClickOutside}
     >
       <div className={headerWrapperCss}>{headerElement}</div>
@@ -40,6 +40,16 @@ const nonDraggableCss = {
     display: 'none',
   },
 };
+
+const zIndexCss = {
+  '& [data-rsbs-overlay]': {
+    zIndex: '100 !important',
+  },
+  '& [data-rsbs-backdrop]': {
+    zIndex: '100 !important',
+  },
+};
+
 const contentCss = css({
   padding: '0 16px',
 });
