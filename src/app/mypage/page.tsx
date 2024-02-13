@@ -23,6 +23,8 @@ function Header() {
   const handleClickShare = async () => {
     if (!data) return;
 
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_SHARE);
+
     const shareText = `10mm - ${data.nickname}님을\n팔로우하고 습관을 만들어보아요!\n\n${
       window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId) + '?urlShare=true'
     }`;
