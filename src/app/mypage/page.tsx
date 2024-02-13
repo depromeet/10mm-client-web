@@ -22,13 +22,18 @@ function Header() {
   };
   const handleClickShare = async () => {
     if (!data) return;
+
+    const shareText = `10mm - ${data.nickname}님을\n팔로우하고 습관을 만들어보아요!\n\n${
+      window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId) + '?urlShare=true'
+    }`;
+
     try {
       window.navigator.share({
         title: '10mm - 내 프로필 링크 공유하기',
-        text: window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId),
+        text: shareText,
       });
     } catch (e) {
-      await copyClipBoard(window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId));
+      await copyClipBoard(shareText);
       triggerSnackBar({
         message: '링크가 복사되었습니다.',
         offset: 'appBar',

@@ -17,6 +17,7 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
   const { data: symbolStackData } = useGetMissionStack(params.id);
   const { data: memebersMeData } = useGetMembersMe();
   const isMyself = memebersMeData?.memberId === Number(params.id);
+
   return (
     <main className={backgroundCss}>
       <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
