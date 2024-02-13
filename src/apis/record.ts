@@ -64,7 +64,7 @@ export enum UrgingStatus {
   URGING = 'URGING',
 }
 
-interface StatisticTimeTable {
+export interface StatisticTimeTable {
   symbolStack: number;
   durationMinute: number;
   startedAt: string;

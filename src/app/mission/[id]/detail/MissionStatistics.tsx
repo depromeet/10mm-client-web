@@ -1,4 +1,5 @@
 import { useGetRecordsStatistics } from '@/apis';
+import MissionChart from '@/app/mission/[id]/detail/MissionChart';
 import Banner from '@/components/Banner/Banner';
 import Icon from '@/components/Icon';
 import { gradientTextCss } from '@/constants/style/gradient';
@@ -45,9 +46,14 @@ function MissionStatistics({ missionId }: { missionId: string }) {
           <Icon name={'clock'} color={'icon.tertiary'} size={18} /> 집중한 시간
         </div>
         <div className={durationCss}>
-          {dayjs(data?.startedAt).format('YYYY.M.d')} ~ {dayjs(data?.finishedAt).format('YYYY.M.d')}
+          {dayjs(data?.startedAt).format('YYYY.M.D')} ~ {dayjs(data?.finishedAt).format('YYYY.M.D')}
         </div>
       </div>
+      <MissionChart
+        startAt={data?.startedAt || ''}
+        finishAt={data?.finishedAt || ''}
+        timeTable={data?.timeTable || []}
+      />
     </div>
   );
 }
@@ -58,6 +64,7 @@ const missionChartTitleCss = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  marginBottom: '12px',
 });
 
 const durationCss = css({
