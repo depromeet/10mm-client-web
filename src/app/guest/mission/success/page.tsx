@@ -26,13 +26,19 @@ export default function GuestMissionSuccessPage() {
             <span className={subTitleCss}>{'잘 하셨어요, 오늘도 한 걸음 성장하셨네요 :)'}</span>
           </div>
         </div>
-        <Button type="button" size="large" variant="primary" onClick={onClickConfirmButton}>
-          <span className={buttonTextCss}>10분만 제대로 즐기기</span>
-        </Button>
+        <div className={buttonWrapperCss}>
+          <Button type="button" size="large" variant="primary" onClick={onClickConfirmButton}>
+            <span className={buttonTextCss}>10분만 제대로 즐기기</span>
+          </Button>
+        </div>
       </div>
     </main>
   );
 }
+
+const buttonWrapperCss = css({
+  zIndex: 'appBar',
+});
 
 const gradientCss = css({
   height: '100vh',
