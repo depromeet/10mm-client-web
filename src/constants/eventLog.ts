@@ -73,6 +73,7 @@ export const EVENT_LOG_NAME = {
     CLICK_LEVEL_BANNER: 'click/levelBanner',
     CLICK_FOLLOW_FOLLOW: 'click/followFollow',
     CLICK_SETTING: 'click/setting',
+    CLICK_SHARE: 'click/share',
   },
   FOLLOW_LIST: {
     CLICK_FOLLOW_BUTTON: 'click/followButton',
