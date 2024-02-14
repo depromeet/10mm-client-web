@@ -92,9 +92,11 @@ function PeopleList({ data }: { data?: ReactionType }) {
         <OneLineListItem.Thumbnail
           key={reaction.memberProfile.memberId}
           name={reaction.memberProfile.nickname}
+          // TODO : 리팩토링 필요
           thumbnail={{
             url: reaction.memberProfile.profileImageUrl,
             size: 'h36',
+            variant: 'filled',
           }}
         />
       ))}
