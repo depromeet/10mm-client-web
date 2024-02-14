@@ -47,7 +47,7 @@ function Character(props: Props) {
               alt={'guide bg'}
               width={375}
               height={382}
-              className={cx(imageCss, characterImageBgCss)}
+              className={cx(imageCss, characterImageBgCss, 'character-image-bg')}
             />
           )}
           <Image
