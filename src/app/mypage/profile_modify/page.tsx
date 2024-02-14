@@ -199,6 +199,7 @@ export default ProfileModifyPage;
 const myTabContainerCss = css({
   position: 'relative',
   width: '100%',
+  height: '100%',
   backgroundColor: 'bg.surface2',
   borderTopRightRadius: '28px',
   borderTopLeftRadius: '28px',
@@ -212,6 +213,7 @@ const hiddenInputCss = css({
 
 const mainCss = css({
   paddingTop: '168px',
+  height: 'calc(100vh - 40px)',
   flex: 1,
 });
 
