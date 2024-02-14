@@ -18,7 +18,7 @@ export default forwardRef<HTMLUListElement, MenuContentProps>(MenuContent);
 
 const menuCss = css({
   display: 'flex',
-  padding: '10px 0',
+  padding: '10px 8px',
   flexDirection: 'column',
   minWidth: '153px',
   borderRadius: '20px',
