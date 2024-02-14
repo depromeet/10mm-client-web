@@ -25,7 +25,8 @@ export function CardBannerSkeleton() {
         containerCss,
         css({
           animation: 'skeleton',
-          height: '110px',
+          height: '110px !',
+          borderRadius: '22px',
         }),
       )}
     ></div>

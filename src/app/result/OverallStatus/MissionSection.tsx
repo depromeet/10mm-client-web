@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { css } from '@/styled-system/css';
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 import MissionCalendar from './Calendar';
 import MissionList from './MissionList';
 
 function MissionSection() {
-  const [selectDate, setSelectDate] = useState(dayjs());
+  const [selectDate, setSelectDate] = useState<Dayjs | null>(dayjs());
 
-  const formatSelectDate = selectDate.format('YYYY-MM-DD');
+  const formatSelectDate = selectDate ? selectDate.format('YYYY-MM-DD') : null;
 
   return (
     <div className={containerCss}>

@@ -72,6 +72,7 @@ const mainWrapperCss = css({
 
 const buttonWrapperCss = css({
   padding: '16px 24px',
+  zIndex: 'appBar',
 });
 
 const containerCss = css({

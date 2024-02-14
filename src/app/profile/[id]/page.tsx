@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById, useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
@@ -9,17 +10,35 @@ import FollowButton from '@/app/profile/[id]/FollowButton';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
-function FollowProfilePage({ params }: { params: { id: string } }) {
+function FollowProfilePage({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: {
+    profileShare?: string;
+  };
+}) {
   const { data: followCountData, isFetching } = useFollowsCountTargetId(Number(params.id));
   const { data } = useGetMembersById(Number(params.id));
   const { data: symbolStackData } = useGetMissionStack(params.id);
   const { data: memebersMeData } = useGetMembersMe();
   const isMyself = memebersMeData?.memberId === Number(params.id);
+  const router = useRouter();
+  const handleBack = () => {
+    router.push(ROUTER.HOME);
+  };
   return (
     <main className={backgroundCss}>
-      <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
+      <Header
+        rightAction={'none'}
+        headerBgColor={'transparent'}
+        iconColor={'icon.primary'}
+        onBackAction={searchParams.profileShare ? handleBack : undefined}
+      />
       <ProfileContent
         memberId={Number(params.id)}
         nickname={data?.nickname || ''}
@@ -27,6 +46,7 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
         followerCount={followCountData?.followerCount || 0}
         profileImageUrl={data?.profileImageUrl || null}
         symbolStack={symbolStackData?.symbolStack || 0}
+        isFollow={true}
         rightElement={
           !isMyself ? (
             <FollowButton

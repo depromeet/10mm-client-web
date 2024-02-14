@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { type GraphicBannerType } from '@/components/Banner/Banner.types';
+import { css, cx } from '@/styled-system/css';
 import { center } from '@/styled-system/patterns';
 
 function GraphicBanner(props: GraphicBannerType) {
@@ -28,3 +29,16 @@ const containerCss = center({
     flex: 0,
   },
 });
+
+export const GraphicBannerSkeleton = () => {
+  return (
+    <div
+      className={cx(
+        containerCss,
+        css({
+          animation: 'skeleton',
+        }),
+      )}
+    ></div>
+  );
+};

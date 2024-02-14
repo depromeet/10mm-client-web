@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useFollowMissions } from '@/apis/follow';
+import { MissionListSkeleton } from '@/app/home/home.styles';
 import MissionBadge from '@/app/home/MissionBadge';
 import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
@@ -29,6 +30,18 @@ function FollowMissionList({ followId }: FollowMissionListProps) {
 }
 
 export default FollowMissionList;
+
+export function FollowMissionListSkeleton() {
+  return (
+    <div>
+      <h2 className={headingCss}>
+        <span>미션 목록</span>
+      </h2>
+
+      <MissionListSkeleton />
+    </div>
+  );
+}
 
 const headingCss = flex({
   padding: '12px 4px',

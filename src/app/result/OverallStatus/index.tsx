@@ -23,7 +23,7 @@ function OverallStatus() {
   return (
     <>
       <ImageAreaSection symbolStack={data?.symbolStack} />
-      <BannerSection totalTime={totalTime} totalMissionAttainRate={totalMissionAttainRate} />v
+      <BannerSection totalTime={totalTime} totalMissionAttainRate={totalMissionAttainRate} />
       <MissionSection />
     </>
   );

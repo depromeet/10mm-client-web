@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useGetMissionStack } from '@/apis/mission';
 import { type FollowMemberType } from '@/apis/schema/member';
 import Banner from '@/components/Banner/Banner';
+import { GraphicBannerSkeleton } from '@/components/Banner/GraphicBanner';
 import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
@@ -26,6 +27,7 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
       memberId: followId,
     });
   };
+
   return (
     <div key={followId}>
       <div className={followSummaryTitleCss}>
@@ -54,6 +56,26 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
 }
 
 export default FollowSummary;
+
+export const FollowSummarySkeleton = () => {
+  return (
+    <div>
+      <div className={followSummaryTitleCss}>
+        <div className={cx(skeletonCss, css({ width: '18px', height: '18px', borderRadius: '12px' }))} />
+        <div className={cx(skeletonCss, css({ width: '64px', height: '20px', borderRadius: '12px' }))} />
+      </div>
+      <div className={followBannerCss}>
+        <GraphicBannerSkeleton />
+        <div className={cx(followLevelInfoCss)}></div>
+      </div>
+    </div>
+  );
+};
+
+const skeletonCss = css({
+  animation: 'skeleton',
+  backgroundColor: 'bg.surface4',
+});
 
 const followLevelInfoCss = flex({
   flexDirection: 'column',
