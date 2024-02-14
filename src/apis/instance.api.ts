@@ -1,4 +1,4 @@
-import { ROUTER } from '@/constants/router';
+// import { ROUTER } from '@/constants/router';
 import { getTokens } from '@/services/auth/actions';
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 
@@ -29,9 +29,9 @@ const setInterceptors = (instance: AxiosInstance) => {
     (error) => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          if (typeof window !== 'undefined') {
-            window.location.href = ROUTER.AUTH.LOGIN + '?redirect=' + window.location.pathname;
-          }
+          // if (typeof window !== 'undefined') {
+          //   window.location.href = ROUTER.AUTH.LOGIN + '?redirect=' + window.location.pathname;
+          // }
         }
       }
       return Promise.reject(error);
