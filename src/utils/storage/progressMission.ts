@@ -105,6 +105,8 @@ export const getPrevProgressMissionStatus = (missionId: string): 'ready' | 'prog
 
   if (status === 'restart') return 'progress';
   if (status === 'stop') return 'stop';
+
+  return 'progress';
 };
 
 export const checkIsExistProgressMission = (missionId: string) => {
