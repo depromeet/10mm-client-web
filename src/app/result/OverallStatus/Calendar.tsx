@@ -8,8 +8,8 @@ import { css, cx } from '@styled-system/css';
 import dayjs, { type Dayjs } from 'dayjs';
 
 interface Props {
-  selectDate: Dayjs;
-  setSelectDate: (date: Dayjs) => void;
+  selectDate: Dayjs | null;
+  setSelectDate: (date: Dayjs | null) => void;
 }
 
 function MissionCalendar({ selectDate, setSelectDate }: Props) {
@@ -28,6 +28,7 @@ function MissionCalendar({ selectDate, setSelectDate }: Props) {
       direction: 'prev',
     });
     onPrevMonth();
+    setSelectDate(null);
   };
 
   const handleNextMonth = () => {
@@ -35,6 +36,7 @@ function MissionCalendar({ selectDate, setSelectDate }: Props) {
       direction: 'next',
     });
     onNextMonth();
+    setSelectDate(null);
   };
 
   return (
@@ -73,8 +75,7 @@ function MissionCalendar({ selectDate, setSelectDate }: Props) {
                 {week.map((day, index) => {
                   if (!day) return <td key={'calender-null-' + index} className={missionCalendarTdCss} />;
 
-                  // const isToday = dayjs().isSame(`${day.year}-${day.month}-${day.date}`, 'day');
-                  const isSelected = selectDate.isSame(`${day.year}-${day.month}-${day.date}`, 'day');
+                  const isSelected = selectDate?.isSame(`${day.year}-${day.month}-${day.date}`, 'day') ?? false;
                   const thisDay = `${day.year}-${day.month}-${day.date}`;
 
                   return (
