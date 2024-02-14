@@ -25,17 +25,17 @@ function Header() {
 
     eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_SHARE);
 
-    const shareText = `10mm - ${data.nickname}님을\n팔로우하고 습관을 만들어보아요!\n\n${
-      window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId) + '?urlShare=true'
-    }`;
+    const shareText = `10mm - ${data.nickname}님을\n팔로우하고 습관을 만들어보아요!\n\n`;
+    const shareUrl = window.location.origin + ROUTER.PROFILE.DETAIL(data.memberId) + '?urlShare=true';
 
     try {
       window.navigator.share({
         title: '10mm - 내 프로필 링크 공유하기',
         text: shareText,
+        url: shareUrl,
       });
     } catch (e) {
-      await copyClipBoard(shareText);
+      await copyClipBoard(shareText + shareUrl);
       triggerSnackBar({
         message: '링크가 복사되었습니다.',
         offset: 'appBar',
