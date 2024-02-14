@@ -1,4 +1,4 @@
-import { DEFAULT_ICON_COLOR, type IconComponentProps } from '@/components/Icon/index';
+import { type IconComponentProps } from '@/components/Icon/index';
 
 function TENMMSymbolCircleIcon(props: IconComponentProps) {
   const { color, size = 20, ...restProps } = props;
