@@ -6,6 +6,7 @@ import ArrowDownIcon from '@/components/Icon/ArrowDownIcon';
 import ArrowFoWardIcon from '@/components/Icon/ArrowFowardIcon';
 import CameraIcon from '@/components/Icon/CameraIcon';
 import CheckCircleIcon from '@/components/Icon/CheckCircleIcon';
+import ClockIcon from '@/components/Icon/ClockIcon';
 import CloseCircleIcon from '@/components/Icon/CloseCircleIcon';
 import CloseIcon from '@/components/Icon/CloseIcon';
 import CopyLinkIcon from '@/components/Icon/CopyLinkIcon';
@@ -25,6 +26,7 @@ import ShareIcon from '@/components/Icon/ShareIcon';
 import SpinnerIcon from '@/components/Icon/SpinnerIcon';
 import SymbolFillIcon from '@/components/Icon/SymbolFillIcon';
 import TENMMSymbolCircleIcon, { TENMMSymbolCircleLocked } from '@/components/Icon/TENMMSymbolCircleIcon';
+import TENMMSymbolCircleNormalIcon from '@/components/Icon/TENMMSymbolCircleNormalIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
 import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
@@ -74,6 +76,7 @@ export const IconComponentMap = {
   '10mm-symbol': TENMMSymbolIcon,
   '10mm-symbol-circle': TENMMSymbolCircleIcon,
   '10mm-symbol-circle-lock': TENMMSymbolCircleLocked,
+  '10mm-symbol-circle-normal': TENMMSymbolCircleNormalIcon,
   'apple-login': AppleLoginIcon,
   'kakao-login': KakaoLoginIcon,
   terms: TermsIcon,
@@ -86,6 +89,7 @@ export const IconComponentMap = {
   'normal-terms': NormalTerms,
   'normal-link': NormalLink,
   '10mm-symbol-fill': SymbolFillIcon,
+  clock: ClockIcon,
   notification: NotificationIcon,
 } as const;
 

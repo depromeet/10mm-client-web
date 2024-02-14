@@ -33,21 +33,11 @@ function ReactionBottomSheet(props: Props) {
       onClickOutside={props.onClose}
       isDraggable
     >
-      <div className={wrapperCss}>
-        <EmojiList data={props.data} selectedEmoji={selectedEmoji} onSelect={setSelectedEmoji} />
-        <PeopleList data={viewReactionList} />
-      </div>
+      <EmojiList data={props.data} selectedEmoji={selectedEmoji} onSelect={setSelectedEmoji} />
+      <PeopleList data={viewReactionList} />
     </BottomSheet>
   );
 }
-
-// TODO : bottom sheet content에서 padding이 제거되면 제거 필요
-const wrapperCss = css({
-  width: '100vw',
-  maxW: '475px',
-  position: 'relative',
-  left: '-16px',
-});
 
 export default ReactionBottomSheet;
 
@@ -102,9 +92,11 @@ function PeopleList({ data }: { data?: ReactionType }) {
         <OneLineListItem.Thumbnail
           key={reaction.memberProfile.memberId}
           name={reaction.memberProfile.nickname}
+          // TODO : 리팩토링 필요
           thumbnail={{
             url: reaction.memberProfile.profileImageUrl,
             size: 'h36',
+            variant: 'filled',
           }}
         />
       ))}

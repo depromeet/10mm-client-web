@@ -13,7 +13,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: '10MM',
   description: '10MM',
-  keywords: ['10mm', '10분만', '10분', '10MM', '10mm', '하루 10분', '10분 단위', '생환습관'],
+  keywords: '10mm, 10분만, 10분, 10MM, 10mm, 하루 10분, 10분 단위, 생환습관',
   openGraph: {
     type: 'website',
     url: 'https://www.10mm.today',

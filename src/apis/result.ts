@@ -31,6 +31,7 @@ export const useGetMissionSummaryList = (date: string, option?: UseQueryOptions<
   return useQuery<MissionSummaryListResponse>({
     queryKey: getQueryKey('missionSummaryList', { date }),
     queryFn: () => RESULT_API.getMissionSummaryList(date),
+    enabled: Boolean(date),
     ...option,
   });
 };

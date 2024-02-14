@@ -49,6 +49,9 @@ type QueryList = {
   missionSummaryList: {
     date: string;
   };
+  recordStatistics: {
+    missionId: number;
+  };
 };
 
 /**

@@ -20,6 +20,7 @@ const PROFILE_TABS = [
   },
 ];
 
+// TODO : 파일 위치 조정 (mypage, profile 둘다 사용하는 컴포넌트)
 function ProfileTab({ memberId }: { memberId: number }) {
   const { tabs, activeTab, onTabClick } = useTab(PROFILE_TABS, 'feed');
   const { data } = useGetMembersMe();

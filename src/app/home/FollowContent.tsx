@@ -1,20 +1,29 @@
 import { useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
 import { type FollowMemberType } from '@/apis/schema/member';
-import FollowMissionList from '@/app/home/FollowMissionList';
-import FollowSummary from '@/app/home/FollowSummary';
+import FollowMissionList, { FollowMissionListSkeleton } from '@/app/home/FollowMissionList';
+import FollowSummary, { FollowSummarySkeleton } from '@/app/home/FollowSummary';
 import MissionList from '@/app/home/MissionList';
 import { flex } from '@styled-system/patterns';
 
 function FollowContent() {
-  const selectedFollowData = useGetSelectFollowData();
+  const { data: selectedFollowData, isLoading, isFollower } = useGetSelectFollowData();
 
-  if (!selectedFollowData)
+  if (!isFollower)
     return (
       <div className={containerCss}>
         <MissionList />
       </div>
     );
+
+  if (isLoading || !selectedFollowData) {
+    return (
+      <div className={containerCss}>
+        <FollowSummarySkeleton />
+        <FollowMissionListSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className={containerCss}>
@@ -26,15 +35,20 @@ function FollowContent() {
 
 export default FollowContent;
 
-const useGetSelectFollowData = (): FollowMemberType | null => {
-  const { data } = useFollowMembers();
+const useGetSelectFollowData = (): { data: FollowMemberType | null; isLoading: boolean; isFollower: boolean } => {
+  const { data, isLoading } = useFollowMembers();
   const searchParams = useSearchParams();
 
-  if (!searchParams.get('id')) return null;
+  if (!searchParams.get('id'))
+    return {
+      data: null,
+      isLoading,
+      isFollower: false,
+    };
 
   const id = Number(searchParams.get('id'));
   const selectedFollowData = data?.find((profile) => profile.memberId === id);
-  return selectedFollowData ?? null;
+  return { data: selectedFollowData ?? null, isLoading, isFollower: true };
 };
 
 const containerCss = flex({

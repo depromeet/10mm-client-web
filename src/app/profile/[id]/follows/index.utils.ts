@@ -5,9 +5,11 @@ export const sorFollowerList = (list: FollowerMemberWithStatusType[], myId: numb
   // 2순위) 가나다 순, ABC순으로 나열
 
   const myAccount = list.filter((item) => item.memberId === myId);
-  const followingList = list.filter((item) => item.followStatus === FollowStatus.FOLLOWING);
-  const followedByMeList = list.filter((item) => item.followStatus === FollowStatus.FOLLOWED_BY_ME);
-  const notFollowingList = list.filter((item) => item.followStatus === FollowStatus.NOT_FOLLOWING);
+
+  const _list = list.filter((item) => item.memberId !== myId);
+  const followingList = _list.filter((item) => item.followStatus === FollowStatus.FOLLOWING);
+  const followedByMeList = _list.filter((item) => item.followStatus === FollowStatus.FOLLOWED_BY_ME);
+  const notFollowingList = _list.filter((item) => item.followStatus === FollowStatus.NOT_FOLLOWING);
 
   const sortedList = [...myAccount, ...followingList, ...followedByMeList, ...notFollowingList];
 
