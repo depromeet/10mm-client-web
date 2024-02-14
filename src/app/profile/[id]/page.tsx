@@ -46,6 +46,7 @@ function FollowProfilePage({
         followerCount={followCountData?.followerCount || 0}
         profileImageUrl={data?.profileImageUrl || null}
         symbolStack={symbolStackData?.symbolStack || 0}
+        isFollow={true}
         rightElement={
           !isMyself ? (
             <FollowButton

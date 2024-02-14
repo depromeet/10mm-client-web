@@ -6,11 +6,11 @@ import { css } from '@/styled-system/css';
 import { motion } from 'framer-motion';
 
 interface Props {
-  selectDate: string;
+  selectDate: string | null;
 }
 
 function MissionList(props: Props) {
-  const { data: selectSummaryListData, isLoading } = useGetMissionSummaryList(props.selectDate);
+  const { data: selectSummaryListData, isLoading } = useGetMissionSummaryList(props.selectDate ?? '');
 
   const missionList = selectSummaryListData?.missionSummaryItems ?? [];
 
@@ -36,9 +36,10 @@ function MissionList(props: Props) {
       </div>
       {isLoading ? (
         <div></div>
+      ) : missionList.length === 0 || !props.selectDate ? (
+        missionList.length === 0 && <div className={emptyTextCss}>등록된 미션 내역이 없습니다.</div>
       ) : (
         <motion.ul className={listCss} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-          {missionList.length === 0 && <div className={emptyTextCss}>등록된 미션 내역이 없습니다.</div>}
           {missionList.map((item) => (
             <TwoLineListItem
               key={item.missionId}
