@@ -21,6 +21,7 @@ const menuItemCss = css({
   textAlign: 'left',
   textStyle: 'subtitle3',
   color: 'gray.gray800',
+  borderRadius: '18px',
   cursor: 'pointer',
   '&:hover': {
     backgroundColor: 'bg.surface3',
