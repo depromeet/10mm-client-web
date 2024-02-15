@@ -19,7 +19,22 @@ function MissionListInner() {
     <MissionList.Container>
       {missionList.map((item) => {
         const { moveHref, status } = getMoveHref(item, progressMissionId);
-        return <MissionList.LinkItem href={moveHref} key={item.missionId} {...item} missionStatus={status} />;
+
+        console.log('item.missionRecordId: ', item, item.missionRecordId);
+        // if (!item.missionRecordId) {
+        //   return <MissionList.LinkItem href={moveHref} key={item.missionId} {...item} missionStatus={status} />;
+        // }
+
+        return (
+          <MissionList.ReactionLinkItem
+            href={moveHref}
+            key={item.missionId}
+            {...item}
+            missionStatus={status}
+            recordId={77}
+            // recordId={Number(item.missionRecordId)}
+          />
+        );
       })}
     </MissionList.Container>
   );
