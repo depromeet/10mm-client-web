@@ -193,7 +193,7 @@ const backDropCss = css({
   left: 0,
   right: 0,
   bottom: 0,
-  zIndex: 99, // bottom sheet backdrop z-index is 100
+  zIndex: 1,
 });
 
 const reactionVariant = {
