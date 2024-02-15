@@ -1,11 +1,12 @@
 import { useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
 import { type FollowMemberType } from '@/apis/schema/member';
-import FollowMissionList from '@/app/home/Content/FollowMissionList';
-import FollowSummary, { FollowSummarySkeleton } from '@/app/home/Content/FollowSummary';
-import HomeMissionList from '@/app/home/Content/MissionList';
 import MissionList from '@/components/MissionList';
 import { flex } from '@styled-system/patterns';
+
+import FollowMissionList from './FollowMissionList';
+import FollowSummary, { FollowSummarySkeleton } from './FollowSummary';
+import HomeMissionList from './MissionList';
 
 function FollowContent() {
   const { data: selectedFollowData, isLoading, isFollower } = useGetSelectFollowData();

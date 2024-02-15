@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import MissionListInner from '@/app/home/MissionInnerList';
+import MissionListInner from '@/app/home/FollowContent/MissionInnerList';
 import Icon from '@/components/Icon';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
