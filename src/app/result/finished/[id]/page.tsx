@@ -1,33 +1,39 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
+import MissionStatistics from '@/app/mission/[id]/detail/MissionStatistics';
 import { ResultTabId } from '@/app/result/result.constants';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
 import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
 import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
 import Tab from '@/components/Tab/Tab';
+import { useTab } from '@/components/Tab/Tab.hooks';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { css } from '@/styled-system/css';
 import dayjs from 'dayjs';
 
-function FinishedMissionDetailPage() {
+const MISSION_TAB = [
+  {
+    tabName: '미션 내역',
+    id: 'mission-history',
+  },
+  {
+    tabName: '통계',
+    id: 'mission-statistics',
+  },
+];
+
+function FinishedMissionDetailPage({ params: { id } }: { params: { id: string } }) {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
 
-  const { id } = useParams();
   const missionId = id;
   const currentData = dayjs();
 
-  const tabs = [
-    {
-      tabName: '미션 내역',
-      id: 'mission-history',
-    },
-  ];
-
+  const { tabs, activeTab, onTabClick } = useTab(MISSION_TAB, 'mission-history');
   const handleMenuClick = () => {
     openDeleteDialog();
   };
@@ -42,16 +48,21 @@ function FinishedMissionDetailPage() {
         onMenuClick={handleMenuClick}
         onBackAction={() => router.replace(ROUTER.RESULT.HOME(ResultTabId.FINISHED_MISSION))}
       />
+
       <div className={tabWrapperCss}>
-        <Tab tabs={tabs} activeTab={'mission-history'} />
+        <Tab tabs={tabs} activeTab={activeTab} onTabClick={onTabClick} />
       </div>
-
-      <MissionHistoryTabLayout>
-        {/* TODO: 종료 미션 start ~ finish date 표시 */}
-        {missionId && <MissionHistoryBannerApi missionId={String(missionId)} />}
-        <MissionCalendar currentData={currentData} missionId={Number(missionId)} />
-      </MissionHistoryTabLayout>
-
+      {activeTab === 'mission-history' && (
+        <MissionHistoryTabLayout>
+          {missionId && <MissionHistoryBannerApi missionId={String(missionId)} />}
+          <MissionCalendar currentData={currentData} missionId={Number(missionId)} />
+        </MissionHistoryTabLayout>
+      )}
+      {activeTab === 'mission-statistics' && (
+        <MissionHistoryTabLayout>
+          <MissionStatistics missionId={missionId} />
+        </MissionHistoryTabLayout>
+      )}
       <MissionDeleteDialog
         isOpen={isOpen}
         closeModal={closeDeleteDialog}
@@ -65,7 +76,6 @@ function FinishedMissionDetailPage() {
 export default FinishedMissionDetailPage;
 
 const mainWrapperCss = css({
-  height: '100vh',
   width: '100%',
 });
 
