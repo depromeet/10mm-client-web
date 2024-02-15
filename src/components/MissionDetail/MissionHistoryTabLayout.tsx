@@ -13,7 +13,7 @@ export default MissionHistoryTabLayout;
 
 const scrollAreaCss = css({
   overflowY: 'scroll',
-  height: 'calc(100vh - 24px - 44px)',
+  height: 'calc(100vh - 44px - 49px)',
   _scrollbar: {
     display: 'none',
   },

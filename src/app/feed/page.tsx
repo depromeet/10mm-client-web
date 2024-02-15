@@ -1,4 +1,4 @@
-import FeedList from '@/app/feed/FeedList';
+import FeedSection from '@/app/feed/FeedSection';
 import AppBar from '@/app/home/AppBar';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
@@ -7,7 +7,7 @@ export default function FeedPage() {
   return (
     <>
       <AppBar />
-      <FeedList />
+      <FeedSection />
       <BottomDim type={'bottomDim2'} />
       <AppBarBottom />
     </>
