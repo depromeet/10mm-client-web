@@ -36,9 +36,14 @@ type QueryList = {
     missionId: string;
   };
   finishedMissions: undefined;
+
+  // feed
   feedMe: undefined;
   feed: {
     memberId: number;
+  };
+  feedList: {
+    visibility: string;
   };
 
   // reaction

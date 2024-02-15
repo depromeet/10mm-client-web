@@ -7,6 +7,8 @@ type GetFeedMeResponse = Array<FeedItemType>;
 
 type GetFeedByMemberIdResponse = Array<FeedBaseType>;
 
+export type FeedVisibilityType = 'ALL' | 'FOLLOWER' | 'NONE';
+
 export const FEED_API = {
   getFeedMe: async (): Promise<GetFeedMeResponse> => {
     const { data } = await apiInstance.get('/feed/me');
@@ -14,6 +16,10 @@ export const FEED_API = {
   },
   getFeed: async (memberId: number): Promise<GetFeedByMemberIdResponse> => {
     const { data } = await apiInstance.get(`/feed/${memberId}`);
+    return data;
+  },
+  getFeedList: async (visibility: FeedVisibilityType): Promise<GetFeedMeResponse> => {
+    const { data } = await apiInstance.get('/feed', { params: { visibility } });
     return data;
   },
 };
@@ -31,5 +37,13 @@ export const useFeedByMemberId = (memberId: number, options?: UseQueryOptions<Ge
     ...options,
     queryKey: getQueryKey('feed', { memberId }),
     queryFn: () => FEED_API.getFeed(memberId),
+  });
+};
+
+export const useGetFeedList = (visibility: FeedVisibilityType, options?: UseQueryOptions<GetFeedMeResponse>) => {
+  return useQuery<GetFeedMeResponse>({
+    ...options,
+    queryKey: getQueryKey('feedList', { visibility }),
+    queryFn: () => FEED_API.getFeedList(visibility),
   });
 };
