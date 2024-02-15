@@ -102,6 +102,10 @@ function OtherReactionBar(props: Props) {
         isShowing={isReactionBottomSheetShowing}
         data={data}
         onClose={() => setIsReactionBottomSheetShowing(false)}
+        onDeleteReaction={() => {
+          refetch();
+          setIsReactionBottomSheetShowing(false);
+        }}
       />
     </div>
   );

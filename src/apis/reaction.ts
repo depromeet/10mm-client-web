@@ -43,6 +43,10 @@ interface ModifyReactionRequest {
   emojiType: EmojiType;
 }
 
+interface DeleteReactionRequest {
+  reactionId: number;
+}
+
 export const REACTION_API = {
   getReactions: async (recordId: number): Promise<GetReactionsResponse> => {
     const { data } = await apiInstance.get<GetReactionsResponse>(`/reactions?missionRecordId=${recordId}`);
@@ -53,8 +57,11 @@ export const REACTION_API = {
     return data;
   },
   modifyReaction: async ({ reactionId, emojiType }: ModifyReactionRequest) => {
-    console.log('reactionId: ', reactionId);
     const { data } = await apiInstance.put<AddReactionResponse>(`/reactions/${reactionId}`, { emojiType });
+    return data;
+  },
+  deleteReaction: async ({ reactionId }: DeleteReactionRequest) => {
+    const { data } = await apiInstance.delete<AddReactionResponse>(`/reactions/${reactionId}`);
     return data;
   },
 };

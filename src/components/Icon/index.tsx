@@ -29,6 +29,7 @@ import TENMMSymbolCircleIcon, { TENMMSymbolCircleLocked } from '@/components/Ico
 import TENMMSymbolCircleNormalIcon from '@/components/Icon/TENMMSymbolCircleNormalIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
+import TrashcanIcon from '@/components/Icon/TrashcanIcon';
 import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
@@ -91,6 +92,7 @@ export const IconComponentMap = {
   '10mm-symbol-fill': SymbolFillIcon,
   clock: ClockIcon,
   notification: NotificationIcon,
+  trashcan: TrashcanIcon,
 } as const;
 
 interface Props extends IconComponentProps {
