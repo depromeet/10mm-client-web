@@ -16,7 +16,7 @@ function MissionListInner() {
   if (missionList.length === 0) {
     return (
       <div className={containerCss}>
-        <MissionList.Empty />
+        <MissionList.SuggestAdd />
       </div>
     );
   }

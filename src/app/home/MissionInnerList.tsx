@@ -12,7 +12,7 @@ function MissionListInner() {
   }
 
   if (missionList.length === 0) {
-    return <MissionList.Empty />;
+    return <MissionList.SuggestAdd />;
   }
 
   return (

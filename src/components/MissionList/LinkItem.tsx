@@ -4,13 +4,14 @@ import MissionItem from '@/components/MissionList/Item';
 
 interface Props extends ComponentProps<typeof MissionItem> {
   href: string;
+  onClick?: () => void; // link click event
 }
 
-function MissionLinkItem(props: Props) {
-  if (!props.href) return <MissionItem {...props} />;
+function MissionLinkItem({ href, onClick, ...props }: Props) {
+  if (!href) return <MissionItem {...props} />;
 
   return (
-    <Link href={props.href} key={props.missionId}>
+    <Link href={href} key={props.missionId} onClick={onClick}>
       <MissionItem {...props} />
     </Link>
   );

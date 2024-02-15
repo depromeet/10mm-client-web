@@ -1,6 +1,6 @@
 import { useGetMissionSummaryList } from '@/apis/result';
-import MissionBadge from '@/app/home/MissionBadge';
 import { TwoLineListItem } from '@/components/ListItem';
+import MissionBadge from '@/components/MissionList/Badge';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { css } from '@/styled-system/css';
 import { motion } from 'framer-motion';

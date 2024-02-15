@@ -1,6 +1,6 @@
 import { type MissionItemTypeWithRecordId } from '@/apis/schema/mission';
-import MissionBadge from '@/app/home/MissionBadge';
 import { TwoLineListItem } from '@/components/ListItem';
+import MissionBadge from '@/components/MissionList/Badge';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 
 function MissionItem(item: MissionItemTypeWithRecordId) {
