@@ -36,7 +36,6 @@ function FollowMissionList({ followId }: FollowMissionListProps) {
             onClick={handleClick}
             href={ROUTER.MISSION.FOLLOW(item.missionId.toString())}
             {...item}
-            missionStatus={status}
           />
         );
       })}

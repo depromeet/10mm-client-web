@@ -1,4 +1,4 @@
-import { MissionStatus } from '@/apis/schema/mission';
+import { type MissionItemTypeWithRecordId, MissionStatus } from '@/apis/schema/mission';
 import { useMissions } from '@/app/home/home.hooks';
 import MissionList from '@/components/MissionList';
 import { ROUTER } from '@/constants/router';
@@ -18,20 +18,25 @@ function MissionListInner() {
   return (
     <MissionList.Container>
       {missionList.map((item) => {
-        const isProgressingMission = progressMissionId === String(item.missionId);
-        const status = isProgressingMission ? MissionStatus.PROGRESSING : item.missionStatus;
-
-        const missionId = item.missionId.toString();
-        const moveHref = isProgressingMission
-          ? ROUTER.MISSION.STOP_WATCH(missionId)
-          : item.missionRecordId && status === MissionStatus.REQUIRED
-            ? ROUTER.RECORD.CREATE(item.missionRecordId.toString())
-            : ROUTER.MISSION.DETAIL(missionId);
-
-        return <MissionList.LinkItem href={moveHref} key={item.missionId} {...item} />;
+        const { moveHref, status } = getMoveHref(item, progressMissionId);
+        return <MissionList.LinkItem href={moveHref} key={item.missionId} {...item} missionStatus={status} />;
       })}
     </MissionList.Container>
   );
 }
 
 export default MissionListInner;
+
+const getMoveHref = (item: MissionItemTypeWithRecordId, progressMissionId: string | null) => {
+  const isProgressingMission = progressMissionId === String(item.missionId);
+  const status = isProgressingMission ? MissionStatus.PROGRESSING : item.missionStatus;
+
+  const missionId = item.missionId.toString();
+  const moveHref = isProgressingMission
+    ? ROUTER.MISSION.STOP_WATCH(missionId)
+    : item.missionRecordId && status === MissionStatus.REQUIRED
+      ? ROUTER.RECORD.CREATE(item.missionRecordId.toString())
+      : ROUTER.MISSION.DETAIL(missionId);
+
+  return { moveHref, status };
+};
