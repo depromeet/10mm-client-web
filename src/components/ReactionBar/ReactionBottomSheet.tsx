@@ -30,19 +30,39 @@ function ReactionBottomSheet(props: Props) {
   const viewReactionList = props.data?.find((item) => item.emojiType === selectedEmoji);
 
   return (
-    <BottomSheet
-      headerElement={<Header rightAction="none" title="응원한 사람" />}
-      isShowing={props.isShowing}
-      onClickOutside={props.onClose}
-      isDraggable
-    >
-      <EmojiList data={props.data} selectedEmoji={selectedEmoji} onSelect={setSelectedEmoji} />
-      <PeopleList data={viewReactionList} />
-    </BottomSheet>
+    <>
+      <BottomSheet
+        headerElement={<Header rightAction="none" title="응원한 사람" />}
+        isShowing={props.isShowing}
+        onClickOutside={props.onClose}
+        isDraggable
+      >
+        <EmojiList data={props.data} selectedEmoji={selectedEmoji} onSelect={setSelectedEmoji} />
+        <PeopleList data={viewReactionList} />
+      </BottomSheet>
+      {props.isShowing && (
+        <div
+          className={backDropCss}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            props.onClose();
+          }}
+        />
+      )}
+    </>
   );
 }
 
 export default ReactionBottomSheet;
+const backDropCss = css({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 1,
+});
 
 interface EmojiListProps {
   data?: GetReactionsResponse;
