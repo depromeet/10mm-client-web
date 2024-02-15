@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useGetMyId } from '@/apis/member';
 import { type GetReactionsResponse, type ReactionType } from '@/apis/reaction';
 import { type EmojiType, REACTION_EMOJI_IMAGE } from '@/apis/schema/reaction';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import Header from '@/components/Header/Header';
 import { OneLineListItem } from '@/components/ListItem';
+import { ROUTER } from '@/constants/router';
 import { hiddenScrollCss } from '@/constants/style/scroll';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
@@ -86,19 +89,29 @@ const emojiItemCss = flex({
 });
 
 function PeopleList({ data }: { data?: ReactionType }) {
+  const { memberId: myId } = useGetMyId();
+
   return (
     <section className={peopleListSectionCss}>
       {data?.reactions.map((reaction) => (
-        <OneLineListItem.Thumbnail
+        <Link
           key={reaction.memberProfile.memberId}
-          name={reaction.memberProfile.nickname}
-          // TODO : 리팩토링 필요
-          thumbnail={{
-            url: reaction.memberProfile.profileImageUrl,
-            size: 'h36',
-            variant: 'filled',
-          }}
-        />
+          href={
+            myId === reaction.memberProfile.memberId
+              ? ROUTER.MYPAGE.HOME
+              : ROUTER.PROFILE.DETAIL(reaction.memberProfile.memberId)
+          }
+        >
+          <OneLineListItem.Thumbnail
+            name={reaction.memberProfile.nickname}
+            // TODO : 리팩토링 필요
+            thumbnail={{
+              url: reaction.memberProfile.profileImageUrl,
+              size: 'h36',
+              variant: 'filled',
+            }}
+          />
+        </Link>
       ))}
     </section>
   );
