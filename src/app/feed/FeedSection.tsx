@@ -5,6 +5,7 @@ import { type FeedVisibilityType, useGetFeedList } from '@/apis/feed';
 import FeedList from '@/app/feed/FeedList';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
+import useShowGuide, { GUIDE_KEY } from '@/hooks/useShowGuide';
 import { css } from '@/styled-system/css';
 
 const FEED_TABS: { id: FeedVisibilityType; tabName: string }[] = [
@@ -32,6 +33,8 @@ function FeedSection() {
       }
     }
   }, [isLoading]);
+
+  useShowGuide(GUIDE_KEY.ALL_FEED_OPEN, 'appBar');
 
   return (
     <div>
