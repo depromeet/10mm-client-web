@@ -48,8 +48,8 @@ function ReactionItem(props: Omit<Props, 'href' | 'onClick'>) {
 function ReactionList({ recordId }: { recordId: number }) {
   const { data } = useGetReactions(recordId);
 
-  if (!data) {
-    return <div className={reactionListCss}></div>;
+  if (!data || data.length === 0) {
+    return null;
   }
 
   return (
