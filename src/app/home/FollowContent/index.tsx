@@ -1,10 +1,12 @@
 import { useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
 import { type FollowMemberType } from '@/apis/schema/member';
-import FollowMissionList, { FollowMissionListSkeleton } from '@/app/home/FollowMissionList';
-import FollowSummary, { FollowSummarySkeleton } from '@/app/home/FollowSummary';
-import MissionList from '@/app/home/MissionList';
+import MissionList from '@/components/MissionList';
 import { flex } from '@styled-system/patterns';
+
+import FollowMissionList from './FollowMissionList';
+import FollowSummary, { FollowSummarySkeleton } from './FollowSummary';
+import HomeMissionList from './MissionList';
 
 function FollowContent() {
   const { data: selectedFollowData, isLoading, isFollower } = useGetSelectFollowData();
@@ -12,7 +14,7 @@ function FollowContent() {
   if (!isFollower)
     return (
       <div className={containerCss}>
-        <MissionList />
+        <HomeMissionList />
       </div>
     );
 
@@ -20,7 +22,11 @@ function FollowContent() {
     return (
       <div className={containerCss}>
         <FollowSummarySkeleton />
-        <FollowMissionListSkeleton />
+
+        <h2 className={headingCss}>
+          <span>미션 목록</span>
+        </h2>
+        <MissionList.Skeleton />
       </div>
     );
   }
@@ -28,12 +34,22 @@ function FollowContent() {
   return (
     <div className={containerCss}>
       <FollowSummary {...selectedFollowData} />
+
+      <h2 className={headingCss}>
+        <span>미션 목록</span>
+      </h2>
       <FollowMissionList followId={selectedFollowData.memberId} />
     </div>
   );
 }
 
 export default FollowContent;
+
+const headingCss = flex({
+  padding: '12px 4px',
+  textStyle: 'body4',
+  color: 'text.primary',
+});
 
 const useGetSelectFollowData = (): { data: FollowMemberType | null; isLoading: boolean; isFollower: boolean } => {
   const { data, isLoading } = useFollowMembers();
