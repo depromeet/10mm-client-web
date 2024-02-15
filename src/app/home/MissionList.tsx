@@ -9,6 +9,19 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
+function MissionList() {
+  return (
+    <div className={containerCss}>
+      <MissionListHeader />
+      <ul className={listCss}>
+        <MissionListInner />
+      </ul>
+    </div>
+  );
+}
+
+export default MissionList;
+
 function MissionListHeader() {
   const handlePlusClick = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_PLUS_BUTTON);
@@ -23,19 +36,6 @@ function MissionListHeader() {
     </h2>
   );
 }
-
-function MissionList() {
-  return (
-    <div className={containerCss}>
-      <MissionListHeader />
-      <ul className={listCss}>
-        <MissionListInner />
-      </ul>
-    </div>
-  );
-}
-
-export default MissionList;
 
 const containerCss = css({
   height: '100%',

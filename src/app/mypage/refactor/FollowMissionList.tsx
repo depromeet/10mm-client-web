@@ -17,6 +17,7 @@ interface FollowMissionListProps {
   followId: number;
 }
 
+// TODO: home FOllowMissionList 복사본
 function FollowMissionList({ followId }: FollowMissionListProps) {
   return (
     <div>
@@ -66,6 +67,14 @@ const listCss = flex({
 
 export function MissionFollowListInner({ followId }: { followId: number }) {
   const { data } = useFollowMissions(followId);
+  // if (isLoading) {
+  //   return (
+  //     <ul className={listCss}>
+  //       <MissionListSkeleton />
+  //     </ul>
+  //   );
+  // }
+
   if (!data) {
     return null;
   }
