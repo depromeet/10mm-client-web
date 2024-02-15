@@ -54,7 +54,7 @@ function FeedItem({
           <p className={missionNameCss}>{name}</p>
           {remark && <p className={remarkCss}>{remark}</p>}
           <p className={captionCss}>
-            {sinceDay}일차 <div className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
+            {sinceDay}일차 <span className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
           </p>
         </div>
       </Link>
@@ -150,6 +150,7 @@ const captionCss = css({
 });
 
 const dotCss = css({
+  display: 'block',
   width: '2px',
   height: '2px',
   borderRadius: '50%',
