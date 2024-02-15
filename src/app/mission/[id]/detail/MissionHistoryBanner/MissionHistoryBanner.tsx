@@ -29,8 +29,8 @@ export default MissionHistoryBanner;
 
 export const missionHistoryBannerCss = css({
   borderRadius: '22px',
-  boxShadow: '0px 5px 50px 4px #5C4E7A80 inset, 0px 4px 20px 0px #100F1733',
-  background: 'linear-gradient(92.59deg, rgba(25, 23, 27, 0.8) 0.82%, rgba(24, 25, 33, 0.8) 99.97%)',
+  background: 'linear-gradient(0deg, rgba(181, 184, 255, 0.02) 0%, rgba(181, 184, 255, 0.02) 100%), #18181D',
+  boxShadow: '-10px 0px 100px 4px rgba(93, 96, 178, 0.10) inset',
   transition: 'all 0.3s ease',
 
   '& img': {
