@@ -28,13 +28,17 @@ export default function FollowMissionDetailPage({ params: { id } }: { params: { 
       <div className={tabWrapperCss}>
         <Tab tabs={tabs} activeTab={activeTab} onTabClick={onTabClick} />
       </div>
-      {activeTab === 'mission-history' && <MissionHistoryTab isFollow={true} />}
+      {activeTab === 'mission-history' && (
+        <>
+          <MissionHistoryTab isFollow={true} />
+          <BottomDim />
+        </>
+      )}
       {activeTab === 'mission-statistics' && (
         <MissionHistoryTabLayout>
           <MissionStatistics missionId={id} />
         </MissionHistoryTabLayout>
       )}
-      <BottomDim />
     </main>
   );
 }

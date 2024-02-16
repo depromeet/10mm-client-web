@@ -98,4 +98,7 @@ const infoWrapperCss = css({
 const listCss = css({
   flex: 1,
   overflowY: 'auto',
+  _scrollbar: {
+    display: 'none',
+  },
 });
