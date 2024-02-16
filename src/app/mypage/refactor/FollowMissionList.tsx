@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { useFollowMissions } from '@/apis/follow';
 import { MissionListSkeleton } from '@/app/home/home.styles';
-import MissionBadge from '@/app/home/MissionBadge';
 import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
+import MissionBadge from '@/components/MissionList/Badge';
 import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
@@ -17,6 +17,7 @@ interface FollowMissionListProps {
   followId: number;
 }
 
+// TODO: home FOllowMissionList 복사본
 function FollowMissionList({ followId }: FollowMissionListProps) {
   return (
     <div>

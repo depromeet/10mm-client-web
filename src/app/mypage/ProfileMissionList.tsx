@@ -1,7 +1,7 @@
 'use client';
 
-import FollowMissionList from '@/app/home/FollowMissionList';
-import MissionListInner from '@/app/home/MissionInnerList';
+import FollowMissionList from '@/app/mypage/refactor/FollowMissionList';
+import MissionListInner from '@/app/mypage/refactor/MissionInnerList';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 

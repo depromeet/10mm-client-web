@@ -3,6 +3,7 @@ export interface FeedItemType extends FeedBaseType {
   nickname: string;
   profileImage?: string;
   memberId: number;
+  recordStartedAt: string;
 }
 
 export interface FeedBaseType {

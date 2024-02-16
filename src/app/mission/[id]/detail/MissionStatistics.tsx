@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 function MissionStatistics({ missionId }: { missionId: string }) {
   const { data } = useGetRecordsStatistics(Number(missionId));
   return (
-    <div className={tabWrapperCss}>
+    <div>
       <div className={totalMissionTimeWrapperCss}>
         <div className={cx(timeTextCss, gradientTextCss)}>
           <span>{data?.totalMissionHour || 0}h</span>
@@ -77,10 +77,6 @@ const titleCss = css({
   display: 'flex',
   alignItems: 'center',
   gap: '6px',
-});
-
-const tabWrapperCss = css({
-  padding: '0 16px',
 });
 
 const bannerWrapperCss = css({

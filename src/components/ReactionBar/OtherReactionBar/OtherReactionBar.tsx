@@ -8,6 +8,7 @@ import MotionDiv from '@/components/Motion/MotionDiv';
 import { reactionBarContainerCss, titleSectionCss } from '@/components/ReactionBar/ReactionBar.style';
 import ReactionBottomSheet from '@/components/ReactionBar/ReactionBottomSheet';
 import ReactionList from '@/components/ReactionBar/ReactionList';
+import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { gradientTextCss } from '@/constants/style/gradient';
 import { css } from '@/styled-system/css';
@@ -22,6 +23,7 @@ interface Props {
 }
 
 function OtherReactionBar(props: Props) {
+  const { triggerSnackBar } = useSnackBar();
   const { data, refetch, isLoading } = useGetReactions(props.recordId);
   const [selectEmoji, setSelectEmoji] = useState<SelectEmojiType>();
 
@@ -31,6 +33,17 @@ function OtherReactionBar(props: Props) {
   const { myReactionId, myEmoji } = useGetMyReactions(data as GetReactionsResponse);
 
   const onOpenReactionBottomSheet = () => {
+    if (!data) return;
+
+    if (data.length === 0) {
+      // snack bar
+      triggerSnackBar({
+        message: '아직 응원한 사람이 없습니다.',
+        offset: 'appBar',
+      });
+      return;
+    }
+
     eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.OPEN_BOTTOM_SHEET);
     setIsReactionBottomSheetShowing(true);
   };
@@ -89,6 +102,10 @@ function OtherReactionBar(props: Props) {
         isShowing={isReactionBottomSheetShowing}
         data={data}
         onClose={() => setIsReactionBottomSheetShowing(false)}
+        onDeleteReaction={() => {
+          refetch();
+          setIsReactionBottomSheetShowing(false);
+        }}
       />
     </div>
   );
