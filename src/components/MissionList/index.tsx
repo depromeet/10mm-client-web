@@ -3,6 +3,7 @@ import MissionItem from './Item';
 import MissionLinkItem from './LinkItem';
 import MissionListContainer from './ListContainer';
 import MissionListNoticeEmpty from './NoticeEmpty';
+import ReactionLinkItem from './ReactionLinkItem';
 import MissionListSkeleton from './Skeleton';
 
 export default Object.assign(MissionListContainer, {
@@ -12,4 +13,5 @@ export default Object.assign(MissionListContainer, {
   Skeleton: MissionListSkeleton,
   SuggestAdd: MissionEmptyList,
   NoticeEmpty: MissionListNoticeEmpty,
+  ReactionLinkItem: ReactionLinkItem,
 });

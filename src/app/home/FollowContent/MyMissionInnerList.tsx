@@ -1,9 +1,10 @@
 import { type MissionItemTypeWithRecordId, MissionStatus } from '@/apis/schema/mission';
 import { useMissions } from '@/app/home/home.hooks';
 import MissionList from '@/components/MissionList';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 
-// TODO : 확인하기,
 function MissionListInner() {
   const { missionList, isLoading, progressMissionId } = useMissions();
 
@@ -19,7 +20,29 @@ function MissionListInner() {
     <MissionList.Container>
       {missionList.map((item) => {
         const { moveHref, status } = getMoveHref(item, progressMissionId);
-        return <MissionList.LinkItem href={moveHref} key={item.missionId} {...item} missionStatus={status} />;
+
+        if (item.missionRecordId && status === MissionStatus.COMPLETED) {
+          return (
+            <MissionList.ReactionLinkItem
+              href={moveHref}
+              key={item.missionId}
+              {...item}
+              missionStatus={status}
+              recordId={Number(item.missionRecordId)}
+              onClick={() => onClickItem(true)}
+            />
+          );
+        }
+
+        return (
+          <MissionList.LinkItem
+            href={moveHref}
+            key={item.missionId}
+            {...item}
+            missionStatus={status}
+            onClick={() => onClickItem(false)}
+          />
+        );
       })}
     </MissionList.Container>
   );
@@ -39,4 +62,10 @@ const getMoveHref = (item: MissionItemTypeWithRecordId, progressMissionId: strin
       : ROUTER.MISSION.DETAIL(missionId);
 
   return { moveHref, status };
+};
+
+const onClickItem = (isReaction: boolean) => {
+  eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_MY_MISSION, {
+    isReaction,
+  });
 };

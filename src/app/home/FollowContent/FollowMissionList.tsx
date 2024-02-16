@@ -1,4 +1,5 @@
 import { useFollowMissions } from '@/apis/follow';
+import { MissionStatus } from '@/apis/schema/mission';
 import MissionList from '@/components/MissionList';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
@@ -30,6 +31,18 @@ function FollowMissionList({ followId }: FollowMissionListProps) {
           });
         };
 
+        if (item.missionRecordId && status === MissionStatus.COMPLETED) {
+          return (
+            <MissionList.ReactionLinkItem
+              href={ROUTER.MISSION.FOLLOW(item.missionId.toString())}
+              key={item.missionId}
+              recordId={Number(item.missionRecordId)}
+              onClick={() => onClickItem(true)}
+              {...item}
+            />
+          );
+        }
+
         return (
           <MissionList.LinkItem
             key={item.missionId}
@@ -44,3 +57,9 @@ function FollowMissionList({ followId }: FollowMissionListProps) {
 }
 
 export default FollowMissionList;
+
+const onClickItem = (isReaction: boolean) => {
+  eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_FOLLOW_MISSION, {
+    isReaction,
+  });
+};

@@ -6,7 +6,7 @@ import { flex } from '@styled-system/patterns';
 
 import FollowMissionList from './FollowMissionList';
 import FollowSummary, { FollowSummarySkeleton } from './FollowSummary';
-import HomeMissionList from './MissionList';
+import HomeMissionList from './MyMissionList';
 
 function FollowContent() {
   const { data: selectedFollowData, isLoading, isFollower } = useGetSelectFollowData();

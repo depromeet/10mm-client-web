@@ -21,7 +21,7 @@ function FeedItem({
   profileImage,
   recordImageUrl,
   duration,
-  startedAt,
+  recordStartedAt,
   recordId,
 }: FeedItemType) {
   const { memberId: myId } = useGetMyId();
@@ -54,7 +54,7 @@ function FeedItem({
           <p className={missionNameCss}>{name}</p>
           {remark && <p className={remarkCss}>{remark}</p>}
           <p className={captionCss}>
-            {sinceDay}일차 <span className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
+            {sinceDay}일차 <div className={dotCss} /> {dayjs(recordStartedAt).format('YYYY년 MM월 DD일')}
           </p>
         </div>
       </Link>
