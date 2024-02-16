@@ -41,7 +41,7 @@ const bgCss = css({
   transform: 'translate(-50%, -50%)',
   zIndex: 0,
   width: '194px',
-  height: '194px',
+  height: '120px',
   '& img': {
     width: '100%',
     height: '100%',
