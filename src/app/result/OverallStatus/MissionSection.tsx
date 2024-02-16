@@ -27,5 +27,5 @@ const containerCss = css({
 });
 
 const blankCss = css({
-  height: '156px',
+  height: '106px',
 });
