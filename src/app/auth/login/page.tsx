@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useSocialLogin, useUpdateMemberFcmToken } from '@/apis/auth';
-import Button from '@/components/Button/Button';
+// import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
 import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
@@ -35,9 +35,9 @@ export default function LoginPage() {
   const { mutate: updateMemberFcmTokenMutate } = useUpdateMemberFcmToken();
   const search = useSearchParams();
   const redirectUrl = search.get('redirect') ?? ROUTER.HOME;
-  const onClickGuest = () => {
-    router.push(ROUTER.GUEST.MISSION.NEW);
-  };
+  // const onClickGuest = () => {
+  //   router.push(ROUTER.GUEST.MISSION.NEW);
+  // };
 
   const onClickAppleLogin = () => {
     if (isWebView()) {
@@ -164,7 +164,7 @@ export default function LoginPage() {
         <div className={LoginButtonListWrapperCss}>
           {isIOS() && <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />}
           <ButtonSocialLogin type="kakao" onClick={onClickKakaoLogin} />
-          <Button
+          {/* <Button
             type="button"
             size="large"
             variant="ghost"
@@ -172,7 +172,7 @@ export default function LoginPage() {
             className={css({ color: 'text.primary' })}
           >
             둘러보기
-          </Button>
+          </Button> */}
         </div>
       </div>
     </>
