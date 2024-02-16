@@ -25,7 +25,7 @@ const containerCss = css({
   gap: '8px',
   borderRadius: '22px',
   border: '1px solid #22242F',
-  background: 'rgba(181, 184, 255, 0.02)',
+  background: 'linear-gradient(0deg, rgba(181, 184, 255, 0.02) 0%, rgba(181, 184, 255, 0.02) 100%), #18181D',
   boxShadow: '-10px 0px 100px 4px rgba(93, 96, 178, 0.10) inset',
 });
 

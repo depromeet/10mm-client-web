@@ -1,13 +1,26 @@
 'use client';
 
 import Link from 'next/link';
-import MissionListInner from '@/app/home/MissionInnerList';
+import MissionListInner from '@/app/home/FollowContent/MyMissionInnerList';
 import Icon from '@/components/Icon';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
+
+function MissionList() {
+  return (
+    <div className={containerCss}>
+      <MissionListHeader />
+      <ul className={listCss}>
+        <MissionListInner />
+      </ul>
+    </div>
+  );
+}
+
+export default MissionList;
 
 function MissionListHeader() {
   const handlePlusClick = () => {
@@ -23,19 +36,6 @@ function MissionListHeader() {
     </h2>
   );
 }
-
-function MissionList() {
-  return (
-    <div className={containerCss}>
-      <MissionListHeader />
-      <ul className={listCss}>
-        <MissionListInner />
-      </ul>
-    </div>
-  );
-}
-
-export default MissionList;
 
 const containerCss = css({
   height: '100%',

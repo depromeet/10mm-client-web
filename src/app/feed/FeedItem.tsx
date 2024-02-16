@@ -21,7 +21,7 @@ function FeedItem({
   profileImage,
   recordImageUrl,
   duration,
-  startedAt,
+  recordStartedAt,
   recordId,
 }: FeedItemType) {
   const { memberId: myId } = useGetMyId();
@@ -43,18 +43,19 @@ function FeedItem({
           <p>{nickname}</p>
         </div>
       </Link>
+
+      <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
       <Link
         href={
           isMyFeed ? ROUTER.RECORD.DETAIL.HOME(recordId.toString()) : ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())
         }
         onClick={handleClickFeedItem}
       >
-        <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
         <div className={textWrapperCss}>
           <p className={missionNameCss}>{name}</p>
           {remark && <p className={remarkCss}>{remark}</p>}
           <p className={captionCss}>
-            {sinceDay}일차 <span className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
+            {sinceDay}일차 <div className={dotCss} /> {dayjs(recordStartedAt).format('YYYY년 MM월 DD일')}
           </p>
         </div>
       </Link>

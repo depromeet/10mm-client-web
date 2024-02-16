@@ -8,6 +8,7 @@ function MissionHistorySkeleton() {
         missionHistoryBannerCss,
         css({
           height: '70px',
+          animation: 'skeleton',
         }),
       )}
     />

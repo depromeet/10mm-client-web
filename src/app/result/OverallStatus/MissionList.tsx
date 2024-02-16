@@ -1,6 +1,6 @@
 import { useGetMissionSummaryList } from '@/apis/result';
-import MissionBadge from '@/app/home/MissionBadge';
 import { TwoLineListItem } from '@/components/ListItem';
+import MissionBadge from '@/components/MissionList/Badge';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { css } from '@/styled-system/css';
 import { motion } from 'framer-motion';
@@ -63,17 +63,19 @@ const sectionCss = css({
   borderRadius: '20px',
   padding: '20px',
   marginTop: '10px',
-  height: '302px',
+  maxHeight: '302px',
   display: 'flex',
   flexDirection: 'column',
   gap: '12px',
+  transition: 'height 0.3s',
 });
 
 const emptyTextCss = css({
   textStyle: 'subtitle3',
   color: 'text.quaternary',
   textAlign: 'center',
-  marginTop: '88px',
+  // marginTop: '88px',
+  lineHeight: '58px',
 });
 
 const infoWrapperCss = css({
@@ -98,4 +100,12 @@ const infoWrapperCss = css({
 const listCss = css({
   flex: 1,
   overflowY: 'auto',
+
+  '& > li': {
+    cursor: 'default',
+  },
+
+  _scrollbar: {
+    display: 'none',
+  },
 });

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
-import UserProfile from '@/app/home/UserProfile';
+import UserProfile from '@/app/home/FollowList/UserProfile';
 import { type FollowDataState } from '@/app/page';
 import Icon from '@/components/Icon';
 import MotionDiv from '@/components/Motion/MotionDiv';

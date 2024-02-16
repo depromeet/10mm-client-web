@@ -1,6 +1,6 @@
 import { useGetMissionDetailNoSuspense } from '@/apis/mission';
-import MissionHistoryBanner from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBanner';
 import MissionHistorySkeleton from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
+import Banner from '@/components/Banner/Banner';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 
 function MissionHistoryBannerApi({ missionId }: { missionId: string }) {
@@ -12,7 +12,7 @@ function MissionHistoryBannerApi({ missionId }: { missionId: string }) {
   const description = data.content;
   const imageUrl = MISSION_CATEGORY_LABEL[data.category].imgUrl;
 
-  return <MissionHistoryBanner title={title} description={description} imageUrl={imageUrl} />;
+  return <Banner type={'list'} title={title} description={description} imageUrl={imageUrl} />;
 }
 
 export default MissionHistoryBannerApi;

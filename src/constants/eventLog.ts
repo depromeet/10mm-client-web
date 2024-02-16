@@ -27,6 +27,7 @@ export const EVENT_LOG_NAME = {
     CLICK_FOLLOW_PROFILE: 'click/followProfile',
     CLICK_FOLLOW_LIST: 'click/followList',
     CLICK_PLUS_BUTTON: 'click/plusButton',
+    CLICK_MY_MISSION: 'click/myMission',
   },
   SELECT_CATEGORY: {
     CLICK_NEXT_BUTTON: 'click/nextButton',
