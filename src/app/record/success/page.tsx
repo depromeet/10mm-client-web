@@ -28,11 +28,11 @@ export default function MissionSuccessPage() {
             </div>
           </div>
         </div>
-      </div>
-      <div className={buttonWrapperCss}>
-        <Button type="button" size="large" variant="primary" onClick={onClickConfirmButton}>
-          <span className={buttonTextCss}>확인</span>
-        </Button>
+        <div className={buttonWrapperCss}>
+          <Button type="button" size="large" variant="primary" onClick={onClickConfirmButton}>
+            <span className={buttonTextCss}>확인</span>
+          </Button>
+        </div>
       </div>
     </main>
   );
@@ -52,6 +52,7 @@ const buttonWrapperCss = css({
   position: 'fixed',
   bottom: '0',
   width: '100%',
+  maxWidth: 'maxWidth',
 });
 
 const containerCss = css({
