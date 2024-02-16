@@ -59,7 +59,7 @@ const thumbnailStyle = cva({
       h18: {
         width: '18px',
         height: '18px',
-        borderRadius: '10px',
+        borderRadius: '7px',
       },
     },
     variant: {
