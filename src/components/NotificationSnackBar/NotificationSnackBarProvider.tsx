@@ -45,7 +45,7 @@ export default function NotificationSnackBarProvider({ children }: PropsWithChil
       () => {
         removeNotificationSnackBar(id);
       },
-      addItem.variant === 'none' ? 1000 : 5000,
+      addItem.variant === 'none' ? 1000 : 2000,
     );
   };
 
