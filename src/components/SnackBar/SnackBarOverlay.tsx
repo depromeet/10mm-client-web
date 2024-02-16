@@ -67,7 +67,7 @@ export const snackBarOverlayCss = cva({
       offset: 'appBar',
       position: 'bottom',
       css: {
-        bottom: `114px`,
+        bottom: `112px`,
       },
     },
     {
