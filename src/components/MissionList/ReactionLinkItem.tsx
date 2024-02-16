@@ -77,4 +77,8 @@ const reactionItemCss = css({
   textStyle: 'body6',
   userSelect: 'none',
   gap: '3px',
+
+  '& img': {
+    opacity: 0.7,
+  },
 });
