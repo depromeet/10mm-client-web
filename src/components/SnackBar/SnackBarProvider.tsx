@@ -41,7 +41,7 @@ export default function SnackBarProvider({ children }: PropsWithChildren) {
       () => {
         removeSnackBar(id);
       },
-      addItem.variant === 'none' ? 1000 : 5000,
+      addItem.variant === 'none' ? 1000 : 2000,
     );
   };
 
