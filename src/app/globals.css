@@ -25,6 +25,13 @@ button {
   }
 }
 
+textarea:focus,
+button:focus,
+input:focus,
+a {
+  outline: none;
+}
+
 * {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* 버튼 클릭시 나오는 하이라이트 제거 */
   -webkit-touch-callout: none; /* 링크를 오래 눌렀을때 액션 막기*/
