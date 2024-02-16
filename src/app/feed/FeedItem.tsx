@@ -150,6 +150,7 @@ const captionCss = css({
 });
 
 const dotCss = css({
+  display: 'block',
   width: '2px',
   height: '2px',
   borderRadius: '50%',

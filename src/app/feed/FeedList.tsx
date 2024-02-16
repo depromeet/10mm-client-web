@@ -1,12 +1,12 @@
 'use client';
-import { useFeedMe } from '@/apis/feed';
+
+import { type FeedItemType } from '@/apis/schema/feed';
 import FeedItem, { FeedSkeletonItem } from '@/app/feed/FeedItem';
 import Empty from '@/components/Empty/Empty';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
-function FeedList() {
-  const { data } = useFeedMe();
+function FeedList({ data }: { data?: Array<FeedItemType> }) {
   if (!data)
     return (
       <ul className={feedListCss}>
