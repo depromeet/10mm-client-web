@@ -8,7 +8,7 @@ function GraphicBanner(props: GraphicBannerType) {
     <div className={containerCss}>
       <Image src={props.imageUrl} alt="graphicBanner" width={106.67} height={80} className={graphicImageCss} />
       <div className={bgCss}>
-        <Image src="/images/banner/graphic-bg-gradient.svg" width={194} height={194} alt="graphic banner bg" />
+        <Image src="/images/banner/graphic-bg-gradient.svg" width={194} height={120} alt="graphic banner bg" />
       </div>
     </div>
   );
