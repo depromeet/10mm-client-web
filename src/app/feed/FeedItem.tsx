@@ -43,13 +43,14 @@ function FeedItem({
           <p>{nickname}</p>
         </div>
       </Link>
+
+      <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
       <Link
         href={
           isMyFeed ? ROUTER.RECORD.DETAIL.HOME(recordId.toString()) : ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())
         }
         onClick={handleClickFeedItem}
       >
-        <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
         <div className={textWrapperCss}>
           <p className={missionNameCss}>{name}</p>
           {remark && <p className={remarkCss}>{remark}</p>}
