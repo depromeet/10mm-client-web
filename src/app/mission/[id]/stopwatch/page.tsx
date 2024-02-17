@@ -56,8 +56,7 @@ export default function StopwatchPage() {
 
   const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
-  // const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
-  const { isOpen: isMidOutModalOpen, closeModal: closeMidOutModal } = useModal();
+  const { isOpen: isMidOutModalOpen, openModal: openMidOutModal, closeModal: closeMidOutModal } = useModal();
   const {
     isOpen: isBackMidOutModalOpen,
     openModal: openBackMidOutModal,
@@ -115,16 +114,15 @@ export default function StopwatchPage() {
     onNextStep('stop');
 
     // 10분 지나기 전 끝내기 눌렀을 때
-    // 발표용으로 임시로 제거
-    // if (Number(minutes) < 10) {
-    //   eventLogger.logEvent(
-    //     EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
-    //     EVENT_LOG_CATEGORY.STOPWATCH,
-    //     logData,
-    //   );
-    //   openMidOutModal();
-    //   return;
-    // }
+    if (Number(minutes) < 10) {
+      eventLogger.logEvent(
+        EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
+        EVENT_LOG_CATEGORY.STOPWATCH,
+        logData,
+      );
+      openMidOutModal();
+      return;
+    }
 
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
     openFinalModal();
