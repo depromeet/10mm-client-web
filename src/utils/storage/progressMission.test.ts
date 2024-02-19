@@ -22,3 +22,24 @@ test('setMissionTimeStack test', () => {
     JSON.stringify([timeInfo]),
   );
 });
+
+describe('root', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  // start -> stop -> restart -> stop
+  test('setMissionTimeStack test', () => {
+    setMissionTimeStack(TEST_MISSION_ID, 'start');
+    setMissionTimeStack(TEST_MISSION_ID, 'stop');
+    setMissionTimeStack(TEST_MISSION_ID, 'restart');
+    setMissionTimeStack(TEST_MISSION_ID, 'stop');
+
+    const timeStack = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(TEST_MISSION_ID)) || '[]';
+    const timeStackData = JSON.parse(timeStack);
+    console.log('timeStackData: ', timeStackData);
+
+    expect(timeStackData.length).toBe(4);
+    expect(timeStackData[0].status).toEqual('start');
+  });
+});
