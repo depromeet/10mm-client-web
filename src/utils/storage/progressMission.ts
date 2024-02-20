@@ -7,12 +7,14 @@ interface MissionData {
   startTime: string;
 }
 
+// 미션을 "처음" 시작할 때 미션 데이터 (시작 시간, mission ID)를 storage에 저장
 export const setMissionData = (missionId: string) => {
   const startTime = new Date().toISOString();
   const missionInfo: MissionData = { missionId, startTime };
   localStorage.setItem(STORAGE_KEY.PROGRESS_MISSION.MISSION, JSON.stringify(missionInfo));
 };
 
+// 미션 진행 상태 storage에 저장
 export const setMissionTimeStack = (missionId: string, status: 'start' | 'stop' | 'restart') => {
   const time = new Date().getTime();
   const timeInfo = { time, status };
@@ -26,6 +28,7 @@ export const setMissionTimeStack = (missionId: string, status: 'start' | 'stop' 
   );
 };
 
+// 미션 진행 상태 storage에서 삭제
 export const removeProgressMissionData = () => {
   const missionId = getProgressMissionIdToStorage();
   if (!missionId) return;
