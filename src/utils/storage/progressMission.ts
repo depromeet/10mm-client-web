@@ -80,10 +80,10 @@ const DEFAULT_MS = 1000;
 const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 
 export const getProgressMissionTime = (missionId: string): number => {
-  // 진행중인 미션이 없다면
+  // 진행중인 미션이 없다면, 0 반환
   if (!checkIsProgressMission(missionId)) return 0;
 
-  // 진행중인 미션이 있는 경우
+  // 오늘 진행중인 미션이 있는지 체크, 없다면 0 반환
   if (!checkTodayMission(missionId)) return 0;
 
   const progressTimeMs = getProgressMissionTimeToStack(missionId);
