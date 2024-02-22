@@ -1,10 +1,14 @@
 import { STORAGE_KEY } from '@/constants/storage';
+
 import {
+  getPrevProgressMissionStatus,
+  getProgressMissionIdToStorage,
+  getProgressMissionStartTimeToStorage,
   getProgressMissionTime,
   setMissionData,
   setMissionTimeStack,
   setProgressMissionTime,
-} from '@/utils/storage/progressMission';
+} from './progressMission';
 
 const TEST_MISSION_ID = '0';
 
@@ -13,6 +17,11 @@ const mockTime = (time: number) => {
   const spy = jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
 
   return spy;
+};
+
+const startMission = (missionId: string) => {
+  setMissionData(missionId);
+  setMissionTimeStack(missionId, 'start');
 };
 
 test('setProgressMissionTime test', () => {
@@ -70,11 +79,6 @@ describe('setMissionTimeStack 테스팅', () => {
 
 describe('getProgressMissionTime 테스팅', () => {
   const MOCK_TIME_BASE = 1708307992308;
-
-  const startMission = (missionId: string) => {
-    setMissionData(missionId);
-    setMissionTimeStack(missionId, 'start');
-  };
 
   beforeEach(() => {
     localStorage.clear();
@@ -251,5 +255,41 @@ describe('getProgressMissionTime 테스팅', () => {
     spy6.mockRestore();
 
     expect(time).toBe(continueSeconds + restartSeconds + restartSeconds2);
+  });
+});
+
+describe('getPrevProgressMissionStatus 테스팅', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  // timeStack이 비어있을 때, ready가 반환되어야합니다.
+  test('timeStack이 비어있을 때, ready가 반환되어야합니다.', () => {
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('ready');
+  });
+
+  // start -> 상태일 때, progress가 반환되어야합니다.
+  test('start -> 상태일 때, progress가 반환되어야합니다.', () => {
+    startMission(TEST_MISSION_ID);
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('progress');
+  });
+
+  // start -> stop 상태일 때, stop이 반환되어야합니다.
+  test('start -> stop 상태일 때, stop이 반환되어야합니다.', () => {
+    startMission(TEST_MISSION_ID);
+    setMissionTimeStack(TEST_MISSION_ID, 'stop');
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('stop');
+  });
+
+  // start -> stop -> restart 상태일 때, progress가 반환되어야합니다.
+  test('start -> stop -> restart 상태일 때, progress가 반환되어야합니다.', () => {
+    startMission(TEST_MISSION_ID);
+    setMissionTimeStack(TEST_MISSION_ID, 'stop');
+    setMissionTimeStack(TEST_MISSION_ID, 'restart');
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('progress');
   });
 });
