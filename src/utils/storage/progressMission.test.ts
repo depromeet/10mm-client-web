@@ -293,3 +293,42 @@ describe('getPrevProgressMissionStatus 테스팅', () => {
     expect(status).toBe('progress');
   });
 });
+
+// getProgressMissionIdToStorage 테스팅
+describe('getProgressMissionIdToStorage 테스팅', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test('진행중인 미션이 없을 때, false가 반환되어야합니다.', () => {
+    const missionId = getProgressMissionIdToStorage();
+    expect(missionId).toBe(false);
+  });
+
+  test('진행중인 미션이 있을 때, 미션 id가 반환되어야합니다.', () => {
+    setMissionData(TEST_MISSION_ID);
+    const missionId = getProgressMissionIdToStorage();
+    expect(missionId).toBe(TEST_MISSION_ID);
+  });
+});
+
+describe('getProgressMissionStartTimeToStorage 테스팅', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test('진행중인 미션이 없을 때, false가 반환되어야합니다.', () => {
+    const startTime = getProgressMissionStartTimeToStorage(TEST_MISSION_ID);
+    expect(startTime).toBe(false);
+  });
+
+  test('진행중인 미션이 있을 때, 미션 시작 시간(toISOString)이 반환되어야합니다.', () => {
+    const spy = mockTime(1708307992308);
+    setMissionData(TEST_MISSION_ID);
+    setMissionTimeStack(TEST_MISSION_ID, 'start');
+    spy.mockRestore();
+
+    const startTime = getProgressMissionStartTimeToStorage(TEST_MISSION_ID);
+    expect(startTime).toBe(new Date(1708307992308).toISOString());
+  });
+});
