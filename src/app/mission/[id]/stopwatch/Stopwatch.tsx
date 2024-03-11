@@ -123,6 +123,41 @@ function StopwatchSection({ missionId, missionName }: Props) {
 
 export default StopwatchSection;
 
+const useStopwatch = (missionId: string) => {
+  const { step, onNextStep } = useStopwatchStatus();
+  const { minutes, seconds, time } = useStopwatchTimeContext();
+  const { openMidOutModal, openFinalModal } = useStopwatchModalContext();
+
+  const onInitStart = () => {
+    onNextStep('progress');
+
+    // 이전 미션 기록 삭제 - 강제 접근 이슈
+    checkPrevProgressMission(missionId);
+    setMissionTimeStack(missionId, 'start');
+
+    // 초기시작
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
+    setMissionData(missionId);
+  };
+
+  const onMidStart = () => {
+    onNextStep('progress');
+
+    // 이전 미션 기록 삭제 - 강제 접근 이슈
+    checkPrevProgressMission(missionId);
+    setMissionTimeStack(missionId, 'start');
+
+    // 중도 재시작
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
+  };
+
+  const onStop = () => {};
+
+  const onMidOut = () => {};
+
+  const onFinish = () => {};
+};
+
 const buttonContainerCss = css({
   margin: '28px auto',
   display: 'flex',
