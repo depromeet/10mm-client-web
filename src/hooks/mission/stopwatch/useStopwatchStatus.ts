@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-export type StepType = 'ready' | 'progress' | 'stop';
+export type StepType = 'ready' | 'progress' | 'stop' | 'finish';
 
-const STOPWATCH_STATUS = {
+export const STOPWATCH_STATUS = {
   ready: {
     title: '준비 되셨나요?',
     desc: '시작 버튼을 눌러서 미션을 완성해 주세요!',
@@ -15,10 +15,14 @@ const STOPWATCH_STATUS = {
     title: '잠시 멈췄어요',
     desc: '준비가 되면 다시 시작해주세요!',
   },
+  finish: {
+    title: '',
+    desc: '',
+  },
 } as const;
 
-function useStopwatchStatus(initStatus?: StepType) {
-  const [step, setStep] = useState<StepType>(initStatus ?? 'ready');
+function useStopwatchStatus() {
+  const [step, setStep] = useState<StepType>('ready');
   const [prevStep, setPrevStep] = useState<StepType>('ready');
 
   const stepLabel = STOPWATCH_STATUS[step];
