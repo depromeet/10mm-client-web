@@ -71,11 +71,7 @@ function StopwatchProvider({
   const { second, setSecond, isFinished } = useStopwatchSeconds({ status: step });
   const { formattedMinutes, formattedSeconds } = formatMMSS(second);
 
-  const { isSubmitLoading, onSubmit } = useSubmit({
-    missionId,
-    formattedMinutes,
-    formattedSeconds,
-  });
+  const { isSubmitLoading, onSubmit } = useSubmit({ missionId, second });
 
   const timeValue = {
     minutes: formattedMinutes,
@@ -152,16 +148,10 @@ export const useStopwatchStepContext = () => {
   return context;
 };
 
-const useSubmit = ({
-  missionId,
-  formattedMinutes,
-  formattedSeconds,
-}: {
-  missionId: string;
-  formattedMinutes: string;
-  formattedSeconds: string;
-}) => {
+const useSubmit = ({ missionId, second }: { missionId: string; second: number }) => {
   const router = useRouter();
+
+  const { formattedMinutes, formattedSeconds } = formatMMSS(second);
 
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
     onSuccess: (response) => {
@@ -180,7 +170,6 @@ const useSubmit = ({
     },
   });
 
-  // TODO: 끝내기 후 로직 추가
   const onSubmit = async () => {
     const startTimeString = getProgressMissionStartTimeToStorage(missionId);
     if (!startTimeString) return;
