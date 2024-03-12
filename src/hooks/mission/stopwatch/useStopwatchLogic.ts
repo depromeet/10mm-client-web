@@ -27,8 +27,6 @@ function useStopwatchLogic({ status }: UseStopwatchProps) {
     if (status === 'progress') {
       timer = setInterval(() => {
         setSecond((prev) => (prev >= MAX_SECONDS ? prev : prev + 1));
-
-        // second === 10 * 60 && recordTenMinuteEvent(missionId);
       }, timerMs);
     }
 

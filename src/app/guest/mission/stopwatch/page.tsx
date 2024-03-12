@@ -8,11 +8,12 @@ import Header from '@/components/Header/Header';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
-import useStopwatch from '@/hooks/mission/stopwatch/useStopwatch';
+import useStopwatchLogic from '@/hooks/mission/stopwatch/useStopwatchLogic';
 import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
+import { formatMMSS } from '@/utils/time';
 import { css } from '@styled-system/css';
 
 const GUEST_MISSION_ID = '';
@@ -22,7 +23,10 @@ export default function GuestMissionStopwatchPage() {
   const category = useGetCategory();
 
   const { step, prevStep, stepLabel, onNextStep } = useStopwatchStatus();
-  const { seconds, minutes, stepper } = useStopwatch(step, GUEST_MISSION_ID);
+  const { second } = useStopwatchLogic({ status: step });
+
+  const { formattedMinutes: minutes, formattedSeconds: seconds } = formatMMSS(second);
+  const stepper = second < 60 ? 0 : Math.floor(second / 60 / 10);
 
   const { isOpen, openModal, closeModal } = useModal();
 
