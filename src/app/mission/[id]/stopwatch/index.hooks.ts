@@ -114,7 +114,7 @@ export const useSubmit = ({ missionId, second }: { missionId: string; second: nu
     },
   });
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     const startTimeString = getProgressMissionStartTimeToStorage(missionId);
     if (!startTimeString) return;
 
@@ -129,7 +129,7 @@ export const useSubmit = ({ missionId, second }: { missionId: string; second: nu
       durationMin: Number(formattedMinutes),
       durationSec: Number(formattedSeconds),
     });
-  };
+  }, [formattedMinutes, formattedSeconds, missionId, mutate]);
 
   return {
     isSubmitLoading,

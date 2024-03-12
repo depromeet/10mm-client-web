@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, type PropsWithChildren, useContext, useMemo } from 'react';
+import { createContext, type PropsWithChildren, useCallback, useContext, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSubmit } from '@/app/mission/[id]/stopwatch/index.hooks';
 import { useStopwatchStepContext, useStopwatchTimeContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
@@ -49,24 +49,22 @@ function ModalContextProvider({
     [openBackModal, openFinalModal, openMidOutModal],
   );
 
-  const logData = {
-    finishTime: time,
-  };
+  const logData = useMemo(() => ({ finishTime: time }), [time]);
 
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_CANCEL, EVENT_LOG_CATEGORY.STOPWATCH, logData);
     onNextStep(prevStep);
-  };
+  }, [logData, onNextStep, prevStep]);
 
-  const onFinish = () => {
+  const onFinish = useCallback(() => {
     onSubmit();
-  };
+  }, [onSubmit]);
 
   // 뒤로가기 버튼 눌렀을 때
-  const onExit = () => {
+  const onExit = useCallback(() => {
     router.replace(ROUTER.MISSION.DETAIL(missionId));
     removeProgressMissionData();
-  };
+  }, [missionId, router]);
 
   return (
     <ModalContext.Provider value={value}>
