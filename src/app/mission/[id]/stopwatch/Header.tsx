@@ -1,6 +1,7 @@
-import { useStopwatchModalContext } from '@/app/mission/[id]/stopwatch/Modal.context';
-import { useStopwatchStepContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Header from '@/components/Header/Header';
+
+import { useStopwatchModalContext } from './Modal.context';
+import { useStopwatchStepContext } from './Stopwatch.context';
 
 function StopwatchHeader() {
   const { onNextStep } = useStopwatchStepContext();

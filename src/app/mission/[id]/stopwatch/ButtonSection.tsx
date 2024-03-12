@@ -1,9 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useVisibilityStateVisible } from '@/app/mission/[id]/stopwatch/index.hooks';
-import { useStopwatchModalContext } from '@/app/mission/[id]/stopwatch/Modal.context';
-import { useStopwatchStepContext, useStopwatchTimeContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Button from '@/components/Button/Button';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
@@ -15,6 +12,10 @@ import {
   setMissionTimeStack,
 } from '@/utils/storage/progressMission';
 import { css, cx } from '@styled-system/css';
+
+import { useVisibilityStateVisible } from './index.hooks';
+import { useStopwatchModalContext } from './Modal.context';
+import { useStopwatchStepContext, useStopwatchTimeContext } from './Stopwatch.context';
 
 function ButtonSection({ missionId }: { missionId: string }) {
   const { step } = useStopwatchStepContext();

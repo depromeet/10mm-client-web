@@ -2,8 +2,6 @@
 
 import { createContext, type PropsWithChildren, useCallback, useContext, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSubmit } from '@/app/mission/[id]/stopwatch/index.hooks';
-import { useStopwatchStepContext, useStopwatchTimeContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Dialog from '@/components/Dialog/Dialog';
 import Loading from '@/components/Loading';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
@@ -11,6 +9,9 @@ import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import { eventLogger } from '@/utils';
 import { removeProgressMissionData } from '@/utils/storage/progressMission';
+
+import { useSubmit } from './index.hooks';
+import { useStopwatchStepContext, useStopwatchTimeContext } from './Stopwatch.context';
 
 interface ModalContextProps {
   openMidOutModal: () => void;

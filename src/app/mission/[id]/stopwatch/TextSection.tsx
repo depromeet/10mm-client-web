@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
-import { useStopwatchStepContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import { STOPWATCH_STATUS_LABEL } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { css, cx } from '@styled-system/css';
+
+import { useStopwatchStepContext } from './Stopwatch.context';
 
 function TextSection() {
   const { step } = useStopwatchStepContext();

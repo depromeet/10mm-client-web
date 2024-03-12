@@ -1,8 +1,9 @@
 'use client';
 
-import { useStopwatchStepContext, useStopwatchTimeContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { css } from '@styled-system/css';
+
+import { useStopwatchStepContext, useStopwatchTimeContext } from './Stopwatch.context';
 
 interface Props {
   missionName: string;

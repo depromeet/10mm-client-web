@@ -2,11 +2,11 @@
 
 import { useParams } from 'next/navigation';
 import { useGetMissionDetailNoSuspense } from '@/apis/mission';
-import ButtonSection from '@/app/mission/[id]/stopwatch/ButtonSection';
-import StopwatchSection from '@/app/mission/[id]/stopwatch/StopwatchSection';
 
+import ButtonSection from './ButtonSection';
 import StopwatchHeader from './Header';
 import StopwatchProvider from './Stopwatch.context';
+import StopwatchSection from './StopwatchSection';
 import TextSection from './TextSection';
 
 export default function StopwatchPage() {

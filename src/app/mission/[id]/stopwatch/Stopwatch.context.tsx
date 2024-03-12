@@ -7,16 +7,16 @@ import {
   type SetStateAction,
   useContext,
   useEffect,
-  useMemo,
 } from 'react';
-import { useSubmit } from '@/app/mission/[id]/stopwatch/index.hooks';
-import ModalContextProvider from '@/app/mission/[id]/stopwatch/Modal.context';
 import Loading from '@/components/Loading';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useStopwatchSeconds from '@/hooks/mission/stopwatch/useStopwatchLogic';
 import useStopwatchStatus, { type StepType } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { eventLogger } from '@/utils';
 import { formatMMSS } from '@/utils/time';
+
+import { useSubmit } from './index.hooks';
+import ModalContextProvider from './Modal.context';
 
 interface TimeContextProps {
   minutes: string;
@@ -50,8 +50,8 @@ function StopwatchProvider({
 }: PropsWithChildren<{
   missionId: string;
 }>) {
-  const { step, prevStep, onNextStep } = useStopwatchStatus();
-  const { second, setSecond, isFinished } = useStopwatchSeconds({ status: step });
+  const stepValue = useStopwatchStatus();
+  const { second, setSecond, isFinished } = useStopwatchSeconds({ status: stepValue.step });
   const { formattedMinutes, formattedSeconds } = formatMMSS(second);
 
   const { isSubmitLoading, onSubmit } = useSubmit({ missionId, second });
@@ -62,15 +62,6 @@ function StopwatchProvider({
     setTime: setSecond,
     time: second,
   };
-
-  const stepValue = useMemo(
-    () => ({
-      step,
-      prevStep,
-      onNextStep,
-    }),
-    [onNextStep, prevStep, step],
-  );
 
   const onAutoFinish = () => {
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_AUTO_FINISH, EVENT_LOG_CATEGORY.STOPWATCH, {
