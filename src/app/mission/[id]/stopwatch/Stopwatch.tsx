@@ -1,13 +1,23 @@
 'use client';
 
-import { Fragment } from 'react';
-import { useStopwatchModalContext, useStopwatchTimeContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
+import { useEffect, useState } from 'react';
+import { useVisibilityStateVisible } from '@/app/mission/[id]/stopwatch/index.hooks';
+import {
+  useStopwatchModalContext,
+  useStopwatchStepContext,
+  useStopwatchTimeContext,
+} from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Button from '@/components/Button/Button';
 import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
-import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { eventLogger } from '@/utils';
-import { checkPrevProgressMission, setMissionData, setMissionTimeStack } from '@/utils/storage/progressMission';
+import {
+  checkPrevProgressMission,
+  getPrevProgressMissionStatus,
+  getProgressMissionTime,
+  setMissionData,
+  setMissionTimeStack,
+} from '@/utils/storage/progressMission';
 import { css, cx } from '@styled-system/css';
 
 interface Props {
@@ -16,56 +26,55 @@ interface Props {
 }
 
 function StopwatchSection({ missionId, missionName }: Props) {
-  const { step, onNextStep } = useStopwatchStatus();
+  const { step, onNextStep } = useStopwatchStepContext();
   const { minutes, seconds, time } = useStopwatchTimeContext();
-  const { openMidOutModal, openFinalModal } = useStopwatchModalContext();
 
-  const logData = { finishTime: time };
+  const { isPending: isStopwatchPending } = useInitTimeSetting({ missionId });
+  const { onInitStart, onMidStart, onStop, onMidOut, onFinish } = useStopwatch(missionId);
 
-  const isStopwatchPending = false; //TODO
   const stepper = time < 60 ? 0 : Math.floor(time / 60 / 10);
 
-  const onStop = () => {
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
-      stopTime: Number(minutes) * 60 + Number(seconds),
-    });
-    onNextStep('stop');
-    setMissionTimeStack(missionId, 'stop');
-  };
-
   const onStart = () => {
-    onNextStep('progress');
-
-    // 이전 미션 기록 삭제 - 강제 접근 이슈
-    checkPrevProgressMission(missionId);
-    setMissionTimeStack(missionId, 'start');
-
-    // 중도 재시작
     if (time > 0) {
-      eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
+      onMidStart();
       return;
     }
-    // 초기시작
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
-    setMissionData(missionId);
+    onInitStart();
+    // onNextStep('progress');
+
+    // // 이전 미션 기록 삭제 - 강제 접근 이슈
+    // checkPrevProgressMission(missionId);
+    // setMissionTimeStack(missionId, 'start');
+
+    // // 중도 재시작
+    // if (time > 0) {
+    //   eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
+    //   return;
+    // }
+    // // 초기시작
+    // eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
+    // setMissionData(missionId);
   };
 
   const onFinishButtonClick = () => {
-    onNextStep('stop');
+    // onNextStep('stop');
 
     // 10분 지나기 전 끝내기 눌렀을 때
     if (Number(minutes) < 10) {
-      eventLogger.logEvent(
-        EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
-        EVENT_LOG_CATEGORY.STOPWATCH,
-        logData,
-      );
-      openMidOutModal();
+      onMidOut();
       return;
+      // eventLogger.logEvent(
+      //   EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
+      //   EVENT_LOG_CATEGORY.STOPWATCH,
+      //   logData,
+      // );
+      // openMidOutModal();
+      // return;
     }
 
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
-    openFinalModal();
+    onFinish();
+    // eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
+    // openFinalModal();
   };
 
   return (
@@ -124,16 +133,22 @@ function StopwatchSection({ missionId, missionName }: Props) {
 export default StopwatchSection;
 
 const useStopwatch = (missionId: string) => {
-  const { step, onNextStep } = useStopwatchStatus();
-  const { minutes, seconds, time } = useStopwatchTimeContext();
+  const { onNextStep } = useStopwatchStepContext();
+  const { time } = useStopwatchTimeContext();
   const { openMidOutModal, openFinalModal } = useStopwatchModalContext();
 
-  const onInitStart = () => {
+  const logData = { finishTime: time };
+
+  const startAction = () => {
     onNextStep('progress');
 
     // 이전 미션 기록 삭제 - 강제 접근 이슈
     checkPrevProgressMission(missionId);
     setMissionTimeStack(missionId, 'start');
+  };
+
+  const onInitStart = () => {
+    startAction();
 
     // 초기시작
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
@@ -141,21 +156,84 @@ const useStopwatch = (missionId: string) => {
   };
 
   const onMidStart = () => {
-    onNextStep('progress');
-
-    // 이전 미션 기록 삭제 - 강제 접근 이슈
-    checkPrevProgressMission(missionId);
-    setMissionTimeStack(missionId, 'start');
+    startAction();
 
     // 중도 재시작
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
   };
 
-  const onStop = () => {};
+  const onStop = () => {
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
+      stopTime: time,
+    });
+    onNextStep('stop');
+    setMissionTimeStack(missionId, 'stop');
+  };
 
-  const onMidOut = () => {};
+  const onMidOut = () => {
+    onNextStep('stop');
+    eventLogger.logEvent(
+      EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
+      EVENT_LOG_CATEGORY.STOPWATCH,
+      logData,
+    );
+    openMidOutModal();
+  };
 
-  const onFinish = () => {};
+  const onFinish = () => {
+    onNextStep('stop');
+
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
+    openFinalModal();
+  };
+
+  return {
+    onInitStart,
+    onMidStart,
+    onStop,
+    onMidOut,
+    onFinish,
+  };
+};
+
+const MAX_SECONDS = 3600; // max 1 hour
+
+const useInitTimeSetting = ({ missionId }: { missionId: string }) => {
+  const { onNextStep } = useStopwatchStepContext();
+  const { setTime: setSecond } = useStopwatchTimeContext();
+
+  const [isPending, setIsPending] = useState(true);
+  // init time setting 분리
+  const settingInitTime = () => {
+    const initSeconds = getProgressMissionTime(missionId);
+
+    if (!initSeconds) return false;
+    if (initSeconds >= MAX_SECONDS) {
+      setSecond(MAX_SECONDS);
+    } else {
+      setSecond(initSeconds);
+    }
+    return true;
+  };
+
+  // 화면 visible 상태로 변경 시, 시간을 다시 세팅
+  useVisibilityStateVisible(() => {
+    setIsPending(true);
+    settingInitTime();
+    setIsPending(false);
+  });
+
+  useEffect(() => {
+    // 해당 미션을 이어 가는 경우. init time setting
+    const flag = settingInitTime();
+    setIsPending(false);
+    if (!flag) return;
+
+    const prevStatus = getPrevProgressMissionStatus(missionId);
+    prevStatus && onNextStep?.(prevStatus); // 바로 재시작
+  }, []);
+
+  return { isPending };
 };
 
 const buttonContainerCss = css({

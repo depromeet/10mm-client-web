@@ -2,9 +2,9 @@
 
 import { useParams } from 'next/navigation';
 import { useGetMissionDetailNoSuspense } from '@/apis/mission';
+import StopwatchSection from '@/app/mission/[id]/stopwatch/Stopwatch';
 
 import StopwatchHeader from './Header';
-import Stopwatch from './Stopwatch';
 import StopwatchProvider from './Stopwatch.context';
 import TextSection from './TextSection';
 
@@ -20,7 +20,7 @@ export default function StopwatchPage() {
     <StopwatchProvider missionId={missionId}>
       <StopwatchHeader />
       <TextSection />
-      <Stopwatch missionId={missionId} missionName={missionName} />
+      <StopwatchSection missionId={missionId} missionName={missionName} />
     </StopwatchProvider>
   );
 }

@@ -9,7 +9,7 @@ import {
   useEffect,
   useMemo,
 } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useRecordTime } from '@/apis';
 import { isSeverError } from '@/apis/instance.api';
 import { BackDialog, FinalDialog, MidOutDialog } from '@/app/mission/[id]/stopwatch/modals';
@@ -107,6 +107,18 @@ function StopwatchProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinished]);
 
+  useEffect(() => {
+    // 10분 넘으면 이벤트 기록
+    if (Number(formattedMinutes) === 10) {
+      const recordTenMinuteEvent = () => {
+        eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.COMPLETE_TEM_MINUTE, EVENT_LOG_CATEGORY.STOPWATCH, {
+          missionId,
+        });
+      };
+      recordTenMinuteEvent();
+    }
+  }, [formattedMinutes, missionId]);
+
   return (
     <>
       <StopwatchStepContext.Provider value={stepValue}>
@@ -156,7 +168,6 @@ const useSubmit = ({
       const missionRecordId = String(response.missionId);
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
-
       removeProgressMissionData();
     },
     onError: (error) => {

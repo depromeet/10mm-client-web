@@ -28,7 +28,6 @@ function useStopwatchLogic({ status }: UseStopwatchProps) {
       timer = setInterval(() => {
         setSecond((prev) => (prev >= MAX_SECONDS ? prev : prev + 1));
 
-        // 10분 넘으면 이벤트 기록
         // second === 10 * 60 && recordTenMinuteEvent(missionId);
       }, timerMs);
     }
@@ -40,9 +39,3 @@ function useStopwatchLogic({ status }: UseStopwatchProps) {
 }
 
 export default useStopwatchLogic;
-
-// const recordTenMinuteEvent = (missionId: string) => {
-//   eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.COMPLETE_TEM_MINUTE, EVENT_LOG_CATEGORY.STOPWATCH, {
-//     missionId,
-//   });
-// };
