@@ -25,21 +25,11 @@ function ButtonSection({ missionId }: { missionId: string }) {
   const { isPending: isStopwatchPending } = useInitTimeSetting({ missionId });
 
   const onStart = () => {
-    if (time > 0) {
-      onMidStart();
-      return;
-    }
-    onInitStart();
+    time > 0 ? onMidStart() : onInitStart();
   };
 
   const onFinishButtonClick = () => {
-    // 10분 지나기 전 끝내기 눌렀을 때
-    if (Number(minutes) < 10) {
-      onMidOut();
-      return;
-    }
-
-    onFinish();
+    Number(minutes) < 10 ? onMidOut() : onFinish();
   };
 
   return (
