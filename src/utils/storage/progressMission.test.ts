@@ -30,7 +30,6 @@ test('setProgressMissionTime test', () => {
 });
 
 describe('setMissionTimeStack 테스팅', () => {
-  // beforeEach를 사용해서, 모든 테스트를 실행하기 전에 localStorage를 초기화합니다.
   beforeEach(() => {
     localStorage.clear();
   });
@@ -100,8 +99,6 @@ describe('getProgressMissionTime 테스팅', () => {
   });
 
   test('오늘 진행 중인 미션이 없으면 0이 반환되어야합니다.', () => {
-    // storage에 저장된 진행중인 미션이 전날의 미션이라면
-    // 2024년 2월 20일 10시 10분 10초
     const spy = mockTime(1708307992308);
     setMissionData(TEST_MISSION_ID);
     setMissionTimeStack(TEST_MISSION_ID, 'start');
@@ -113,7 +110,6 @@ describe('getProgressMissionTime 테스팅', () => {
     const time2 = getProgressMissionTime(TEST_MISSION_ID);
     expect(time2).toBe(0);
 
-    // 진행중이 미션이 전날의 미션이라면, 전날의 미션 데이터가 삭제되어야합니다.
     expect(localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.MISSION)).toBe(null);
   });
 
