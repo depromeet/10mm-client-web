@@ -259,20 +259,17 @@ describe('getPrevProgressMissionStatus 테스팅', () => {
     localStorage.clear();
   });
 
-  // timeStack이 비어있을 때, ready가 반환되어야합니다.
   test('timeStack이 비어있을 때, ready가 반환되어야합니다.', () => {
     const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
     expect(status).toBe('ready');
   });
 
-  // start -> 상태일 때, progress가 반환되어야합니다.
-  test('start -> 상태일 때, progress가 반환되어야합니다.', () => {
+  test('start -> current 상태일 때, progress가 반환되어야합니다.', () => {
     startMission(TEST_MISSION_ID);
     const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
     expect(status).toBe('progress');
   });
 
-  // start -> stop 상태일 때, stop이 반환되어야합니다.
   test('start -> stop 상태일 때, stop이 반환되어야합니다.', () => {
     startMission(TEST_MISSION_ID);
     setMissionTimeStack(TEST_MISSION_ID, 'stop');
@@ -280,7 +277,6 @@ describe('getPrevProgressMissionStatus 테스팅', () => {
     expect(status).toBe('stop');
   });
 
-  // start -> stop -> restart 상태일 때, progress가 반환되어야합니다.
   test('start -> stop -> restart 상태일 때, progress가 반환되어야합니다.', () => {
     startMission(TEST_MISSION_ID);
     setMissionTimeStack(TEST_MISSION_ID, 'stop');
@@ -290,7 +286,6 @@ describe('getPrevProgressMissionStatus 테스팅', () => {
   });
 });
 
-// getProgressMissionIdToStorage 테스팅
 describe('getProgressMissionIdToStorage 테스팅', () => {
   beforeEach(() => {
     localStorage.clear();
