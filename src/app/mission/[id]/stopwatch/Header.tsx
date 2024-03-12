@@ -1,4 +1,5 @@
-import { useStopwatchModalContext, useStopwatchStepContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
+import { useStopwatchModalContext } from '@/app/mission/[id]/stopwatch/Modal.context';
+import { useStopwatchStepContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Header from '@/components/Header/Header';
 
 function StopwatchHeader() {

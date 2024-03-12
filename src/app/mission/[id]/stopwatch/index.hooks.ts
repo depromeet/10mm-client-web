@@ -1,8 +1,18 @@
 import { useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useRecordTime } from '@/apis';
+import { isSeverError } from '@/apis/instance.api';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { ROUTER } from '@/constants/router';
 import useInterval from '@/hooks/useInterval';
 import { eventLogger } from '@/utils';
-import { setProgressMissionTime, setProgressMissionTime2 } from '@/utils/storage/progressMission';
+import {
+  getProgressMissionStartTimeToStorage,
+  removeProgressMissionData,
+  setProgressMissionTime,
+  setProgressMissionTime2,
+} from '@/utils/storage/progressMission';
+import { formatDate, formatMMSS } from '@/utils/time';
 
 export function useUnloadAction(time: number, missionId: string) {
   const onSaveTime = useCallback(() => {
@@ -75,3 +85,54 @@ export function useCustomBack(customBack: () => void) {
     };
   }, []);
 }
+
+/**
+ * 미션 임시 인증 (타이머 시간 서버에 저장)
+ * @param missionId
+ * @param second 타이머 종료 시간
+ * @returns {isSubmitLoading, onSubmit} - isSubmitLoading: 제출 중인지 여부, onSubmit: 제출 함수
+ */
+export const useSubmit = ({ missionId, second }: { missionId: string; second: number }) => {
+  const router = useRouter();
+
+  const { formattedMinutes, formattedSeconds } = formatMMSS(second);
+
+  const { mutate, isPending: isSubmitLoading } = useRecordTime({
+    onSuccess: (response) => {
+      const missionRecordId = String(response.missionId);
+      router.replace(ROUTER.RECORD.CREATE(missionRecordId));
+      eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
+      removeProgressMissionData();
+    },
+    onError: (error) => {
+      if (isSeverError(error)) {
+        if (error.response.data.data.errorClassName === 'MISSION_RECORD_ALREADY_EXISTS_TODAY') {
+          removeProgressMissionData();
+          router.replace(ROUTER.HOME);
+        }
+      }
+    },
+  });
+
+  const onSubmit = async () => {
+    const startTimeString = getProgressMissionStartTimeToStorage(missionId);
+    if (!startTimeString) return;
+
+    const startTime = new Date(startTimeString);
+    const startTimeFormatted = formatDate(startTime);
+    const finishTimeFormatted = formatDate(new Date());
+
+    mutate({
+      missionId: missionId,
+      startedAt: startTimeFormatted,
+      finishedAt: finishTimeFormatted,
+      durationMin: Number(formattedMinutes),
+      durationSec: Number(formattedSeconds),
+    });
+  };
+
+  return {
+    isSubmitLoading,
+    onSubmit,
+  };
+};

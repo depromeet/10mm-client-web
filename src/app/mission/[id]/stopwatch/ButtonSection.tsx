@@ -2,11 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useVisibilityStateVisible } from '@/app/mission/[id]/stopwatch/index.hooks';
-import {
-  useStopwatchModalContext,
-  useStopwatchStepContext,
-  useStopwatchTimeContext,
-} from '@/app/mission/[id]/stopwatch/Stopwatch.context';
+import { useStopwatchModalContext } from '@/app/mission/[id]/stopwatch/Modal.context';
+import { useStopwatchStepContext, useStopwatchTimeContext } from '@/app/mission/[id]/stopwatch/Stopwatch.context';
 import Button from '@/components/Button/Button';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
@@ -20,10 +17,10 @@ import {
 import { css, cx } from '@styled-system/css';
 
 function ButtonSection({ missionId }: { missionId: string }) {
-  const { step, onNextStep } = useStopwatchStepContext();
+  const { step } = useStopwatchStepContext();
   const { minutes, time } = useStopwatchTimeContext();
 
-  const { onInitStart, onMidStart, onStop, onMidOut, onFinish } = useStopwatch(missionId);
+  const { onInitStart, onMidStart, onStop, onMidOut, onFinish, onRestart } = useStopwatch(missionId);
   const { isPending: isStopwatchPending } = useInitTimeSetting({ missionId });
 
   const onStart = () => {
@@ -65,15 +62,7 @@ function ButtonSection({ missionId }: { missionId: string }) {
       )}
       {step === 'stop' && (
         <>
-          <Button
-            size="medium"
-            variant="secondary"
-            type="button"
-            onClick={() => {
-              setMissionTimeStack(missionId, 'restart');
-              onNextStep('progress');
-            }}
-          >
+          <Button size="medium" variant="secondary" type="button" onClick={onRestart}>
             다시 시작
           </Button>
           <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
@@ -125,6 +114,11 @@ const useStopwatch = (missionId: string) => {
     setMissionTimeStack(missionId, 'stop');
   };
 
+  const onRestart = () => {
+    setMissionTimeStack(missionId, 'restart');
+    onNextStep('progress');
+  };
+
   const onMidOut = () => {
     onNextStep('stop');
     eventLogger.logEvent(
@@ -148,6 +142,7 @@ const useStopwatch = (missionId: string) => {
     onStop,
     onMidOut,
     onFinish,
+    onRestart,
   };
 };
 
@@ -182,7 +177,6 @@ const useInitTimeSetting = ({ missionId }: { missionId: string }) => {
   const { setTime: setSecond } = useStopwatchTimeContext();
 
   const [isPending, setIsPending] = useState(true);
-  // init time setting 분리
   const settingInitTime = () => {
     const initSeconds = getProgressMissionTime(missionId);
 
