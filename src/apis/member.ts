@@ -12,10 +12,6 @@ import {
 } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface WithdrawalMemberRequest {
-  username: string;
-}
-
 interface CheckUsernameRequest {
   username: string;
 }
@@ -48,10 +44,8 @@ export const AUTH_PROVIDER_LABEL = {
 type MemberMeResponse = MemberType;
 
 const MEMBER_API = {
-  withdrawalMember: async (request: WithdrawalMemberRequest) => {
-    const { data } = await apiInstance.delete(`/members/withdrawal`, {
-      data: request,
-    });
+  withdrawalMember: async () => {
+    const { data } = await apiInstance.delete(`/members/withdrawal`);
     return data;
   },
   getMembersMe: async (): Promise<MemberMeResponse> => {
@@ -138,7 +132,16 @@ export const useGetMembersMe = (option?: UseQueryOptions<MemberMeResponse>) => {
   });
 };
 
-export const useWithdrawalMember = (option?: UseMutationOptions<unknown, unknown, WithdrawalMemberRequest>) => {
+export const useGetMyId = (): {
+  memberId?: number;
+  isLoading: boolean;
+} => {
+  const { data, isLoading } = useGetMembersMe();
+  const memberId = data?.memberId;
+  return { memberId, isLoading };
+};
+
+export const useWithdrawalMember = (option?: UseMutationOptions<unknown, unknown>) => {
   return useMutation({
     mutationFn: MEMBER_API.withdrawalMember,
     ...option,

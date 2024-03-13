@@ -18,7 +18,7 @@ const badgeStyle = cva({
     color: {
       purple: {
         color: 'purple.purple500',
-        borderColor: 'purple.purple300',
+        borderColor: 'purple.purple100',
         backgroundColor: 'purple.purple000',
       },
       gray: {

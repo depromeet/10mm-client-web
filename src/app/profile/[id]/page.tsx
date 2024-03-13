@@ -1,7 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useFollowsCountTargetId } from '@/apis/follow';
-import { useGetMembersById } from '@/apis/member';
+import { useGetMembersById, useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
 import { FollowStatus } from '@/apis/schema/member';
 import ProfileTab from '@/app/mypage/ProfileTab';
@@ -9,16 +10,35 @@ import FollowButton from '@/app/profile/[id]/FollowButton';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
-function FollowProfilePage({ params }: { params: { id: string } }) {
+function FollowProfilePage({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: {
+    profileShare?: string;
+  };
+}) {
   const { data: followCountData, isFetching } = useFollowsCountTargetId(Number(params.id));
   const { data } = useGetMembersById(Number(params.id));
   const { data: symbolStackData } = useGetMissionStack(params.id);
-
+  const { data: memebersMeData } = useGetMembersMe();
+  const isMyself = memebersMeData?.memberId === Number(params.id);
+  const router = useRouter();
+  const handleBack = () => {
+    router.push(ROUTER.HOME);
+  };
   return (
     <main className={backgroundCss}>
-      <Header rightAction={'none'} headerBgColor={'transparent'} iconColor={'icon.primary'} />
+      <Header
+        rightAction={'none'}
+        headerBgColor={'transparent'}
+        iconColor={'icon.primary'}
+        onBackAction={searchParams.profileShare ? handleBack : undefined}
+      />
       <ProfileContent
         memberId={Number(params.id)}
         nickname={data?.nickname || ''}
@@ -26,18 +46,21 @@ function FollowProfilePage({ params }: { params: { id: string } }) {
         followerCount={followCountData?.followerCount || 0}
         profileImageUrl={data?.profileImageUrl || null}
         symbolStack={symbolStackData?.symbolStack || 0}
+        isFollow={true}
         rightElement={
-          <FollowButton
-            followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}
-            memberId={Number(params.id)}
-            isFetching={isFetching}
-          />
+          !isMyself ? (
+            <FollowButton
+              followStatus={followCountData?.followStatus || FollowStatus.NOT_FOLLOWING}
+              memberId={Number(params.id)}
+              isFetching={isFetching}
+            />
+          ) : null
         }
       >
         <ProfileTab memberId={Number(params.id)} />
       </ProfileContent>
-      <div className={dimCss} />
-      <BottomDim />
+      <div className={profileBackgroundDimCss} />
+      <BottomDim type={'bottomDim2'} />
     </main>
   );
 }
@@ -52,7 +75,7 @@ const backgroundCss = css({
   background: 'gradients.primary',
 });
 
-const dimCss = css({
+const profileBackgroundDimCss = css({
   position: 'absolute',
   width: '100%',
   height: '100%',

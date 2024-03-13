@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { NAVIGATION, type NavigationItemType } from '@/constants/navigation';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
+import { NATIVE_METHODS } from '@/utils/nativeMethod';
 
 interface Props {
   current: string;
@@ -13,6 +15,7 @@ interface Props {
 
 function AppBarBottomView(props: Props) {
   const handleClick = (tabName: string) => {
+    NATIVE_METHODS.HAPTIC();
     eventLogger.logEvent(EVENT_LOG_NAME.BOTTOM_APP_BAR.CLICK_TAB, EVENT_LOG_CATEGORY.BOTTOM_APP_BAR, {
       tabName,
     });
@@ -54,7 +57,7 @@ const containerCss = flex({
   width: 'fit-content',
   borderRadius: '24px',
   position: 'fixed',
-  bottom: '34px', // indicator(34px)
+  bottom: '12px', // indicator(34px)
   left: 0,
   right: 0,
   margin: '16px auto',

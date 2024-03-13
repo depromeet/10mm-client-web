@@ -19,7 +19,11 @@ function DefaultEmptyView({ children, ...props }: PropsWithChildren<DefaultEmpty
         <Image src={`/images/empty-${props.image}.png`} alt="empty image" width={200} height={120} />
       </div>
       <h2 className={titleCss}>{props.title}</h2>
-      <p className={descriptionCss}>{props.description}</p>
+      <p className={descriptionCss}>
+        {props.description.split('<br/>').map((desc) => (
+          <span key={desc}>{desc}</span>
+        ))}
+      </p>
       {children}
     </article>
   );
@@ -73,7 +77,14 @@ export default Empty;
 const containerCss = css({ textAlign: 'center', width: 'fit-content' });
 const imageCss = css({});
 const titleCss = css({ color: 'text.primary', textStyle: 'subtitle2', marginTop: '8px' });
-const descriptionCss = css({ color: 'gray.gray600', textStyle: 'body5', marginTop: '6px' });
+const descriptionCss = css({
+  color: 'gray.gray600',
+  textStyle: 'body5',
+  marginTop: '6px',
+  '& > span': {
+    display: 'block',
+  },
+});
 const buttonWrapperCss = css({
   marginTop: '20px',
 });

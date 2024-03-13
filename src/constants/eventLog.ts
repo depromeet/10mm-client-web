@@ -12,6 +12,7 @@ export const EVENT_LOG_CATEGORY = {
   FOLLOW_LIST: 'follow_list',
   FOLLOW_PROFILE: 'follow_profile',
   FEED: 'feed',
+  REACTION: 'reaction',
 };
 
 type EventLogCategoryType = keyof typeof EVENT_LOG_CATEGORY;
@@ -26,6 +27,7 @@ export const EVENT_LOG_NAME = {
     CLICK_FOLLOW_PROFILE: 'click/followProfile',
     CLICK_FOLLOW_LIST: 'click/followList',
     CLICK_PLUS_BUTTON: 'click/plusButton',
+    CLICK_MY_MISSION: 'click/myMission',
   },
   SELECT_CATEGORY: {
     CLICK_NEXT_BUTTON: 'click/nextButton',
@@ -61,6 +63,8 @@ export const EVENT_LOG_NAME = {
   },
   RESULT: {
     CLICK_MISSION: 'click/levelGuide',
+    CLICK_CALENDER_ARROW: 'click/calendarArrow',
+    CLICK_CALENDER: 'click/calendar',
   },
   LEVEL: {
     CLICK_LEVEL: 'click/level',
@@ -70,6 +74,7 @@ export const EVENT_LOG_NAME = {
     CLICK_LEVEL_BANNER: 'click/levelBanner',
     CLICK_FOLLOW_FOLLOW: 'click/followFollow',
     CLICK_SETTING: 'click/setting',
+    CLICK_SHARE: 'click/share',
   },
   FOLLOW_LIST: {
     CLICK_FOLLOW_BUTTON: 'click/followButton',
@@ -83,5 +88,10 @@ export const EVENT_LOG_NAME = {
   FEED: {
     CLICK_FEED: 'click/feed',
     CLICK_PROFILE: 'click/profile',
+  },
+  REACTION: {
+    CLICK_EMOJI: 'click/selectEmoji',
+    MODIFY_EMOJI: 'click/modifyEmoji',
+    OPEN_BOTTOM_SHEET: 'click/openBottomSheet',
   },
 } satisfies Record<EventLogCategoryType, Record<string, string>>;

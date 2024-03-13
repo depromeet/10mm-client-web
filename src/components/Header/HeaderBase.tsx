@@ -57,7 +57,7 @@ const wrapperCss = flex({
   left: 0,
   right: 0,
   top: 0,
-  zIndex: 100,
+  zIndex: 'appBar',
   position: 'fixed',
   display: 'flex',
   alignItems: 'center',

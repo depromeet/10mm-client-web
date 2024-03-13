@@ -51,12 +51,37 @@ interface GetRecordsResponse {
   missionFinishedAt: string;
   missionStartedAt: string;
   missionRecords: RecordType[];
+  urgingStatus: UrgingStatus;
 }
 
 type GetRecordDetailResponse = RecordType & {
   sinceDay: number;
   duration: number;
 };
+
+export enum UrgingStatus {
+  NONE = 'NONE',
+  URGING = 'URGING',
+}
+
+export interface StatisticTimeTable {
+  symbolStack: number;
+  durationMinute: number;
+  startedAt: string;
+  finishedAt: string;
+}
+
+interface RecordStatisticsResponse {
+  totalMissionHour: number;
+  totalMissionMinute: number;
+  totalSymbolStack: number;
+  continuousSuccessDay: number;
+  totalSuccessDay: number;
+  totalMissionAttainRate: number;
+  startedAt: string;
+  finishedAt: string;
+  timeTable: StatisticTimeTable[];
+}
 
 const RECORD_API = {
   getRecords: async (params: GetRecordsParams) => {
@@ -87,9 +112,22 @@ const RECORD_API = {
   deleteInProgressRecord: async () => {
     return apiInstance.delete('/records/in-progress');
   },
+
+  getRecordsStatistics: async (missionId: number) => {
+    const { data } = await apiInstance.get<RecordStatisticsResponse>(`/records/statistics/${missionId}`);
+    return data;
+  },
 };
 
 export default RECORD_API;
+
+export const useGetRecordsStatistics = (missionId: number, option?: UseQueryOptions<RecordStatisticsResponse>) => {
+  return useQuery({
+    queryKey: getQueryKey('recordStatistics', { missionId }),
+    queryFn: () => RECORD_API.getRecordsStatistics(missionId),
+    ...option,
+  });
+};
 
 export const useGetRecord = (params: GetRecordsParams, option?: UseQueryOptions<GetRecordsResponse>) => {
   return useQuery({

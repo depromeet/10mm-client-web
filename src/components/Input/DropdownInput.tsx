@@ -42,6 +42,7 @@ function DropdownInput<Value extends string = string>(props: DropDownInputType<V
         selected={props.selected}
         onClick={onClick}
         list={props.list}
+        title={props.title}
       />
     </div>
   );
@@ -90,6 +91,7 @@ interface DropdownProps<T extends string>
   extends Omit<ComponentProps<typeof BottomSheet>, 'headerElement'>,
     Pick<DropDownInputType<T>, 'selected' | 'list'> {
   onClick: (item: DropdownValueType<T>) => void;
+  title: string;
 }
 
 function Dropdown<T extends string>(props: DropdownProps<T>) {
@@ -98,7 +100,7 @@ function Dropdown<T extends string>(props: DropdownProps<T>) {
       headerElement={
         <Header
           rightAction="text-button"
-          title="카테고리"
+          title={props.title}
           rightButtonProps={{
             onClick: props.onClickOutside,
           }}

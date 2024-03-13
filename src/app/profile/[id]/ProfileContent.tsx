@@ -15,8 +15,12 @@ interface ProfileContentProps {
   followingCount: number;
   rightElement?: React.ReactNode;
   memberId: number;
+
+  // TODO : 파일 위치 조정, 리팩토링 후 제거하면 좋을 props, follow 페이지인지 아닌지 체크
+  isFollow?: boolean;
 }
 
+// TODO : 파일 위치 조정 (mypage, profile 둘다 사용하는 컴포넌트)
 function ProfileContent({
   profileImageUrl,
   nickname,
@@ -26,6 +30,7 @@ function ProfileContent({
   rightElement,
   children,
   memberId,
+  isFollow,
 }: PropsWithChildren<ProfileContentProps>) {
   const handleClickFollowList = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_FOLLOW_FOLLOW);
@@ -33,6 +38,7 @@ function ProfileContent({
   const handleClickFollowProfile = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_LEVEL_BANNER);
   };
+
   return (
     <div className={containerCss}>
       <section className={myTabContainerCss}>
@@ -45,8 +51,7 @@ function ProfileContent({
             <span className={followerTabCss}>
               <Link onClick={handleClickFollowList} href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'following')}>
                 팔로잉 {followingCount}
-              </Link>{' '}
-              &nbsp;
+              </Link>
               <Link onClick={handleClickFollowList} href={ROUTER.PROFILE.FOLLOW_LIST(memberId, 'follower')}>
                 팔로워 {followerCount}
               </Link>
@@ -54,9 +59,16 @@ function ProfileContent({
           </div>
           {rightElement}
         </div>
-        <Link href={ROUTER.LEVEL.GUIDE} onClick={handleClickFollowProfile}>
-          <Banner type="level" symbolStack={symbolStack} />
-        </Link>
+        {isFollow ? (
+          <div className={followPageBannerCss}>
+            <Banner type="level" symbolStack={symbolStack} />
+          </div>
+        ) : (
+          <Link href={ROUTER.LEVEL.GUIDE} onClick={handleClickFollowProfile}>
+            <Banner type="level" symbolStack={symbolStack} />
+          </Link>
+        )}
+
         {children}
         <div className={spaceCss} />
       </section>
@@ -92,7 +104,11 @@ const userNameCss = css({
 });
 const followerTabCss = css({
   color: 'text.secondary',
+  textStyle: 'body5',
   marginTop: '6px',
+
+  display: 'flex',
+  gap: '10px',
 });
 
 const myTabCss = css({
@@ -106,4 +122,10 @@ const thumbnailWrapperCss = css({
   top: '-40px',
   left: '50%',
   transform: 'translateX(-50%)',
+});
+
+const followPageBannerCss = css({
+  '& .arrow-forward': {
+    visibility: 'hidden',
+  },
 });

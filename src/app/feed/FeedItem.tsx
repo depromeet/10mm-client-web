@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useGetMyId } from '@/apis/member';
 import { type FeedItemType } from '@/apis/schema/feed';
 import HistoryThumbnail from '@/app/record/[id]/detail/HistoryThumbnail';
+import ReactionBar from '@/components/ReactionBar/ReactionBar';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
@@ -19,9 +21,12 @@ function FeedItem({
   profileImage,
   recordImageUrl,
   duration,
-  startedAt,
+  recordStartedAt,
   recordId,
 }: FeedItemType) {
+  const { memberId: myId } = useGetMyId();
+  const isMyFeed = memberId === myId;
+
   const handleClickFeedItem = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_FEED);
   };
@@ -29,6 +34,7 @@ function FeedItem({
   const handleClickFollowProfile = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.FEED, EVENT_LOG_NAME.FEED.CLICK_PROFILE);
   };
+
   return (
     <li>
       <Link href={ROUTER.PROFILE.DETAIL(memberId)} onClick={handleClickFollowProfile}>
@@ -37,16 +43,23 @@ function FeedItem({
           <p>{nickname}</p>
         </div>
       </Link>
-      <Link href={ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())} onClick={handleClickFeedItem}>
-        <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
+
+      <HistoryThumbnail imageUrl={recordImageUrl} missionDuration={duration} />
+      <Link
+        href={
+          isMyFeed ? ROUTER.RECORD.DETAIL.HOME(recordId.toString()) : ROUTER.RECORD.DETAIL.FOLLOW(recordId.toString())
+        }
+        onClick={handleClickFeedItem}
+      >
         <div className={textWrapperCss}>
           <p className={missionNameCss}>{name}</p>
           {remark && <p className={remarkCss}>{remark}</p>}
           <p className={captionCss}>
-            {sinceDay}일차 <div className={dotCss} /> {dayjs(startedAt).format('YYYY년 MM월 DD일')}
+            {sinceDay}일차 <div className={dotCss} /> {dayjs(recordStartedAt).format('YYYY년 MM월 DD일')}
           </p>
         </div>
       </Link>
+      <ReactionBar memberId={memberId} recordId={recordId} />
     </li>
   );
 }
@@ -138,6 +151,7 @@ const captionCss = css({
 });
 
 const dotCss = css({
+  display: 'block',
   width: '2px',
   height: '2px',
   borderRadius: '50%',

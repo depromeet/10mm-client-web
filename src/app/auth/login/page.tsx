@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useSocialLogin, useUpdateMemberFcmToken } from '@/apis/auth';
-import Button from '@/components/Button/Button';
+// import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
 import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
@@ -33,10 +33,11 @@ export default function LoginPage() {
   const router = useRouter();
   const { mutateAsync: socialLoginAsyncMutate } = useSocialLogin();
   const { mutate: updateMemberFcmTokenMutate } = useUpdateMemberFcmToken();
-
-  const onClickGuest = () => {
-    router.push(ROUTER.GUEST.MISSION.NEW);
-  };
+  const search = useSearchParams();
+  const redirectUrl = search.get('redirect') ?? ROUTER.HOME;
+  // const onClickGuest = () => {
+  //   router.push(ROUTER.GUEST.MISSION.NEW);
+  // };
 
   const onClickAppleLogin = () => {
     if (isWebView()) {
@@ -64,6 +65,7 @@ export default function LoginPage() {
       redirectUri: process.env.NEXT_PUBLIC_KAKAO_LOGIN_REDIRECT_URI,
       nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE,
       throughTalk: isAndroid() ? false : true,
+      state: redirectUrl,
     });
   };
 
@@ -79,7 +81,7 @@ export default function LoginPage() {
             if (data?.memberId) {
               eventLogger.identify(data.memberId.toString());
             }
-            router.push(ROUTER.HOME);
+            router.push(redirectUrl);
           },
         },
       );
@@ -100,7 +102,8 @@ export default function LoginPage() {
             if (!!event.detail?.data?.deviceToken) {
               updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
             }
-            router.push(ROUTER.HOME);
+            // 지금 당장은 필요없지만 나중을 위해 작동하도록 한다
+            router.push(redirectUrl);
           },
           onError: () => {
             window.Kakao.Auth.authorize({
@@ -161,7 +164,7 @@ export default function LoginPage() {
         <div className={LoginButtonListWrapperCss}>
           {isIOS() && <ButtonSocialLogin type="apple" onClick={onClickAppleLogin} />}
           <ButtonSocialLogin type="kakao" onClick={onClickKakaoLogin} />
-          <Button
+          {/* <Button
             type="button"
             size="large"
             variant="ghost"
@@ -169,7 +172,7 @@ export default function LoginPage() {
             className={css({ color: 'text.primary' })}
           >
             둘러보기
-          </Button>
+          </Button> */}
         </div>
       </div>
     </>

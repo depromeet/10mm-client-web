@@ -17,7 +17,7 @@ function ListLevelBanner(props: LevelBannerType) {
       <div className={levelStatusCss}>
         <Icon name={'10mm-symbol-circle'} color={'icon.secondary'} width={12} height={12} />
         <span className={levelAmountCss}>{props.symbolStack}</span>
-        <Icon name={'arrow-forward'} color={'icon.secondary'} width={14} height={14} />
+        <Icon className="arrow-forward" name={'arrow-forward'} color={'icon.secondary'} width={14} height={14} />
       </div>
     </div>
   );

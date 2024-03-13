@@ -1,5 +1,6 @@
 'use client';
 import { useAuth } from '@/hooks/useAuth';
+import useForegroundNotification from '@/hooks/useForegroundNotification';
 // import { useEffect, useState } from 'react';
 // import { isWebView } from '@/utils/appEnv';
 // import { motion } from 'framer-motion';
@@ -11,6 +12,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 export default function Template({ children }: { children: React.ReactNode }) {
   useAuth();
+  useForegroundNotification();
   // const [customMotion, setCustomMotion] = useState(true);
 
   // useEffect(() => {

@@ -7,7 +7,6 @@ import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
 import ProfileTab from '@/app/mypage/ProfileTab';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
-import Button from '@/components/Button/Button';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -34,9 +33,9 @@ export default function MyProfile() {
       followingCount={followCountData?.followingCount || 0}
       rightElement={
         <Link href={ROUTER.MYPAGE.PROFILE_MODIFY} onClick={handleProfileEditClick}>
-          <Button className={profileEditButtonCss} color="gray">
-            프로필 수정
-          </Button>
+          <button type={'button'} className={profileEditButtonCss}>
+            <span>프로필 수정</span>
+          </button>
         </Link>
       }
     >
@@ -46,15 +45,14 @@ export default function MyProfile() {
 }
 
 const profileEditButtonCss = css({
-  border: '1px solid',
-  borderColor: 'gray.gray500',
+  border: '1px solid #464856',
   borderRadius: '20px',
   backgroundColor: 'transparent',
+  color: 'gray.gray800',
   display: 'flex',
+  textStyle: 'body5',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'gray.gray800',
   height: '30px',
   padding: '6px 12px',
-  fontSize: '13px',
 });

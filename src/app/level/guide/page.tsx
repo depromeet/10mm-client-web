@@ -23,6 +23,7 @@ function LevelGuidePage() {
 
   const selectLevelInfo = LEVEL_SYSTEM[selectLevel - 1];
   const isLockedLevel = currentLevelInfo.level < selectLevelInfo.level;
+  const isMyLevel = currentLevelInfo.level === selectLevelInfo.level;
 
   const handleClickedLevel = (level: number) => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.LEVEL, EVENT_LOG_NAME.LEVEL.CLICK_LEVEL, {
@@ -45,7 +46,7 @@ function LevelGuidePage() {
         ) : (
           <>
             <section className={levelTextWrapperCss}>
-              <p className={levelLabelCss}>현재 레벨</p>
+              <p className={levelLabelCss}>{isMyLevel && '현재 레벨'}</p>
               <div className={cx(badgeCss)}>
                 <MotionDiv key={selectLevelInfo.label}>{selectLevelInfo.label}</MotionDiv>
               </div>
@@ -95,6 +96,7 @@ const levelLabelCss = css({
   textStyle: 'body5',
   color: 'purple.purple700',
   marginBottom: '8px',
+  height: '17px',
 });
 
 const badgeCss = css({
@@ -120,6 +122,13 @@ const characterImageSectionCss = css({
     left: 0,
     right: 0,
     margin: 'auto',
+    transform: 'translate(0,0)',
+  },
+  '& .character-image-bg': {
+    left: '50%',
+    transform: 'translateX(-50%)',
+    minWidth: '375px',
+    minHeight: '382px',
   },
 });
 

@@ -6,13 +6,14 @@ import ArrowDownIcon from '@/components/Icon/ArrowDownIcon';
 import ArrowFoWardIcon from '@/components/Icon/ArrowFowardIcon';
 import CameraIcon from '@/components/Icon/CameraIcon';
 import CheckCircleIcon from '@/components/Icon/CheckCircleIcon';
+import ClockIcon from '@/components/Icon/ClockIcon';
 import CloseCircleIcon from '@/components/Icon/CloseCircleIcon';
 import CloseIcon from '@/components/Icon/CloseIcon';
 import CopyLinkIcon from '@/components/Icon/CopyLinkIcon';
 import LoginInInformationIcon from '@/components/Icon/LoginInInformationIcon';
 import LogOutIcon from '@/components/Icon/LogOutIcon';
 import MenuIcon from '@/components/Icon/MenuIcon';
-import NavigationFeedIcon from '@/components/Icon/NavigationFeedIcon';
+import NavigationFeedIcon, { FeedOutlineIcon } from '@/components/Icon/NavigationFeedIcon';
 import NavigationMissionIcon from '@/components/Icon/NavigationMissionIcon';
 import NavigationMypageIcon from '@/components/Icon/NavigationMypageIcon';
 import NavigationResultIcon from '@/components/Icon/NavigationResultIcon';
@@ -23,9 +24,12 @@ import PlusIcon from '@/components/Icon/PlusIcon';
 import RefreshIcon from '@/components/Icon/RefreshIcon';
 import ShareIcon from '@/components/Icon/ShareIcon';
 import SpinnerIcon from '@/components/Icon/SpinnerIcon';
+import SymbolFillIcon from '@/components/Icon/SymbolFillIcon';
 import TENMMSymbolCircleIcon, { TENMMSymbolCircleLocked } from '@/components/Icon/TENMMSymbolCircleIcon';
+import TENMMSymbolCircleNormalIcon from '@/components/Icon/TENMMSymbolCircleNormalIcon';
 import TENMMSymbolIcon from '@/components/Icon/TENMMSymbolIcon';
 import TermsIcon from '@/components/Icon/TermsIcon';
+import TrashcanIcon from '@/components/Icon/TrashcanIcon';
 import WithdrawalIcon from '@/components/Icon/WithdrawalIcon';
 import { type ColorToken } from '@styled-system/tokens';
 
@@ -39,6 +43,7 @@ import NormalClose from './NormalClose';
 import NormalLink from './NormalLinkIcon';
 import NormalSetting from './NormalSettingIcon';
 import NormalTerms from './NormalTermsIcon';
+import NotificationIcon from './NotificationIcon';
 import PlusCircleLarge from './PlusCircleLargeIcon';
 
 export const IconComponentMap = {
@@ -59,6 +64,7 @@ export const IconComponentMap = {
   'navigation-search': NavigationSearchIcon,
   'navigation-mission': NavigationMissionIcon,
   'navigation-feed': NavigationFeedIcon,
+  'navigation-feed-outline': FeedOutlineIcon,
   camera: CameraIcon,
   'plus-circle': PlusCircleIcon,
   close: CloseIcon,
@@ -71,6 +77,7 @@ export const IconComponentMap = {
   '10mm-symbol': TENMMSymbolIcon,
   '10mm-symbol-circle': TENMMSymbolCircleIcon,
   '10mm-symbol-circle-lock': TENMMSymbolCircleLocked,
+  '10mm-symbol-circle-normal': TENMMSymbolCircleNormalIcon,
   'apple-login': AppleLoginIcon,
   'kakao-login': KakaoLoginIcon,
   terms: TermsIcon,
@@ -82,6 +89,10 @@ export const IconComponentMap = {
   'normal-setting': NormalSetting,
   'normal-terms': NormalTerms,
   'normal-link': NormalLink,
+  '10mm-symbol-fill': SymbolFillIcon,
+  clock: ClockIcon,
+  notification: NotificationIcon,
+  trashcan: TrashcanIcon,
 } as const;
 
 interface Props extends IconComponentProps {

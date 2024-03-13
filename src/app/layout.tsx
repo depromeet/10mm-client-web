@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
+import NotificationSnackBarProvider from '@/components/NotificationSnackBar/NotificationSnackBarProvider';
 import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
 import { MSWInitComponent } from '@/msw';
 import { css } from '@/styled-system/css';
@@ -12,7 +13,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: '10MM',
   description: '10MM',
-  keywords: ['10mm', '10분만', '10분', '10MM', '10mm', '하루 10분', '10분 단위', '생환습관'],
+  keywords: '10mm, 10분만, 10분, 10MM, 10mm, 하루 10분, 10분 단위, 생환습관',
   openGraph: {
     type: 'website',
     url: 'https://www.10mm.today',
@@ -43,11 +44,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MonitoringInitializer />
         <MSWInitComponent />
         <QueryProvider>
-          <SnackBarProvider>
-            <Suspense>
-              <div className={css(containerCss)}>{children}</div>
-            </Suspense>
-          </SnackBarProvider>
+          <NotificationSnackBarProvider>
+            <SnackBarProvider>
+              <Suspense>
+                <div className={css(containerCss)}>{children}</div>
+              </Suspense>
+            </SnackBarProvider>
+          </NotificationSnackBarProvider>
         </QueryProvider>
       </body>
     </html>

@@ -1,27 +1,44 @@
 'use client';
 
+import MissionStatistics from '@/app/mission/[id]/detail/MissionStatistics';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
+import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
 import Tab from '@/components/Tab/Tab';
+import { useTab } from '@/components/Tab/Tab.hooks';
 import { css } from '@styled-system/css';
 
-export default function FollowMissionDetailPage() {
-  const tabs = [
-    {
-      tabName: '미션 내역',
-      id: 'mission-history',
-    },
-  ];
+const MISSION_TABS = [
+  {
+    tabName: '미션 내역',
+    id: 'mission-history',
+  },
+  {
+    tabName: '통계',
+    id: 'mission-statistics',
+  },
+];
 
+export default function FollowMissionDetailPage({ params: { id } }: { params: { id: string } }) {
+  const { tabs, activeTab, onTabClick } = useTab(MISSION_TABS, 'mission-history');
   return (
     <main className={mainWrapperCss}>
       <Header rightAction={'none'} title={'미션 상세'} />
       <div className={tabWrapperCss}>
-        <Tab tabs={tabs} activeTab={'mission-history'} />
+        <Tab tabs={tabs} activeTab={activeTab} onTabClick={onTabClick} />
       </div>
-      <MissionHistoryTab isFollow={true} />
-      <BottomDim />
+      {activeTab === 'mission-history' && (
+        <>
+          <MissionHistoryTab isFollow={true} />
+          <BottomDim />
+        </>
+      )}
+      {activeTab === 'mission-statistics' && (
+        <MissionHistoryTabLayout>
+          <MissionStatistics missionId={id} />
+        </MissionHistoryTabLayout>
+      )}
     </main>
   );
 }

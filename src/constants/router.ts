@@ -1,3 +1,5 @@
+import { type ResultTabId } from '@/app/result/result.constants';
+
 export const ROUTER = {
   HOME: '/',
   MISSION: {
@@ -37,7 +39,7 @@ export const ROUTER = {
     SETTING: '/mypage/setting_and_private',
   },
   RESULT: {
-    HOME: (query?: 'overall-status' | 'finished-mission') => `/result${query ? `?tab=${query}` : ''}`,
+    HOME: (query?: ResultTabId) => `/result${query ? `?tab=${query}` : ''}`,
     FINISHED_MISSION: (id: number) => `/result/finished/${id}`,
   },
   LEVEL: {

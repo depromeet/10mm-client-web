@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useGetMembersMe, useWithdrawalMember } from '@/apis/member';
+import { useWithdrawalMember } from '@/apis/member';
 import Button from '@/components/Button/Button';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
@@ -11,7 +11,6 @@ import { grid } from '@/styled-system/patterns';
 
 function WithdrawalPage() {
   const router = useRouter();
-  const { data } = useGetMembersMe();
   const { triggerSnackBar } = useSnackBar();
   const { mutate } = useWithdrawalMember({
     onSuccess: () => {
@@ -33,8 +32,7 @@ function WithdrawalPage() {
   };
 
   const onWithdrawal = () => {
-    if (!data?.username) return;
-    mutate({ username: data.username });
+    mutate();
   };
 
   return (
