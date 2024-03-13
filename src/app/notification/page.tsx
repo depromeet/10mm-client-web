@@ -2,9 +2,9 @@
 
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { oneLineTextCss } from '@/components/ListItem/ListItem.styles';
 import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
+import { oneLineTextCss } from '@/constants/style/text';
 import { css, cx } from '@/styled-system/css';
 
 import { flex } from '../../../styled-system/patterns';
