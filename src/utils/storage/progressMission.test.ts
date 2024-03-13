@@ -1,10 +1,14 @@
 import { STORAGE_KEY } from '@/constants/storage';
+
 import {
+  getPrevProgressMissionStatus,
+  getProgressMissionIdToStorage,
+  getProgressMissionStartTimeToStorage,
   getProgressMissionTime,
   setMissionData,
   setMissionTimeStack,
   setProgressMissionTime,
-} from '@/utils/storage/progressMission';
+} from './progressMission';
 
 const TEST_MISSION_ID = '0';
 
@@ -13,6 +17,11 @@ const mockTime = (time: number) => {
   const spy = jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
 
   return spy;
+};
+
+const startMission = (missionId: string) => {
+  setMissionData(missionId);
+  setMissionTimeStack(missionId, 'start');
 };
 
 test('setProgressMissionTime test', () => {
@@ -69,11 +78,6 @@ describe('setMissionTimeStack 테스팅', () => {
 
 describe('getProgressMissionTime 테스팅', () => {
   const MOCK_TIME_BASE = 1708307992308;
-
-  const startMission = (missionId: string) => {
-    setMissionData(missionId);
-    setMissionTimeStack(missionId, 'start');
-  };
 
   beforeEach(() => {
     localStorage.clear();
@@ -247,5 +251,75 @@ describe('getProgressMissionTime 테스팅', () => {
     spy6.mockRestore();
 
     expect(time).toBe(continueSeconds + restartSeconds + restartSeconds2);
+  });
+});
+
+describe('getPrevProgressMissionStatus 테스팅', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test('timeStack이 비어있을 때, ready가 반환되어야합니다.', () => {
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('ready');
+  });
+
+  test('start -> current 상태일 때, progress가 반환되어야합니다.', () => {
+    startMission(TEST_MISSION_ID);
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('progress');
+  });
+
+  test('start -> stop 상태일 때, stop이 반환되어야합니다.', () => {
+    startMission(TEST_MISSION_ID);
+    setMissionTimeStack(TEST_MISSION_ID, 'stop');
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('stop');
+  });
+
+  test('start -> stop -> restart 상태일 때, progress가 반환되어야합니다.', () => {
+    startMission(TEST_MISSION_ID);
+    setMissionTimeStack(TEST_MISSION_ID, 'stop');
+    setMissionTimeStack(TEST_MISSION_ID, 'restart');
+    const status = getPrevProgressMissionStatus(TEST_MISSION_ID);
+    expect(status).toBe('progress');
+  });
+});
+
+describe('getProgressMissionIdToStorage 테스팅', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test('진행중인 미션이 없을 때, false가 반환되어야합니다.', () => {
+    const missionId = getProgressMissionIdToStorage();
+    expect(missionId).toBe(false);
+  });
+
+  test('진행중인 미션이 있을 때, 미션 id가 반환되어야합니다.', () => {
+    setMissionData(TEST_MISSION_ID);
+    const missionId = getProgressMissionIdToStorage();
+    expect(missionId).toBe(TEST_MISSION_ID);
+  });
+});
+
+describe('getProgressMissionStartTimeToStorage 테스팅', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test('진행중인 미션이 없을 때, false가 반환되어야합니다.', () => {
+    const startTime = getProgressMissionStartTimeToStorage(TEST_MISSION_ID);
+    expect(startTime).toBe(false);
+  });
+
+  test('진행중인 미션이 있을 때, 미션 시작 시간(toISOString)이 반환되어야합니다.', () => {
+    const spy = mockTime(1708307992308);
+    setMissionData(TEST_MISSION_ID);
+    setMissionTimeStack(TEST_MISSION_ID, 'start');
+    spy.mockRestore();
+
+    const startTime = getProgressMissionStartTimeToStorage(TEST_MISSION_ID);
+    expect(startTime).toBe(new Date(1708307992308).toISOString());
   });
 });
