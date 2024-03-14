@@ -2,8 +2,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    instrumentationHooks: true,
-    serverActions: true,
+    appDir: false,
+    pageExtensions: ['page.tsx', 'page.ts', 'api.tsx', 'api.ts'],
   },
   images: {
     remotePatterns: [
