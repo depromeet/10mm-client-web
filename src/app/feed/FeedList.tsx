@@ -24,14 +24,7 @@ function FeedList({ activeTab }: Props) {
     if (hasNextPage && !isFetching) fetchNextPage();
   });
 
-  if (!data || isLoading)
-    return (
-      <ul className={feedListCss}>
-        <FeedSkeletonItem />
-        <FeedSkeletonItem />
-        <FeedSkeletonItem />
-      </ul>
-    );
+  if (!data || isLoading) return <FeedListSkeleton />;
 
   if (list?.length === 0) {
     return (
@@ -57,6 +50,16 @@ function FeedList({ activeTab }: Props) {
 }
 
 export default FeedList;
+
+function FeedListSkeleton() {
+  return (
+    <ul className={feedListCss}>
+      <FeedSkeletonItem />
+      <FeedSkeletonItem />
+      <FeedSkeletonItem />
+    </ul>
+  );
+}
 
 const emptyFeedCss = css({
   display: 'flex',
