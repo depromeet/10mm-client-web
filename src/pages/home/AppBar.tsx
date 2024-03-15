@@ -1,4 +1,3 @@
-'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import Icon from '@/components/Icon';
@@ -12,6 +11,7 @@ function AppBar() {
   const handleSearchClick = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.HEADER, EVENT_LOG_NAME.HEADER.CLICK_SEARCH_BUTTON);
   };
+
   return (
     <>
       <header className={headerCss}>

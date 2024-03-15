@@ -1,5 +1,5 @@
 import { useGetMembersMe } from '@/apis/member';
-import ProfileItem from '@/app/home/FollowList/ProfileItem';
+import ProfileItem from '@/pages/home/FollowList/ProfileItem';
 import { type FollowDataState } from '@/app/page';
 
 interface UserProfileProps {

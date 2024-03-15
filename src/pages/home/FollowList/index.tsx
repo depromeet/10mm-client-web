@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useFollowMembers } from '@/apis/follow';
-import UserProfile from '@/app/home/FollowList/UserProfile';
 import { type FollowDataState } from '@/app/page';
 import Icon from '@/components/Icon';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import UserProfile from '@/pages/home/FollowList/UserProfile';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
