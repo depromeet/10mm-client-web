@@ -1,28 +1,33 @@
 'use client';
 
-import { type FeedVisibilityType, useGetFeedList } from '@/apis/feed';
+import { type FeedVisibilityType, useInfiniteFeedList } from '@/apis/feed';
 import FeedItem, { FeedSkeletonItem } from '@/app/feed/FeedItem';
 import Empty from '@/components/Empty/Empty';
 import { ROUTER } from '@/constants/router';
 import useIntersect from '@/hooks/useIntersect';
 import { css } from '@styled-system/css';
 
-function FeedList({ tabProps }: { tabProps: { activeTab: FeedVisibilityType } }) {
-  const { data, isLoading } = useGetFeedList({
-    visibility: tabProps.activeTab,
-    size: 10,
+interface Props {
+  activeTab: FeedVisibilityType;
+}
+
+function FeedList({ activeTab }: Props) {
+  const { data, isLoading, hasNextPage, isFetching, fetchNextPage } = useInfiniteFeedList({
+    visibility: activeTab,
+    size: 5,
   });
-  const list = data?.content.filter((feed) => feed.recordImageUrl); // 이미지 없는 경우가 있음. 나중에 리팩토링 + 서버와 이야기, FeedItem에 ErrorBoundary 적용해도 좋을 듯.
+
+  const list = data?.content?.filter((feed) => feed.recordImageUrl); // 이미지 없는 경우가 있음. 나중에 리팩토링 + 서버와 이야기, FeedItem에 ErrorBoundary 적용해도 좋을 듯.
 
   const targetRef = useIntersect(async (entry, observer) => {
-    // observer.unobserve(entry.target); // TODO : 한번만 보여줄 지?
-    console.log('entry: ', entry);
-    // if (hasNextPage && !isFetching) fetchNextPage();
+    observer.unobserve(entry.target); // TODO : 한번만 보여줄 지?
+    if (hasNextPage && !isFetching) fetchNextPage();
   });
 
   if (!data || isLoading)
     return (
       <ul className={feedListCss}>
+        <FeedSkeletonItem />
         <FeedSkeletonItem />
         <FeedSkeletonItem />
       </ul>

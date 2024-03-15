@@ -33,13 +33,14 @@ function FeedSection() {
   // }, [isLoading]);
 
   // useShowGuide(GUIDE_KEY.ALL_FEED_OPEN, 'appBar');
+  // TODO : 팔로워 피드 없을 때 전체 피드 유도 가이드
 
   return (
     <div>
       <div className={tabWrapperCss}>
         <Tab {...tabProps} />
       </div>
-      <FeedList />
+      <FeedList activeTab={tabProps.activeTab as FeedVisibilityType} />
     </div>
   );
 }
