@@ -1,9 +1,9 @@
 9;
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ['page.tsx', 'page.ts', 'api.tsx', 'api.ts'],
   experimental: {
     appDir: false,
-    pageExtensions: ['page.tsx', 'page.ts', 'api.tsx', 'api.ts'],
   },
   images: {
     remotePatterns: [
