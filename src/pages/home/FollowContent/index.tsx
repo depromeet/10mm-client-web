@@ -1,4 +1,4 @@
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useFollowMembers } from '@/apis/follow';
 import { type FollowMemberType } from '@/apis/schema/member';
 import MissionList from '@/components/MissionList';
@@ -53,16 +53,17 @@ const headingCss = flex({
 
 const useGetSelectFollowData = (): { data: FollowMemberType | null; isLoading: boolean; isFollower: boolean } => {
   const { data, isLoading } = useFollowMembers();
-  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  if (!searchParams.get('id'))
+  const id = router.query.id ? Number(router.query.id) : null;
+
+  if (!id)
     return {
       data: null,
       isLoading,
       isFollower: false,
     };
 
-  const id = Number(searchParams.get('id'));
   const selectedFollowData = data?.find((profile) => profile.memberId === id);
   return { data: selectedFollowData ?? null, isLoading, isFollower: true };
 };

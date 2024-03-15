@@ -7,7 +7,6 @@ import LevelProgressBar from '@/components/Graph/LevelProgressBar';
 import Icon from '@/components/Icon';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
-import { LEVEL_SYSTEM } from '@/constants/level';
 import { ROUTER } from '@/constants/router';
 import { gradientTextCss } from '@/constants/style/gradient';
 import { eventLogger } from '@/utils';
@@ -22,6 +21,7 @@ function FollowSummary({ memberId: followId, nickname: followNickname, profileIm
   const symbolStack = stackData?.symbolStack ?? 0;
   const currentLevel = getLevel(symbolStack);
   const progress = calcProgress(symbolStack);
+
   const handleClickFollowProfile = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_FOLLOW_PROFILE, {
       memberId: followId,
