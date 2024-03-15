@@ -44,6 +44,8 @@ type QueryList = {
   };
   feedList: {
     visibility: string;
+    size: number;
+    lastId?: number;
   };
 
   // reaction

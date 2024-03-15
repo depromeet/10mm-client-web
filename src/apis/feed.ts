@@ -3,33 +3,32 @@ import apiInstance from '@/apis/instance.api';
 import { type FeedBaseType, type FeedItemType } from '@/apis/schema/feed';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
-type GetFeedMeResponse = Array<FeedItemType>;
+interface GetFeedListRequest {
+  visibility: FeedVisibilityType;
+  size: number;
+  lastId?: number;
+}
+
+type GetFeedMeResponse = {
+  content: Array<FeedItemType>;
+  last: boolean;
+};
 
 type GetFeedByMemberIdResponse = Array<FeedBaseType>;
 
 export type FeedVisibilityType = 'ALL' | 'FOLLOWER' | 'NONE';
 
 export const FEED_API = {
-  getFeedMe: async (): Promise<GetFeedMeResponse> => {
-    const { data } = await apiInstance.get('/feed/me');
-    return data;
-  },
   getFeed: async (memberId: number): Promise<GetFeedByMemberIdResponse> => {
     const { data } = await apiInstance.get(`/feed/${memberId}`);
     return data;
   },
-  getFeedList: async (visibility: FeedVisibilityType): Promise<GetFeedMeResponse> => {
-    const { data } = await apiInstance.get('/feed', { params: { visibility } });
+  getFeedList: async (request: GetFeedListRequest): Promise<GetFeedMeResponse> => {
+    const { data } = await apiInstance.get('/feed/me', {
+      params: { visibility: request.visibility, size: 10, lastId: 70 },
+    });
     return data;
   },
-};
-
-export const useFeedMe = (options?: UseQueryOptions<GetFeedMeResponse>) => {
-  return useQuery<GetFeedMeResponse>({
-    ...options,
-    queryKey: getQueryKey('feedMe'),
-    queryFn: FEED_API.getFeedMe,
-  });
 };
 
 export const useFeedByMemberId = (memberId: number, options?: UseQueryOptions<GetFeedByMemberIdResponse>) => {
@@ -40,10 +39,10 @@ export const useFeedByMemberId = (memberId: number, options?: UseQueryOptions<Ge
   });
 };
 
-export const useGetFeedList = (visibility: FeedVisibilityType, options?: UseQueryOptions<GetFeedMeResponse>) => {
+export const useGetFeedList = (request: GetFeedListRequest, options?: UseQueryOptions<GetFeedMeResponse>) => {
   return useQuery<GetFeedMeResponse>({
     ...options,
-    queryKey: getQueryKey('feedList', { visibility }),
-    queryFn: () => FEED_API.getFeedList(visibility),
+    queryKey: getQueryKey('feedList', request),
+    queryFn: () => FEED_API.getFeedList(request),
   });
 };

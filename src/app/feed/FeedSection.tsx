@@ -1,11 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
-import { type FeedVisibilityType, useGetFeedList } from '@/apis/feed';
+import { type FeedVisibilityType } from '@/apis/feed';
 import FeedList from '@/app/feed/FeedList';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
-import useShowGuide, { GUIDE_KEY } from '@/hooks/useShowGuide';
 import { css } from '@/styled-system/css';
 
 const FEED_TABS: { id: FeedVisibilityType; tabName: string }[] = [
@@ -22,26 +20,26 @@ const FEED_TABS: { id: FeedVisibilityType; tabName: string }[] = [
 function FeedSection() {
   const tabProps = useTab(FEED_TABS, 'FOLLOWER');
 
-  const { data, isLoading } = useGetFeedList(tabProps.activeTab as FeedVisibilityType);
-  const feeds = data?.filter((feed) => feed.recordImageUrl); // 이미지 없는 경우가 있음. 나중에 리팩토링 + 서버와 이야기, FeedItem에 ErrorBoundary 적용해도 좋을 듯.
+  // const { data, isLoading } = useGetFeedList(tabProps.activeTab as FeedVisibilityType);
+  // const feeds = data?.filter((feed) => feed.recordImageUrl); // 이미지 없는 경우가 있음. 나중에 리팩토링 + 서버와 이야기, FeedItem에 ErrorBoundary 적용해도 좋을 듯.
 
-  // NOTE: 초기에 팔로워의 피드가 없는 상태라면, 전체 피드로 변경
-  useEffect(() => {
-    if (!isLoading) {
-      if (feeds?.length === 0) {
-        tabProps.onTabClick(FEED_TABS[0]);
-      }
-    }
-  }, [isLoading]);
+  // // NOTE: 초기에 팔로워의 피드가 없는 상태라면, 전체 피드로 변경
+  // useEffect(() => {
+  //   if (!isLoading) {
+  //     if (feeds?.length === 0) {
+  //       tabProps.onTabClick(FEED_TABS[0]);
+  //     }
+  //   }
+  // }, [isLoading]);
 
-  useShowGuide(GUIDE_KEY.ALL_FEED_OPEN, 'appBar');
+  // useShowGuide(GUIDE_KEY.ALL_FEED_OPEN, 'appBar');
 
   return (
     <div>
       <div className={tabWrapperCss}>
         <Tab {...tabProps} />
       </div>
-      <FeedList data={feeds} />
+      <FeedList />
     </div>
   );
 }

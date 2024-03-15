@@ -1,13 +1,26 @@
 'use client';
 
-import { type FeedItemType } from '@/apis/schema/feed';
+import { type FeedVisibilityType, useGetFeedList } from '@/apis/feed';
 import FeedItem, { FeedSkeletonItem } from '@/app/feed/FeedItem';
 import Empty from '@/components/Empty/Empty';
 import { ROUTER } from '@/constants/router';
+import useIntersect from '@/hooks/useIntersect';
 import { css } from '@styled-system/css';
 
-function FeedList({ data }: { data?: Array<FeedItemType> }) {
-  if (!data)
+function FeedList({ tabProps }: { tabProps: { activeTab: FeedVisibilityType } }) {
+  const { data, isLoading } = useGetFeedList({
+    visibility: tabProps.activeTab,
+    size: 10,
+  });
+  const list = data?.content.filter((feed) => feed.recordImageUrl); // 이미지 없는 경우가 있음. 나중에 리팩토링 + 서버와 이야기, FeedItem에 ErrorBoundary 적용해도 좋을 듯.
+
+  const targetRef = useIntersect(async (entry, observer) => {
+    // observer.unobserve(entry.target); // TODO : 한번만 보여줄 지?
+    console.log('entry: ', entry);
+    // if (hasNextPage && !isFetching) fetchNextPage();
+  });
+
+  if (!data || isLoading)
     return (
       <ul className={feedListCss}>
         <FeedSkeletonItem />
@@ -15,7 +28,7 @@ function FeedList({ data }: { data?: Array<FeedItemType> }) {
       </ul>
     );
 
-  if (data.length === 0) {
+  if (list?.length === 0) {
     return (
       <div className={emptyFeedCss}>
         <Empty
@@ -32,9 +45,8 @@ function FeedList({ data }: { data?: Array<FeedItemType> }) {
 
   return (
     <ul className={feedListCss}>
-      {data.map((feed) => (
-        <FeedItem key={feed.recordId} {...feed} />
-      ))}
+      {list?.map((feed) => <FeedItem key={feed.recordId} {...feed} />)}
+      <div className={observerCss} ref={targetRef} />
     </ul>
   );
 }
@@ -53,4 +65,8 @@ const feedListCss = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '32px',
+});
+
+const observerCss = css({
+  height: '1px',
 });
