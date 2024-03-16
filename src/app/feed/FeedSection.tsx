@@ -4,7 +4,8 @@ import { type FeedVisibilityType } from '@/apis/feed';
 import FeedList from '@/app/feed/FeedList';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
+import { fixedPositionCss } from '@/styles/position';
 
 const FEED_TABS: { id: FeedVisibilityType; tabName: string }[] = [
   {
@@ -37,9 +38,10 @@ function FeedSection() {
 
   return (
     <div>
-      <div className={tabWrapperCss}>
+      <div className={cx(fixedPositionCss, tabWrapperCss)}>
         <Tab {...tabProps} />
       </div>
+      <div className={blankCss} />
       <FeedList activeTab={tabProps.activeTab as FeedVisibilityType} />
     </div>
   );
@@ -49,4 +51,10 @@ export default FeedSection;
 
 const tabWrapperCss = css({
   padding: '16px 16px 4px 16px',
+  backgroundColor: 'bg.surface2',
+  zIndex: 1,
+});
+
+const blankCss = css({
+  height: '50px',
 });
