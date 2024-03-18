@@ -7,12 +7,14 @@ interface MissionData {
   startTime: string;
 }
 
+// 미션을 "처음" 시작할 때 미션 데이터 (시작 시간, mission ID)를 storage에 저장
 export const setMissionData = (missionId: string) => {
   const startTime = new Date().toISOString();
   const missionInfo: MissionData = { missionId, startTime };
   localStorage.setItem(STORAGE_KEY.PROGRESS_MISSION.MISSION, JSON.stringify(missionInfo));
 };
 
+// 미션 진행 상태 storage에 저장
 export const setMissionTimeStack = (missionId: string, status: 'start' | 'stop' | 'restart') => {
   const time = new Date().getTime();
   const timeInfo = { time, status };
@@ -26,6 +28,7 @@ export const setMissionTimeStack = (missionId: string, status: 'start' | 'stop' 
   );
 };
 
+// 미션 진행 상태 storage에서 삭제
 export const removeProgressMissionData = () => {
   const missionId = getProgressMissionIdToStorage();
   if (!missionId) return;
@@ -77,10 +80,8 @@ const DEFAULT_MS = 1000;
 const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 
 export const getProgressMissionTime = (missionId: string): number => {
-  // 진행중인 미션이 없다면
   if (!checkIsProgressMission(missionId)) return 0;
 
-  // 진행중인 미션이 있는 경우
   if (!checkTodayMission(missionId)) return 0;
 
   const progressTimeMs = getProgressMissionTimeToStack(missionId);
@@ -88,7 +89,6 @@ export const getProgressMissionTime = (missionId: string): number => {
 
   if (!progressTime) return 0;
 
-  // 10분 이상 진행된 경우 이벤트 기록
   if (progressTime >= 10 * 60) {
     recordTenMinuteEvent(missionId);
   }
