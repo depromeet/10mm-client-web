@@ -42,35 +42,44 @@ export default function useStopwatch(status: StepType, missionId: string, onNext
     return () => clearInterval(timer);
   }, [second, status]);
 
-  // init time setting 분리
-  const settingInitTime = () => {
-    const initSeconds = getProgressMissionTime(missionId);
+  /**
+   * @description 진행되고 있던 미션 시간 데이터를 세팅합니다.
+   * @param {string} currentMissionId 현재 미션 아이디
+   */
+  const settingInitTime = (currentMissionId: string): void => {
+    const initSeconds = getProgressMissionTime(currentMissionId);
 
-    if (!initSeconds) return false;
     if (initSeconds >= MAX_SECONDS) {
       setSecond(MAX_SECONDS);
     } else {
       setSecond(initSeconds);
     }
-    return true;
   };
 
   // 화면 visible 상태로 변경 시, 시간을 다시 세팅
   useVisibilityStateVisible(() => {
     setIsPending(true);
-    settingInitTime();
+    settingInitTime(missionId);
     setIsPending(false);
   });
 
   useEffect(() => {
-    // 해당 미션을 이어 가는 경우. init time setting
-    const flag = settingInitTime();
-    setIsPending(false);
-    if (!flag) return;
+    // 진행되고 있던 미션이 있는지 확인합니다.
+    const flag = checkIsExistProgressMission(missionId);
+    if (!flag) {
+      setIsPending(false);
+      return;
+    }
 
+    // 진행되고 있던 미션이 있는 경우, 시간을 세팅합니다.
+    settingInitTime(missionId);
+
+    // 이전 상태가 있을 경우, 이전 상태로 이동합니다.
     const prevStatus = getPrevProgressMissionStatus(missionId);
-    prevStatus && onNextStep?.(prevStatus); // 바로 재시작
-  }, []);
+    prevStatus && onNextStep?.(prevStatus);
+
+    setIsPending(false);
+  }, [missionId]);
 
   return { minutes: formattedMinutes, seconds: formattedSeconds, stepper, isFinished, isPending };
 }
@@ -79,4 +88,13 @@ const recordTenMinuteEvent = (missionId: string) => {
   eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.COMPLETE_TEM_MINUTE, EVENT_LOG_CATEGORY.STOPWATCH, {
     missionId,
   });
+};
+
+/**
+ * @description 진행되고 있던 미션이 있는지 확인합니다.
+ * @param missionId 미션 아이디
+ * @returns {boolean} 진행되고 있던 미션이 있는지 여부
+ */
+const checkIsExistProgressMission = (missionId: string) => {
+  return Boolean(getProgressMissionTime(missionId));
 };
