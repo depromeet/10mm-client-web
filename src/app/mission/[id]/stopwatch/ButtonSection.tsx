@@ -21,29 +21,65 @@ function ButtonSection({ missionId }: { missionId: string }) {
   const { step } = useStopwatchStepContext();
   const { minutes, time } = useStopwatchTimeContext();
 
+  const logData = { finishTime: time };
+
   const { onInitStart, onMidStart, onStop, onMidOut, onFinish, onRestart } = useStopwatch(missionId);
   const { isPending: isStopwatchPending } = useInitTimeSetting({ missionId });
 
-  const onStart = () => {
-    time > 0 ? onMidStart() : onInitStart();
+  const onStartButtonClick = () => {
+    if (time > 0) {
+      onMidStart();
+      eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
+      return;
+    }
+    onInitStart();
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
+  };
+
+  const onStopButtonClick = () => {
+    onStop();
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
+      stopTime: time,
+    });
+  };
+
+  const onRestartButtonClick = () => {
+    onRestart();
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
   };
 
   const onFinishButtonClick = () => {
-    Number(minutes) < 10 ? onMidOut() : onFinish();
+    if (Number(minutes) < 10) {
+      eventLogger.logEvent(
+        EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
+        EVENT_LOG_CATEGORY.STOPWATCH,
+        logData,
+      );
+      onMidOut();
+      return;
+    }
+    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
+    onFinish();
   };
 
   return (
     <section className={cx(buttonContainerCss, opacityAnimation)}>
       {step === 'ready' && (
         <div className={fixedButtonContainerCss}>
-          <Button variant="primary" size="large" type="button" onClick={onStart} disabled={isStopwatchPending}>
+          <Button
+            variant="primary"
+            size="large"
+            type="button"
+            onClick={onStartButtonClick}
+            disabled={isStopwatchPending}
+          >
             시작
           </Button>
         </div>
       )}
       {step === 'progress' && (
         <>
-          <Button size="medium" variant="secondary" type="button" onClick={onStop}>
+          <Button size="medium" variant="secondary" type="button" onClick={onStopButtonClick}>
             일시 정지
           </Button>
           <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
@@ -53,7 +89,7 @@ function ButtonSection({ missionId }: { missionId: string }) {
       )}
       {step === 'stop' && (
         <>
-          <Button size="medium" variant="secondary" type="button" onClick={onRestart}>
+          <Button size="medium" variant="secondary" type="button" onClick={onRestartButtonClick}>
             다시 시작
           </Button>
           <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>
@@ -69,10 +105,7 @@ export default ButtonSection;
 
 const useStopwatch = (missionId: string) => {
   const { onNextStep } = useStopwatchStepContext();
-  const { time } = useStopwatchTimeContext();
   const { openMidOutModal, openFinalModal } = useStopwatchModalContext();
-
-  const logData = { finishTime: time };
 
   const startAction = () => {
     onNextStep('progress');
@@ -84,23 +117,14 @@ const useStopwatch = (missionId: string) => {
 
   const onInitStart = () => {
     startAction();
-
-    // 초기시작
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
     setMissionData(missionId);
   };
 
   const onMidStart = () => {
     startAction();
-
-    // 중도 재시작
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_RESTART, EVENT_LOG_CATEGORY.STOPWATCH);
   };
 
   const onStop = () => {
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_STOP, EVENT_LOG_CATEGORY.STOPWATCH, {
-      stopTime: time,
-    });
     onNextStep('stop');
     setMissionTimeStack(missionId, 'stop');
   };
@@ -112,18 +136,11 @@ const useStopwatch = (missionId: string) => {
 
   const onMidOut = () => {
     onNextStep('stop');
-    eventLogger.logEvent(
-      EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON_BEFORE_10MM,
-      EVENT_LOG_CATEGORY.STOPWATCH,
-      logData,
-    );
     openMidOutModal();
   };
 
   const onFinish = () => {
     onNextStep('stop');
-
-    eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, logData);
     openFinalModal();
   };
 
