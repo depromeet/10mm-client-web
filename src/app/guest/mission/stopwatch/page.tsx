@@ -9,14 +9,12 @@ import Stopwatch from '@/components/Stopwatch/Stopwatch';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import useStopwatchLogic from '@/hooks/mission/stopwatch/useStopwatchLogic';
-import useStopwatchStatus from '@/hooks/mission/stopwatch/useStopwatchStatus';
+import useStopwatchStatus, { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { eventLogger } from '@/utils';
 import { formatMMSS } from '@/utils/time';
 import { css } from '@styled-system/css';
-
-const GUEST_MISSION_ID = '';
 
 export default function GuestMissionStopwatchPage() {
   const router = useRouter();
@@ -33,7 +31,7 @@ export default function GuestMissionStopwatchPage() {
   const onFinishButtonClick = () => {
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_FINISH_BUTTON, EVENT_LOG_CATEGORY.STOPWATCH, { category });
     openModal();
-    onNextStep('stop');
+    onNextStep(StopwatchStep.stop);
   };
 
   const onFinish = () => {
@@ -60,7 +58,7 @@ export default function GuestMissionStopwatchPage() {
       stopTime: Number(minutes) * 60 + Number(seconds),
       isGuest: true,
     });
-    onNextStep('stop');
+    onNextStep(StopwatchStep.stop);
   };
 
   const onStart = () => {
@@ -68,7 +66,7 @@ export default function GuestMissionStopwatchPage() {
       category,
       isGuest: true,
     });
-    onNextStep('progress');
+    onNextStep(StopwatchStep.progress);
   };
 
   return (
@@ -94,14 +92,14 @@ export default function GuestMissionStopwatchPage() {
         />
       </section>
       <section className={buttonContainerCss}>
-        {step === 'ready' && (
+        {step === StopwatchStep.ready && (
           <div className={fixedButtonContainerCss}>
             <Button variant="primary" size="large" type="button" onClick={onStart}>
               시작
             </Button>
           </div>
         )}
-        {step === 'progress' && (
+        {step === StopwatchStep.progress && (
           <>
             <Button size="medium" variant="secondary" type="button" onClick={onStop}>
               일시 정지
@@ -113,7 +111,7 @@ export default function GuestMissionStopwatchPage() {
         )}
         {step === 'stop' && (
           <>
-            <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep('progress')}>
+            <Button size="medium" variant="secondary" type="button" onClick={() => onNextStep(StopwatchStep.progress)}>
               다시 시작
             </Button>
             <Button size="medium" variant="primary" type="button" onClick={onFinishButtonClick}>

@@ -11,7 +11,7 @@ import {
 import Loading from '@/components/Loading';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useStopwatchSeconds from '@/hooks/mission/stopwatch/useStopwatchLogic';
-import useStopwatchStatus, { type StepType } from '@/hooks/mission/stopwatch/useStopwatchStatus';
+import useStopwatchStatus, { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { eventLogger } from '@/utils';
 import { formatMMSS } from '@/utils/time';
 
@@ -33,14 +33,14 @@ const StopwatchTimeContext = createContext<TimeContextProps>({
 });
 
 interface StepContextProps {
-  step: StepType;
-  prevStep: StepType;
-  onNextStep: (nextStep: StepType) => void;
+  step: StopwatchStep;
+  prevStep: StopwatchStep;
+  onNextStep: (nextStep: StopwatchStep) => void;
 }
 
 export const StopwatchStepContext = createContext<StepContextProps>({
-  step: 'ready',
-  prevStep: 'ready',
+  step: StopwatchStep.ready,
+  prevStep: StopwatchStep.ready,
   onNextStep: () => {},
 });
 

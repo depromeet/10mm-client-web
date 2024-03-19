@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { type StepType } from '@/hooks/mission/stopwatch/useStopwatchStatus';
+import { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 
 const INIT_SECONDS = 0;
 const MAX_SECONDS = 3600; // max 1 hour
@@ -8,7 +8,7 @@ const DEFAULT_MS = 1000;
 const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 
 interface UseStopwatchProps {
-  status: StepType;
+  status: StopwatchStep;
 }
 
 function useStopwatchLogic({ status }: UseStopwatchProps) {
@@ -20,11 +20,11 @@ function useStopwatchLogic({ status }: UseStopwatchProps) {
       setIsFinished(true);
       return;
     }
-    if (status === 'ready') return;
+    if (status === StopwatchStep.ready) return;
 
     let timer: NodeJS.Timeout;
 
-    if (status === 'progress') {
+    if (status === StopwatchStep.progress) {
       timer = setInterval(() => {
         setSecond((prev) => (prev >= MAX_SECONDS ? prev : prev + 1));
       }, timerMs);

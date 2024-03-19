@@ -1,4 +1,5 @@
 import Header from '@/components/Header/Header';
+import { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 
 import { useStopwatchModalContext } from './Modal.context';
 import { useStopwatchStepContext } from './Stopwatch.context';
@@ -8,7 +9,7 @@ function StopwatchHeader() {
   const { openBackModal } = useStopwatchModalContext();
 
   const onBackAction = () => {
-    onNextStep('stop');
+    onNextStep(StopwatchStep.stop);
     openBackModal();
   };
 

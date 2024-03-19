@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Button from '@/components/Button/Button';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
+import { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { eventLogger } from '@/utils';
 import {
   checkPrevProgressMission,
@@ -64,7 +65,7 @@ function ButtonSection({ missionId }: { missionId: string }) {
 
   return (
     <section className={cx(buttonContainerCss, opacityAnimation)}>
-      {step === 'ready' && (
+      {step === StopwatchStep.ready && (
         <div className={fixedButtonContainerCss}>
           <Button
             variant="primary"
@@ -108,7 +109,7 @@ const useStopwatch = (missionId: string) => {
   const { openMidOutModal, openFinalModal } = useStopwatchModalContext();
 
   const startAction = () => {
-    onNextStep('progress');
+    onNextStep(StopwatchStep.progress);
 
     // 이전 미션 기록 삭제 - 강제 접근 이슈
     checkPrevProgressMission(missionId);
@@ -125,22 +126,22 @@ const useStopwatch = (missionId: string) => {
   };
 
   const onStop = () => {
-    onNextStep('stop');
+    onNextStep(StopwatchStep.stop);
     setMissionTimeStack(missionId, 'stop');
   };
 
   const onRestart = () => {
     setMissionTimeStack(missionId, 'restart');
-    onNextStep('progress');
+    onNextStep(StopwatchStep.progress);
   };
 
   const onMidOut = () => {
-    onNextStep('stop');
+    onNextStep(StopwatchStep.stop);
     openMidOutModal();
   };
 
   const onFinish = () => {
-    onNextStep('stop');
+    onNextStep(StopwatchStep.stop);
     openFinalModal();
   };
 
@@ -206,9 +207,9 @@ const useInitTimeSetting = ({ missionId }: { missionId: string }) => {
 
   useEffect(() => {
     // 해당 미션을 이어 가는 경우. init time setting
-    const flag = settingInitTime();
+    const isSettingInit = settingInitTime();
     setIsPending(false);
-    if (!flag) return;
+    if (!isSettingInit) return;
 
     const prevStatus = getPrevProgressMissionStatus(missionId);
     prevStatus && onNextStep?.(prevStatus); // 바로 재시작

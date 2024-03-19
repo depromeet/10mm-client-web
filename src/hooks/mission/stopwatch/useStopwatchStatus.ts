@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-export type StepType = 'ready' | 'progress' | 'stop' | 'finish';
+export enum StopwatchStep {
+  ready = 'ready',
+  progress = 'progress',
+  stop = 'stop',
+  finish = 'finish',
+}
+
+// export type StepType = keyof typeof StopwatchStep;
 
 export const STOPWATCH_STATUS_LABEL = {
   ready: {
@@ -22,12 +29,12 @@ export const STOPWATCH_STATUS_LABEL = {
 } as const;
 
 function useStopwatchStatus() {
-  const [step, setStep] = useState<StepType>('ready');
-  const [prevStep, setPrevStep] = useState<StepType>('ready');
+  const [step, setStep] = useState<StopwatchStep>(StopwatchStep.ready);
+  const [prevStep, setPrevStep] = useState<StopwatchStep>(StopwatchStep.ready);
 
   const stepLabel = STOPWATCH_STATUS_LABEL[step];
 
-  const onNextStep = (nextStep: StepType) => {
+  const onNextStep = (nextStep: StopwatchStep) => {
     setStep((prev) => {
       setPrevStep(prev);
       return nextStep;

@@ -1,5 +1,6 @@
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { STORAGE_KEY } from '@/constants/storage';
+import { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { eventLogger } from '@/utils';
 
 interface MissionData {
@@ -96,17 +97,17 @@ export const getProgressMissionTime = (missionId: string): number => {
   return progressTime;
 };
 
-export const getPrevProgressMissionStatus = (missionId: string): 'ready' | 'progress' | 'stop' | undefined => {
+export const getPrevProgressMissionStatus = (missionId: string): StopwatchStep | undefined => {
   const timeStack = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.TIME_STACK(missionId)) || '[]';
   const timeStackData = JSON.parse(timeStack);
 
-  if (!timeStackData || timeStackData.length === 0) return 'ready';
+  if (!timeStackData || timeStackData.length === 0) return StopwatchStep.ready;
   const status = timeStackData[timeStackData.length - 1].status;
 
-  if (status === 'restart') return 'progress';
-  if (status === 'stop') return 'stop';
+  if (status === 'restart') return StopwatchStep.progress;
+  if (status === 'stop') return StopwatchStep.stop;
 
-  return 'progress';
+  return StopwatchStep.progress;
 };
 
 export const checkIsExistProgressMission = (missionId: string) => {
