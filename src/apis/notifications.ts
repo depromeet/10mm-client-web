@@ -17,11 +17,26 @@ const NOTIFICATION_APIS = {
   },
 };
 
+const NOTIFICATION_MISSIONS_APIS = {
+  // POST /notifications/missions/remind - 미션 알림
+  remind: (seconds: number) => {
+    return apiInstance.post('/notifications/missions/remind', { seconds });
+  },
+};
+
 export default NOTIFICATION_APIS;
+export { NOTIFICATION_MISSIONS_APIS };
 
 export const useNotifyUrging = (options?: UseMutationOptions<unknown, unknown, NotifyUrgingRequest>) => {
   return useMutationHandleError({
     mutationFn: NOTIFICATION_APIS.notifyUrging,
+    ...options,
+  });
+};
+
+export const useRemind = (options?: UseMutationOptions<unknown, unknown, number>) => {
+  return useMutationHandleError({
+    mutationFn: NOTIFICATION_MISSIONS_APIS.remind,
     ...options,
   });
 };
