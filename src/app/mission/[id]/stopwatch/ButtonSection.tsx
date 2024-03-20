@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { NOTIFICATION_MISSIONS_APIS } from '@/apis/notifications';
 import Button from '@/components/Button/Button';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
@@ -35,6 +36,8 @@ function ButtonSection({ missionId }: { missionId: string }) {
     }
     onInitStart();
     eventLogger.logEvent(EVENT_LOG_NAME.STOPWATCH.CLICK_START, EVENT_LOG_CATEGORY.STOPWATCH);
+
+    NOTIFICATION_MISSIONS_APIS.remind(600);
   };
 
   const onStopButtonClick = () => {
