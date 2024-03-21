@@ -1,8 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
-import MissionStatistics from '@/app/mission/[id]/detail/MissionStatistics';
 import { ResultTabId } from '@/app/result/result.constants';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
@@ -12,6 +10,8 @@ import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
+import MissionHistoryBannerApi from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
+import MissionStatistics from '@/pages/mission/[id]/detail/MissionStatistics';
 import { css } from '@/styled-system/css';
 import dayjs from 'dayjs';
 

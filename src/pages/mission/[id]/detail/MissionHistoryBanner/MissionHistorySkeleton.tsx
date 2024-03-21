@@ -1,4 +1,4 @@
-import { missionHistoryBannerCss } from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBanner';
+import { missionHistoryBannerCss } from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBanner';
 import { css, cx } from '@styled-system/css';
 
 function MissionHistorySkeleton() {

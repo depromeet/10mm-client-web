@@ -1,8 +1,8 @@
 import { useGetRecordsStatistics } from '@/apis';
-import MissionChart from '@/app/mission/[id]/detail/MissionChart';
 import Banner from '@/components/Banner/Banner';
 import Icon from '@/components/Icon';
 import { gradientTextCss } from '@/constants/style/gradient';
+import MissionChart from '@/pages/mission/[id]/detail/MissionChart';
 import { css, cx } from '@styled-system/css';
 import dayjs from 'dayjs';
 

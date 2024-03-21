@@ -1,7 +1,7 @@
-import MissionStartButton from '@/app/mission/[id]/detail/MissionStartButton';
-import MissionStatistics from '@/app/mission/[id]/detail/MissionStatistics';
 import { MissionHistoryTab } from '@/components/MissionDetail';
 import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
+import MissionStartButton from '@/pages/mission/[id]/detail/MissionStartButton';
+import MissionStatistics from '@/pages/mission/[id]/detail/MissionStatistics';
 
 function MissionTabContents({
   tab,

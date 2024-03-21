@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
 import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
+import MissionHistoryBannerApi from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 

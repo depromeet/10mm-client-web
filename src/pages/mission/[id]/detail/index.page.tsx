@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import useCheckCompleteMission from '@/app/mission/[id]/detail/useCheckCompleteMission';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
 import Tab from '@/components/Tab/Tab';
@@ -7,6 +6,7 @@ import { useTab } from '@/components/Tab/Tab.hooks';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import MissionTabContents from '@/pages/mission/[id]/detail/MissionTabContents';
+import useCheckCompleteMission from '@/pages/mission/[id]/detail/useCheckCompleteMission';
 import { css } from '@styled-system/css';
 
 const MISSION_TABS = [

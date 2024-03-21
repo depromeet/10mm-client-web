@@ -1,6 +1,6 @@
 import { type StatisticTimeTable } from '@/apis';
-import { getDateArray } from '@/app/mission/[id]/detail/missionChart.utils';
 import Icon from '@/components/Icon';
+import { getDateArray } from '@/pages/mission/[id]/detail/missionChart.utils';
 import { css } from '@styled-system/css';
 import type dayjs from 'dayjs';
 
