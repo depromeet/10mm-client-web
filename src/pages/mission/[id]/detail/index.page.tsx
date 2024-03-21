@@ -1,6 +1,4 @@
-'use client';
-
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import useCheckCompleteMission from '@/app/mission/[id]/detail/useCheckCompleteMission';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
@@ -21,11 +19,12 @@ const MISSION_TABS = [
     id: 'mission-statistics',
   },
 ];
+
 export default function MissionDetailPage() {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
   const router = useRouter();
+  const id = router.query.id;
 
-  const { id } = useParams();
   const { isCompeteMission } = useCheckCompleteMission(id as string);
 
   const { tabs, activeTab, onTabClick } = useTab(MISSION_TABS, 'mission-history');

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import MISSION_APIS from '@/apis/mission';
 import RECORD_API from '@/apis/record';
 import { MissionStatus } from '@/apis/schema/mission';
