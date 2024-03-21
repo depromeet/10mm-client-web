@@ -1,35 +1,34 @@
 import getQueryKey from '@/apis/getQueryKey';
 import apiInstance from '@/apis/instance.api';
 import { type FeedBaseType, type FeedItemType } from '@/apis/schema/feed';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useInfiniteQuery, type UseInfiniteQueryOptions, useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
-type GetFeedMeResponse = Array<FeedItemType>;
+interface GetFeedListRequest {
+  visibility: FeedVisibilityType;
+  size: number;
+  lastId?: number;
+}
+
+type GetFeedListResponse = {
+  content: Array<FeedItemType>;
+  last: boolean;
+};
 
 type GetFeedByMemberIdResponse = Array<FeedBaseType>;
 
 export type FeedVisibilityType = 'ALL' | 'FOLLOWER' | 'NONE';
 
 export const FEED_API = {
-  getFeedMe: async (): Promise<GetFeedMeResponse> => {
-    const { data } = await apiInstance.get('/feed/me');
-    return data;
-  },
   getFeed: async (memberId: number): Promise<GetFeedByMemberIdResponse> => {
     const { data } = await apiInstance.get(`/feed/${memberId}`);
     return data;
   },
-  getFeedList: async (visibility: FeedVisibilityType): Promise<GetFeedMeResponse> => {
-    const { data } = await apiInstance.get('/feed', { params: { visibility } });
+  getFeedList: async (request: GetFeedListRequest): Promise<GetFeedListResponse> => {
+    const { data } = await apiInstance.get('/feed/me', {
+      params: request,
+    });
     return data;
   },
-};
-
-export const useFeedMe = (options?: UseQueryOptions<GetFeedMeResponse>) => {
-  return useQuery<GetFeedMeResponse>({
-    ...options,
-    queryKey: getQueryKey('feedMe'),
-    queryFn: FEED_API.getFeedMe,
-  });
 };
 
 export const useFeedByMemberId = (memberId: number, options?: UseQueryOptions<GetFeedByMemberIdResponse>) => {
@@ -40,10 +39,39 @@ export const useFeedByMemberId = (memberId: number, options?: UseQueryOptions<Ge
   });
 };
 
-export const useGetFeedList = (visibility: FeedVisibilityType, options?: UseQueryOptions<GetFeedMeResponse>) => {
-  return useQuery<GetFeedMeResponse>({
+export const useGetFeedList = (request: GetFeedListRequest, options?: UseQueryOptions<GetFeedListResponse>) => {
+  return useQuery<GetFeedListResponse>({
     ...options,
-    queryKey: getQueryKey('feedList', { visibility }),
-    queryFn: () => FEED_API.getFeedList(visibility),
+    queryKey: getQueryKey('feedList', request),
+    queryFn: () => FEED_API.getFeedList(request),
+  });
+};
+
+export const useInfiniteFeedList = (
+  request: GetFeedListRequest,
+  options?: UseInfiniteQueryOptions<GetFeedListResponse>,
+) => {
+  const queryKey = getQueryKey('feedList', request);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const queryFn = (param: any) => FEED_API.getFeedList({ ...request, lastId: param.pageParam });
+
+  const getNextPageParam = (lastPage: GetFeedListResponse): number | undefined => {
+    return lastPage.last ? undefined : lastPage.content[lastPage.content.length - 1].recordId;
+  };
+
+  return useInfiniteQuery({
+    ...options,
+    queryKey,
+    queryFn,
+    getNextPageParam,
+    initialPageParam: undefined,
+    select: (data) => {
+      const contents = data.pages.map((page) => page.content).flat();
+      return {
+        ...data,
+        content: contents,
+      };
+    },
   });
 };
