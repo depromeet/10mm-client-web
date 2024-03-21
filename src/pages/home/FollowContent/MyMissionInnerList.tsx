@@ -1,8 +1,8 @@
 import { type MissionItemTypeWithRecordId, MissionStatus } from '@/apis/schema/mission';
-import { useMissions } from '@/app/home/home.hooks';
 import MissionList from '@/components/MissionList';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { useMissions } from '@/pages/home/home.hooks';
 import { eventLogger } from '@/utils';
 
 function MissionListInner() {

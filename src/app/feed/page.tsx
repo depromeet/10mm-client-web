@@ -1,5 +1,5 @@
 import FeedSection from '@/app/feed/FeedSection';
-import AppBar from '@/app/home/AppBar';
+import AppBar from '@/pages/home/AppBar';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 

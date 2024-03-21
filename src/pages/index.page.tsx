@@ -1,8 +1,8 @@
-import AppBar from '@/app/home/AppBar';
-import FollowContent from '@/app/home/FollowContent';
-import FollowList from '@/app/home/FollowList';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
+import AppBar from '@/pages/home/AppBar';
+import FollowContent from '@/pages/home/FollowContent';
+import FollowList from '@/pages/home/FollowList';
 import { css } from '@styled-system/css';
 
 export interface FollowData {

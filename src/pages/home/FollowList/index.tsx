@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useFollowMembers } from '@/apis/follow';
-import UserProfile from '@/app/home/FollowList/UserProfile';
 import { type FollowDataState } from '@/app/page';
 import Icon from '@/components/Icon';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import UserProfile from '@/pages/home/FollowList/UserProfile';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
@@ -15,9 +15,9 @@ import ProfileItem from './ProfileItem';
 
 function FollowList() {
   const { data } = useFollowMembers();
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const id = searchParams.get('id') ? Number(searchParams.get('id')) : null;
+
+  const id = router.query.id ? Number(router.query.id) : null;
 
   const onChangeFollowData = (props: FollowDataState) => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.HOME, EVENT_LOG_NAME.HOME.CLICK_FOLLOW_LIST, {
