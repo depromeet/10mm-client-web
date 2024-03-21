@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 interface UseModalProps {
   initialOpen?: boolean;
@@ -13,13 +13,13 @@ export interface UseModalReturn {
 const useModal = ({ initialOpen = false }: UseModalProps = {}): UseModalReturn => {
   const [isOpen, setIsOpen] = useState(initialOpen);
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
   return {
     isOpen,

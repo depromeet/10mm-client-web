@@ -57,7 +57,8 @@ const missionHistorySectionCss = css({
 
 const textSecondaryColorCss = css({
   color: 'text.secondary',
-  whiteSpace: 'pre',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
 });
 
 const textTertiaryColorCss = css({
