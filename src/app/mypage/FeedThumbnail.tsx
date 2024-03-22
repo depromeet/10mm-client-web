@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import MissionDuration from '@/app/record/[id]/detail/MissionDuration';
+import MissionDuration from '@/components/MissionDuration';
 import { css } from '@styled-system/css';
 
 function FeedThumbnail({ imageUrl, missionDuration }: { imageUrl: string; missionDuration: number }) {

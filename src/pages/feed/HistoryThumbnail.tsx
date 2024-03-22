@@ -1,7 +1,6 @@
 import Image from 'next/image';
+import MissionDuration from '@/components/MissionDuration';
 import { css } from '@styled-system/css';
-
-import MissionDuration from './MissionDuration';
 
 function HistoryThumbnail({ imageUrl, missionDuration }: { imageUrl: string; missionDuration: number }) {
   return (

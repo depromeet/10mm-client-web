@@ -1,6 +1,4 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { type HeaderType } from '@/components/Header/Header.types';
 import HeaderBase from '@/components/Header/HeaderBase';
 import IconHeader from '@/components/Header/IconHeader';

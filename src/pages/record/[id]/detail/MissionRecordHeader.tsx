@@ -1,13 +1,14 @@
-'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import { ROUTER } from '@/constants/router';
 
 function MissionRecordHeader({ recordId }: { recordId: string }) {
   const route = useRouter();
+
   const handleEditButtonClick = () => {
     route.push(ROUTER.RECORD.DETAIL.EDIT(recordId));
   };
+
   return (
     <Header
       rightAction="text-button"
@@ -19,4 +20,5 @@ function MissionRecordHeader({ recordId }: { recordId: string }) {
     />
   );
 }
+
 export default MissionRecordHeader;
