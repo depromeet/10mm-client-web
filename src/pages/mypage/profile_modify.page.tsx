@@ -1,7 +1,5 @@
-'use client';
-
 import { type ChangeEvent, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useGetMembersMe, useUploadProfileImage, useUploadProfileImageComplete } from '@/apis/member';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
@@ -114,6 +112,7 @@ function ProfileModifyPage() {
   };
 
   const { isOpen: isCancelModalOpen, openModal: openCancelModal, closeModal: closeCancelModal } = useModal();
+
   const onExit = () => {
     router.replace(ROUTER.MYPAGE.HOME);
   };
