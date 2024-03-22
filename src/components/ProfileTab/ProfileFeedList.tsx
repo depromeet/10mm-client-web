@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { useFeedByMemberId } from '@/apis/feed';
 import Empty from '@/components/Empty/Empty';
-import ProfileFeedItem, { ProfileFeedItemSkeleton } from '@/components/ProfileTab/ProfileFeedItem';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
+
+import ProfileFeedItem, { ProfileFeedItemSkeleton } from './ProfileFeedItem';
 
 function ProfileFeedList({ memberId, isMySelf }: { memberId: number; isMySelf: boolean }) {
   const { data } = useFeedByMemberId(memberId);

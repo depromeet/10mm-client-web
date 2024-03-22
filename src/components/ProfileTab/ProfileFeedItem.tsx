@@ -1,6 +1,7 @@
 import { type FeedBaseType } from '@/apis/schema/feed';
-import FeedThumbnail from '@/components/ProfileTab/FeedThumbnail';
 import { css } from '@styled-system/css';
+
+import FeedThumbnail from './FeedThumbnail';
 
 function ProfileFeedItem(feed: FeedBaseType) {
   return (

@@ -1,9 +1,8 @@
-'use client';
-
-import FollowMissionList from '@/app/mypage/refactor/FollowMissionList';
-import MissionListInner from '@/app/mypage/refactor/MissionInnerList';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+
+import FollowMissionList from './FollowMissionList';
+import MissionListInner from './MissionInnerList';
 
 function ProfileMissionList({ id }: { id?: number }) {
   return (
