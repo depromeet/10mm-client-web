@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { useGetMyId } from '@/apis/member';
 import { type FeedItemType } from '@/apis/schema/feed';
@@ -140,6 +138,8 @@ const missionNameCss = css({
 const remarkCss = css({
   textStyle: 'body2',
   color: 'text.primary',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
 });
 
 const captionCss = css({
