@@ -1,7 +1,7 @@
 'use client';
 import { useGetMembersMe } from '@/apis/member';
-import ProfileFeedList from '@/app/mypage/ProfileFeedList';
-import ProfileMissionList from '@/app/mypage/ProfileMissionList';
+import ProfileFeedList from '@/components/ProfileTab/ProfileFeedList';
+import ProfileMissionList from '@/components/ProfileTab/ProfileMissionList';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
 import { type TabType } from '@/components/Tab/Tab.types';
@@ -20,7 +20,7 @@ const PROFILE_TABS = [
   },
 ];
 
-// TODO : 파일 위치 조정 (mypage, profile 둘다 사용하는 컴포넌트)
+// TODO : mypage, profile에서 따로 사용하도록 리팩토링 하면 좋을 듯
 function ProfileTab({ memberId }: { memberId: number }) {
   const { tabs, activeTab, onTabClick } = useTab(PROFILE_TABS, 'feed');
   const { data } = useGetMembersMe();

@@ -5,11 +5,11 @@ import { useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById, useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
 import { FollowStatus } from '@/apis/schema/member';
-import ProfileTab from '@/app/mypage/ProfileTab';
 import FollowButton from '@/app/profile/[id]/FollowButton';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
+import ProfileTab from '@/components/ProfileTab/ProfileTab';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import LogoutDialog from '@/app/mypage/LogoutDialog';
+import LogoutDialog from '@/app/mypage/setting_and_private/LogoutDialog';
 import Icon, { type IconComponentMap } from '@/components/Icon';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';

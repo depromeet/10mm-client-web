@@ -1,5 +1,5 @@
 import { type FeedBaseType } from '@/apis/schema/feed';
-import FeedThumbnail from '@/app/mypage/FeedThumbnail';
+import FeedThumbnail from '@/components/ProfileTab/FeedThumbnail';
 import { css } from '@styled-system/css';
 
 function ProfileFeedItem(feed: FeedBaseType) {

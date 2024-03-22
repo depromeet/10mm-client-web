@@ -1,12 +1,9 @@
-'use client';
-
-import React from 'react';
 import Link from 'next/link';
 import { useFollowsCountMembers } from '@/apis/follow';
 import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
-import ProfileTab from '@/app/mypage/ProfileTab';
 import ProfileContent from '@/app/profile/[id]/ProfileContent';
+import ProfileTab from '@/components/ProfileTab/ProfileTab';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';

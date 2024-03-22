@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useFeedByMemberId } from '@/apis/feed';
-import ProfileFeedItem, { ProfileFeedItemSkeleton } from '@/app/mypage/ProfileFeedItem';
 import Empty from '@/components/Empty/Empty';
+import ProfileFeedItem, { ProfileFeedItemSkeleton } from '@/components/ProfileTab/ProfileFeedItem';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { eventLogger } from '@/utils';

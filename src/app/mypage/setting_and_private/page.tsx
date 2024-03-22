@@ -1,4 +1,4 @@
-import MenuList from '../MenuList';
+import MenuList from './MenuList';
 
 function Mypage() {
   return (

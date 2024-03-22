@@ -1,8 +1,5 @@
-'use client';
 import Link from 'next/link';
 import { useGetMembersMe } from '@/apis/member';
-import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
-import BottomDim from '@/components/BottomDim/BottomDim';
 import Icon from '@/components/Icon';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
@@ -11,9 +8,7 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { copyClipBoard, eventLogger } from '@/utils';
 
-import MyProfile from './MyProfile';
-
-function Header() {
+function MypageHeader() {
   const { triggerSnackBar } = useSnackBar();
   const { data } = useGetMembersMe();
 
@@ -55,33 +50,7 @@ function Header() {
   );
 }
 
-function Mypage() {
-  return (
-    <main className={backgroundCss}>
-      <Header />
-      <MyProfile />
-      <AppBarBottom />
-      <div className={profileBackgroundDimCss} />
-      <BottomDim type={'bottomDim2'} />
-    </main>
-  );
-}
-const backgroundCss = css({
-  height: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  position: 'relative',
-  background: 'gradients.primary',
-});
-
-const profileBackgroundDimCss = css({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.15) 100%)',
-  top: 0,
-  zIndex: 1,
-});
+export default MypageHeader;
 
 const headingCss = flex({
   justifyContent: 'flex-end',
@@ -94,4 +63,3 @@ const headingCss = flex({
 const iconWrapperCss = css({
   padding: '10px',
 });
-export default Mypage;
