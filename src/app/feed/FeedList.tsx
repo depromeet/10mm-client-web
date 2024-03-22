@@ -1,5 +1,3 @@
-'use client';
-
 import { type FeedVisibilityType, useInfiniteFeedList } from '@/apis/feed';
 import FeedItem, { FeedSkeletonItem } from '@/app/feed/FeedItem';
 import Empty from '@/components/Empty/Empty';
