@@ -1,15 +1,18 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { FOLLOW_API } from '@/apis/follow';
 import { RECOMMENDATION } from '@/app/onboarding/onboarding.constants';
 import RecommendFollowItem from '@/app/onboarding/RecommendFollowItem';
 import Button from '@/components/Button/Button';
 import CenterTextHeader from '@/components/Header/CenterTextHeader';
+import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
 
 function OnboardingPage() {
   const [followList, setFollowList] = useState<number[]>([]);
-
+  const router = useRouter();
   const handleFollow = useCallback((id: number) => {
     setFollowList((prevState) => {
       if (prevState.includes(id)) {
@@ -22,17 +25,30 @@ function OnboardingPage() {
 
   const isSkip = followList.length === 0;
 
+  const handleSkip = () => {
+    router.replace(ROUTER.HOME);
+  };
+
+  const handleComplete = async () => {
+    await Promise.all(
+      followList.map((id) => {
+        return FOLLOW_API.addFollow(id);
+      }),
+    );
+    router.replace(ROUTER.HOME);
+  };
+
   return (
     <div>
       <CenterTextHeader
         title={'추천 친구'}
         rightComponent={
           isSkip ? (
-            <Button variant={'ghost'} size={'medium'}>
+            <Button variant={'ghost'} size={'medium'} onClick={handleSkip}>
               건너뛰기
             </Button>
           ) : (
-            <Button variant={'ghost'} size={'medium'}>
+            <Button variant={'ghost'} size={'medium'} onClick={handleComplete}>
               완료
             </Button>
           )
