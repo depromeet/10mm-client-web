@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from '@/components/Button/Button';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { css } from '@styled-system/css';
@@ -45,7 +46,7 @@ function RecommendFollowItem({
   );
 }
 
-export default RecommendFollowItem;
+export default React.memo(RecommendFollowItem);
 
 const leftWrapperCss = css({
   display: 'flex',

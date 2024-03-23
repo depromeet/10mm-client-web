@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback, useState } from 'react';
 import { RECOMMENDATION } from '@/app/onboarding/onboarding.constants';
 import RecommendFollowItem from '@/app/onboarding/RecommendFollowItem';
 import Button from '@/components/Button/Button';
@@ -7,14 +8,34 @@ import CenterTextHeader from '@/components/Header/CenterTextHeader';
 import { css } from '@styled-system/css';
 
 function OnboardingPage() {
+  const [followList, setFollowList] = useState<number[]>([]);
+
+  const handleFollow = useCallback((id: number) => {
+    setFollowList((prevState) => {
+      if (prevState.includes(id)) {
+        return prevState.filter((followId) => followId !== id);
+      }
+
+      return [...prevState, id];
+    });
+  }, []);
+
+  const isSkip = followList.length === 0;
+
   return (
     <div>
       <CenterTextHeader
         title={'추천 친구'}
         rightComponent={
-          <Button variant={'ghost'} size={'medium'}>
-            건너뛰기
-          </Button>
+          isSkip ? (
+            <Button variant={'ghost'} size={'medium'}>
+              건너뛰기
+            </Button>
+          ) : (
+            <Button variant={'ghost'} size={'medium'}>
+              완료
+            </Button>
+          )
         }
       />
       <div className={textSectionCss}>
@@ -26,11 +47,12 @@ function OnboardingPage() {
         {RECOMMENDATION.map((props) => (
           <RecommendFollowItem
             key={props.id.toString()}
-            {...props}
-            isFollowing={false}
-            onChangeFollow={() => {
-              console.log('Followed');
-            }}
+            id={props.id}
+            tags={props.tags}
+            nickname={props.nickname}
+            profileImageUrl={props.profileImageUrl}
+            isFollowing={followList.includes(props.id)}
+            onChangeFollow={handleFollow}
           />
         ))}
       </ul>
