@@ -57,7 +57,6 @@ const selectWrapperCss = css({
   alignItems: 'center',
   borderBottomWidth: '1px',
   borderColor: 'border.default',
-  marginBottom: '36px',
   cursor: 'pointer',
 });
 
