@@ -1,8 +1,7 @@
-'use client';
-
 import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useSuspenseGetSearchNickname } from '@/apis/member';
+import Header from '@/components/Header/Header';
 import { FollowingMember, NotFollowingMember } from '@/components/ListItem/Follow/MemberItem';
 import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
@@ -12,12 +11,16 @@ import { css } from '@/styled-system/css';
 
 function SearchPage() {
   const [input, setInput] = useState('');
+
   return (
     <>
-      <SearchBar placeholder="닉네임을 검색해 주세요." value={input} onChange={setInput} />
-      <Suspense fallback={<div></div>}>
-        <List nickname={input} key={input} />
-      </Suspense>
+      <Header rightAction="none" title="닉네임 검색" />
+      <main className={mainCss}>
+        <SearchBar placeholder="닉네임을 검색해 주세요." value={input} onChange={setInput} />
+        <Suspense fallback={<div></div>}>
+          <List nickname={input} key={input} />
+        </Suspense>
+      </main>
     </>
   );
 }
@@ -51,4 +54,13 @@ const listContainer = css({
   flex: 1,
   minH: '0',
   overflow: 'auto',
+});
+
+const mainCss = css({
+  padding: '8px 16px 16px',
+  height: '100%',
+  minHeight: 'calc(100vh - 44px)',
+  maxHeight: 'calc(100vh - 44px)',
+  display: 'flex',
+  flexDirection: 'column',
 });
