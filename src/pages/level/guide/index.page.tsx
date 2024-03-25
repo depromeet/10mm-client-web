@@ -1,15 +1,14 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 import { useGetMissionSummary } from '@/apis/mission';
-import Character from '@/app/level/guide/Character';
-import GrowthLevel from '@/app/level/guide/GrowthLevel';
+import Header from '@/components/Header/Header';
+import Character from '@/components/Level/Character';
 import LockedCharacter from '@/components/Level/LockedCharacter';
 import LevelStatus from '@/components/LevelStatus/LevelStatus';
 import LoadingSpinner from '@/components/Loading/LoadingSpinner';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { LEVEL_SYSTEM } from '@/constants/level';
+import GrowthLevel from '@/pages/level/guide/GrowthLevel';
 import { css, cx } from '@/styled-system/css';
 import { eventLogger } from '@/utils';
 import { getLevel } from '@/utils/result';
@@ -39,39 +38,42 @@ function LevelGuidePage() {
   }, [currentLevelInfo]);
 
   return (
-    <div>
-      <div className={levelInfoContainerCss}>
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <>
-            <section className={levelTextWrapperCss}>
-              <p className={levelLabelCss}>{isMyLevel && '현재 레벨'}</p>
-              <div className={cx(badgeCss)}>
-                <MotionDiv key={selectLevelInfo.label}>{selectLevelInfo.label}</MotionDiv>
-              </div>
-            </section>
-            <section className={characterImageSectionCss}>
-              {isLockedLevel ? (
-                <LockedCharacter size="lg" level={selectLevelInfo.level} />
-              ) : (
-                <Character
-                  width={240}
-                  height={180}
-                  level={selectLevelInfo.level}
-                  isLocked={isLockedLevel}
-                  isBackground
-                />
-              )}
-            </section>
-            <LevelStatus symbolStack={symbolStack} viewLevel={selectLevelInfo.level} />
-          </>
-        )}
-      </div>
-      <section className={growthSectionCss}>
-        <GrowthLevel selectLevel={selectLevel} onClick={handleClickedLevel} maxLevel={currentLevelInfo.level} />
-      </section>
-    </div>
+    <>
+      <Header rightAction="none" title="내 레벨" />
+      <main className={containerCss}>
+        <div className={levelInfoContainerCss}>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <>
+              <section className={levelTextWrapperCss}>
+                <p className={levelLabelCss}>{isMyLevel && '현재 레벨'}</p>
+                <div className={cx(badgeCss)}>
+                  <MotionDiv key={selectLevelInfo.label}>{selectLevelInfo.label}</MotionDiv>
+                </div>
+              </section>
+              <section className={characterImageSectionCss}>
+                {isLockedLevel ? (
+                  <LockedCharacter size="lg" level={selectLevelInfo.level} />
+                ) : (
+                  <Character
+                    width={240}
+                    height={180}
+                    level={selectLevelInfo.level}
+                    isLocked={isLockedLevel}
+                    isBackground
+                  />
+                )}
+              </section>
+              <LevelStatus symbolStack={symbolStack} viewLevel={selectLevelInfo.level} />
+            </>
+          )}
+        </div>
+        <section className={growthSectionCss}>
+          <GrowthLevel selectLevel={selectLevel} onClick={handleClickedLevel} maxLevel={currentLevelInfo.level} />
+        </section>
+      </main>
+    </>
   );
 }
 
@@ -141,4 +143,8 @@ const growthSectionCss = css({
   bottom: '0',
   left: 0,
   right: 0,
+});
+
+const containerCss = css({
+  minHeight: '720px',
 });

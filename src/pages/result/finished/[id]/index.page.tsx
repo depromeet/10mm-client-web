@@ -1,7 +1,5 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { ResultTabId } from '@/app/result/result.constants';
+import { type GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
 import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
@@ -12,6 +10,7 @@ import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import MissionHistoryBannerApi from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionStatistics from '@/pages/mission/[id]/detail/MissionStatistics';
+import { ResultTabId } from '@/pages/result/result.constants';
 import { css } from '@/styled-system/css';
 import dayjs from 'dayjs';
 
@@ -25,6 +24,14 @@ const MISSION_TAB = [
     id: 'mission-statistics',
   },
 ];
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return {
+    props: {
+      params: { id: context.query.id },
+    },
+  };
+}
 
 function FinishedMissionDetailPage({ params: { id } }: { params: { id: string } }) {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();

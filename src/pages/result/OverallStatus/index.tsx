@@ -1,9 +1,8 @@
-'use client';
-
 import { useGetMissionSummary } from '@/apis/mission';
-import BannerSection, { BannerSectionSkeleton } from '@/app/result/OverallStatus/BannerSection';
-import ImageAreaSection, { ImageSectionSkeleton } from '@/app/result/OverallStatus/ImageAreaSection';
-import MissionSection from '@/app/result/OverallStatus/MissionSection';
+
+import BannerSection, { BannerSectionSkeleton } from './BannerSection';
+import ImageAreaSection, { ImageSectionSkeleton } from './ImageAreaSection';
+import MissionSection from './MissionSection';
 
 function OverallStatus() {
   const { data, isLoading } = useGetMissionSummary();

@@ -6,6 +6,7 @@ import MissionChart from '@/pages/mission/[id]/detail/MissionChart';
 import { css, cx } from '@styled-system/css';
 import dayjs from 'dayjs';
 
+// TODO : component 폴더로 이동
 function MissionStatistics({ missionId }: { missionId: string }) {
   const { data } = useGetRecordsStatistics(Number(missionId));
   return (

@@ -1,8 +1,8 @@
-import CalendarItem from '@/app/result/OverallStatus/CalendarItem';
 import Icon from '@/components/Icon';
 import { WEEK_DAYS } from '@/components/MissionDetail/MissionCalender/MissionCalendar.constants';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import useCalendar from '@/hooks/useCalendar';
+import CalendarItem from '@/pages/result/OverallStatus/CalendarItem';
 import { eventLogger } from '@/utils';
 import { css, cx } from '@styled-system/css';
 import dayjs, { type Dayjs } from 'dayjs';
