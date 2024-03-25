@@ -1,8 +1,6 @@
-'use client';
-
 import Image from 'next/image';
-import Character from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
+import Character from '@/components/Level/Character';
 import MotionDiv from '@/components/Motion/MotionDiv';
 import ProgressBar from '@/components/ProgressBar';
 import { gradientTextCss } from '@/constants/style/gradient';

@@ -1,5 +1,5 @@
-import Character from '@/app/level/guide/Character';
 import Icon from '@/components/Icon';
+import Character from '@/components/Level/Character';
 import LockedCharacter from '@/components/Level/LockedCharacter';
 import { LEVEL_SYSTEM } from '@/constants/level';
 import { gradientBorderWrapperCss, gradientTextCss } from '@/constants/style/gradient';
