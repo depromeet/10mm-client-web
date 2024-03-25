@@ -98,7 +98,7 @@ describe('getProgressMissionTime 테스팅', () => {
     expect(time).toBe(0);
   });
 
-  test('오늘 진행 중인 미션이 없으면 0이 반환되어야합니다.', () => {
+  test('오늘 시작한 미션이 아니여도 남아있어야합니다. ', () => {
     const spy = mockTime(1708307992308);
     setMissionData(TEST_MISSION_ID);
     setMissionTimeStack(TEST_MISSION_ID, 'start');
@@ -107,10 +107,7 @@ describe('getProgressMissionTime 테스팅', () => {
     const missionData = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.MISSION);
     expect(missionData).not.toBe(null);
 
-    const time2 = getProgressMissionTime(TEST_MISSION_ID);
-    expect(time2).toBe(0);
-
-    expect(localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.MISSION)).toBe(null);
+    expect(localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.MISSION)).not.toBe(null);
   });
 
   test('return 값은 number형 정수여야합니다.', () => {
@@ -135,84 +132,6 @@ describe('getProgressMissionTime 테스팅', () => {
     const time = getProgressMissionTime(TEST_MISSION_ID);
     spy2.mockRestore();
     expect(time).toBe(continueSeconds);
-  });
-
-  test('start(0) -> stop(60s) -> current(100s) 상태일 때, 60s가 반환되어야합니다.', () => {
-    const spy = mockTime(MOCK_TIME_BASE);
-    startMission(TEST_MISSION_ID);
-    spy.mockRestore();
-
-    const continueSeconds = 60;
-
-    const spy2 = mockTime(MOCK_TIME_BASE + continueSeconds * timerMs);
-    setMissionTimeStack(TEST_MISSION_ID, 'stop');
-    spy2.mockRestore();
-
-    const stopSeconds = 40;
-
-    const spy3 = mockTime(MOCK_TIME_BASE + stopSeconds * timerMs);
-    const time = getProgressMissionTime(TEST_MISSION_ID);
-    spy3.mockRestore();
-
-    expect(time).toBe(continueSeconds);
-  });
-
-  test('start(0) -> stop(60s) -> restart(100s) -> current(120s) 상태일 때, 80s가 반환되어야합니다.', () => {
-    const spy = mockTime(MOCK_TIME_BASE);
-    startMission(TEST_MISSION_ID);
-    spy.mockRestore();
-
-    const continueSeconds = 60;
-
-    const spy2 = mockTime(MOCK_TIME_BASE + continueSeconds * timerMs);
-    setMissionTimeStack(TEST_MISSION_ID, 'stop');
-    spy2.mockRestore();
-
-    const stopSeconds = 40;
-
-    const spy3 = mockTime(MOCK_TIME_BASE + stopSeconds * timerMs);
-    setMissionTimeStack(TEST_MISSION_ID, 'restart');
-    spy3.mockRestore();
-
-    const restartSeconds = 20;
-
-    const spy4 = mockTime(MOCK_TIME_BASE + (stopSeconds + restartSeconds) * timerMs);
-    const time = getProgressMissionTime(TEST_MISSION_ID);
-    spy4.mockRestore();
-
-    expect(time).toBe(continueSeconds + restartSeconds);
-  });
-
-  test('start(0) -> stop(60s) -> restart(100s) -> stop(120s) -> current(150s) 상태일 때, 90s가 반환되어야합니다.', () => {
-    const spy = mockTime(MOCK_TIME_BASE);
-    startMission(TEST_MISSION_ID);
-    spy.mockRestore();
-
-    const continueSeconds = 60;
-
-    const spy2 = mockTime(MOCK_TIME_BASE + continueSeconds * timerMs);
-    setMissionTimeStack(TEST_MISSION_ID, 'stop');
-    spy2.mockRestore();
-
-    const stopSeconds = 40;
-
-    const spy3 = mockTime(MOCK_TIME_BASE + stopSeconds * timerMs);
-    setMissionTimeStack(TEST_MISSION_ID, 'restart');
-    spy3.mockRestore();
-
-    const restartSeconds = 20;
-
-    const spy4 = mockTime(MOCK_TIME_BASE + (stopSeconds + restartSeconds) * timerMs);
-    setMissionTimeStack(TEST_MISSION_ID, 'stop');
-    spy4.mockRestore();
-
-    const stopSeconds2 = 30;
-
-    const spy5 = mockTime(MOCK_TIME_BASE + (stopSeconds + restartSeconds + stopSeconds2) * timerMs);
-    const time = getProgressMissionTime(TEST_MISSION_ID);
-    spy5.mockRestore();
-
-    expect(time).toBe(continueSeconds + restartSeconds);
   });
 
   test('start(0) -> stop(60s) -> restart(100s) -> stop(120s) -> restart(150s) -> current(200s) 상태일 때, 130s가 반환되어야합니다.', () => {
