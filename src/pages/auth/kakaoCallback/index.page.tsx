@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useSocialLogin } from '@/apis/auth';
 import Loading from '@/components/Loading';
 import { AUTH_PROVIDER } from '@/constants/common';
@@ -8,12 +8,13 @@ import { eventLogger } from '@/utils';
 
 export default function KakaoCallbackPage() {
   const router = useRouter();
-  const params = useSearchParams();
+  const { code, state } = router.query;
+
   const { mutateAsync } = useSocialLogin();
 
   useEffect(() => {
     (async () => {
-      const code = params.get('code');
+      if (!code || !state) return;
       await fetch('https://kauth.kakao.com/oauth/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -31,14 +32,14 @@ export default function KakaoCallbackPage() {
                   eventLogger.identify(successData.memberId.toString());
                 }
 
-                router.push(params.get('state') ?? ROUTER.HOME);
+                router.push(`${state}` ?? ROUTER.HOME);
               },
             },
           );
         });
       });
     })();
-  }, []);
+  }, [code, state]);
 
   return (
     <main>
