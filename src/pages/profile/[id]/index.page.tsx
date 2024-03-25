@@ -4,12 +4,12 @@ import { useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById, useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
 import { FollowStatus } from '@/apis/schema/member';
-import FollowButton from '@/app/profile/[id]/FollowButton';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import ProfileContent from '@/components/ProfileContent';
 import ProfileTab from '@/components/ProfileTab/ProfileTab';
 import { ROUTER } from '@/constants/router';
+import FollowButton from '@/pages/profile/[id]/FollowButton';
 import { css } from '@styled-system/css';
 
 function FollowProfilePage({
