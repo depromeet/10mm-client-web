@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useFollowMissions } from '@/apis/follow';
-import { MissionListSkeleton } from '@/app/home/home.styles';
 import Empty from '@/components/Empty/Empty';
 import { TwoLineListItem } from '@/components/ListItem';
 import MissionBadge from '@/components/MissionList/Badge';
@@ -9,6 +8,7 @@ import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
+import { MissionListSkeleton } from '@/pages/home/home.styles';
 import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 import { flex } from '@styled-system/patterns';

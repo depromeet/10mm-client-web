@@ -140,6 +140,8 @@ const missionNameCss = css({
 const remarkCss = css({
   textStyle: 'body2',
   color: 'text.primary',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
 });
 
 const captionCss = css({
