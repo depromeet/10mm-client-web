@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { useAddFollow } from '@/apis/follow';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
-import { useViewList } from '@/app/profile/[id]/follows/index.hooks';
 import { ProfileListItem } from '@/components/ListItem';
 import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { ROUTER } from '@/constants/router';
+import { useViewList } from '@/pages/profile/[id]/follows/index.hooks';
 import { css } from '@/styled-system/css';
 
 interface Props {
@@ -40,34 +40,56 @@ interface ItemProps {
 }
 
 function Item({ item, onUpdateItem }: ItemProps) {
+  const isFollowing = item.followStatus === FollowStatus.FOLLOWING;
+
+  return (
+    <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
+      {isFollowing ? <MutualFollowingItem item={item} /> : <FollowerItem item={item} onUpdateItem={onUpdateItem} />}
+    </Link>
+  );
+}
+
+function FollowerItem({ item, onUpdateItem }: ItemProps) {
   const { mutate } = useAddFollow({
     onSuccess: () => {
       onUpdateItem({ ...item, followStatus: FollowStatus.FOLLOWING });
     },
   });
 
-  const isFollowing = item.followStatus === FollowStatus.FOLLOWING;
-
   return (
-    <Link key={item.memberId} href={ROUTER.PROFILE.DETAIL(item.memberId)}>
-      <ProfileListItem
-        variant={isFollowing ? 'one-button' : 'two-button'}
-        subElement={
-          !isFollowing && (
-            <span className={followLabelCss} onClick={() => mutate(item.memberId)}>
-              팔로우
-            </span>
-          )
-        }
-        buttonElement={
-          // TODO : 삭제 버튼 추가 필요 (맞팔 관계 팔로우 삭제, 맞팔 x, 팔로워 관계 삭제)
-          // 일정 상 무리라고 판단 (2/6) 추후 수정
-          <div></div>
-        }
-        thumbnailUrl={item.profileImageUrl}
-        name={item.nickname}
-      />
-    </Link>
+    <ProfileListItem
+      variant={'two-button'}
+      thumbnailUrl={item.profileImageUrl}
+      name={item.nickname}
+      subElement={
+        <span className={followLabelCss} onClick={() => mutate(item.memberId)}>
+          팔로우
+        </span>
+      }
+      buttonElement={
+        // TODO : 삭제 버튼 추가 필요 (맞팔 관계 팔로우 삭제, 맞팔 x, 팔로워 관계 삭제)
+        // 일정 상 무리라고 판단 (2/6) 추후 수정
+        <div></div>
+      }
+    />
+  );
+}
+
+/**
+ * @description 맞팔
+ */
+function MutualFollowingItem({ item }: Pick<ItemProps, 'item'>) {
+  return (
+    <ProfileListItem
+      variant={'one-button'}
+      thumbnailUrl={item.profileImageUrl}
+      name={item.nickname}
+      buttonElement={
+        // TODO : 삭제 버튼 추가 필요 (맞팔 관계 팔로우 삭제, 맞팔 x, 팔로워 관계 삭제)
+        // 일정 상 무리라고 판단 (2/6) 추후 수정
+        <div></div>
+      }
+    />
   );
 }
 

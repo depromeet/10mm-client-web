@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { type FollowerMemberWithStatusType, FollowStatus } from '@/apis/schema/member';
-import { useGetMeId, useViewList } from '@/app/profile/[id]/follows/index.hooks';
 import {
   FollowingMember,
   type MemberItemProps,
@@ -10,8 +9,10 @@ import {
 import { stagger } from '@/components/Motion/Motion.constants';
 import StaggerWrapper from '@/components/Motion/StaggerWrapper';
 import { ROUTER } from '@/constants/router';
+import { useGetMeId, useViewList } from '@/pages/profile/[id]/follows/index.hooks';
 import { css } from '@/styled-system/css';
 
+// TODO : refetch -> invalidQueries 로 변경
 interface Props {
   list: FollowerMemberWithStatusType[];
   refetch: () => void;
