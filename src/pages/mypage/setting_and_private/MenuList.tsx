@@ -1,10 +1,8 @@
-'use client';
-
 import Link from 'next/link';
-import LogoutDialog from '@/app/mypage/LogoutDialog';
 import Icon, { type IconComponentMap } from '@/components/Icon';
 import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
+import LogoutDialog from '@/pages/mypage/setting_and_private/LogoutDialog';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 
@@ -29,6 +27,7 @@ function MenuList() {
 }
 
 export default MenuList;
+
 const mainCss = css({
   height: '100vh',
   backgroundColor: 'bg.surface2',

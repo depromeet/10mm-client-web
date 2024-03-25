@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog/Dialog';
 import { type ModalProps } from '@/components/Modal/Modal';
 import { ROUTER } from '@/constants/router';
@@ -6,7 +6,7 @@ import { removeTokens } from '@/services/auth/actions';
 
 function LogoutDialog(props: ModalProps) {
   const router = useRouter();
-  // TODO : logout 동작
+
   const onLogout = async () => {
     await removeTokens();
     router.replace(ROUTER.AUTH.LOGIN);

@@ -1,12 +1,9 @@
-'use client';
-
-import React from 'react';
 import Link from 'next/link';
 import { useFollowsCountMembers } from '@/apis/follow';
 import { useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
-import ProfileTab from '@/app/mypage/ProfileTab';
-import ProfileContent from '@/app/profile/[id]/ProfileContent';
+import ProfileContent from '@/components/ProfileContent';
+import ProfileTab from '@/components/ProfileTab/ProfileTab';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { css } from '@/styled-system/css';
@@ -15,14 +12,17 @@ import { eventLogger } from '@/utils';
 export default function MyProfile() {
   const { data } = useGetMembersMe();
   const memberId = data?.memberId ?? 0;
+
   const { data: symbolStackData } = useGetMissionStack(memberId.toString());
-  const symbolStack = symbolStackData?.symbolStack ?? 0;
   const { data: followCountData } = useFollowsCountMembers();
+
+  const symbolStack = symbolStackData?.symbolStack ?? 0;
 
   const handleProfileEditClick = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.MY_PAGE, EVENT_LOG_NAME.MY_PAGE.CLICK_EDIT);
   };
 
+  // TODO : children으로 넘겨야 하는 이유가 뭐지?
   return (
     <ProfileContent
       memberId={memberId}

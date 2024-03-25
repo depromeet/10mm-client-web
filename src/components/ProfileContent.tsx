@@ -20,7 +20,6 @@ interface ProfileContentProps {
   isFollow?: boolean;
 }
 
-// TODO : 파일 위치 조정 (mypage, profile 둘다 사용하는 컴포넌트)
 function ProfileContent({
   profileImageUrl,
   nickname,
@@ -97,11 +96,13 @@ const myTabContainerCss = css({
   borderTopLeftRadius: '28px',
   padding: '52px 16px 0',
 });
+
 const userNameCss = css({
   color: 'text.primary',
   fontSize: 'subtitle2',
   fontWeight: 'semibold',
 });
+
 const followerTabCss = css({
   color: 'text.secondary',
   textStyle: 'body5',

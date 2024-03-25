@@ -32,7 +32,6 @@ export const ROUTER = {
     HOME: '/mypage',
     // TODO : 상황에 맞게 수정 필요
     PROFILE_MODIFY: '/mypage/profile_modify',
-    COMPLETE_MISSION_BOX: '/mypage/complete_mission',
     TERMS: '/mypage/terms',
     LOGIN_INFO: '/mypage/login_info',
     WITHDRAWAL: '/mypage/withdrawal',
