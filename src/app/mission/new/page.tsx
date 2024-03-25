@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
 import useCreateMissionMutation from '@/app/mission/new/useCreateMissionMutation';
-import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
@@ -109,10 +108,6 @@ export default function MissionNewPage() {
             selected={missionPublicSetting}
             onSelect={(item) => setMissionPublicSetting(item)}
           />
-
-          {/* <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
-            등록
-          </Button> */}
         </section>
       </div>
     </main>
