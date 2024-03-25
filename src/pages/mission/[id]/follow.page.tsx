@@ -1,5 +1,4 @@
-'use client';
-
+import { type GetServerSidePropsContext } from 'next';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
@@ -19,6 +18,14 @@ const MISSION_TABS = [
     id: 'mission-statistics',
   },
 ];
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return {
+    props: {
+      params: { id: context.query.id },
+    },
+  };
+}
 
 export default function FollowMissionDetailPage({ params: { id } }: { params: { id: string } }) {
   const { tabs, activeTab, onTabClick } = useTab(MISSION_TABS, 'mission-history');
