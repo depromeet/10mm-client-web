@@ -1,13 +1,15 @@
-'use client';
-
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import APIS from '@/apis';
+import { isSeverError } from '@/apis/instance.api';
 import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
-import useCreateMissionMutation from '@/app/mission/new/useCreateMissionMutation';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
+import { ROUTER } from '@/constants/router';
+import { useMutation } from '@tanstack/react-query';
 
 export default function MissionRegistration() {
   const { triggerSnackBar } = useSnackBar();
@@ -15,7 +17,6 @@ export default function MissionRegistration() {
   const [missionTitleInput, setMissionTitleInput] = useState('');
   const [missionContentInput, setMissionContentInput] = useState('');
   const [missionCategory, setMissionCategory] = useState<DropdownValueType<MissionCategory> | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
     PUBLIC_SETTING_LIST[1],
   );
@@ -94,3 +95,25 @@ export default function MissionRegistration() {
     </section>
   );
 }
+
+const useCreateMissionMutation = () => {
+  const router = useRouter();
+  const { triggerSnackBar } = useSnackBar();
+
+  // TODO : api 호출 위치 이동
+  return useMutation({
+    mutationFn: APIS.createMission,
+    onSuccess: () => {
+      router.replace(ROUTER.HOME);
+    },
+    onError: (error) => {
+      console.error('error: ', error);
+      if (isSeverError(error)) {
+        triggerSnackBar({
+          message: error.response.data.data.message,
+        });
+        return;
+      }
+    },
+  });
+};
