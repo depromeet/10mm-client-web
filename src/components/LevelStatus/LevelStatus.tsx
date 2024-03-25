@@ -1,5 +1,3 @@
-'use client';
-
 import Graph from '@/components/Graph/Graph';
 import { getLevel } from '@/utils/result';
 
@@ -26,20 +24,6 @@ function LevelStatus({ viewLevel, ...props }: Props) {
   if (currentLevel.level > viewLevel) {
     return <Graph status="past-level" level={viewLevel} {...props} />;
   }
-
-  //   return (
-  //     <section className={containerCss}>
-  //       <div className={levelWrapperCss}>
-  //         <div className={symbolContainerCss}>
-  //           <TenMMSymbol />
-  //         </div>
-  //         {/* <Image src="/assets/icons/10mm-symbol-fill.svg" alt="10mm symbol fill" width={16} height={16} /> */}
-  //         <span className={cx(levelLabelCss, gradientTextCss)}>{props.symbolStack}</span>
-  //       </div>
-  //       <p className={levelTextWrapperCss}>{viewLevel.label}</p>
-  //       <LevelProgressBar current={props.symbolStack} isLabel={!viewLevel.isFinal} {...viewLevel} />
-  //     </section>
-  //   );
 }
 
 export default LevelStatus;

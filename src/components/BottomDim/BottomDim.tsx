@@ -1,12 +1,13 @@
 import { cva } from '@/styled-system/css';
 
-function BottomDim({ type = 'bottomDim1' }: { type?: 'bottomDim1' | 'bottomDim2' }) {
+type BottomDimType = 'bottomDim1' | 'bottomDim2';
+function BottomDim({ type = 'bottomDim1' }: { type?: BottomDimType }) {
   return (
     <article
       className={containerCss({
         type: type,
       })}
-    ></article>
+    />
   );
 }
 

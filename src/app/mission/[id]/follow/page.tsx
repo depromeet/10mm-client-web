@@ -1,12 +1,12 @@
 'use client';
 
-import MissionStatistics from '@/app/mission/[id]/detail/MissionStatistics';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import MissionHistoryTab from '@/components/MissionDetail/MissionHistoryTab';
 import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
+import MissionStatistics from '@/pages/mission/[id]/detail/MissionStatistics';
 import { css } from '@styled-system/css';
 
 const MISSION_TABS = [

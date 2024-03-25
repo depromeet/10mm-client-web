@@ -1,7 +1,7 @@
-import DefaultDialog from '@/components/Dialog/DefaultDialog';
-import { type DialogProps } from '@/components/Dialog/Dialog.types';
 import { type ModalProps } from '@/components/Modal/Modal';
 
+import DefaultDialog from './DefaultDialog';
+import { type DialogProps } from './Dialog.types';
 import ListDialog from './ListDialog';
 
 /**
