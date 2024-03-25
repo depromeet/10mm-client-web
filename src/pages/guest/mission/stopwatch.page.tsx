@@ -12,6 +12,7 @@ import useStopwatchLogic from '@/hooks/mission/stopwatch/useStopwatchLogic';
 import useStopwatchStatus, { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import useModal from '@/hooks/useModal';
 import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
+import { MISSION_CATEGORIES, type MissionCategoryType } from '@/pages/guest/mission/new/select.constants';
 import { eventLogger } from '@/utils';
 import { formatMMSS } from '@/utils/time';
 import { css } from '@styled-system/css';
@@ -85,7 +86,7 @@ export default function GuestMissionStopwatchPage() {
         <Stopwatch
           minutes={minutes}
           seconds={seconds}
-          missionName={category}
+          missionName={MISSION_CATEGORIES[category].label}
           stepper={stepper}
           isProgress={step === 'progress'}
           isDisabled={step === 'stop'}
@@ -147,9 +148,9 @@ function FinalDialog(props: {
 }
 
 const useGetCategory = () => {
-  const { searchParams } = useSearchParamsTypedValue<string>('category');
+  const { searchParams } = useSearchParamsTypedValue<MissionCategoryType>('category');
 
-  return searchParams ?? '운동';
+  return searchParams ?? 'exercise';
 };
 
 const containerCss = css({
