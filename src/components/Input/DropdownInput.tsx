@@ -70,7 +70,7 @@ const titleCss = css({
 const textWrapperCss = css({
   width: '100%',
   textStyle: 'subtitle3',
-  padding: '14px 4px',
+  padding: '12px 4px 14px',
   borderColor: 'border.default',
 });
 
