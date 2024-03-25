@@ -1,6 +1,6 @@
 import { useGetMembersMe } from '@/apis/member';
-import { type FollowDataState } from '@/app/page';
 import ProfileItem from '@/pages/home/FollowList/ProfileItem';
+import { type FollowDataState } from '@/pages/index.page';
 
 interface UserProfileProps {
   selected: boolean;
