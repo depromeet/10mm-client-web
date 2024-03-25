@@ -1,16 +1,15 @@
-'use client';
-
+import { type GetServerSideProps } from 'next';
 import { useRouter } from 'next/navigation';
 import { useFollowsCountTargetId } from '@/apis/follow';
 import { useGetMembersById, useGetMembersMe } from '@/apis/member';
 import { useGetMissionStack } from '@/apis/mission';
 import { FollowStatus } from '@/apis/schema/member';
-import FollowButton from '@/app/profile/[id]/FollowButton';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Header from '@/components/Header/Header';
 import ProfileContent from '@/components/ProfileContent';
 import ProfileTab from '@/components/ProfileTab/ProfileTab';
 import { ROUTER } from '@/constants/router';
+import FollowButton from '@/pages/profile/[id]/FollowButton';
 import { css } from '@styled-system/css';
 
 function FollowProfilePage({
@@ -66,6 +65,34 @@ function FollowProfilePage({
 }
 
 export default FollowProfilePage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.params as { id: string };
+
+  if (context.query?.profileShare) {
+    return {
+      props: {
+        params: {
+          id,
+        },
+        searchParams: {
+          profileShare: context.query.profileShare,
+        },
+      },
+    };
+  }
+
+  return {
+    props: {
+      params: {
+        id,
+      },
+      searchParams: {
+        profileShare: false,
+      },
+    },
+  };
+};
 
 const backgroundCss = css({
   height: '100vh',
