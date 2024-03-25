@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useGetMembersMe } from '@/apis/member';
 import { type FollowerMemberWithStatusType } from '@/apis/schema/member';
-import { sorFollowerList } from '@/app/profile/[id]/follows/index.utils';
+import { sorFollowerList } from '@/pages/profile/[id]/follows/index.utils';
 
 export const useViewList = (list: FollowerMemberWithStatusType[]) => {
   const myId = useGetMeId();
@@ -19,7 +19,10 @@ export const useViewList = (list: FollowerMemberWithStatusType[]) => {
   return { list: viewList, onUpdateItem };
 };
 
-// @description 현재 로그인한 사용자의 memberId를 가져옵니다.
+/**
+ * @description 현재 로그인한 사용자의 memberId를 가져옵니다.
+ * @returns {number} memberId
+ */
 export const useGetMeId = () => {
   const { data } = useGetMembersMe();
   const memberId = data?.memberId ?? 0;
