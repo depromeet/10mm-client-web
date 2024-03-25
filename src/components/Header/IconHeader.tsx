@@ -1,7 +1,8 @@
-import { type IconHeaderType } from '@/components/Header/Header.types';
-import HeaderBase from '@/components/Header/HeaderBase';
 import Icon from '@/components/Icon';
 import { css } from '@styled-system/css';
+
+import { type IconHeaderType } from './Header.types';
+import HeaderBase from './HeaderBase';
 
 function IconHeader({ iconName = 'close', ...props }: IconHeaderType) {
   return (

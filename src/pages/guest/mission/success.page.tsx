@@ -1,6 +1,5 @@
-'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import lottieJson from '@/assets/lotties/coin-double.json';
 import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
@@ -8,9 +7,6 @@ import { css } from '@styled-system/css';
 import Lottie from 'react-lottie-player';
 
 export default function GuestMissionSuccessPage() {
-  const router = useRouter();
-  const onClickConfirmButton = () => router.push(ROUTER.AUTH.LOGIN);
-
   return (
     <main className={mainWrapperCss}>
       <div className={containerCss}>
@@ -27,9 +23,11 @@ export default function GuestMissionSuccessPage() {
           </div>
         </div>
         <div className={buttonWrapperCss}>
-          <Button type="button" size="large" variant="primary" onClick={onClickConfirmButton}>
-            <span className={buttonTextCss}>10분만 제대로 즐기기</span>
-          </Button>
+          <Link href={ROUTER.AUTH.LOGIN}>
+            <Button type="button" size="large" variant="primary">
+              <span className={buttonTextCss}>10분만 제대로 즐기기</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </main>

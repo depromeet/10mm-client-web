@@ -30,3 +30,5 @@ export const MISSION_CATEGORIES = {
     imgSrc: '/images/emoji-speech-bubble.png',
   },
 } as const;
+
+export type MissionCategoryType = keyof typeof MISSION_CATEGORIES;

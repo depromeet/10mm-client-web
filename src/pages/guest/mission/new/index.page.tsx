@@ -1,7 +1,5 @@
-'use client';
-
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import Layout from '@/components/Layout';
