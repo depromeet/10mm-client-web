@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useSocialLogin, useUpdateMemberFcmToken } from '@/apis/auth';
-// import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
 import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
@@ -31,8 +30,8 @@ export default function LoginPage() {
   const router = useRouter();
   const { mutateAsync: socialLoginAsyncMutate } = useSocialLogin();
   const { mutate: updateMemberFcmTokenMutate } = useUpdateMemberFcmToken();
-  const search = useSearchParams();
-  const redirectUrl = search.get('redirect') ?? ROUTER.HOME;
+  const { redirect } = router.query;
+  const redirectUrl = redirect ?? ROUTER.HOME;
   // const onClickGuest = () => {
   //   router.push(ROUTER.GUEST.MISSION.NEW);
   // };
@@ -63,7 +62,7 @@ export default function LoginPage() {
       redirectUri: process.env.NEXT_PUBLIC_KAKAO_LOGIN_REDIRECT_URI,
       nonce: process.env.NEXT_PUBLIC_SNS_LOGIN_NONCE,
       throughTalk: isAndroid() ? false : true,
-      state: redirectUrl,
+      state: redirectUrl.toString(),
     });
   };
 
@@ -79,7 +78,7 @@ export default function LoginPage() {
             if (data?.memberId) {
               eventLogger.identify(data.memberId.toString());
             }
-            router.push(redirectUrl);
+            router.push(redirectUrl.toString());
           },
         },
       );
@@ -101,7 +100,7 @@ export default function LoginPage() {
               updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
             }
             // 지금 당장은 필요없지만 나중을 위해 작동하도록 한다
-            router.push(redirectUrl);
+            router.push(redirectUrl.toString());
           },
           onError: () => {
             window.Kakao.Auth.authorize({
