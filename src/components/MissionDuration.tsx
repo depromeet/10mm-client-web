@@ -1,6 +1,7 @@
 import Icon from '@/components/Icon';
 import { css } from '@styled-system/css';
 
+// TODO : 컴포넌트 분리
 function MissionDuration({ type = 'record', duration }: { type?: 'profileFeed' | 'record'; duration: number }) {
   if (type === 'profileFeed') {
     return (

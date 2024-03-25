@@ -1,22 +1,17 @@
-'use client';
 import { useMemo } from 'react';
-import { useParams } from 'next/navigation';
 import { useGetRecordDetail } from '@/apis';
 import MyReactionBar from '@/components/ReactionBar/MyReactionBar/MyReactionBar';
 import OtherReactionBar from '@/components/ReactionBar/OtherReactionBar/OtherReactionBar';
+import HistoryThumbnail from '@/pages/feed/HistoryThumbnail';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 
-import HistoryThumbnail from './HistoryThumbnail';
-
 interface Props {
   isFollow: boolean;
+  recordId: string;
 }
 
-function MissionRecordDetail(props: Props) {
-  const params = useParams();
-
-  const recordId = params.id as string;
+function MissionRecordDetail({ recordId, ...props }: Props) {
   const { data } = useGetRecordDetail(recordId);
 
   const { sinceDay, imageUrl, remark, duration, startedAt: missionDate } = data;

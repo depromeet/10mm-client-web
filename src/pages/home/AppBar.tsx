@@ -7,6 +7,7 @@ import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
 
+// TODO: component 폴더로 이동
 function AppBar() {
   const handleSearchClick = () => {
     eventLogger.logEvent(EVENT_LOG_CATEGORY.HEADER, EVENT_LOG_NAME.HEADER.CLICK_SEARCH_BUTTON);

@@ -1,9 +1,7 @@
-'use client';
-
 import { type FeedVisibilityType } from '@/apis/feed';
-import FeedList from '@/app/feed/FeedList';
 import Tab from '@/components/Tab/Tab';
 import { useTab } from '@/components/Tab/Tab.hooks';
+import FeedList from '@/pages/feed/FeedList';
 import { css, cx } from '@/styled-system/css';
 import { fixedPositionCss } from '@/styles/position';
 
