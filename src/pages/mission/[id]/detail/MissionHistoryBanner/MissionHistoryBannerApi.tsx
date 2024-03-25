@@ -3,6 +3,7 @@ import Banner from '@/components/Banner/Banner';
 import { MISSION_CATEGORY_LABEL } from '@/constants/mission';
 import MissionHistorySkeleton from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistorySkeleton';
 
+// TODO : component 폴더로 이동
 function MissionHistoryBannerApi({ missionId }: { missionId: string }) {
   const { data } = useGetMissionDetailNoSuspense(missionId);
 

@@ -1,7 +1,8 @@
 import Button from '@/components/Button/Button';
-import { type DefaultDialogProps } from '@/components/Dialog/Dialog.types';
 import Modal from '@/components/Modal/Modal';
 import { css } from '@styled-system/css';
+
+import { type DefaultDialogProps } from './Dialog.types';
 
 /**
  * @description DefaultDialog 컴포넌트

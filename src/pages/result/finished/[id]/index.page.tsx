@@ -1,6 +1,5 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
+import { type GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
 import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
@@ -25,6 +24,14 @@ const MISSION_TAB = [
     id: 'mission-statistics',
   },
 ];
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return {
+    props: {
+      params: { id: context.query.id },
+    },
+  };
+}
 
 function FinishedMissionDetailPage({ params: { id } }: { params: { id: string } }) {
   const { isOpen, openModal: openDeleteDialog, closeModal: closeDeleteDialog } = useModal();
