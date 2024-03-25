@@ -1,10 +1,5 @@
-'use client';
-
 import Link from 'next/link';
 import { useGetFinishedMissions } from '@/apis/mission';
-import FinishedMissionList from '@/app/result/FinishedMissionList';
-import OverallStatus from '@/app/result/OverallStatus';
-import { ResultTabId } from '@/app/result/result.constants';
 import AppBarBottom from '@/components/AppBarBottom/AppBarBottom';
 import BottomDim from '@/components/BottomDim/BottomDim';
 import Tab from '@/components/Tab/Tab';
@@ -15,6 +10,10 @@ import useSearchParamsTypedValue from '@/hooks/useSearchParamsTypedValue';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
 import { eventLogger } from '@/utils';
+
+import FinishedMissionList from './FinishedMissionList';
+import OverallStatus from './OverallStatus';
+import { ResultTabId } from './result.constants';
 
 const handleLevelGuideClick = () => {
   eventLogger.logEvent(EVENT_LOG_CATEGORY.RESULT, EVENT_LOG_NAME.RESULT.CLICK_MISSION);

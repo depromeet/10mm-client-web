@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ResultTabId } from '@/app/result/result.constants';
 import Header from '@/components/Header/Header';
 import { MissionDeleteDialog } from '@/components/MissionDetail';
 import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
@@ -12,6 +11,7 @@ import { ROUTER } from '@/constants/router';
 import useModal from '@/hooks/useModal';
 import MissionHistoryBannerApi from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import MissionStatistics from '@/pages/mission/[id]/detail/MissionStatistics';
+import { ResultTabId } from '@/pages/result/result.constants';
 import { css } from '@/styled-system/css';
 import dayjs from 'dayjs';
 

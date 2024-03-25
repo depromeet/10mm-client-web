@@ -1,4 +1,4 @@
-import { type ResultTabId } from '@/app/result/result.constants';
+import { type ResultTabId } from '@/pages/result/result.constants';
 
 export const ROUTER = {
   HOME: '/',
