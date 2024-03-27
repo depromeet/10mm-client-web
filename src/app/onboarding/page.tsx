@@ -7,13 +7,16 @@ import { RECOMMENDATION } from '@/app/onboarding/onboarding.constants';
 import RecommendFollowItem from '@/app/onboarding/RecommendFollowItem';
 import Button from '@/components/Button/Button';
 import CenterTextHeader from '@/components/Header/CenterTextHeader';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { eventLogger } from '@/utils';
 import { css } from '@styled-system/css';
 
 function OnboardingPage() {
   const [followList, setFollowList] = useState<number[]>([]);
   const router = useRouter();
   const handleFollow = useCallback((id: number) => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.ONBOARDING, EVENT_LOG_NAME.ONBOARDING.SELECT_FOLLOW);
     setFollowList((prevState) => {
       if (prevState.includes(id)) {
         return prevState.filter((followId) => followId !== id);
@@ -26,6 +29,7 @@ function OnboardingPage() {
   const isSkip = followList.length === 0;
 
   const handleSkip = () => {
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.ONBOARDING, EVENT_LOG_NAME.ONBOARDING.CLICK_SKIP);
     router.replace(ROUTER.HOME);
   };
 
@@ -35,6 +39,10 @@ function OnboardingPage() {
         return FOLLOW_API.addFollow(id);
       }),
     );
+    eventLogger.logEvent(EVENT_LOG_CATEGORY.ONBOARDING, EVENT_LOG_NAME.ONBOARDING.CLICK_CONFIRM, {
+      followList: followList.join(','),
+      followCount: followList.length,
+    });
     router.replace(ROUTER.HOME);
   };
 
