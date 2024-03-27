@@ -32,7 +32,10 @@ export default function KakaoCallbackPage() {
                 if (successData?.memberId) {
                   eventLogger.identify(successData.memberId.toString());
                 }
-
+                if (successData.landingStatus === 'TO_ONBOARDING') {
+                  router.push(ROUTER.ONBOARDING.HOME);
+                  return;
+                }
                 router.push(params.get('state') ?? ROUTER.HOME);
               },
             },

@@ -35,9 +35,6 @@ export default function LoginPage() {
   const { mutate: updateMemberFcmTokenMutate } = useUpdateMemberFcmToken();
   const search = useSearchParams();
   const redirectUrl = search.get('redirect') ?? ROUTER.HOME;
-  // const onClickGuest = () => {
-  //   router.push(ROUTER.GUEST.MISSION.NEW);
-  // };
 
   const onClickAppleLogin = () => {
     if (isWebView()) {
@@ -81,6 +78,10 @@ export default function LoginPage() {
             if (data?.memberId) {
               eventLogger.identify(data.memberId.toString());
             }
+            if (data.landingStatus === 'TO_ONBOARDING') {
+              router.push(ROUTER.ONBOARDING.HOME);
+              return;
+            }
             router.push(redirectUrl);
           },
         },
@@ -103,6 +104,10 @@ export default function LoginPage() {
               updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
             }
             // 지금 당장은 필요없지만 나중을 위해 작동하도록 한다
+            if (data.landingStatus === 'TO_ONBOARDING') {
+              router.push(ROUTER.ONBOARDING.HOME);
+              return;
+            }
             router.push(redirectUrl);
           },
           onError: () => {

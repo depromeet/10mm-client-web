@@ -18,6 +18,7 @@ interface LoginResponse {
   accessToken: string;
   refreshToken: string;
   memberId?: number;
+  landingStatus?: 'TO_MAIN' | 'TO_ONBOARDING';
 }
 
 interface RegisterRequest {
