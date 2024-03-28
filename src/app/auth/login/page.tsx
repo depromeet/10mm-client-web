@@ -7,6 +7,7 @@ import { useSocialLogin, useUpdateMemberFcmToken } from '@/apis/auth';
 // import Button from '@/components/Button/Button';
 import ButtonSocialLogin from '@/components/ButtonSocialLogin/ButtonSocialLogin';
 import { AUTH_PROVIDER, WINDOW_CUSTOM_EVENT } from '@/constants/common';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { ROUTER } from '@/constants/router';
 import { eventLogger } from '@/utils';
@@ -35,9 +36,6 @@ export default function LoginPage() {
   const { mutate: updateMemberFcmTokenMutate } = useUpdateMemberFcmToken();
   const search = useSearchParams();
   const redirectUrl = search.get('redirect') ?? ROUTER.HOME;
-  // const onClickGuest = () => {
-  //   router.push(ROUTER.GUEST.MISSION.NEW);
-  // };
 
   const onClickAppleLogin = () => {
     if (isWebView()) {
@@ -81,6 +79,11 @@ export default function LoginPage() {
             if (data?.memberId) {
               eventLogger.identify(data.memberId.toString());
             }
+            if (data.landingStatus === 'TO_ONBOARDING') {
+              eventLogger.logEvent(EVENT_LOG_CATEGORY.ONBOARDING, EVENT_LOG_NAME.ONBOARDING.SUCCESS_SIGNUP);
+              router.push(ROUTER.ONBOARDING.HOME);
+              return;
+            }
             router.push(redirectUrl);
           },
         },
@@ -103,6 +106,11 @@ export default function LoginPage() {
               updateMemberFcmTokenMutate({ fcmToken: event.detail.data.deviceToken });
             }
             // 지금 당장은 필요없지만 나중을 위해 작동하도록 한다
+            if (data.landingStatus === 'TO_ONBOARDING') {
+              eventLogger.logEvent(EVENT_LOG_CATEGORY.ONBOARDING, EVENT_LOG_NAME.ONBOARDING.SUCCESS_SIGNUP);
+              router.push(ROUTER.ONBOARDING.HOME);
+              return;
+            }
             router.push(redirectUrl);
           },
           onError: () => {

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useSocialLogin } from '@/apis/auth';
 import Loading from '@/components/Loading';
 import { AUTH_PROVIDER } from '@/constants/common';
+import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { eventLogger } from '@/utils';
 
@@ -32,7 +33,11 @@ export default function KakaoCallbackPage() {
                 if (successData?.memberId) {
                   eventLogger.identify(successData.memberId.toString());
                 }
-
+                if (successData.landingStatus === 'TO_ONBOARDING') {
+                  eventLogger.logEvent(EVENT_LOG_CATEGORY.ONBOARDING, EVENT_LOG_NAME.ONBOARDING.SUCCESS_SIGNUP);
+                  router.push(ROUTER.ONBOARDING.HOME);
+                  return;
+                }
                 router.push(params.get('state') ?? ROUTER.HOME);
               },
             },
