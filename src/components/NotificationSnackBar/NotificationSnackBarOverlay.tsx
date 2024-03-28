@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { cva } from '@styled-system/css';
 import { AnimatePresence, motion } from 'framer-motion';

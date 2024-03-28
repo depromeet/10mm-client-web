@@ -110,6 +110,7 @@ export const useGetMissionDetail = (missionId: string, option?: UseQueryOptions<
   return useSuspenseQuery<MissionContentType>({
     queryKey: getQueryKey('missionDetail', { missionId }),
     queryFn: () => MISSION_APIS.getMissionDetail(missionId),
+    enabled: Boolean(missionId),
     ...option,
   });
 };

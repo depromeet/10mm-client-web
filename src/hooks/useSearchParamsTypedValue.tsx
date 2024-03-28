@@ -1,11 +1,16 @@
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
-const useSearchParamsTypedValue = <T extends string>(key: string) => {
-  const searchParams = useSearchParams();
-  if (!searchParams) return { searchParams: null };
-  if (!searchParams.has(key)) return { searchParams: null };
+interface UseSearchParamsTypedValueReturn<T> {
+  searchParams: T | null;
+}
 
-  return { searchParams: searchParams.get(key) as T };
+const useSearchParamsTypedValue = <T extends string>(key: string): UseSearchParamsTypedValueReturn<T> => {
+  const router = useRouter();
+
+  if (!router.query) return { searchParams: null };
+  if (!router.query[key]) return { searchParams: null };
+
+  return { searchParams: router.query[key] as T };
 };
 
 export default useSearchParamsTypedValue;

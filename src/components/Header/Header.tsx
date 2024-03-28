@@ -1,16 +1,14 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { type HeaderType } from '@/components/Header/Header.types';
-import HeaderBase from '@/components/Header/HeaderBase';
-import IconHeader from '@/components/Header/IconHeader';
-import IconMenuHeader from '@/components/Header/IconMenuHeader';
-import NoneHeader from '@/components/Header/NoneHeader';
-import TextButtonHeader from '@/components/Header/TextButtonHeader';
+import { useRouter } from 'next/router';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { eventLogger } from '@/utils';
 
+import { type HeaderType } from './Header.types';
+import HeaderBase from './HeaderBase';
+import IconHeader from './IconHeader';
+import IconMenuHeader from './IconMenuHeader';
+import NoneHeader from './NoneHeader';
 import RightComponentHeader from './RightComponentHeader';
+import TextButtonHeader from './TextButtonHeader';
 
 function Header({ onBackAction, isBackIcon = true, ...props }: HeaderType) {
   const router = useRouter();

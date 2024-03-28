@@ -1,5 +1,3 @@
-'use client';
-
 import { type ComponentProps, useMemo } from 'react';
 import { motion, type Variants } from 'framer-motion';
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { type ComponentProps } from 'react';
 import Icon from '@/components/Icon';
 import { css, cx } from '@/styled-system/css';

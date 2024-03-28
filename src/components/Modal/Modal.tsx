@@ -1,5 +1,3 @@
-'use client';
-
 import React, { type PropsWithChildren, useRef } from 'react';
 import AnimatePortal from '@/components/portal/AnimationPortal';
 import useOutsideClick from '@/hooks/useOutsideClick';

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation';
-import { type TextButtonHeaderType } from '@/components/Header/Header.types';
+import Button from '@/components/Button/Button';
+import Icon from '@/components/Icon';
 import { css } from '@/styled-system/css';
 
-import Button from '../Button/Button';
-import Icon from '../Icon';
+import { type TextButtonHeaderType } from './Header.types';
 
 // 이거 여기에 있는 이유가?
 function RightComponentHeader({ rightButtonText = '완료', rightButtonProps, title }: TextButtonHeaderType) {

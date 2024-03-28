@@ -1,6 +1,7 @@
 import Button from '@/components/Button/Button';
-import { type TextButtonHeaderType } from '@/components/Header/Header.types';
-import HeaderBase from '@/components/Header/HeaderBase';
+
+import { type TextButtonHeaderType } from './Header.types';
+import HeaderBase from './HeaderBase';
 
 function TextButtonHeader({ rightButtonText = '완료', rightButtonProps, ...props }: TextButtonHeaderType) {
   return (

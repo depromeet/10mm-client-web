@@ -1,0 +1,44 @@
+@layer reset, base, tokens, recipes, utilities;
+
+:root {
+  --pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
+html {
+  @media screen and (max-width: 475px) {
+    background-color: #18181d;
+  }
+}
+
+.sb-show-main,
+.docs-story {
+  background-color: #18181d;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+textarea:focus,
+button:focus,
+input:focus,
+a {
+  outline: none;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* 버튼 클릭시 나오는 하이라이트 제거 */
+  -webkit-touch-callout: none; /* 링크를 오래 눌렀을때 액션 막기*/
+  -webkit-user-select: none; /* 글자들 선택 안되게 막기 */
+  -khtml-user-select: none; /* 글자들 선택 안되게 막기 */
+  -moz-user-select: none; /* 글자들 선택 안되게 막기 */
+  -ms-user-select: none; /* 글자들 선택 안되게 막기 */
+  user-select: none; /* 글자들 선택 안되게 막기 */
+  -webkit-user-drag: none; /* 이미지, 글자 drag 막기*/
+}

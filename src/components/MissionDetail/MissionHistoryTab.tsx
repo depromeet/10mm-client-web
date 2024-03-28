@@ -1,12 +1,14 @@
-import { useParams } from 'next/navigation';
-import MissionHistoryBannerApi from '@/app/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
+import { useRouter } from 'next/router';
 import MissionCalendar from '@/components/MissionDetail/MissionCalender/MissionCalendar';
 import MissionHistoryTabLayout from '@/components/MissionDetail/MissionHistoryTabLayout';
+import MissionHistoryBannerApi from '@/pages/mission/[id]/detail/MissionHistoryBanner/MissionHistoryBannerApi';
 import { css } from '@styled-system/css';
 import dayjs from 'dayjs';
 
 function MissionHistoryTab({ isFollow }: { isFollow?: boolean }) {
-  const { id } = useParams();
+  const router = useRouter();
+  const id = router.query.id;
+
   const missionId = id as string;
   const currentData = dayjs();
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, type PropsWithChildren, useContext, useState } from 'react';
 import { type SnackBarType, type SnackBarWithoutId } from '@/components/SnackBar/SnackBar.types';
 import SnackBarOverlay from '@/components/SnackBar/SnackBarOverlay';

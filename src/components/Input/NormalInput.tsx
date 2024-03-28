@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { type NormalInputType } from '@/components/Input/Input.types';
 import { css, cx } from '@/styled-system/css';

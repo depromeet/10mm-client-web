@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { ROUTER } from '@/constants/router';
 
 const ALLOW_PATH_LIST = [
@@ -19,8 +19,7 @@ const ALLOW_PATH_LIST = [
 
 export function useAuth() {
   const router = useRouter();
-  const pathname = usePathname();
-
+  const pathname = router.pathname;
   useEffect(() => {
     const token = localStorage.getItem('accessToken') ?? process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
