@@ -1,7 +1,5 @@
-'use client';
-
 import { type FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useLogin } from '@/apis/auth';
 import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';

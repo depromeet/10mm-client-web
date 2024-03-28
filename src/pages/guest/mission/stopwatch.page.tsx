@@ -1,7 +1,5 @@
-'use client';
-
 import { Fragment } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Button from '@/components/Button/Button';
 import Dialog from '@/components/Dialog/Dialog';
 import Header from '@/components/Header/Header';
