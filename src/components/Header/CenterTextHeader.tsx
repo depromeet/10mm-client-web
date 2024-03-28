@@ -1,4 +1,5 @@
 import { css, cx } from '@styled-system/css';
+import { center } from '@styled-system/patterns';
 
 interface CenterTextHeaderProps {
   title: string;
@@ -33,12 +34,7 @@ const sectionWrapperCss = css({
   width: '33%',
 });
 
-const centerCss = css({
-  display: 'flex',
-  alignItems: 'center',
-  textAlign: 'center',
-  justifyContent: 'center',
-});
+const centerCss = center();
 
 const flexEndCss = css({
   display: 'flex',

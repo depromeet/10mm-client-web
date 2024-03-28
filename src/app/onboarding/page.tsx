@@ -3,13 +3,14 @@
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FOLLOW_API } from '@/apis/follow';
-import { RECOMMENDATION } from '@/app/onboarding/onboarding.constants';
+import { RECOMMENDATION, RECOMMENDATION_REAL } from '@/app/onboarding/onboarding.constants';
 import RecommendFollowItem from '@/app/onboarding/RecommendFollowItem';
 import Button from '@/components/Button/Button';
 import CenterTextHeader from '@/components/Header/CenterTextHeader';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
 import { eventLogger } from '@/utils';
+import { getEnv } from '@/utils/appEnv';
 import { css } from '@styled-system/css';
 
 function OnboardingPage() {
@@ -46,6 +47,8 @@ function OnboardingPage() {
     router.replace(ROUTER.HOME);
   };
 
+  const follows = getEnv() === 'real' ? RECOMMENDATION_REAL : RECOMMENDATION;
+
   return (
     <div>
       <CenterTextHeader
@@ -68,13 +71,10 @@ function OnboardingPage() {
         <p className={subTitleCss}>팔로우를 통해 미션과 인증을 공유할 수 있어요.</p>
       </div>
       <ul className={followListCss}>
-        {RECOMMENDATION.map((props) => (
+        {follows.map((props) => (
           <RecommendFollowItem
             key={props.id.toString()}
-            id={props.id}
-            tags={props.tags}
-            nickname={props.nickname}
-            profileImageUrl={props.profileImageUrl}
+            {...props}
             isFollowing={followList.includes(props.id)}
             onChangeFollow={handleFollow}
           />
