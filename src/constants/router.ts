@@ -12,7 +12,9 @@ export const ROUTER = {
   FEED: {
     HOME: '/feed',
   },
-
+  ONBOARDING: {
+    HOME: '/onboarding',
+  },
   RECORD: {
     CREATE: (id: string) => `/record/${id}`,
     SUCCESS: `/record/success`, // TODO: 여기있는것이 맞ㄴ느가?
