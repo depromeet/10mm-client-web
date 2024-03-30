@@ -13,11 +13,18 @@ export const EVENT_LOG_CATEGORY = {
   FOLLOW_PROFILE: 'follow_profile',
   FEED: 'feed',
   REACTION: 'reaction',
+  ONBOARDING: 'onboarding',
 };
 
 type EventLogCategoryType = keyof typeof EVENT_LOG_CATEGORY;
 
 export const EVENT_LOG_NAME = {
+  ONBOARDING: {
+    SUCCESS_SIGNUP: 'success/signUp',
+    SELECT_FOLLOW: 'select/follow',
+    CLICK_SKIP: 'click/skip',
+    CLICK_CONFIRM: 'click/confirm',
+  },
   MISSION_DETAIL: {
     CLICK_CALENDER_ARROW: 'click/calendarArrow',
     CLICK_CALENDER: 'click/calendar',

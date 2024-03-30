@@ -83,8 +83,6 @@ const timerMs: number = Number(process.env.NEXT_PUBLIC_TIMER_MS ?? DEFAULT_MS);
 export const getProgressMissionTime = (missionId: string): number => {
   if (!checkIsProgressMission(missionId)) return 0;
 
-  if (!checkTodayMission(missionId)) return 0;
-
   const progressTimeMs = getProgressMissionTimeToStack(missionId);
   const progressTime = Math.floor(progressTimeMs / timerMs);
 
@@ -130,20 +128,20 @@ const checkIsProgressMission = (missionId: string) => {
   return true;
 };
 
-//  오늘 날짜에 진행되고 있던 미션인지 확인
-// return : true - 오늘 날짜에 진행되고 있던 미션 데이터, false - 오늘 날짜에 진행되고 있던 미션 데이터가 아니거나 없음
-const checkTodayMission = (missionId: string) => {
-  const mission = getProgressMissionStartTimeToStorage(missionId);
-  if (!mission) return false;
-  const missionDate = new Date(mission).getDate();
-  const currentDate = new Date().getDate();
+// //  오늘 날짜에 진행되고 있던 미션인지 확인
+// // return : true - 오늘 날짜에 진행되고 있던 미션 데이터, false - 오늘 날짜에 진행되고 있던 미션 데이터가 아니거나 없음
+// const checkTodayMission = (missionId: string) => {
+//   const mission = getProgressMissionStartTimeToStorage(missionId);
+//   if (!mission) return false;
+//   const missionDate = new Date(mission).getDate();
+//   const currentDate = new Date().getDate();
 
-  if (missionDate === currentDate) return true;
+//   if (missionDate === currentDate) return true;
 
-  // 오늘 날짜에 진행되고 있던 미션 데이터가 아님 -> 삭제
-  removeProgressMissionData();
-  return false;
-};
+//   // 오늘 날짜에 진행되고 있던 미션 데이터가 아님 -> 삭제
+//   // removeProgressMissionData();
+//   return false;
+// };
 
 const getProgressMissionToStorage = (): MissionData | false => {
   const progressMissionData = localStorage.getItem(STORAGE_KEY.PROGRESS_MISSION.MISSION);
