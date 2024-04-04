@@ -1,7 +1,7 @@
 import React from 'react';
-import { type FollowDataState } from '@/app/page';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { oneLineTextCss } from '@/constants/style/text';
+import { type FollowDataState } from '@/pages/index.page';
 import { css, cx } from '@styled-system/css';
 
 interface Props {

@@ -1,7 +1,5 @@
-'use client';
-
 import { createContext, type PropsWithChildren, useCallback, useContext, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog/Dialog';
 import Loading from '@/components/Loading';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
