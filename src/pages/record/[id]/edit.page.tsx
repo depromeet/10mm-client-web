@@ -1,12 +1,20 @@
-'use client';
 import { type ChangeEventHandler, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { type GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 import { useGetRecordDetail, useUpdateRemarkMutation } from '@/apis';
 import Header from '@/components/Header/Header';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import TextArea from '@/components/TextArea/TextArea';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return {
+    props: {
+      params: { id: context.query.id },
+    },
+  };
+}
 
 function MissionRecordEditPage({ params }: { params: { id: string } }) {
   const { data } = useGetRecordDetail(params.id as string);

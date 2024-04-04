@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 import { NOTIFICATION_MISSIONS_APIS } from '@/apis/notifications';
 import Button from '@/components/Button/Button';

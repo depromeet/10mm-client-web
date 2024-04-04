@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import SnackBar from '@/components/SnackBar/SnackBar';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';

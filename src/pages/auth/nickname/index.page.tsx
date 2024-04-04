@@ -1,6 +1,4 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useNicknameRegister } from '@/apis/auth';
 import { isSeverError } from '@/apis/instance.api';
 import Button from '@/components/Button/Button';

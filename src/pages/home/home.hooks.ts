@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useGetMissions } from '@/apis/mission';
 import { type MissionItemTypeWithRecordId, MissionStatus } from '@/apis/schema/mission';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';

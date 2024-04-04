@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useRecordTime } from '@/apis';
 import { isSeverError } from '@/apis/instance.api';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
