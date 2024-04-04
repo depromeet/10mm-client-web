@@ -1,5 +1,3 @@
-'use client';
-
 import Icon from '@/components/Icon';
 import Portal from '@/components/portal/Portal';
 import { css } from '@/styled-system/css';
