@@ -23,6 +23,8 @@ const SEO = ({ title, description, ogImage, keywords }: Props) => {
     <Head>
       <title>{TITLE}</title>
       <link rel="canonical" href={BASE_URL} />
+      <link rel="icon" href="/favicon.ico" />
+
       <meta name="description" content={DESCRIPTION} />
       <meta name="keywords" content={keywords} />
 

@@ -1,14 +1,12 @@
-'use client';
-
 import { useCallback, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FOLLOW_API } from '@/apis/follow';
-import { RECOMMENDATION, RECOMMENDATION_REAL } from '@/app/onboarding/onboarding.constants';
-import RecommendFollowItem from '@/app/onboarding/RecommendFollowItem';
 import Button from '@/components/Button/Button';
 import CenterTextHeader from '@/components/Header/CenterTextHeader';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { ROUTER } from '@/constants/router';
+import { RECOMMENDATION, RECOMMENDATION_REAL } from '@/pages/onboarding/onboarding.constants';
+import RecommendFollowItem from '@/pages/onboarding/RecommendFollowItem';
 import { eventLogger } from '@/utils';
 import { getEnv } from '@/utils/appEnv';
 import { css } from '@styled-system/css';
