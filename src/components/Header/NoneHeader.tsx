@@ -1,5 +1,5 @@
-import { type NoneHeaderType } from '@/components/Header/Header.types';
-import HeaderBase from '@/components/Header/HeaderBase';
+import { type NoneHeaderType } from './Header.types';
+import HeaderBase from './HeaderBase';
 
 function NoneHeader(props: NoneHeaderType) {
   return <HeaderBase rightElement={undefined} {...props} />;

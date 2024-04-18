@@ -1,7 +1,6 @@
-'use client';
 import { type PropsWithChildren, useContext, useRef } from 'react';
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function FrozenRouter(props: PropsWithChildren) {
@@ -12,7 +11,7 @@ function FrozenRouter(props: PropsWithChildren) {
 }
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
 
   return (
     <AnimatePresence mode="wait">

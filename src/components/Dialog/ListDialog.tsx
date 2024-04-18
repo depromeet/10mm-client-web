@@ -1,6 +1,7 @@
-import { type ListDialogProps } from '@/components/Dialog/Dialog.types';
 import Modal from '@/components/Modal/Modal';
 import { css } from '@styled-system/css';
+
+import { type ListDialogProps } from './Dialog.types';
 
 /**
  * @description ListDialog 컴포넌트

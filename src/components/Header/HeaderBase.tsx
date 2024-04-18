@@ -1,8 +1,9 @@
-import React, { type ReactNode } from 'react';
-import { type HeaderBaseType } from '@/components/Header/Header.types';
+import { type ReactNode } from 'react';
 import Icon from '@/components/Icon';
 import { css, cx } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';
+
+import { type HeaderBaseType } from './Header.types';
 
 /**
  * @description Header의 View를 담당하는 컴포넌트

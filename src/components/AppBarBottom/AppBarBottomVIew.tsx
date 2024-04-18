@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
-import { NATIVE_CUSTOM_EVENTS } from '@/constants/nativeCustomEvent';
 import { NAVIGATION, type NavigationItemType } from '@/constants/navigation';
 import { css } from '@/styled-system/css';
 import { flex } from '@/styled-system/patterns';

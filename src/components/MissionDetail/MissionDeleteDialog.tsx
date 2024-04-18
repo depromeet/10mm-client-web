@@ -1,5 +1,4 @@
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useDeleteMissionMutation } from '@/apis/mission';
 import Dialog from '@/components/Dialog/Dialog';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
