@@ -1,16 +1,17 @@
 import { type PropsWithChildren } from 'react';
 import Image from 'next/image';
 import LinkButton from '@/components/Button/LinkButton';
+import Icon from '@/components/Icon';
+import { css } from '@/styled-system/css';
+import { flex } from '@/styled-system/patterns';
+
 import {
   type DefaultEmptyProps,
   type EmptyProps,
   type NoticesEmptyProps,
   type RefreshEmptyProps,
   type SuggestEmptyProps,
-} from '@/components/Empty/Empty.types';
-import Icon from '@/components/Icon';
-import { css } from '@/styled-system/css';
-import { flex } from '@/styled-system/patterns';
+} from './Empty.types';
 
 function DefaultEmptyView({ children, ...props }: PropsWithChildren<DefaultEmptyProps>) {
   return (
