@@ -76,3 +76,11 @@ export enum MissionStatus {
   REQUIRED = 'REQUIRED',
   PROGRESSING = 'PROGRESSING', // 진행중, 프론트에서만 존재
 }
+
+export enum MissionPeriod {
+  TWO_WEEKS = 'TWO_WEEKS',
+  ONE_MONTH = 'ONE_MONTH',
+  TWO_MONTHS = 'TWO_MONTHS',
+  THREE_MONTHS = 'THREE_MONTHS',
+  FOUR_MONTHS = 'FOUR_MONTHS',
+}

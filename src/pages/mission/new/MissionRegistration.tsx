@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import APIS from '@/apis';
 import { isSeverError } from '@/apis/instance.api';
-import { type MissionCategory, type MissionVisibility } from '@/apis/schema/mission';
+import { type MissionCategory, MissionPeriod, type MissionVisibility } from '@/apis/schema/mission';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import { type DropdownValueType } from '@/components/Input/Input.types';
@@ -10,6 +10,8 @@ import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
 import { useMutation } from '@tanstack/react-query';
+
+import MissionPeriodSelect from './MissionPeriod';
 
 export default function MissionRegistration() {
   const { triggerSnackBar } = useSnackBar();
@@ -20,6 +22,8 @@ export default function MissionRegistration() {
   const [missionPublicSetting, setMissionPublicSetting] = useState<DropdownValueType<MissionVisibility>>(
     PUBLIC_SETTING_LIST[1],
   );
+
+  const [missionPeriod, setMissionPeriod] = useState<MissionPeriod>(MissionPeriod.TWO_WEEKS);
 
   const isSubmitButtonDisabled = !missionTitleInput || !missionCategory;
 
@@ -46,6 +50,7 @@ export default function MissionRegistration() {
       content: missionContentInput,
       category: missionCategory.value,
       visibility: missionPublicSetting.value,
+      missionDuration: missionPeriod,
     });
   };
 
@@ -79,6 +84,8 @@ export default function MissionRegistration() {
         selected={missionCategory}
         onSelect={(item) => setMissionCategory(item)}
       />
+
+      <MissionPeriodSelect missionPeriod={missionPeriod} setMissionPeriod={setMissionPeriod} />
 
       {/* 공개설정 */}
       <Input
