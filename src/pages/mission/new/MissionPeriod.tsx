@@ -56,7 +56,6 @@ export default MissionPeriodSelect;
 const headingCss = css({
   textStyle: 'body2',
   color: 'text.primary',
-  paddingTop: '48px',
 });
 
 const descCss = css({

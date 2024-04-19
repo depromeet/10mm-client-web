@@ -9,6 +9,7 @@ import { type DropdownValueType } from '@/components/Input/Input.types';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { MISSION_CATEGORY_LIST, PUBLIC_SETTING_LIST } from '@/constants/mission';
 import { ROUTER } from '@/constants/router';
+import { css } from '@/styled-system/css';
 import { useMutation } from '@tanstack/react-query';
 
 import MissionPeriodSelect from './MissionPeriod';
@@ -85,16 +86,18 @@ export default function MissionRegistration() {
         onSelect={(item) => setMissionCategory(item)}
       />
 
-      <MissionPeriodSelect missionPeriod={missionPeriod} setMissionPeriod={setMissionPeriod} />
+      <div className={settingWrapperCss}>
+        <MissionPeriodSelect missionPeriod={missionPeriod} setMissionPeriod={setMissionPeriod} />
 
-      {/* 공개설정 */}
-      <Input
-        variant="drop-down"
-        title="공개설정"
-        list={PUBLIC_SETTING_LIST}
-        selected={missionPublicSetting}
-        onSelect={(item) => setMissionPublicSetting(item)}
-      />
+        {/* 공개설정 */}
+        <Input
+          variant="drop-down"
+          title="공개설정"
+          list={PUBLIC_SETTING_LIST}
+          selected={missionPublicSetting}
+          onSelect={(item) => setMissionPublicSetting(item)}
+        />
+      </div>
 
       <Button variant={'cta'} size={'medium'} onClick={handleSubmit} disabled={isSubmitButtonDisabled}>
         등록
@@ -124,3 +127,11 @@ const useCreateMissionMutation = () => {
     },
   });
 };
+
+const settingWrapperCss = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '36px',
+  marginTop: '48px',
+  paddingBottom: '60px',
+});
