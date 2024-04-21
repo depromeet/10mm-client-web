@@ -37,6 +37,7 @@ import AppleLoginIcon from './AppleLoginIcon';
 import EllipseCameraIcon from './EllipseCameraIcon';
 import InputArrowDownIcon from './InputArrowDownIcon';
 import InputCloseCircleIcon from './InputCloseCircleIcon';
+import InquiredChannelIcon from './InquiredChannelIcon';
 import KakaoLoginIcon from './KakaoLoginIcon';
 import NormalCalender from './NormalCalenderIcon';
 import NormalClose from './NormalClose';
@@ -72,6 +73,7 @@ export const IconComponentMap = {
   'normal-close': NormalClose,
   'input-close-circle': InputCloseCircleIcon,
   'input-arrow-down': InputArrowDownIcon,
+  'inquired-channel': InquiredChannelIcon,
   refresh: RefreshIcon,
   'plus-circle-large': PlusCircleLarge,
   '10mm-symbol': TENMMSymbolIcon,
