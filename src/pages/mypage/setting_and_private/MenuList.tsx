@@ -9,6 +9,8 @@ import { flex } from '@/styled-system/patterns';
 function MenuList() {
   const { isOpen, openModal, closeModal } = useModal();
 
+  const inquiredChannelUrl = 'https://forms.gle/pGRPA3NmUCHghbJM6';
+
   const onLogoutClick = () => {
     openModal();
   };
@@ -16,6 +18,7 @@ function MenuList() {
   return (
     <main className={mainCss}>
       <ul className={listCss}>
+        <MenuItem name="문의 채널" iconName="inquired-channel" url={inquiredChannelUrl} target="_blank" />
         <MenuItem name="이용약관" iconName="terms" url={ROUTER.MYPAGE.TERMS} />
         {/*<MenuItem name="로그인정보" iconName="log-in-information" url={ROUTER.MYPAGE.LOGIN_INFO} />*/}
         <MenuItem name="로그아웃" iconName="log-out" url="#" onClick={onLogoutClick} />
@@ -43,12 +46,13 @@ interface MenuItemProps {
   name: string;
   iconName: keyof typeof IconComponentMap;
   url: string;
+  target?: string;
   onClick?: () => void;
 }
 
 function MenuItem(props: MenuItemProps) {
   return (
-    <Link href={props.url} passHref>
+    <Link href={props.url} passHref target={props?.target}>
       <li className={itemCss} onClick={props.onClick}>
         <Icon name={props.iconName} width={20} height={20} />
         <p className={nameCss}>{props.name}</p>
