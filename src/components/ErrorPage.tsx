@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { css } from '@/styled-system/css';
 
 function ErrorPage() {
-  const targetDate = '2024-05-17T03:00:00.000Z';
+  const targetDate = '2024-05-21T03:00:00.000Z';
 
   const now = new Date().getTime();
   const target = new Date(targetDate).getTime();
@@ -25,7 +25,7 @@ function ErrorPage() {
             양해 부탁드립니다.
             <br />
             <br />
-            점검 예정 시간 : ~ 2024년 5월 17일 3시
+            점검 예정 시간 : ~ 2024년 5월 21일 3시
           </p>
         </div>
       </main>
