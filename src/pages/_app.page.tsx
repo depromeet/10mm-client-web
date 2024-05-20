@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <TemplateComponent>
                 <div className={css(containerCss)}>
                   <Component {...pageProps} />
-                  <ErrorPage />
+                  {/* <ErrorPage /> */}
                 </div>
               </TemplateComponent>
             </Suspense>
