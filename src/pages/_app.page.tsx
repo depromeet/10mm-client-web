@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import type { AppProps } from 'next/app';
-import ErrorPage from '@/components/ErrorPage';
 import MonitoringInitializer from '@/components/MonitoringInitializer';
 import NotificationSnackBarProvider from '@/components/NotificationSnackBar/NotificationSnackBarProvider';
 import SnackBarProvider from '@/components/SnackBar/SnackBarProvider';
@@ -25,7 +24,6 @@ export default function App({ Component, pageProps }: AppProps) {
               <TemplateComponent>
                 <div className={css(containerCss)}>
                   <Component {...pageProps} />
-                  <ErrorPage />
                 </div>
               </TemplateComponent>
             </Suspense>
