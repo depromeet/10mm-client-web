@@ -16,7 +16,7 @@ type GetFeedListResponse = {
 
 type GetFeedByMemberIdResponse = Array<FeedBaseType>;
 
-export type FeedVisibilityType = 'ALL' | 'FOLLOWER' | 'NONE';
+export type FeedVisibilityType = 'ALL' | 'FOLLOWING' | 'NONE';
 
 export const FEED_API = {
   getFeed: async (memberId: number): Promise<GetFeedByMemberIdResponse> => {
@@ -24,7 +24,7 @@ export const FEED_API = {
     return data;
   },
   getFeedList: async (request: GetFeedListRequest): Promise<GetFeedListResponse> => {
-    const { data } = await apiInstance.get('/feed/me', {
+    const { data } = await apiInstance.get('/feed/me/v2', {
       params: request,
     });
     return data;
