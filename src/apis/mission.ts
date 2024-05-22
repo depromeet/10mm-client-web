@@ -3,6 +3,7 @@ import {
   type FinishedMissionItemType,
   type MissionCategory,
   type MissionItemTypeWithRecordId,
+  type MissionPeriod,
   type MissionVisibility,
 } from '@/apis/schema/mission';
 import {
@@ -21,6 +22,7 @@ interface CreateMissionRequest {
   content: string;
   category: MissionCategory;
   visibility: MissionVisibility;
+  missionDuration: MissionPeriod;
 }
 
 interface ModifyMissionRequest {
@@ -28,6 +30,7 @@ interface ModifyMissionRequest {
   name: string;
   content: string;
   visibility: MissionVisibility;
+  // missionDuration: MissionPeriod;
 }
 
 const MISSION_APIS = {
