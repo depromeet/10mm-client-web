@@ -58,6 +58,7 @@ function FeedItem({
         </div>
       </Link>
       <ReactionBar memberId={memberId} recordId={recordId} />
+      {/* <CommentBar recordId={recordId} /> */}
     </li>
   );
 }
