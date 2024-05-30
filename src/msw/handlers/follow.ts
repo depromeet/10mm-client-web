@@ -9,12 +9,12 @@ const getFollowMembersResponse = {
     {
       memberId: 2,
       nickname: '도모',
-      profileImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/local/member_profile/1/image.jpeg',
+      profileImageUrl: 'https://image.10mm.today/local/member_profile/1/image.jpeg',
     },
     {
       memberId: 4,
       nickname: '동민이',
-      profileImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/local/member_profile/1/image.jpeg',
+      profileImageUrl: 'https://image.10mm.today/local/member_profile/1/image.jpeg',
     },
   ],
   timestamp: '2024-01-24T00:53:03.643373',

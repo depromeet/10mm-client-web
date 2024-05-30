@@ -9,7 +9,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'kr.object.ncloudstorage.com',
+        // Cloudfront URL
+        hostname: 'd34pqvj560nej5.cloudfront.net',
         port: '',
       },
       {

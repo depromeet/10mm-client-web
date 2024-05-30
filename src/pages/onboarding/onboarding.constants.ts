@@ -8,13 +8,13 @@ export const RECOMMENDATION = [
   {
     id: 16,
     nickname: '123',
-    profileImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/dev/member_profile/16/image.jpeg',
+    profileImageUrl: 'https://image.10mm.today/dev/member_profile/16/image.jpeg',
     tags: ['#카페출근', '#출근독서', '#스타벅스'],
   },
   {
     id: 15,
     nickname: '1212333331212',
-    profileImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/dev/member_profile/15/image.jpeg',
+    profileImageUrl: 'https://image.10mm.today/dev/member_profile/15/image.jpeg',
     tags: ['#카페출근', '#출근독서', '#스타벅스'],
   },
 ];
