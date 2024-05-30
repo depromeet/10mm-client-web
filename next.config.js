@@ -9,12 +9,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        // Cloudfront URL
-        hostname: 'd34pqvj560nej5.cloudfront.net',
-        port: '',
-      },
-      {
-        protocol: 'https',
         hostname: 'image.10mm.today',
         port: '',
       },
