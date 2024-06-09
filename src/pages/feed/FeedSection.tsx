@@ -11,13 +11,13 @@ const FEED_TABS: { id: FeedVisibilityType; tabName: string }[] = [
     tabName: '전체',
   },
   {
-    id: 'FOLLOWER',
+    id: 'FOLLOWING',
     tabName: '팔로워',
   },
 ];
 
 function FeedSection() {
-  const tabProps = useTab(FEED_TABS, 'FOLLOWER');
+  const tabProps = useTab(FEED_TABS, 'FOLLOWING');
 
   // const { data, isLoading } = useGetFeedList(tabProps.activeTab as FeedVisibilityType);
   // const feeds = data?.filter((feed) => feed.recordImageUrl); // 이미지 없는 경우가 있음. 나중에 리팩토링 + 서버와 이야기, FeedItem에 ErrorBoundary 적용해도 좋을 듯.
