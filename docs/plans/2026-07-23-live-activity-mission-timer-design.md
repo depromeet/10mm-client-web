@@ -244,6 +244,15 @@ When the web explicitly sends `completed`, the library stores the completed
 state immediately. The Widget renders the same completion UI used for
 `context.isStale`.
 
+### iOS 16.1 compatibility
+
+The app keeps its existing iOS 15.1 deployment target, and the library keeps
+its iOS 16.1 runtime capability check. The system-managed countdown works on
+iOS 16.1. `ActivityContent` and its `staleDate` API require iOS 16.2, however,
+so automatic transition from `00:00` to the completed label while the app is
+not running is guaranteed on iOS 16.2 and newer. On iOS 16.1 the timer remains
+at `00:00` until the next web-to-native synchronization marks it completed.
+
 ## Widget Extension
 
 `10mm-client-app` adds a Widget Extension target with an iOS 16.1 deployment
@@ -362,7 +371,8 @@ activities collection is the recovery source after a process restart.
 
 ### Manual iOS verification
 
-Use a physical iPhone running iOS 16.1 or newer:
+Use a physical iPhone running iOS 16.2 or newer for the complete acceptance
+path:
 
 1. Start a mission and confirm `10:00`.
 2. Lock the phone and confirm countdown progression.
@@ -375,6 +385,10 @@ Use a physical iPhone running iOS 16.1 or newer:
 9. Repeat with Live Activities disabled and confirm the web mission is
    unaffected.
 
+Run a compatibility pass on iOS 16.1 and verify that the countdown reaches
+`00:00`, pause and resume work, and the next foreground synchronization changes
+the UI to `10분 달성!`.
+
 ## Delivery and Dependency Strategy
 
 The app initially consumes the private library from its Git repository pinned
@@ -386,4 +400,3 @@ the app dependency can move from a commit pin to a version.
 
 Each repository receives its own focused commit series. Generated dependency
 artifacts and unrelated existing changes are excluded.
-
