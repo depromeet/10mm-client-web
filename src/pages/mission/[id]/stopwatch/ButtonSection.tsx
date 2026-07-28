@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react';
 import { NOTIFICATION_MISSIONS_APIS } from '@/apis/notifications';
 import Button from '@/components/Button/Button';
 import { EVENT_LOG_CATEGORY, EVENT_LOG_NAME } from '@/constants/eventLog';
 import { StopwatchStep } from '@/hooks/mission/stopwatch/useStopwatchStatus';
 import { eventLogger } from '@/utils';
-import {
-  checkPrevProgressMission,
-  getPrevProgressMissionStatus,
-  getProgressMissionTime,
-  setMissionData,
-  setMissionTimeStack,
-} from '@/utils/storage/progressMission';
+import { checkPrevProgressMission, setMissionData, setMissionTimeStack } from '@/utils/storage/progressMission';
 import { css, cx } from '@styled-system/css';
 
-import { useVisibilityStateVisible } from './index.hooks';
 import { useStopwatchModalContext } from './Modal.context';
-import { useStopwatchStepContext, useStopwatchTimeContext } from './Stopwatch.context';
+import { useStopwatchStepContext, useStopwatchSyncContext, useStopwatchTimeContext } from './Stopwatch.context';
 
 function ButtonSection({ missionId }: { missionId: string }) {
   const { step } = useStopwatchStepContext();
@@ -24,7 +16,9 @@ function ButtonSection({ missionId }: { missionId: string }) {
   const logData = { finishTime: time };
 
   const { onInitStart, onMidStart, onStop, onMidOut, onFinish, onRestart } = useStopwatch(missionId);
-  const { isPending: isStopwatchPending } = useInitTimeSetting({ missionId });
+  // Restoration moved into StopwatchProvider so the Live Activity is only
+  // synchronized once the elapsed time is trustworthy.
+  const { isStopwatchPending } = useStopwatchSyncContext();
 
   const onStartButtonClick = () => {
     if (time > 0) {
@@ -179,42 +173,3 @@ const fixedButtonContainerCss = css({
     maxWidth: 'calc(100vw  - 48px)',
   },
 });
-
-const MAX_SECONDS = 3600; // max 1 hour
-
-const useInitTimeSetting = ({ missionId }: { missionId: string }) => {
-  const { onNextStep } = useStopwatchStepContext();
-  const { setTime: setSecond } = useStopwatchTimeContext();
-
-  const [isPending, setIsPending] = useState(true);
-  const settingInitTime = () => {
-    const initSeconds = getProgressMissionTime(missionId);
-
-    if (!initSeconds) return false;
-    if (initSeconds >= MAX_SECONDS) {
-      setSecond(MAX_SECONDS);
-    } else {
-      setSecond(initSeconds);
-    }
-    return true;
-  };
-
-  // 화면 visible 상태로 변경 시, 시간을 다시 세팅
-  useVisibilityStateVisible(() => {
-    setIsPending(true);
-    settingInitTime();
-    setIsPending(false);
-  });
-
-  useEffect(() => {
-    // 해당 미션을 이어 가는 경우. init time setting
-    const isSettingInit = settingInitTime();
-    setIsPending(false);
-    if (!isSettingInit) return;
-
-    const prevStatus = getPrevProgressMissionStatus(missionId);
-    prevStatus && onNextStep?.(prevStatus); // 바로 재시작
-  }, []);
-
-  return { isPending };
-};

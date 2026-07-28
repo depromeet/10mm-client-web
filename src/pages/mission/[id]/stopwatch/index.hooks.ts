@@ -90,9 +90,18 @@ export function useCustomBack(customBack: () => void) {
  * 미션 임시 인증 (타이머 시간 서버에 저장)
  * @param missionId
  * @param second 타이머 종료 시간
+ * @param onRecordSuccess 기록이 실제로 저장된 뒤에만 호출 (Live Activity 종료 등)
  * @returns {isSubmitLoading, onSubmit} - isSubmitLoading: 제출 중인지 여부, onSubmit: 제출 함수
  */
-export const useSubmit = ({ missionId, second }: { missionId: string; second: number }) => {
+export const useSubmit = ({
+  missionId,
+  second,
+  onRecordSuccess,
+}: {
+  missionId: string;
+  second: number;
+  onRecordSuccess?: () => void;
+}) => {
   const router = useRouter();
 
   const { formattedMinutes, formattedSeconds } = formatMMSS(second);
@@ -100,6 +109,8 @@ export const useSubmit = ({ missionId, second }: { missionId: string; second: nu
   const { mutate, isPending: isSubmitLoading } = useRecordTime({
     onSuccess: (response) => {
       const missionRecordId = String(response.missionId);
+      // 기록이 확정된 뒤에만 종료한다. 요청이 실패하면 Live Activity는 유지된다.
+      onRecordSuccess?.();
       router.replace(ROUTER.RECORD.CREATE(missionRecordId));
       eventLogger.logEvent('api/record-time', 'stopwatch', { missionRecordId });
       removeProgressMissionData();
