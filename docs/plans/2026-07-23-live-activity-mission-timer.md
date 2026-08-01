@@ -6,7 +6,7 @@
 
 **Architecture:** The web sends idempotent mission timer snapshots through the existing WebView bridge. The React Native app validates each snapshot and upserts an ActivityKit activity keyed by mission ID. The private `react-native-live-activity` library gains an optional timer content model, active-activity discovery, and iOS stale-date support; the app supplies the 10MM-specific Widget Extension UI.
 
-**Tech Stack:** Next.js 13, React 18, React Native 0.77.3, `react-native-webview`, TypeScript, Jest, Swift 5, ActivityKit, WidgetKit, SwiftUI, CocoaPods, Xcode.
+**Tech Stack:** Next.js 13, React 18, React Native 0.86.0 (the app branch is stacked on `upgrade/rn-086-api-36`), `react-native-webview`, TypeScript, Jest, Swift 5, ActivityKit, WidgetKit, SwiftUI, CocoaPods, Xcode.
 
 ---
 
@@ -15,20 +15,35 @@
 Work in these repositories:
 
 ```text
-/Users/logan/Repository/wooBottle/personalProjects/
-├── 10mm-client-web
-├── 10mm-client-app
-└── react-native-live-activity
+/Users/logan/Repository/wooBottle/
+├── personalProjects/10mm-client-web
+├── personalProjects/10mm-client-app
+└── externalProjects/react-native-live-activity
 ```
 
-The library repository does not currently exist at the third local path. Clone
-it with the `woobottle` SSH identity before implementation:
+The library repository lives under `externalProjects/`, not `personalProjects/`.
+If it is missing locally, clone it with the `woobottle` SSH identity:
 
 ```sh
 GIT_SSH_COMMAND='ssh -i /Users/logan/.ssh/woo_bottle -o IdentitiesOnly=yes' \
   git clone git@github.com:woobottle/react-native-live-activity.git \
-  /Users/logan/Repository/wooBottle/personalProjects/react-native-live-activity
+  /Users/logan/Repository/wooBottle/externalProjects/react-native-live-activity
 ```
+
+### Node versions differ per repository
+
+The two JavaScript repositories require different Node versions, so the
+verification commands below cannot run in a single shell without switching:
+
+| Repository | Node | Enforced by |
+|---|---|---|
+| `10mm-client-app` | v22.23.1 | `package.json` `engines.node >= 22.11.0` (React Native 0.86) |
+| `10mm-client-web` | v18.17.1 | `.nvmrc` (Yarn 4 PnP, Next.js 13) |
+| `react-native-live-activity` | v22.23.1 | no constraint; verified on 22 |
+
+Running the app with Node 18 fails immediately with
+`The engine "node" is incompatible with this module`. Switch with
+`nvm use` inside each repository before running its commands.
 
 Before editing each repository:
 
@@ -1126,24 +1141,35 @@ git commit -m "feat: sync stopwatch with live activity"
 
 ### Step 1: Verify the library
 
-Run:
+The library root has no `test` script and its `android/` directory has no Gradle
+wrapper — the Android module is built through the example app's project.
 
 ```sh
-cd /Users/logan/Repository/wooBottle/personalProjects/react-native-live-activity
+nvm use v22.23.1
+cd /Users/logan/Repository/wooBottle/externalProjects/react-native-live-activity
+npm install
 npm run typecheck
 cd example
+npm install
 npm test -- --runInBand
 cd android
-./gradlew testDebugUnitTest assembleDebug
+JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home \
+ANDROID_HOME=$HOME/Library/Android/sdk \
+  ./gradlew :react-native-live-activity:testDebugUnitTest \
+            :react-native-live-activity:assembleDebug
 ```
 
-Expected: PASS.
+Expected: typecheck PASS, example Jest PASS, Gradle BUILD SUCCESSFUL.
+
+Note: `testDebugUnitTest` currently reports `NO-SOURCE` — the library has no
+Kotlin unit tests. Treat this as a known gap, not a pass.
 
 ### Step 2: Verify the React Native app
 
 Run:
 
 ```sh
+nvm use v22.23.1
 cd /Users/logan/Repository/wooBottle/personalProjects/10mm-client-app
 yarn test --runInBand
 yarn lint
@@ -1154,23 +1180,32 @@ xcodebuild \
   -scheme tenMinuteApp \
   -sdk iphonesimulator \
   -configuration Debug \
+  -destination 'generic/platform=iOS Simulator' \
   build
 ```
 
-Expected: PASS with the Widget Extension embedded.
+Expected: `** BUILD SUCCEEDED **`, and the log must contain a
+`ValidateEmbeddedBinary` step for
+`tenMinuteApp.app/PlugIns/TenMinuteLiveActivityWidgetExtension.appex`. A build
+that succeeds without that line means the Widget Extension was not embedded.
+
+`pod install` must leave `ios/Podfile.lock` unchanged; a diff there means the
+pinned library SHA and the committed lockfile disagree.
 
 ### Step 3: Verify the web app
 
 Run:
 
 ```sh
+nvm use v18.17.1
 cd /Users/logan/Repository/wooBottle/personalProjects/10mm-client-web
 yarn test --runInBand
 yarn lint
 yarn build
 ```
 
-Expected: PASS.
+Expected: PASS. `yarn lint` emits pre-existing `react-hooks/exhaustive-deps`
+warnings in unrelated files; no new warning may point at a mission timer file.
 
 ### Step 4: Check repository cleanliness
 
@@ -1184,6 +1219,10 @@ git log -5 --oneline
 
 Expected: no uncommitted feature changes and no unrelated files included in
 the feature commits.
+
+Known pre-existing noise in `10mm-client-web`, which must stay uncommitted:
+`public/mockServiceWorker.js` and the `.yarn/cache` darwin-x64 → darwin-arm64
+archive swap.
 
 ## Task 11: Physical iPhone acceptance test
 
