@@ -6,4 +6,5 @@ export const NATIVE_CUSTOM_EVENTS = {
   VIBRATE: 'vibrate',
   HAPTIC: 'haptic',
   FOREGROUND_FCM: 'foregroundFcm',
+  MISSION_TIMER_SYNC: 'missionTimerSync',
 } as const;

@@ -9,7 +9,7 @@ import { eventLogger } from '@/utils';
 import { removeProgressMissionData } from '@/utils/storage/progressMission';
 
 import { useSubmit } from './index.hooks';
-import { useStopwatchStepContext, useStopwatchTimeContext } from './Stopwatch.context';
+import { useStopwatchStepContext, useStopwatchSyncContext, useStopwatchTimeContext } from './Stopwatch.context';
 
 interface ModalContextProps {
   openMidOutModal: () => void;
@@ -32,8 +32,13 @@ function ModalContextProvider({
   const router = useRouter();
   const { time } = useStopwatchTimeContext();
   const { prevStep, onNextStep } = useStopwatchStepContext();
+  const { endMissionTimer } = useStopwatchSyncContext();
 
-  const { onSubmit, isSubmitLoading } = useSubmit({ missionId, second: time });
+  const { onSubmit, isSubmitLoading } = useSubmit({
+    missionId,
+    second: time,
+    onRecordSuccess: endMissionTimer,
+  });
 
   const { isOpen: isFinalModalOpen, openModal: openFinalModal, closeModal: closeFinalModal } = useModal();
   const { isOpen: isBackModalOpen, openModal: openBackModal, closeModal: closeBackModal } = useModal();
@@ -59,11 +64,12 @@ function ModalContextProvider({
     onSubmit();
   }, [onSubmit]);
 
-  // 뒤로가기 버튼 눌렀을 때
+  // 뒤로가기 버튼 눌렀을 때 - 되돌릴 수 없는 이탈이므로 Live Activity도 종료한다.
   const onExit = useCallback(() => {
+    endMissionTimer();
     router.replace(ROUTER.MISSION.DETAIL(missionId));
     removeProgressMissionData();
-  }, [missionId, router]);
+  }, [endMissionTimer, missionId, router]);
 
   return (
     <ModalContext.Provider value={value}>

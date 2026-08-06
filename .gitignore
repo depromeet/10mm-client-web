@@ -17,6 +17,7 @@ storybook-static
 
 # testing
 /coverage
+/.worktrees/
 
 # next.js
 /.next/

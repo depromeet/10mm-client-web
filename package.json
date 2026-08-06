@@ -74,6 +74,9 @@
     "webpack": "^5.89.0"
   },
   "packageManager": "yarn@4.0.2",
+  "engines": {
+    "node": "24.x"
+  },
   "msw": {
     "workerDirectory": "public"
   }

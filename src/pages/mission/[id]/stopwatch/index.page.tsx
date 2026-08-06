@@ -25,7 +25,7 @@ export default function StopwatchPage(params: { id: string }) {
 
   return (
     <div className={containerCss}>
-      <StopwatchProvider missionId={missionId}>
+      <StopwatchProvider missionId={missionId} missionName={missionName}>
         <StopwatchHeader />
         <TextSection />
         <StopwatchSection missionName={missionName} />
