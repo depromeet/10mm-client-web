@@ -20,9 +20,9 @@ jobs:
 
       # node 세팅
       - name: Init node
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.17.1'
+          node-version-file: '.nvmrc'
           cache: 'yarn'
 
       - name: Set Yarn Version
@@ -32,7 +32,7 @@ jobs:
           echo "YARN_VERSION=$(yarn -v)" >> $GITHUB_OUTPUT
 
       - name: Yarn Cache - PnP
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             .yarn/cache
