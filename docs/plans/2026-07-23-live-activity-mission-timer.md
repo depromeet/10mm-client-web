@@ -38,12 +38,19 @@ verification commands below cannot run in a single shell without switching:
 | Repository | Node | Enforced by |
 |---|---|---|
 | `10mm-client-app` | v22.23.1 | `package.json` `engines.node >= 22.11.0` (React Native 0.86) |
-| `10mm-client-web` | v18.17.1 | `.nvmrc` (Yarn 4 PnP, Next.js 13) |
+| `10mm-client-web` | v24.19.0 | `.nvmrc` + `engines.node "24.x"` (Vercel dropped Node 18) |
 | `react-native-live-activity` | v22.23.1 | no constraint; verified on 22 |
 
 Running the app with Node 18 fails immediately with
 `The engine "node" is incompatible with this module`. Switch with
 `nvm use` inside each repository before running its commands.
+
+The web repository ran on v18.17.1 until commit `f1a0ccf`. Vercel discontinued
+Node 18, which failed deployments before the build started, so the runtime moved
+to 24 and `react-lottie-player` had to be loaded through `next/dynamic` with SSR
+off — on 22 and 24 alike, `lottie-web` touches `document` during module
+evaluation and killed Next's page-data collection. Do not verify the web app on
+18: it no longer matches what Vercel builds.
 
 Before editing each repository:
 
@@ -1197,7 +1204,7 @@ pinned library SHA and the committed lockfile disagree.
 Run:
 
 ```sh
-nvm use v18.17.1
+nvm use v24.19.0
 cd /Users/logan/Repository/wooBottle/personalProjects/10mm-client-web
 yarn test --runInBand
 yarn lint
