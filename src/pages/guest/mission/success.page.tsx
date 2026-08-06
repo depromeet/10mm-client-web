@@ -1,10 +1,14 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import lottieJson from '@/assets/lotties/coin-double.json';
 import Button from '@/components/Button/Button';
 import { ROUTER } from '@/constants/router';
 import { css } from '@styled-system/css';
-import Lottie from 'react-lottie-player';
+
+// react-lottie-player pulls in lottie-web, which touches `document` while the
+// module is still being evaluated. Loading it during SSR breaks `next build`.
+const Lottie = dynamic(() => import('react-lottie-player'), { ssr: false });
 
 export default function GuestMissionSuccessPage() {
   return (
