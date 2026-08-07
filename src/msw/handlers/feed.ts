@@ -14,7 +14,7 @@ const getFeedResponse = {
         name: '미션4',
         remark: '이 화면 작업중이에용',
         nickname: '도모',
-        recordImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/dev/mission_record/20/image.png',
+        recordImageUrl: 'https://image.10mm.today/dev/mission_record/20/image.png',
         profileImage: null,
         duration: 14,
         sinceDay: 13,
@@ -27,7 +27,7 @@ const getFeedResponse = {
         recordId: 27,
         name: '미션5',
         remark: '이 화면 작업중이에용',
-        recordImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/dev/mission_record/20/image.png',
+        recordImageUrl: 'https://image.10mm.today/dev/mission_record/20/image.png',
 
         nickname: '도모',
         profileImage: null,
@@ -44,7 +44,7 @@ const getFeedResponse = {
         remark: null,
         nickname: '도모',
         profileImage: null,
-        recordImageUrl: 'https://kr.object.ncloudstorage.com/10mm-images/dev/mission_record/20/image.png',
+        recordImageUrl: 'https://image.10mm.today/dev/mission_record/20/image.png',
 
         duration: 12,
         sinceDay: 34,
