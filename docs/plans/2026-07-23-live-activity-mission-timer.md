@@ -1233,6 +1233,19 @@ archive swap.
 
 ## Task 11: Physical iPhone acceptance test
 
+> **PASSED — 2026-08-09**, against TestFlight build `2.0.5 (18)` with
+> `@woobottle/react-native-live-activity@0.1.0`. Steps 1–3 passed on a Dynamic
+> Island device. Step 4 (iOS 16.1) was not run for want of a device and Step 5's
+> screenshots were not captured; neither blocks the feature.
+>
+> The run followed the merged checklist at
+> `10mm-client-app/docs/plans/2026-08-09-device-verification.md`, which
+> interleaves these steps with the library's own outstanding device items so one
+> pass covers both. Per-item results are recorded there.
+>
+> Step 1 is now stale: the build under test came from TestFlight, not from
+> running a Debug build out of Xcode.
+
 **Device requirement:** iPhone on iOS 16.2 or newer with Live Activities enabled.
 
 ### Step 1: Install a Debug build on the device
@@ -1249,7 +1262,11 @@ for both the app and Widget Extension, and run.
 5. Resume and verify countdown continues from the paused value.
 6. Force-quit the app and verify countdown continues.
 7. Relaunch and verify no duplicate Live Activity appears.
-8. Allow the countdown to reach zero and verify `10분 달성!`.
+8. Allow the countdown to reach zero and verify `미션 완료!` (`완료` in the
+   compact Dynamic Island presentation). This plan originally said `10분 달성!`;
+   that string moved out of the library when the app took ownership of the
+   completion wording, and `MissionTimerLiveActivity.swift:125` renders the
+   above instead. Following the old text would fail a passing build.
 9. Return to the app and continue the web stopwatch beyond 10 minutes; verify
    the completion state remains.
 10. Finish the mission and verify immediate dismissal.
