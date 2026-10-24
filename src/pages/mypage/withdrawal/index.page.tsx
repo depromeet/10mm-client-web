@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useWithdrawalMember } from '@/apis/member';
@@ -5,6 +6,7 @@ import Button from '@/components/Button/Button';
 import Header from '@/components/Header/Header';
 import { useSnackBar } from '@/components/SnackBar/SnackBarProvider';
 import { ROUTER } from '@/constants/router';
+import { getWithdrawalErrorReason, WITHDRAWAL_ERROR_MESSAGE } from '@/pages/mypage/withdrawal/withdrawal.utils';
 import { removeTokens } from '@/services/auth/actions';
 import { css } from '@/styled-system/css';
 import { flex, grid } from '@/styled-system/patterns';
@@ -12,19 +14,35 @@ import { flex, grid } from '@/styled-system/patterns';
 function WithdrawalPage() {
   const router = useRouter();
   const { triggerSnackBar } = useSnackBar();
+  // isPending은 다음 렌더에 반영되므로, 같은 프레임의 연속 탭은 ref로 막는다.
+  const isRequestingRef = useRef(false);
 
-  const { mutate } = useWithdrawalMember({
-    onSuccess: () => {
-      removeTokens();
-      triggerSnackBar({
-        message: '회원탈퇴 했습니다.',
-      });
-      router.push(ROUTER.AUTH.LOGIN);
-    },
-    onError: () => {
-      triggerSnackBar({
-        message: '회원탈퇴에 실패했습니다.',
-      });
+  const completeWithdrawal = async () => {
+    await removeTokens();
+    triggerSnackBar({
+      message: '회원탈퇴 했습니다.',
+    });
+    router.replace(ROUTER.AUTH.LOGIN);
+  };
+
+  const { mutate, isPending } = useWithdrawalMember({
+    onSuccess: completeWithdrawal,
+    onError: async (error) => {
+      const reason = getWithdrawalErrorReason(error);
+
+      if (reason === 'ALREADY_WITHDRAWN') {
+        await completeWithdrawal();
+        return;
+      }
+
+      isRequestingRef.current = false;
+      triggerSnackBar({ message: WITHDRAWAL_ERROR_MESSAGE[reason] });
+
+      if (reason === 'AUTH_EXPIRED') {
+        // 토큰을 다시 받을 방법이 없으므로(서버에 재발급 API 없음) 다시 로그인한 뒤 이 화면으로 돌아오게 한다.
+        await removeTokens();
+        router.replace(`${ROUTER.AUTH.LOGIN}?redirect=${ROUTER.MYPAGE.WITHDRAWAL}`);
+      }
     },
   });
 
@@ -33,6 +51,8 @@ function WithdrawalPage() {
   };
 
   const onWithdrawal = () => {
+    if (isRequestingRef.current) return;
+    isRequestingRef.current = true;
     mutate();
   };
 
@@ -56,7 +76,7 @@ function WithdrawalPage() {
           <Button variant="secondary" onClick={onCancel}>
             취소
           </Button>
-          <Button variant="primary" onClick={onWithdrawal}>
+          <Button variant="primary" onClick={onWithdrawal} disabled={isPending}>
             탈퇴하기
           </Button>
         </section>
